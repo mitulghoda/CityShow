@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_fav"
+        android:icon="@drawable/ic_fav_fill"
+        android:title="@string/fav"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_add"
+        android:icon="@drawable/ic_add"
+        android:title="@string/add"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_not"
+        android:icon="@drawable/ic_notification"
+        android:title="@string/notification"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_account"
+        android:icon="@drawable/ic_user"
+        android:title="@string/account"
+        app:showAsAction="ifRoom" />
+</menu>

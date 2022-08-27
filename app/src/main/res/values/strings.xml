@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">CityShow</string>
+    <string name="let_s_explore_together">Let’s Explore Together!</string>
+    <string name="are_you_ready_to_uproot_and_start_over_in_a_new_area_this_app_will_help_you_on_your_journey">Are you ready to uproot and start over in a new area? This app will help you on your journey!</string>
+    <string name="login">LogIn</string>
+    <string name="signup">SIgnUp</string>
+    <string name="welcome_back">Welcome back!</string>
+    <string name="log_in_to_your_account_to_explore_your_dream_place_to_live_across_the_whole_world">Log In to your account to explore your dream place to live across the whole world!</string>
+    <string name="email">Email address</string>
+    <string name="password">Password</string>
+    <string name="otp_verification">OTP verification</string>
+    <string name="please_enter_the_verification_code_sent_on_your_verified_email_address">Please enter the verification code sent on your verified email address</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="otp_verify">OTP verify</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="please_wait">Please wait…</string>
+    <string name="create_your_placoo_account_to_explore_your_dream_place_to">Create your Placoo account to explore your dream place to live across the whole world!</string>
+    <string name="register_account">Register account</string>
+    <string name="register">Register</string>
+    <string name="full_name">Full name</string>
+    <string name="home">Home</string>
+    <string name="fav">fav</string>
+    <string name="add">Add</string>
+    <string name="notification">Notifications</string>
+    <string name="account" />
+    <string name="no_data_found">No data found</string>
+    <string name="trending">Trending</string>
 </resources>
