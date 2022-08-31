@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.app.cityshow.model.CategoryModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        style="?attr/materialCardViewElevatedStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_13sdp"
+        app:cardElevation="@dimen/_10sdp"
+        app:cardPreventCornerOverlap="true">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_10sdp">
+
+            <com.app.cityshow.views.TextView
+                style="@style/TextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:gravity="start"
+                android:text="New arrivals in clothes"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp" />
+
+            <com.app.cityshow.views.TextView
+                style="@style/TextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="start"
+                android:text="You can visit shops for more varieties"
+                android:textColor="@color/black" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -109,8 +109,8 @@
         <item name="boxBackgroundMode">outline</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/_15sdp</item>
         <item name="boxCornerRadiusBottomStart">@dimen/_15sdp</item>
-        <item name="boxCornerRadiusTopEnd">@dimen/_2sdp</item>
-        <item name="boxCornerRadiusTopStart">@dimen/_2sdp</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/_1sdp</item>
+        <item name="boxCornerRadiusTopStart">@dimen/_1sdp</item>
     </style>
 
     <style name="InputLayoutHintAppearance" parent="TextAppearance.Design.Hint">

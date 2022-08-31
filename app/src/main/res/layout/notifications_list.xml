@@ -26,34 +26,12 @@
             android:visibility="gone" />
 
         <com.app.cityshow.views.KeyboardDismissingRecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            android:paddingVertical="@dimen/_10sdp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/row_category" />
-
-        <com.app.cityshow.views.TextView
-            style="@style/TextViewStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:background="@color/orange35"
-            android:drawableEnd="@drawable/ic_drop"
-            android:gravity="start|center"
-            android:paddingHorizontal="@dimen/_10sdp"
-            android:text="@string/trending" />
-
-        <com.app.cityshow.views.KeyboardDismissingRecyclerView
             android:id="@+id/rvProducts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:paddingVertical="@dimen/_10sdp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            tools:listitem="@layout/row_product" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/row_notification" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
