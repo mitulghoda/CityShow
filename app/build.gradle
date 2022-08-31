@@ -80,4 +80,6 @@ dependencies {
     implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.3.0'
     implementation 'net.danlew:android.joda:2.10.14'
     implementation 'com.github.Ferfalk:SimpleSearchView:0.2.0'
+    implementation 'com.github.DhavalBaldhaa:AndroidFilePicker:1.0.2'
+    implementation 'com.github.stfalcon-studio:StfalconImageViewer:v1.0.1'
 }

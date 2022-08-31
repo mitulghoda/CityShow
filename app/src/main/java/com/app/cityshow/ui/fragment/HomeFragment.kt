@@ -30,14 +30,14 @@ class HomeFragment : BaseFragment() {
 
     private fun setAdapter() {
         val mArrayList = ArrayList<CategoryModel>()
-        categoryListAdapter = CategoryListAdapter(mArrayList, {
+        categoryListAdapter = CategoryListAdapter(mArrayList) {
 
-        })
+        }
         binding.recyclerView.adapter = categoryListAdapter
 
-        productListAdapter = ProductListAdapter(mArrayList, {
+        productListAdapter = ProductListAdapter(mArrayList) {
 
-        })
+        }
         binding.rvProducts.adapter = productListAdapter
     }
 }

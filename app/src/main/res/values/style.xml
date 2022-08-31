@@ -9,6 +9,15 @@
         <item name="android:fontFamily">@font/sf_medium</item>
     </style>
 
+    <style name="TextViewStyleBold">
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:textColorHint">@color/textColorSecondary</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:fontFamily">@font/sf_bold</item>
+    </style>
+
     <style name="TextViewStyleRegular">
         <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">@dimen/_12ssp</item>
@@ -98,10 +107,10 @@
         <item name="hintEnabled">false</item>
         <item name="android:fontFamily">@font/sf_medium</item>
         <item name="boxBackgroundMode">outline</item>
-        <item name="boxCornerRadiusBottomEnd">@dimen/_8sdp</item>
-        <item name="boxCornerRadiusBottomStart">@dimen/_8sdp</item>
-        <item name="boxCornerRadiusTopEnd">@dimen/_8sdp</item>
-        <item name="boxCornerRadiusTopStart">@dimen/_8sdp</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/_15sdp</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/_15sdp</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/_2sdp</item>
+        <item name="boxCornerRadiusTopStart">@dimen/_2sdp</item>
     </style>
 
     <style name="InputLayoutHintAppearance" parent="TextAppearance.Design.Hint">
@@ -135,6 +144,7 @@
         <item name="android:textSize">@dimen/_12ssp</item>
         <item name="android:theme">@style/EditTextTheme</item>
         <item name="android:fontFamily">@font/sf_medium</item>
+        <item name="android:minHeight">@dimen/_40sdp</item>
         <item name="android:background">@null</item>
         <item name="android:paddingStart">@dimen/_12sdp</item>
         <item name="android:paddingEnd">@dimen/_12sdp</item>

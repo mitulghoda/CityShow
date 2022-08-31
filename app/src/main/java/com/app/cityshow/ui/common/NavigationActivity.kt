@@ -1,7 +1,12 @@
 package com.app.cityshow.ui.common
 
 import android.content.Intent
+import com.app.cityshow.BuildConfig
+import com.app.cityshow.ui.activity.AddProductActivity
 import com.app.cityshow.ui.activity.HomeActivity
+import com.filepickersample.bottomsheet.AndroidFilePicker
+import com.filepickersample.enumeration.FileSelectionType
+import com.filepickersample.listener.FilePickerCallback
 
 abstract class NavigationActivity : BaseActivity() {
 
@@ -12,4 +17,16 @@ abstract class NavigationActivity : BaseActivity() {
         finishAffinity()
     }
 
+    fun openAddProductActivity() {
+        val intent = Intent(this, AddProductActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun openImageFilePicker(callback: FilePickerCallback) {
+        AndroidFilePicker.with(BuildConfig.APPLICATION_ID)
+            .type(FileSelectionType.IMAGE)
+            .enableMultiSelection()
+            .callBack(callback)
+            .start(supportFragmentManager)
+    }
 }

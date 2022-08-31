@@ -29,15 +29,41 @@
                 android:background="@color/white" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomView"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/lightOrange"
-            app:labelVisibilityMode="unlabeled"
-            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-            app:menu="@menu/bottom_menu" />
+            android:orientation="vertical"
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="@dimen/_10sdp"
+                android:contentDescription="@string/add_product"
+                android:onClick="@{(v)->clickListener.onClick(v)}"
+                android:padding="@dimen/_10sdp"
+                android:src="@drawable/ic_plus"
+                android:text="@string/add_product"
+                android:tint="@color/white"
+                app:borderWidth="0dp"
+                app:elevation="6dp"
+                app:fabSize="normal"
+                app:layout_anchorGravity="top|right|end"
+                app:pressedTranslationZ="12dp"
+                app:rippleColor="@color/colorHintGray" />
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/lightOrange"
+                app:labelVisibilityMode="unlabeled"
+                app:menu="@menu/bottom_menu" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

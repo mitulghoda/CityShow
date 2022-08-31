@@ -26,16 +26,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_item" />
+                android:src="@drawable/dummy_mobile" />
+
+            <com.app.cityshow.views.TextView
+                style="@style/TextViewStyleBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:gravity="start"
+                android:text="Samsung F-42 5G"
+                android:textSize="@dimen/_14sdp" />
 
             <com.app.cityshow.views.TextView
                 style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:gravity="start"
-                android:text="31 ward , Pin Lone Road"
-                android:textSize="@dimen/_14sdp" />
+                android:maxLines="3"
+                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+                android:textColor="@color/colorHintGray"
+                android:textSize="@dimen/_12sdp" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -63,20 +72,26 @@
 
             <com.app.cityshow.views.TextView
                 style="@style/TextViewStyle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginVertical="@dimen/_5sdp"
-                android:background="@drawable/button_bg"
+                android:background="@drawable/striking_text"
+                android:drawableStart="@drawable/ic_currency"
+                android:foreground="@drawable/striking_text"
+                android:text="15,999" />
+
+            <com.app.cityshow.views.TextView
+                style="@style/TextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:drawableStart="@drawable/ic_currency"
                 android:drawablePadding="@dimen/_5sdp"
-                android:drawableTint="@color/white"
                 android:fontFamily="@font/sf_bold"
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/_10sdp"
-                android:paddingVertical="@dimen/_5sdp"
-                android:text="1101"
-                android:textColor="@color/white"
+                android:text="13499"
                 android:textSize="@dimen/_20sdp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

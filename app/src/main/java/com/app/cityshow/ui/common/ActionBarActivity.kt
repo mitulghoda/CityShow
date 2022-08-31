@@ -1,9 +1,9 @@
-package com.nada.tech.common
+package com.app.cityshow.ui.common
 
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.app.cityshow.databinding.LayoutToolbarBinding
-import com.app.cityshow.ui.common.NavigationActivity
+import dagger.hilt.android.AndroidEntryPoint
 
 abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
     lateinit var actionView: LayoutToolbarBinding
@@ -21,8 +21,9 @@ abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
     private fun clickListeners() {
     }
 
-    fun homeUpEnable(enable: Boolean) {
+    private fun homeUpEnable(enable: Boolean) {
         actionView.imgBack.visibility = View.VISIBLE.takeIf { enable } ?: View.GONE
+        actionView.imgLogo.visibility = View.VISIBLE.takeIf { !enable } ?: View.GONE
     }
 
     protected fun setUpToolbar(title: String?, isHomeUpEnabled: Boolean = true) {

@@ -41,6 +41,19 @@
         <activity
             android:name=".ui.activity.OTPActivity"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.AddProductActivity"
+            android:theme="@style/AppTheme" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_picker_provider_paths" />
+        </provider>
     </application>
 
 </manifest>

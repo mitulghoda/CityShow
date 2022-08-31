@@ -19,7 +19,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.nada.tech.common.ActionBarActivity
 import com.app.cityshow.utility.KeyboardUtil.hideKeyboard
 import com.app.cityshow.utility.justTry
 
