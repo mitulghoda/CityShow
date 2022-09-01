@@ -92,19 +92,19 @@ class HomeActivity : ActionBarActivity(), View.OnClickListener {
             bottomNavigationItems.forEach { add(it) }
             setOnClickMenuListener {
                 when (it.id) {
-                    R.id.action_home -> {
+                    1 -> {
                         setUpToolbar("Home", false)
                         mBinding.viewPager.currentItem = 0
                     }
-                    R.id.action_fav -> {
+                    2 -> {
                         setUpToolbar("Wishlist", false)
                         mBinding.viewPager.currentItem = 1
                     }
-                    R.id.action_not -> {
+                    3 -> {
                         setUpToolbar("Notifications", false)
                         mBinding.viewPager.currentItem = 2
                     }
-                    R.id.action_account -> {
+                    4 -> {
                         setUpToolbar("Account", false)
                         mBinding.viewPager.currentItem = 3
                     }
