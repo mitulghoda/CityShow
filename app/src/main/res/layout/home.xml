@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_margin="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:contentDescription="@string/add_product"
                 android:onClick="@{(v)->clickListener.onClick(v)}"
                 android:padding="@dimen/_10sdp"
@@ -61,9 +61,28 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:background="@color/lightOrange"
+                android:visibility="gone"
                 app:labelVisibilityMode="unlabeled"
                 app:menu="@menu/bottom_menu" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
 
+            <com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
+                android:id="@+id/bottomNavigationCurve"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:visibility="visible"
+                app:cbn_background="@color/colorPrimary"
+                app:cbn_curve_radius="26dp"
+                app:cbn_fabColor="@color/colorPrimary"
+                app:cbn_height="76dp"
+                app:cbn_iconColor="@color/white"
+                app:cbn_icon_size="24dp"
+                app:cbn_selectedIconColor="@color/white"
+                app:cbn_selected_icon_size="48dp"
+                app:cbn_shadowColor="@color/grey_dark"
+                app:cbn_titleColor="@color/white"
+                app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

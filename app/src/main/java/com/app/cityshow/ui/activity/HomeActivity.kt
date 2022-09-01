@@ -12,6 +12,7 @@ import com.app.cityshow.ui.fragment.FavFragment
 import com.app.cityshow.ui.fragment.NotificationFragment
 import com.filepickersample.listener.FilePickerCallback
 import com.filepickersample.model.Media
+import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 import java.util.ArrayList
 
 class HomeActivity : ActionBarActivity(), View.OnClickListener {
@@ -29,6 +30,7 @@ class HomeActivity : ActionBarActivity(), View.OnClickListener {
         setUpToolbar("Home", false)
         setSubTitleText("Ahmedabad")
         setupViewPagerFragment()
+        setUpCurveBottomNavigation()
     }
 
     private fun setupViewPagerFragment() {
@@ -71,5 +73,44 @@ class HomeActivity : ActionBarActivity(), View.OnClickListener {
             }
 
         }
+    }
+
+    private fun setUpCurveBottomNavigation() {
+        val bottomNavigationItems = mutableListOf(
+            CurvedBottomNavigation.Model(1, "", R.drawable.ic_home),
+            CurvedBottomNavigation.Model(
+                2,
+                "",
+                R.drawable.ic_fav
+            ),
+            CurvedBottomNavigation.Model(3,
+                "",
+                R.drawable.ic_notification),
+            CurvedBottomNavigation.Model(4, "", R.drawable.ic_user),
+        )
+        mBinding.bottomNavigationCurve.apply {
+            bottomNavigationItems.forEach { add(it) }
+            setOnClickMenuListener {
+                when (it.id) {
+                    R.id.action_home -> {
+                        setUpToolbar("Home", false)
+                        mBinding.viewPager.currentItem = 0
+                    }
+                    R.id.action_fav -> {
+                        setUpToolbar("Wishlist", false)
+                        mBinding.viewPager.currentItem = 1
+                    }
+                    R.id.action_not -> {
+                        setUpToolbar("Notifications", false)
+                        mBinding.viewPager.currentItem = 2
+                    }
+                    R.id.action_account -> {
+                        setUpToolbar("Account", false)
+                        mBinding.viewPager.currentItem = 3
+                    }
+                }
+            }
+        }
+        mBinding.bottomNavigationCurve.show(1, true)
     }
 }
