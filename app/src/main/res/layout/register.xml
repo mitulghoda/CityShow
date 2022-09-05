@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_25sdp"
                 app:hintEnabled="true"
-                app:startIconDrawable="@drawable/ic_user"
+                app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
                 app:startIconTint="@color/colorPrimary">
 
                 <com.app.cityshow.views.EditText

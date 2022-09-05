@@ -10,8 +10,7 @@ import com.app.cityshow.ui.fragment.HomeFragment
 import com.app.cityshow.ui.common.ActionBarActivity
 import com.app.cityshow.ui.fragment.FavFragment
 import com.app.cityshow.ui.fragment.NotificationFragment
-import com.filepickersample.listener.FilePickerCallback
-import com.filepickersample.model.Media
+import com.app.cityshow.ui.fragment.ProfileFragment
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 import java.util.ArrayList
 
@@ -39,31 +38,40 @@ class HomeActivity : ActionBarActivity(), View.OnClickListener {
         fragments.add(HomeFragment())
         fragments.add(FavFragment())
         fragments.add(NotificationFragment())
-        fragments.add(HomeFragment())
+        fragments.add(ProfileFragment())
         mBinding.viewPager.adapter =
             PageStateAdapter(this, fragments).also { pageStateAdapter = it }
         mBinding.viewPager.isUserInputEnabled = false
         mBinding.bottomView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.action_home -> {
+                    showFab(true)
                     setUpToolbar("Home", false)
                     mBinding.viewPager.currentItem = 0
                 }
                 R.id.action_fav -> {
+                    showFab(true)
                     setUpToolbar("Wishlist", false)
                     mBinding.viewPager.currentItem = 1
                 }
                 R.id.action_not -> {
+                    showFab(true)
                     setUpToolbar("Notifications", false)
                     mBinding.viewPager.currentItem = 2
                 }
                 R.id.action_account -> {
+                    showFab(false)
                     setUpToolbar("Account", false)
                     mBinding.viewPager.currentItem = 3
                 }
             }
             false
         }
+    }
+
+    private fun showFab(isShow: Boolean) {
+        mBinding.fab.visibility = View.VISIBLE.takeIf { isShow } ?: View.GONE
+
     }
 
     override fun onClick(v: View?) {
@@ -86,7 +94,7 @@ class HomeActivity : ActionBarActivity(), View.OnClickListener {
             CurvedBottomNavigation.Model(3,
                 "",
                 R.drawable.ic_notification),
-            CurvedBottomNavigation.Model(4, "", R.drawable.ic_user),
+            CurvedBottomNavigation.Model(4, "", R.drawable.ic_baseline_account_circle_24),
         )
         mBinding.bottomNavigationCurve.apply {
             bottomNavigationItems.forEach { add(it) }

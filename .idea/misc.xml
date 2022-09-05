@@ -3,10 +3,58 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable-anydpi/ic_add_asset.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable-anydpi/ic_cancel.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable-anydpi/ic_user.xml" value="0.1875" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable-anydpi/ic_username.xml" value="0.123" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/button_bg.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/button_bg_orange.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/button_bg_white.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/gray_border_rounder_5dp.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/ic_back.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/ic_color.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/ic_currency.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/ic_delete_blue.xml" value="0.124" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/ic_drop.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/ic_fav.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/ic_gredient.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/ic_home.xml" value="0.1405" />
         <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/ic_launcher_background.xml" value="0.126" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/ic_layers.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/ic_marker.xml" value="0.1875" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/ic_password_toggle.xml" value="0.124" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/ic_user.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/radio_button_selector.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/radio_flat_text_selector.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/rectangle_gradient.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/search_bg.xml" value="0.1405" />
         <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/splash_bg.xml" value="0.126" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/striking_text.xml" value="0.1405" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/drawable/white_gradient_background.xml" value="0.1405" />
         <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/add_product.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/fav_list.xml" value="0.2175925925925926" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/fav_notifications.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/home.xml" value="0.264" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/home_fragment.xml" value="0.2175925925925926" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/item_add_image.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/layout_error_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/layout_toolbar.xml" value="0.2175925925925926" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/login.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/onboarding.xml" value="0.19074074074074074" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/otp_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/profile.xml" value="0.253125" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/progress_circle_vertical.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/register.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/row_category.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/row_notification.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/layout/row_product.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/menu/bottom_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android Project/CityShow/app/src/main/res/menu/reader_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Android Project/CityShow/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.126" />
+        <entry key="..\:/androidsdk/platforms/android-32/data/res/drawable/ic_lock_lock.xml" value="0.1405" />
       </map>
     </option>
   </component>
