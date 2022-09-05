@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.app.cityshow.databinding.NotificationsListBinding
 import com.app.cityshow.model.CategoryModel
-import com.app.cityshow.ui.adapter.ProductListAdapter
+import com.app.cityshow.ui.adapter.NotificationAdapter
 import com.app.cityshow.ui.common.BaseFragment
 
 class NotificationFragment : BaseFragment() {
-    lateinit var productListAdapter: ProductListAdapter
+    lateinit var notificationAdapter: NotificationAdapter
     private lateinit var binding: NotificationsListBinding
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,9 +28,9 @@ class NotificationFragment : BaseFragment() {
 
     private fun setAdapter() {
         val mArrayList = ArrayList<CategoryModel>()
-        productListAdapter = ProductListAdapter(mArrayList) {
+        notificationAdapter = NotificationAdapter(mArrayList) {
 
         }
-        binding.rvProducts.adapter = productListAdapter
+        binding.rvProducts.adapter = notificationAdapter
     }
 }

@@ -44,6 +44,9 @@
         <activity
             android:name=".ui.activity.AddProductActivity"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.ProductDetailsActivity"
+            android:theme="@style/AppTheme" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
