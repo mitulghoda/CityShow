@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -28,11 +29,123 @@
                 android:layout_height="@dimen/_200sdp"
                 android:background="@color/white" />
 
+            <com.zhpan.indicator.IndicatorView
+                android:id="@+id/pageIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                app:vpi_slide_mode="worm"
+                app:vpi_slider_checked_color="@color/colorPrimary"
+                app:vpi_slider_normal_color="@color/black_alpha_25" />
+
             <com.app.cityshow.views.TextView
-                style="@style/TextViewStyleBold"
+                style="@style/TextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_bold"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:text="Galaxy Mobile"
+                android:textSize="@dimen/_20sdp" />
+
+            <com.app.cityshow.views.TextView
+                style="@style/TextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Samsung" />
+                android:drawableStart="@drawable/ic_locaiton"
+                android:drawablePadding="@dimen/_5sdp"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:text="31-89 Steinway St, Queens, NY 11103, United States" />
+
+            <androidx.cardview.widget.CardView
+                style="?attr/materialCardViewElevatedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_10sdp"
+                app:cardElevation="@dimen/_5sdp"
+                app:cardMaxElevation="@dimen/_5sdp"
+                app:cardPreventCornerOverlap="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5sdp">
+
+                    <com.app.cityshow.views.TextView
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:gravity="center"
+                        android:text="Samsung F-42 5G"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <com.app.cityshow.views.TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="3"
+                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+                        android:textColor="@color/colorHintGray"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+
+                        <com.app.cityshow.views.TextView
+                            style="@style/TextViewStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="150+ shops" />
+
+                        <com.app.cityshow.views.TextView
+                            style="@style/TextViewStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="150+ shops" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <com.app.cityshow.views.TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginVertical="@dimen/_5sdp"
+                        android:background="@drawable/striking_text"
+                        android:drawableStart="@drawable/ic_currency"
+                        android:foreground="@drawable/striking_text"
+                        android:text="15,999" />
+
+                    <com.app.cityshow.views.TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableStart="@drawable/ic_currency"
+                        android:drawablePadding="@dimen/_5sdp"
+                        android:fontFamily="@font/sf_bold"
+                        android:gravity="center"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:text="13499"
+                        android:textSize="@dimen/_20sdp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

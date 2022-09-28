@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.app.cityshow.databinding.HomeFragmentBinding
 import com.app.cityshow.model.CategoryModel
+import com.app.cityshow.ui.activity.HomeActivity
 import com.app.cityshow.ui.adapter.CategoryListAdapter
 import com.app.cityshow.ui.adapter.ProductListAdapter
 import com.app.cityshow.ui.common.BaseFragment
@@ -36,7 +37,7 @@ class HomeFragment : BaseFragment() {
         binding.recyclerView.adapter = categoryListAdapter
 
         productListAdapter = ProductListAdapter(mArrayList) {
-
+            ((activity as HomeActivity)).openProductDetails()
         }
         binding.rvProducts.adapter = productListAdapter
     }

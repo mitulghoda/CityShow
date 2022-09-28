@@ -62,4 +62,6 @@
     <string name="remove_account">Remove Account</string>
     <string name="version">Version</string>
     <string name="cancel_plan">Cancel plan</string>
+    <string name="my_product">My Products</string>
+    <string name="phone_number">Phone Number</string>
 </resources>

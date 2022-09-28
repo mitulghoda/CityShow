@@ -2,8 +2,10 @@ package com.app.cityshow.ui.activity
 
 import android.os.Bundle
 import android.view.View
+import com.app.cityshow.R
 import com.app.cityshow.databinding.AddProductBinding
 import com.app.cityshow.ui.adapter.ImageAdapter
+import com.app.cityshow.ui.bottomsheet.BottomSheetCommonPopup
 import com.bumptech.glide.Glide
 import com.filepickersample.listener.FilePickerCallback
 import com.filepickersample.model.Media
@@ -35,6 +37,41 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
+            mBinding.edtLocation -> {
+                val mArrayList =
+                    arrayListOf(
+                        "Smartphones",
+                        "Laptops",
+                        "Fragrances",
+                        "Skincare",
+                        "Groceries",
+                        "Home-Decoration",
+                        "Furniture",
+                        "Tops",
+                        "Women's-dresses",
+                        "women's-shoes",
+                        "Mens-shirts",
+                        "Mens-shoes",
+                        "Mens-watches",
+                        "Women's-watches",
+                        "Women's-bags",
+                        "Women's-jewellery",
+                        "Sunglasses",
+                        "Automotive",
+                        "Motorcycle",
+                        "Lighting"
+                    )
+                BottomSheetCommonPopup.newInstance(
+                    getString(R.string.select_category),
+                    mArrayList,
+                    object :
+                        BottomSheetCommonPopup.BottomSheetItemClickListener {
+                        override fun onItemClick(data: String) {
+                            mBinding.edtLocation.setText(data)
+                        }
+
+                    }).show(this)
+            }
             mBinding.btnSubmit -> {
                 openHomeActivity()
             }

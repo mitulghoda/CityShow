@@ -19,6 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -111,7 +112,7 @@
 
 
             <LinearLayout
-                android:id="@+id/layout_country"
+                android:id="@+id/layMyShop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -133,6 +134,28 @@
                 android:layout_height="@dimen/_1sdp"
                 android:background="@color/lightest_grey" />
 
+            <LinearLayout
+                android:id="@+id/layProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:onClick="@{(v)->clickListener.onClick(v)}">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TextViewStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_12sdp"
+                    android:text="@string/my_product"
+                    android:textSize="@dimen/_12ssp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/lightest_grey" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/TextViewStyle"

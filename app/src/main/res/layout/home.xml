@@ -60,9 +60,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:background="@color/lightOrange"
-                android:visibility="gone"
-                app:labelVisibilityMode="unlabeled"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginVertical="@dimen/_5sdp"
+                android:background="@drawable/rectangle_gradient"
+                android:visibility="visible"
+                app:itemTextColor="@color/black"
+                app:labelVisibilityMode="labeled"
                 app:menu="@menu/bottom_menu" />
 
             <com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
@@ -71,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="bottom"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:cbn_background="@color/colorPrimary"
                 app:cbn_curve_radius="26dp"
                 app:cbn_fabColor="@color/colorPrimary"
