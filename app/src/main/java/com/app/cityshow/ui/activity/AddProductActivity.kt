@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.app.cityshow.R
 import com.app.cityshow.databinding.AddProductBinding
+import com.app.cityshow.ui.adapter.EditTextAdapter
 import com.app.cityshow.ui.adapter.ImageAdapter
 import com.app.cityshow.ui.bottomsheet.BottomSheetCommonPopup
 import com.bumptech.glide.Glide
@@ -11,19 +12,22 @@ import com.filepickersample.listener.FilePickerCallback
 import com.filepickersample.model.Media
 import com.app.cityshow.ui.common.ActionBarActivity
 import com.stfalcon.imageviewer.StfalconImageViewer
-import dagger.hilt.android.AndroidEntryPoint
 import java.util.ArrayList
-import javax.inject.Inject
 
 class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     private lateinit var mBinding: AddProductBinding
     private var mAssetImages = ArrayList<Media>()
+    private var mKeyFeature = ArrayList<String>()
     var assetImageAdapter = ImageAdapter()
+    var editTextAdapter = EditTextAdapter()
     override fun initUi() {
         assetImageAdapter.arrayList = mAssetImages
+        editTextAdapter.arrayList = mKeyFeature
         assetImageAdapter.clickCallback = this::onAssetImageClick
         assetImageAdapter.deleteCallback = this::onAssetImageDelete
+        editTextAdapter.deleteCallback = this::onKeyFeature
         mBinding.rvPhoto.adapter = assetImageAdapter
+        mBinding.rvKeyFeature.adapter = editTextAdapter
 
     }
 
@@ -36,6 +40,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
+        super.onClick(v)
         when (v) {
             mBinding.edtLocation -> {
                 val mArrayList =
@@ -80,19 +85,23 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                     override fun onSuccess(media: Media?) {
                         if (media == null) return
                         mAssetImages.add(0, media)
-                        assetImageAdapter.notifyDataSetChanged()
+                        editTextAdapter.notifyDataSetChanged()
                     }
 
                     override fun onSuccess(mediaList: ArrayList<Media>?) {
                         if (mediaList.isNullOrEmpty()) return
                         mAssetImages.addAll(0, mediaList)
-                        assetImageAdapter.notifyDataSetChanged()
+                        editTextAdapter.notifyDataSetChanged()
                     }
 
                     override fun onError(error: String?) {
                         toast(error)
                     }
                 })
+            }
+            mBinding.txtKeyFeature -> {
+                editTextAdapter.setItem(0,"" )
+                editTextAdapter.notifyDataSetChanged()
             }
         }
     }
@@ -105,6 +114,11 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
 
     private fun onAssetImageDelete(media: Media, position: Int) {
         mAssetImages.removeAt(position)
-        assetImageAdapter.notifyItemRemoved(position)
+        editTextAdapter.notifyItemRemoved(position)
+    }
+
+    private fun onKeyFeature(media: String, position: Int) {
+        mKeyFeature.removeAt(position)
+        editTextAdapter.notifyItemRemoved(position)
     }
 }

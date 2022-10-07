@@ -6,6 +6,7 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ProductDetailsBinding
 import com.app.cityshow.ui.adapter.PageStateAdapter
+import com.app.cityshow.ui.bottomsheet.BottomSheetMoreDetails
 import com.app.cityshow.ui.common.ActionBarActivity
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.ui.fragment.ProductDetailsFragment
@@ -28,7 +29,11 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
+        super.onClick(v)
         when (v) {
+            mBinding.tvMore -> {
+                BottomSheetMoreDetails().show(this)
+            }
         }
     }
 

@@ -16,136 +16,253 @@
         android:background="@color/white"
         tools:context=".ui.activity.ProductDetailsActivity">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:fillViewport="true">
 
-            <include layout="@layout/layout_toolbar" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp"
-                android:background="@color/white" />
-
-            <com.zhpan.indicator.IndicatorView
-                android:id="@+id/pageIndicator"
-                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                app:vpi_slide_mode="worm"
-                app:vpi_slider_checked_color="@color/colorPrimary"
-                app:vpi_slider_normal_color="@color/black_alpha_25" />
+                android:orientation="vertical">
 
-            <com.app.cityshow.views.TextView
-                style="@style/TextViewStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_bold"
-                android:gravity="center"
-                android:paddingHorizontal="@dimen/_10sdp"
-                android:text="Galaxy Mobile"
-                android:textSize="@dimen/_20sdp" />
+                <include layout="@layout/layout_toolbar" />
 
-            <com.app.cityshow.views.TextView
-                style="@style/TextViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_locaiton"
-                android:drawablePadding="@dimen/_5sdp"
-                android:paddingHorizontal="@dimen/_10sdp"
-                android:text="31-89 Steinway St, Queens, NY 11103, United States" />
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    android:background="@color/white" />
 
-            <androidx.cardview.widget.CardView
-                style="?attr/materialCardViewElevatedStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="@dimen/_10sdp"
-                app:cardElevation="@dimen/_5sdp"
-                app:cardMaxElevation="@dimen/_5sdp"
-                app:cardPreventCornerOverlap="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                <com.zhpan.indicator.IndicatorView
+                    android:id="@+id/pageIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    app:vpi_slide_mode="worm"
+                    app:vpi_slider_checked_color="@color/colorPrimary"
+                    app:vpi_slider_normal_color="@color/black_alpha_25" />
 
-
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <com.app.cityshow.views.TextView
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_5sdp">
+                    android:fontFamily="@font/sf_bold"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:text="Galaxy Mobile"
+                    android:textSize="@dimen/_20sdp" />
 
-                    <com.app.cityshow.views.TextView
-                        style="@style/TextViewStyleBold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:gravity="center"
-                        android:text="Samsung F-42 5G"
-                        android:textSize="@dimen/_14sdp" />
+                <com.app.cityshow.views.TextView
+                    style="@style/TextViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_locaiton"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:text="31-89 Steinway St, Queens, NY 11103, United States" />
 
-                    <com.app.cityshow.views.TextView
-                        style="@style/TextViewStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:maxLines="3"
-                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-                        android:textColor="@color/colorHintGray"
-                        android:textSize="@dimen/_12sdp" />
+                <androidx.cardview.widget.CardView
+                    style="?attr/materialCardViewElevatedStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardElevation="@dimen/_5sdp"
+                    app:cardMaxElevation="@dimen/_5sdp"
+                    app:cardPreventCornerOverlap="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
 
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="gone">
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_5sdp">
+
+                        <androidx.appcompat.widget.AppCompatRatingBar
+                            android:id="@+id/ratingBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="-30dp"
+                            android:numStars="5"
+                            android:scaleX="0.7"
+                            android:scaleY="0.7"
+                            android:theme="@style/RatingBar"
+                            tools:rating="3.5" />
+
+                        <com.app.cityshow.views.TextView
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:text="Samsung F-42 5G"
+                            android:textSize="@dimen/_14sdp" />
+
+                        <com.app.cityshow.views.TextView
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:text="@string/mobile_tablets"
+                            android:textSize="@dimen/_12sdp" />
+
+                        <com.app.cityshow.views.TextView
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:text="@string/size_"
+                            android:textSize="@dimen/_12sdp" />
+
+                        <GridLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:columnCount="5">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/TextViewStyleBold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/gray_border_rounder_5dp"
+                                android:padding="@dimen/_5sdp"
+                                android:text="6" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/TextViewStyleBold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_10sdp"
+                                android:background="@drawable/gray_border_rounder_5dp"
+                                android:padding="@dimen/_5sdp"
+                                android:text="8" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/TextViewStyleBold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/gray_border_rounder_5dp"
+                                android:padding="@dimen/_5sdp"
+                                android:text="10" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/TextViewStyleBold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_10sdp"
+                                android:background="@drawable/gray_border_rounder_5dp"
+                                android:padding="@dimen/_5sdp"
+                                android:text="10" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/TextViewStyleBold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/gray_border_rounder_5dp"
+                                android:padding="@dimen/_5sdp"
+                                android:text="16" />
+
+
+                        </GridLayout>
 
                         <com.app.cityshow.views.TextView
                             style="@style/TextViewStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:gravity="start"
-                            android:text="150+ shops" />
+                            android:maxLines="3"
+                            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+                            android:textColor="@color/colorHintGray"
+                            android:textSize="@dimen/_12sdp" />
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone">
+
+                            <com.app.cityshow.views.TextView
+                                style="@style/TextViewStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:gravity="start"
+                                android:text="150+ shops" />
+
+                            <com.app.cityshow.views.TextView
+                                style="@style/TextViewStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:gravity="start"
+                                android:text="150+ shops" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <com.app.cityshow.views.TextView
                             style="@style/TextViewStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:gravity="start"
-                            android:text="150+ shops" />
+                            android:layout_gravity="center"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:background="@drawable/striking_text"
+                            android:drawableStart="@drawable/ic_currency"
+                            android:foreground="@drawable/striking_text"
+                            android:text="15,999" />
+
+                        <com.app.cityshow.views.TextView
+                            style="@style/TextViewStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:drawableStart="@drawable/ic_currency"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:fontFamily="@font/sf_bold"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/_10sdp"
+                            android:text="13499"
+                            android:textSize="@dimen/_20sdp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.cardview.widget.CardView>
 
-                    <com.app.cityshow.views.TextView
-                        style="@style/TextViewStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginVertical="@dimen/_5sdp"
-                        android:background="@drawable/striking_text"
-                        android:drawableStart="@drawable/ic_currency"
-                        android:foreground="@drawable/striking_text"
-                        android:text="15,999" />
 
-                    <com.app.cityshow.views.TextView
-                        style="@style/TextViewStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:drawableStart="@drawable/ic_currency"
-                        android:drawablePadding="@dimen/_5sdp"
-                        android:fontFamily="@font/sf_bold"
-                        android:gravity="center"
-                        android:paddingHorizontal="@dimen/_10sdp"
-                        android:text="13499"
-                        android:textSize="@dimen/_20sdp" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
-            </androidx.cardview.widget.CardView>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                <com.app.cityshow.views.TextView
+                    style="@style/TextViewStyleBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:gravity="center"
+                    android:text="@string/_10days_return_policy"
+                    android:textSize="@dimen/_14sdp" />
+
+                <com.app.cityshow.views.TextView
+                    style="@style/TextViewStyleBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:text="Cash on Delivery Available"
+                    android:textSize="@dimen/_14sdp" />
+
+                <com.app.cityshow.views.TextView
+                    android:id="@+id/tvMore"
+                    style="@style/TextViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:background="?android:selectableItemBackground"
+                    android:fontFamily="@font/sf_bold"
+                    android:gravity="end"
+                    android:onClick="@{(v)->clickListener.onClick(v)}"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:text="@string/more_details"
+                    android:textSize="@dimen/_18sdp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -64,4 +64,14 @@
     <string name="cancel_plan">Cancel plan</string>
     <string name="my_product">My Products</string>
     <string name="phone_number">Phone Number</string>
+    <string name="child">Child</string>
+    <string name="more_details">More details</string>
+    <string name="mobile_tablets"><![CDATA[Mobile & Tablets]]></string>
+    <string name="size_">Size</string>
+    <string name="_10days_return_policy">10Days return policy</string>
+    <string name="is_gold">Gold?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="key_feature">Key Feature</string>
+    <string name="enter_key_feature">Enter key feature</string>
 </resources>
