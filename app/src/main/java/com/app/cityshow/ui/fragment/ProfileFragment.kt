@@ -10,7 +10,7 @@ import com.app.cityshow.model.CategoryModel
 import com.app.cityshow.ui.adapter.ProductListAdapter
 import com.app.cityshow.ui.common.BaseFragment
 
-class ProfileFragment : BaseFragment() {
+class ProfileFragment : BaseFragment(), View.OnClickListener {
     private lateinit var binding: ProfileBinding
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,6 +23,25 @@ class ProfileFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initUI()
     }
+
+    private fun initUI() {
+
+        binding.clickListener = this
+    }
+
+    override fun onClick(p0: View?) {
+
+        when (p0) {
+            binding.layShops -> {
+                navigation?.openShopsActivity()
+            }
+            binding.linearLayoutProfile -> {
+                navigation?.openEditProfileActivity()
+            }
+        }
+    }
+
 
 }

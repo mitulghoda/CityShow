@@ -111,7 +111,7 @@
 
 
             <LinearLayout
-                android:id="@+id/layout_country"
+                android:id="@+id/layShops"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"

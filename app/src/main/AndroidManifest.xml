@@ -3,6 +3,7 @@
     package="com.app.cityshow">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -16,13 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CityShow"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".ui.activity.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -39,6 +40,9 @@
             android:name=".ui.activity.RegisterActivity"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".ui.activity.ShopsActivity"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".ui.activity.OTPActivity"
             android:theme="@style/AppTheme" />
         <activity
@@ -46,6 +50,9 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.ProductDetailsActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.EditProfileActivity"
             android:theme="@style/AppTheme" />
 
         <provider
