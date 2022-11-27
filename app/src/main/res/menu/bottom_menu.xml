@@ -3,22 +3,26 @@
 
     <item
         android:id="@+id/action_home"
+        android:enabled="true"
         android:icon="@drawable/ic_home"
         android:title="@string/home"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_fav"
+        android:enabled="true"
         android:icon="@drawable/ic_fav_fill"
         android:title="@string/fav"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_not"
+        android:enabled="true"
         android:icon="@drawable/ic_notification"
         android:title="@string/notification"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_account"
+        android:enabled="true"
         android:icon="@drawable/ic_baseline_account_circle_24"
         android:title="@string/account"
         app:showAsAction="ifRoom" />

@@ -19,6 +19,9 @@ class ProductListAdapter(
 
     override fun onBindViewHolder(holder: CategoryHolder, position: Int) {
 //        holder.bind(mArrayList[position])
+        holder.itemView.setOnClickListener {
+            onClickItem.invoke(CategoryModel())
+        }
     }
 
     override fun getItemCount(): Int {

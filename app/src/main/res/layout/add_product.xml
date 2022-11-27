@@ -134,24 +134,6 @@
                     android:visibility="gone"
                     app:drawableTint="@color/red" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_5sdp"
-                    app:hintEnabled="true"
-                    app:startIconDrawable="@drawable/ic_locaiton"
-                    app:startIconTint="@color/colorPrimary">
-
-                    <com.app.cityshow.views.EditText
-                        style="@style/EditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/enter_model_name"
-                        android:imeOptions="actionNext"
-                        android:inputType="textCapSentences" />
-                </com.google.android.material.textfield.TextInputLayout>
-
                 <com.app.cityshow.views.TextView
                     style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
@@ -224,10 +206,11 @@
                     app:drawableTint="@color/red" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tvInputLocation"
+                    android:id="@+id/tvInputCategiry"
                     style="@style/TextInputLayoutStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{(v)->clickListener.onClick(v)}"
                     app:endIconDrawable="@drawable/ic_drop"
                     app:endIconMode="custom"
                     app:hintEnabled="true"
@@ -266,13 +249,48 @@
                         <androidx.appcompat.widget.AppCompatRadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checked="true"
                             android:text="@string/male" />
 
                         <androidx.appcompat.widget.AppCompatRadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/female" />
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/child" />
+                    </RadioGroup>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layGold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.app.cityshow.views.TextView
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:text="@string/is_gold" />
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_5sdp">
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/yes" />
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/no" />
                     </RadioGroup>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -523,58 +541,74 @@
                     android:layout_marginTop="@dimen/_3sdp"
                     android:text="@string/product_images" />
 
-                <HorizontalScrollView
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_80sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardAddImage"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:layout_marginEnd="@dimen/_3sdp"
+                        android:layout_marginBottom="@dimen/_3sdp"
+                        android:onClick="onClick"
+                        app:cardBackgroundColor="@color/lightest_grey"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        app:cardElevation="@dimen/_2sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_height="@dimen/_25sdp"
+                            android:layout_gravity="center"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_plus"
+                            tools:ignore="ContentDescription" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvPhoto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/cardAddImage"
+                        android:isScrollContainer="false"
+                        android:orientation="horizontal"
+                        android:scrollbars="none"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="10"
+                        tools:listitem="@layout/item_add_image" />
+                </RelativeLayout>
+
+                <com.app.cityshow.views.TextView
+                    android:id="@+id/txtKeyFeature"
+                    style="@style/TextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fillViewport="true"
-                    android:paddingHorizontal="@dimen/_5sdp">
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="?android:selectableItemBackground"
+                    android:drawableEnd="@drawable/ic_plus"
+                    android:onClick="@{(v)->clickListener.onClick(v)}"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/key_feature" />
 
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_80sdp"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/cardAddImage"
-                            android:layout_width="@dimen/_60sdp"
-                            android:layout_height="@dimen/_60sdp"
-                            android:layout_marginTop="@dimen/_3sdp"
-                            android:layout_marginEnd="@dimen/_3sdp"
-                            android:layout_marginBottom="@dimen/_3sdp"
-                            android:onClick="onClick"
-                            app:cardBackgroundColor="@color/lightest_grey"
-                            app:cardCornerRadius="@dimen/_8sdp"
-                            app:cardElevation="@dimen/_2sdp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="@dimen/_25sdp"
-                                android:layout_height="@dimen/_25sdp"
-                                android:layout_gravity="center"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/ic_plus"
-                                tools:ignore="ContentDescription" />
-
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rvPhoto"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toEndOf="@id/cardAddImage"
-                            android:isScrollContainer="false"
-                            android:orientation="horizontal"
-                            android:scrollbars="none"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            tools:itemCount="10"
-                            tools:listitem="@layout/item_add_image" />
-                    </RelativeLayout>
-                </HorizontalScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvKeyFeature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:isScrollContainer="false"
+                    android:orientation="vertical"
+                    android:scrollbars="none"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/row_editext" />
 
                 <com.app.cityshow.views.TextView
                     style="@style/TextViewStyle"
