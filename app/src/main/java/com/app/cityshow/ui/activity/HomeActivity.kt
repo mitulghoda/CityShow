@@ -65,7 +65,7 @@ class HomeActivity : ActionBarActivity(), View.OnClickListener {
                     mBinding.viewPager.currentItem = 3
                 }
             }
-            false
+            true
         }
     }
 

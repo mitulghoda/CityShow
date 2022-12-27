@@ -62,4 +62,6 @@
     <color name="dark_blue">#4782b9</color>
     <color name="orange">#faa72a</color>
     <color name="dark_orange">#FF9800</color>
+
+    <color name="icon_background">#4A4949</color>
 </resources>

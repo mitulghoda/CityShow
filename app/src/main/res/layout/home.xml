@@ -64,6 +64,7 @@
                 android:layout_marginVertical="@dimen/_5sdp"
                 android:background="@drawable/rectangle_gradient"
                 android:visibility="visible"
+                app:itemIconTint="@color/bottom_nav_icon_color"
                 app:itemTextColor="@color/black"
                 app:labelVisibilityMode="labeled"
                 app:menu="@menu/bottom_menu" />

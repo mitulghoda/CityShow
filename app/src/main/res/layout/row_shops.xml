@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <androidx.cardview.widget.CardView
             style="?attr/materialCardViewElevatedStyle"
             android:layout_width="match_parent"
@@ -29,82 +28,76 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/_5sdp">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_5sdp">
+                    android:layout_margin="@dimen/_10sdp">
 
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <com.app.cityshow.views.CircularImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_10sdp">
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/mobile_shop"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_corner_radius="@dimen/_10sdp" />
 
-                        <com.app.cityshow.views.CircularImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/mobile_shop"
-                            app:layout_constraintDimensionRatio="w,7:16"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:riv_corner_radius="@dimen/_10sdp" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <com.app.cityshow.views.TextView
-                        style="@style/TextViewStyleBold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/_10sdp"
-                        android:text="New Galaxy Mobile &amp; Accessriee"
-                        android:textSize="@dimen/_18sdp" />
-
-                    <com.app.cityshow.views.TextView
-                        style="@style/TextViewStyle"
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
-                        android:text="Shop No. 2, Jalaramkrupa Society, Sola Bhamariya Chowkdi, Science City Rd, Sola, Ahmedabad, Gujarat 380054"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12sdp" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:src="@drawable/ic_fav"
+                        android:tint="@color/colorPrimary" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <com.app.cityshow.views.TextView
-                        style="@style/TextViewStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
-                        android:maxLines="3"
-                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-                        android:textColor="@color/colorHintGray"
-                        android:textSize="@dimen/_12sdp"
-                        android:visibility="gone" />
+                <com.app.cityshow.views.TextView
+                    style="@style/TextViewStyleBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp"
+                    android:text="New Galaxy Mobile &amp; Accessriee"
+                    android:textSize="@dimen/_18sdp" />
 
-                    <com.app.cityshow.views.TextView
-                        style="@style/TextViewStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:layout_margin="@dimen/_5sdp"
-                        android:gravity="start"
-                        android:text="150+ shops" />
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.AppCompatImageView
+                <com.app.cityshow.views.TextView
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_margin="@dimen/_3sdp"
-                    android:src="@drawable/ic_fav"
-                    android:tint="@color/colorPrimary" />
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:text="Shop No. 2, Jalaramkrupa Society, Sola Bhamariya Chowkdi, Science City Rd, Sola, Ahmedabad, Gujarat 380054"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp" />
 
-            </RelativeLayout>
+                <com.app.cityshow.views.TextView
+                    style="@style/TextViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:maxLines="3"
+                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+                    android:textColor="@color/colorHintGray"
+                    android:textSize="@dimen/_12sdp"
+                    android:visibility="gone" />
+
+                <com.app.cityshow.views.TextView
+                    style="@style/TextViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:gravity="start"
+                    android:text="150+ shops" />
+
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
 

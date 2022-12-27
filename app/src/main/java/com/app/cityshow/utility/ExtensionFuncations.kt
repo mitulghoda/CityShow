@@ -424,7 +424,7 @@ fun View.setVisibilityWithScaleAnim(visibility: Int) {
     scaleDown.duration = 300
     scaleDown.interpolator = DecelerateInterpolator()
     scaleDown.addListener(object : AnimatorListenerAdapter() {
-        override fun onAnimationEnd(animation: Animator?) {
+        override fun onAnimationEnd(animation: Animator) {
             super.onAnimationEnd(animation)
             this@setVisibilityWithScaleAnim.visibility = visibility
         }

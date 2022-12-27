@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".Controller"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -53,9 +54,6 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.ProductDetailsActivity"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".ui.activity.EditProfileActivity"
             android:theme="@style/AppTheme" />
 
         <provider
