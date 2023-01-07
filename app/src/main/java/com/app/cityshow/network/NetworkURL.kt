@@ -22,14 +22,20 @@ object NetworkURL {
     const val RES_FORBIDDEN = 403
     const val RES_UNPROCESSABLE_ENTITY = 422
     const val RES_SERVER_ERROR = 500
+    const val RES_USER_INACTIVE = 400
 
-    const val LOGIN = "api/User/UserLogin"
-    const val GET_PROFILE = "api/Master/GetUserProfile"
-    const val GET_PART = "api/Master/GetPart"
-    const val GET_LOCATIONS = "api/Master/GetLocation"
-    const val GET_ASSET_TYPES = "api/Master/GetAssetType"
-    const val GET_ASSET_CATEGORY = "api/Master/GetAssetCategory"
-    const val ASSET_REGISTRATION = "api/Master/SetAssetRegistration"
-    const val INVENTORY_DATA = "api/Report/InventoryData"
-    const val CHECK_IN_CHECK_OUT = "api/Transaction/SetCheckinCheckout"
+    const val ACTION_FOR_BIDDEN_RESPONSE = "action_for_bidden_response"
+    const val ACTION_FOR_BLOCKED = "action_for_blocked"
+    const val ACTION_FOR_INACTIVE_USER = "action_for_inactive_user"
+
+
+    const val LOGIN = "User/UserLogin"
+    const val GET_PROFILE = "Master/GetUserProfile"
+    const val GET_PART = "Master/GetPart"
+    const val GET_LOCATIONS = "Master/GetLocation"
+    const val GET_ASSET_TYPES = "Master/GetAssetType"
+    const val GET_ASSET_CATEGORY = "Master/GetAssetCategory"
+    const val ASSET_REGISTRATION = "Master/SetAssetRegistration"
+    const val INVENTORY_DATA = "Report/InventoryData"
+    const val CHECK_IN_CHECK_OUT = "Transaction/SetCheckinCheckout"
 }

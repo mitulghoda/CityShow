@@ -13,13 +13,17 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.app.cityshow.R
+import com.app.cityshow.network.NetworkURL.ACTION_FOR_BIDDEN_RESPONSE
+import com.app.cityshow.network.NetworkURL.ACTION_FOR_BLOCKED
+import com.app.cityshow.network.NetworkURL.ACTION_FOR_INACTIVE_USER
 import com.app.cityshow.ui.activity.LoginActivity
-import com.app.cityshow.ui.activity.OTPActivity
-import com.app.cityshow.ui.activity.RegisterActivity
 import com.app.cityshow.utility.KeyboardUtil
+import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.justTry
 import com.google.android.material.snackbar.Snackbar
+import com.kaopiz.kprogresshud.KProgressHUD
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import java.util.*
 
@@ -59,42 +63,13 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private var alertDialog: AlertDialog? = null
 
-    open fun showAlertMessage(str: String) {
-        showAlertMessage(str, null)
-    }
-
-    open fun showAlertMessage(str: String, onClickListener: DialogInterface.OnClickListener?) {
-        showAlertMessage(null, str, true, "", onClickListener)
-    }
-
     open fun showAlertMessage(
-        title: String?, str: String, isCancelable: Boolean, positiveText: String,
-        onClickListener: DialogInterface.OnClickListener?,
-    ): AlertDialog? {
-        try {
-            if (alertDialog != null && alertDialog!!.isShowing) {
-                alertDialog!!.dismiss()
-            }
-            val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AlertDialogCustom))
-                .setMessage(str).setCancelable(isCancelable)
-                .setPositiveButton(positiveText.takeIf { positiveText.isNotEmpty() }
-                    ?: getString(R.string.ok), onClickListener)
-
-            if (!title.isNullOrBlank()) builder.setTitle(getString(R.string.app_name))
-
-            alertDialog = builder.show()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return alertDialog
-    }
-
-    open fun showAlertMessage(
-        str: String,
-        isCancelable: Boolean,
-        positiveText: String,
-        negativeText: String,
-        callback: (isPositive: Boolean) -> Unit,
+        title: String? = "",
+        str: String = "",
+        isCancelable: Boolean = false,
+        positiveText: String = "",
+        negativeText: String = "",
+        callback: ((isPositive: Boolean) -> Unit)? = null,
     ): AlertDialog? {
         try {
             if (alertDialog != null && alertDialog!!.isShowing) {
@@ -104,11 +79,11 @@ abstract class BaseActivity : AppCompatActivity() {
                 .setMessage(str)
                 .setCancelable(isCancelable)
                 .setPositiveButton(positiveText.takeIf { positiveText.isNotBlank() }
-                    ?: getString(R.string.ok)) { _, _ -> callback.invoke(true) }
+                    ?: getString(R.string.ok)) { _, _ -> callback?.invoke(true) }
                 .setNegativeButton(negativeText.takeIf { negativeText.isNotBlank() }
-                    ?: getString(R.string.cancel)) { _, _ -> callback.invoke(false) }
+                    ?: getString(R.string.cancel)) { _, _ -> callback?.invoke(false) }
 
-//            if (!title.isNullOrBlank()) builder.setTitle(title)
+            if (!title.isNullOrBlank()) builder.setTitle(getString(R.string.app_name))
 
             alertDialog = builder.show()
         } catch (e: Exception) {
@@ -179,38 +154,59 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    //    private var dialog: KProgressHUD? = null
+    private var dialog: KProgressHUD? = null
     fun showProgressDialog() {
         showProgressDialog(getString(R.string.please_wait))
     }
 
-    fun showProgressDialog(msg: String?) {
-        /* if (dialog == null) {
-            *//* dialog = KProgressHUD.create(this)
+    private fun showProgressDialog(msg: String?) {
+        if (dialog == null) {
+            dialog = KProgressHUD.create(this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel(getString(R.string.please_wait).takeIf { msg.isNullOrEmpty() } ?: msg)
                 .setCancellable(false)
                 .setAnimationSpeed(2)
-                .setDimAmount(0.5f)*//*
+                .setDimAmount(0.5f)
         }
-        dialog!!.show()*/
+        dialog!!.show()
     }
 
     fun hideProgressDialog() {
-//        justTry { if (dialog != null) dialog!!.dismiss() }
+        justTry { if (dialog != null) dialog!!.dismiss() }
     }
+
+    /*open fun getFcmToken(callBack: (fcmToken: String, isSuccess: Boolean) -> Unit) {
+        val fcmToken = LocalDataHelper.fcmToken
+        if (fcmToken.isNullOrEmpty()) {
+            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    callBack.invoke(
+                        task.exception?.localizedMessage
+                            ?: getString(R.string.fetching_fcm_registration_token_failed), false
+                    )
+                    return@OnCompleteListener
+                }
+                val token = task.result
+                if (token.isNullOrEmpty()) {
+                    callBack.invoke(
+                        task.exception?.localizedMessage
+                            ?: getString(R.string.fetching_fcm_registration_token_failed), false
+                    )
+                    return@OnCompleteListener
+                }
+                LocalDataHelper.fcmToken = token
+                callBack.invoke(token, true)
+            })
+        } else {
+            callBack.invoke(fcmToken, true)
+        }
+    }*/
 
     fun logoutActions() {
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-
-    }
-
-    override fun onPause() {
-        super.onPause()
+        LocalDataHelper.authToken = ""
+        LocalDataHelper.user = null
+        LocalDataHelper.login = false
+        openLoginActivity()
     }
 
     fun openLoginActivity() {
@@ -219,13 +215,57 @@ abstract class BaseActivity : AppCompatActivity() {
         finishAffinity()
     }
 
-    fun openOTPActivity() {
-        val intent = Intent(this, OTPActivity::class.java)
-        startActivity(intent)
+    override fun onResume() {
+        super.onResume()
+        val userFilter = IntentFilter()
+        userFilter.addAction(ACTION_FOR_BIDDEN_RESPONSE)
+        userFilter.addAction(ACTION_FOR_BLOCKED)
+        userFilter.addAction(ACTION_FOR_INACTIVE_USER)
+        LocalBroadcastManager.getInstance(this)
+            .registerReceiver(unauthorizedReceiver, userFilter)
+
     }
-    fun openRegisterActivity() {
-        val intent = Intent(this, RegisterActivity::class.java)
-        startActivity(intent)
+
+    override fun onPause() {
+        super.onPause()
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(unauthorizedReceiver)
+    }
+
+    private val unauthorizedReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val action = intent.action ?: return
+            if (action.equals(ACTION_FOR_BIDDEN_RESPONSE, ignoreCase = true)) {
+                showAlertMessage(
+                    title = null,
+                    str = "Unauthorized Access.. Please login to continue",
+                    isCancelable = false,
+                    positiveText = "OK"
+                ) { _ ->
+                    logoutActions()
+                    openLoginActivity()
+                }
+            } else if (action.equals(ACTION_FOR_BLOCKED, ignoreCase = true)) {
+                showAlertMessage(
+                    title = null,
+                    str = "Your account access is blocked by administrator.",
+                    isCancelable = false,
+                    positiveText = "OK"
+                ) { _ ->
+                    logoutActions()
+                    openLoginActivity()
+                }
+            } else if (action.equals(ACTION_FOR_INACTIVE_USER, ignoreCase = true)) {
+                showAlertMessage(
+                    title = null,
+                    str = "Your account is inactive, Please contact to administrator.",
+                    isCancelable = false,
+                    positiveText = "OK"
+                ) { _ ->
+                    logoutActions()
+                    openLoginActivity()
+                }
+            }
+        }
     }
 
 }

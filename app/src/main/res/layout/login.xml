@@ -23,7 +23,6 @@
             android:padding="@dimen/_20sdp"
             app:layout_constraintTop_toTopOf="parent">
 
-
             <com.app.cityshow.views.TextView
                 style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
@@ -62,7 +61,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tvInputPass"
+                android:id="@+id/tvInputPassword"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,7 +72,7 @@
                 app:startIconTint="@color/colorPrimary">
 
                 <com.app.cityshow.views.EditText
-                    android:id="@+id/edtPass"
+                    android:id="@+id/edtPassword"
                     style="@style/EditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

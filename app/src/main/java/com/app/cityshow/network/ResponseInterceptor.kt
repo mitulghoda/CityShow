@@ -3,6 +3,7 @@ package com.app.cityshow.network
 import android.content.Intent
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.app.cityshow.Controller
+import com.app.cityshow.network.NetworkURL.ACTION_FOR_BIDDEN_RESPONSE
 import com.app.cityshow.utility.Constants
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -16,7 +17,7 @@ class ResponseInterceptor @Inject constructor() : Interceptor {
         val response = chain.proceed(request)
         when (response.code) {
             NetworkURL.RES_UNAUTHORISED -> {
-                val intent = Intent(Constants.ACTION_FOR_BIDDEN_RESPONSE)
+                val intent = Intent(ACTION_FOR_BIDDEN_RESPONSE)
                 LocalBroadcastManager.getInstance(Controller.instance).sendBroadcast(intent)
             }
         }

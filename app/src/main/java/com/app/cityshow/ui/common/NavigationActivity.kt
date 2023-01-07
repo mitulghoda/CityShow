@@ -9,6 +9,15 @@ import com.filepickersample.listener.FilePickerCallback
 
 abstract class NavigationActivity : BaseActivity() {
 
+    fun openOTPActivity() {
+        val intent = Intent(this, OTPActivity::class.java)
+        startActivity(intent)
+    }
+    fun openRegisterActivity() {
+        val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
+    }
+
     fun openHomeActivity() {
         val intent = Intent(this, HomeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK

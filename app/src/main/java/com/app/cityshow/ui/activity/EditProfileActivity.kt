@@ -1,12 +1,33 @@
 package com.app.cityshow.ui.activity
 
 import android.os.Bundle
+import android.view.View
+import androidx.lifecycle.ViewModelProvider
+import com.app.cityshow.Controller
+import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityEditProfileBinding
-import com.app.cityshow.databinding.ActivityShopsBinding
+import com.app.cityshow.network.typeCall
 import com.app.cityshow.ui.common.ActionBarActivity
+import com.app.cityshow.utility.LocalDataHelper
+import com.app.cityshow.utility.Validator
+import com.app.cityshow.utility.getTrimText
+import com.app.cityshow.viewmodel.UserViewModel
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.filepickersample.listener.FilePickerCallback
+import com.filepickersample.model.Media
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 
 class EditProfileActivity : ActionBarActivity() {
     private lateinit var binding: ActivityEditProfileBinding
+    private lateinit var viewModel: UserViewModel
+
+    private var fileProfilePic: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,5 +38,129 @@ class EditProfileActivity : ActionBarActivity() {
     override fun initUi() {
         setUpToolbar("Update Profile", true)
         setSubTitleText("Ahmedabad")
+        binding.clickListener = this
+        setUserData()
+
+        viewModel = ViewModelProvider(this,
+            ViewModelProvider.AndroidViewModelFactory(Controller.instance))[UserViewModel::class.java]
+    }
+
+    override fun onClick(view: View?) {
+        super.onClick(view)
+        when (view) {
+            binding.imgUploadPhoto -> {
+                openImageFilePicker(object : FilePickerCallback {
+                    override fun onSuccess(media: Media?) {
+                        super.onSuccess(media)
+                        if (media == null) return
+                        fileProfilePic = media.mediaFile
+
+                        Glide.with(this@EditProfileActivity)
+                            .load(media.url)
+                            .placeholder(R.drawable.ic_user)
+                            .error(R.drawable.ic_user)
+                            .into(binding.imgProfile)
+                    }
+                })
+            }
+            binding.btnSubmit -> {
+                hideKeyBoard()
+                if (!isValid()) return
+                updateProfile()
+            }
+        }
+    }
+
+    /**
+     * Set Default User data
+     */
+
+    private fun setUserData() {
+        val user = LocalDataHelper.user
+        binding.edtEmail.setText(user?.email)
+        binding.edtFullName.setText(user?.username)
+
+        Glide.with(this)
+            .load(user?.profilePic)
+            .placeholder(R.drawable.ic_user)
+            .error(R.drawable.ic_user)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(binding.imgProfile)
+    }
+
+    /**
+     * check validation
+     */
+
+    private fun isValid(): Boolean {
+        var isValid = true
+
+        if (Validator.isEmptyFieldValidate(binding.edtFullName.getTrimText())) {
+            Validator.setError(binding.tvInputFullName, "Please enter name")
+            isValid = false
+        }
+        if (Validator.isEmptyFieldValidate(binding.edtEmail.getTrimText())) {
+            Validator.setError(binding.tvInputEmail, "Please enter email")
+            isValid = false
+        } else if (!Validator.isValidEmail(binding.edtEmail.getTrimText())) {
+            Validator.setError(binding.tvInputEmail, "Please enter valid email")
+            isValid = false
+        }
+        /*if (Validator.isEmptyFieldValidate(binding.edtCountryCode.selectedCountryName)) {
+            toast("Please select any country code")
+            isValid = false
+        }
+        if (Validator.isEmptyFieldValidate(binding.edtNumber.getTrimText())) {
+            Validator.setError(binding.tvInputNumber, "Please enter number")
+            isValid = false
+        } else if (!Validator.isPhoneNumberValidate(binding.edtNumber.getTrimText())) {
+            Validator.setError(binding.tvInputNumber, "Please enter valid number")
+            isValid = false
+        }
+        if (Validator.isEmptyFieldValidate(binding.edtAddress.getTrimText())) {
+            Validator.setError(binding.tvInputAddress, "Please enter address")
+            isValid = false
+        }*/
+
+        return isValid
+    }
+
+    /**
+     * Update profile api call
+     */
+
+    private fun updateProfile() {
+        showProgressDialog()
+        val param = HashMap<String, RequestBody>()
+        param["username"] = binding.edtFullName.getTrimText().toRequestBody()
+        param["email"] = binding.edtEmail.getTrimText().toRequestBody()
+
+        var multipartBody: MultipartBody.Part? = null
+        if (fileProfilePic != null) {
+            multipartBody = MultipartBody.Part.createFormData(
+                "profile_pic",
+                fileProfilePic!!.name,
+                fileProfilePic!!.asRequestBody("image/*".toMediaType())
+            )
+        }
+
+        viewModel.updateProfile(param, multipartBody).observe(this) {
+            hideProgressDialog()
+            it.status.typeCall(
+                success = {
+                    if (it.data != null && it.data.success) {
+                        LocalDataHelper.user = it.data.data
+                        setResult(RESULT_OK)
+                        finish()
+                    } else {
+                        showAlertMessage(it.message)
+                    }
+                },
+                error = {
+                    showAlertMessage(it.message)
+                }
+            )
+        }
+
     }
 }

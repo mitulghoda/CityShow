@@ -84,10 +84,10 @@ object ResponseHandler {
             val result = response.body()
             if (result != null) liveDataScope.emit(Resource.success(result))
             else liveDataScope.emit(
-                Resource.error(data = null, message = baseError(response).message)
+                Resource.error(message = baseError(response).message)
             )
         } else {
-            liveDataScope.emit(Resource.error(data = null, message = baseError(response).message))
+            liveDataScope.emit(Resource.error(message = baseError(response).message))
         }
     }
 }

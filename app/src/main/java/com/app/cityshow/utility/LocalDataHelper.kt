@@ -2,13 +2,11 @@ package com.app.cityshow.utility
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.app.cityshow.Controller
 import com.app.cityshow.model.User
-import com.app.cityshow.utility.fromJson
-import com.app.cityshow.utility.toJson
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-class LocalDataHelper constructor(context: Context) {
-    private var preference = context.getSharedPreferences("Nada-Teach-RFID", Context.MODE_PRIVATE)
+
+object LocalDataHelper {
+    private var preference = Controller.instance.getSharedPreferences("Nada-Teach-RFID", Context.MODE_PRIVATE)
 
     private fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
         val editor = edit()
@@ -39,11 +37,11 @@ class LocalDataHelper constructor(context: Context) {
         get() = preference.getString("user_details", "").fromJson(User::class.java)
         set(value) = preference.edit { it.putString("user_details", value.toJson()) }
 
-    val userId: String get() = user?.UserId.orEmpty()
+    val userId: String get() = user?.id.orEmpty()
 
-    var fcmToken: String?
-        get() = preference.getString("fcm_token", "")
-        set(value) = preference.edit { it.putString("fcm_token", value) }
+    var authToken: String?
+        get() = preference.getString("auth_token", "")
+        set(value) = preference.edit { it.putString("auth_token", value) }
 
   /*  var locations: List<PopupModel>
         get() {

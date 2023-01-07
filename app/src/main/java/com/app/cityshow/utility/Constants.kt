@@ -9,7 +9,4 @@ object Constants {
     val id: String = "id"
 
     const val EXTRA_TAG_LIST = "extra_tag_list"
-
-    const val ACTION_FOR_BIDDEN_RESPONSE = "action_for_bidden_response"
-    const val ACTION_FOR_BLOCKED = "action_for_blocked"
 }

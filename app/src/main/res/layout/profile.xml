@@ -34,7 +34,7 @@
                 android:paddingBottom="@dimen/_12sdp">
 
                 <com.app.cityshow.views.CircularImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/imgProfile"
                     android:layout_width="@dimen/_55sdp"
                     android:layout_height="@dimen/_55sdp"
                     android:onClick="@{(v)->clickListener.onClick(v)}"
@@ -58,7 +58,7 @@
                     android:paddingBottom="@dimen/_2sdp">
 
                     <com.app.cityshow.views.TextView
-                        android:id="@+id/txt_name"
+                        android:id="@+id/txtName"
                         style="@style/TextViewStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                         tools:text="Johny Depp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/txt_status"
+                        android:id="@+id/txtStatus"
                         style="@style/TextViewStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -326,7 +326,7 @@
 
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txt_logout"
+                android:id="@+id/txtLogout"
                 style="@style/TextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
