@@ -4,70 +4,63 @@ import androidx.lifecycle.*
 import com.app.cityshow.network.Resource
 import com.app.cityshow.network.ResponseHandler
 import com.app.cityshow.network.ResponseHandler.responseParser
-import com.app.cityshow.repository.UserRepository
+import com.app.cityshow.repository.ProductRepository
 import com.app.cityshow.utility.Log
 import kotlinx.coroutines.Dispatchers
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class UserViewModel : ViewModel() {
+class ProductViewModel : ViewModel() {
 
-    fun login(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
+    fun getProductDetails(param: String) = liveData(Dispatchers.IO) {
         try {
-            responseParser(UserRepository.login(param), this)
+            responseParser(ProductRepository.getProductDetails(param), this)
         } catch (e: Exception) {
             e.message?.let { Log.e(it) }
             emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
         }
     }
 
-    fun register(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
+    fun deleteProduct(param: String) = liveData(Dispatchers.IO) {
         try {
-            responseParser(UserRepository.register(param), this)
+            responseParser(ProductRepository.deleteProduct(param), this)
         } catch (e: Exception) {
             e.message?.let { Log.e(it) }
             emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
         }
     }
 
-    fun sendForgot(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
+    fun updateProduct(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
         try {
-            responseParser(UserRepository.sendForgot(param), this)
+            responseParser(ProductRepository.updateProduct(param), this)
         } catch (e: Exception) {
             e.message?.let { Log.e(it) }
             emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
         }
     }
 
-    fun verifyOtp(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
+    fun productAddToFav(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
         try {
-            responseParser(UserRepository.verifyOtp(param), this)
+            responseParser(ProductRepository.productAddToFav(param), this)
         } catch (e: Exception) {
             e.message?.let { Log.e(it) }
             emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
         }
     }
 
-    fun logout() = liveData(Dispatchers.IO) {
+    fun getCategories(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
         try {
-            responseParser(UserRepository.logout(), this)
+            responseParser(ProductRepository.getCategories(param), this)
         } catch (e: Exception) {
             emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
         }
     }
 
-    fun getProfile() = liveData(Dispatchers.IO) {
-        try {
-            responseParser(UserRepository.getProfile(), this)
-        } catch (e: Exception) {
-            emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
-        }
-    }
 
-    fun updateProfile(param: HashMap<String, RequestBody>, image: MultipartBody.Part?) =
+    fun createProduct(param: HashMap<String, RequestBody>, image: MultipartBody.Part?) =
         liveData(Dispatchers.IO) {
             try {
-                responseParser(UserRepository.updateProfile(param = param, image = image), this)
+                responseParser(ProductRepository.createProduct(param = param, image = image), this)
             } catch (e: Exception) {
                 emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
             }

@@ -39,10 +39,13 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.LoginActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/WhiteStatusBar" />
         <activity
             android:name=".ui.activity.RegisterActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/WhiteStatusBar" />
+        <activity
+            android:name=".ui.activity.ForgotPasswordActivity"
+            android:theme="@style/WhiteStatusBar" />
         <activity
             android:name=".ui.activity.ShopsActivity"
             android:theme="@style/AppTheme" />

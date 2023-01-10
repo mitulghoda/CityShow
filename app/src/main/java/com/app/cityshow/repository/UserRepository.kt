@@ -9,6 +9,9 @@ object UserRepository {
     suspend fun login(param: HashMap<String, Any>) = apiService.login(param)
 
     suspend fun logout() = apiService.logout()
+    suspend fun register(param: HashMap<String, Any>) = apiService.register(param)
+    suspend fun sendForgot(param: HashMap<String, Any>) = apiService.sendForgotPassword(param)
+    suspend fun verifyOtp(param: HashMap<String, Any>) = apiService.verifyOtp(param)
 
     suspend fun getProfile() = apiService.getProfile()
 

@@ -13,8 +13,14 @@ abstract class NavigationActivity : BaseActivity() {
         val intent = Intent(this, OTPActivity::class.java)
         startActivity(intent)
     }
+
     fun openRegisterActivity() {
         val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun openForgotPasswordActivity() {
+        val intent = Intent(this, ForgotPasswordActivity::class.java)
         startActivity(intent)
     }
 

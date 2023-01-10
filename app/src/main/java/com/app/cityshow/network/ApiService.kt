@@ -17,14 +17,46 @@ interface ApiService {
     @POST("logout")
     suspend fun logout(): Response<BaseModel>
 
+    @POST("register")
+    suspend fun register(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<LoginUserModel>>
+
+    @POST("send-forgot-password-otp")
+    suspend fun sendForgotPassword(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<LoginUserModel>>
+
+    @POST("verify-otp")
+    suspend fun verifyOtp(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<LoginUserModel>>
+
+
     @GET("get_user_details")
     suspend fun getProfile(): Response<ObjectBaseModel<User>>
+
+    @GET("categories/get-list")
+    suspend fun getCategories(@QueryMap param: HashMap<String, Any>): Response<ObjectBaseModel<User>>
+
+    @GET("product/details/{id}")
+    suspend fun getProductDetails(@Path("id") id: String): Response<ObjectBaseModel<User>>
+
+    @DELETE("product/{id}")
+    suspend fun deleteProduct(@Path("id") id: String): Response<ObjectBaseModel<User>>
+
+    @POST("product/update")
+    suspend fun updateProduct(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<LoginUserModel>>
+
+    @POST("product/add-to-favourite")
+    suspend fun productAddToFav(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<LoginUserModel>>
 
     @Multipart
     @POST("user/update_profile")
     suspend fun updateProfile(
         @PartMap params: HashMap<String, RequestBody>?,
-        @Part image: MultipartBody.Part?
+        @Part image: MultipartBody.Part?,
+    ): Response<ObjectBaseModel<User>>
+
+    @Multipart
+    @POST("product/create")
+    suspend fun createProduct(
+        @PartMap params: HashMap<String, RequestBody>?,
+        @Part image: MultipartBody.Part?,
     ): Response<ObjectBaseModel<User>>
 
 

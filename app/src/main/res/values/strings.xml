@@ -16,7 +16,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="please_wait">Please wait…</string>
-    <string name="create_your_placoo_account_to_explore_your_dream_place_to">Create your Placoo account to explore your dream place to live across the whole world!</string>
+    <string name="create_your_placoo_account_to_explore_your_dream_place_to">Create your CityShow account to explore your dream place to live across the whole world!</string>
     <string name="register_account">Register account</string>
     <string name="register">Register</string>
     <string name="full_name">Full name</string>
@@ -74,4 +74,6 @@
     <string name="no">No</string>
     <string name="key_feature">Key Feature</string>
     <string name="enter_key_feature">Enter key feature</string>
+    <string name="something_went_wrong">Something went wrong,please try after some time</string>
+    <string name="enter_your_email_and_you_will_get_new_password_in_your_registred_email_address">Enter your email and you will get new password in your registred email address</string>
 </resources>
