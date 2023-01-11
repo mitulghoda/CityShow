@@ -29,7 +29,6 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:orientation="vertical"
             android:padding="@dimen/_20sdp"
             app:layout_constraintTop_toTopOf="parent">
@@ -39,6 +38,8 @@
                 style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/sf_bold"
                 android:text="@string/register_account"
                 android:textSize="@dimen/_24sdp" />
@@ -49,20 +50,54 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
                 android:gravity="center"
                 android:text="@string/create_your_placoo_account_to_explore_your_dream_place_to" />
+
+            <RelativeLayout
+                android:id="@+id/layPhoto"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_20sdp"
+                android:onClick="@{(v)->clickListener.onClick(v)}">
+
+                <com.app.cityshow.views.CircularImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_user"
+                    app:riv_border_color="@color/colorAccent"
+                    app:riv_border_width="@dimen/_2sdp"
+                    app:riv_oval="true" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgUploadPhoto"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/circle_white"
+                    android:backgroundTint="@color/colorPrimary"
+
+                    android:padding="@dimen/_6sdp"
+                    android:src="@drawable/ic_camera"
+                    app:tint="@color/black" />
+            </RelativeLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tvInputEmail"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_25sdp"
+
                 app:hintEnabled="true"
                 app:startIconDrawable="@drawable/ic_email"
                 app:startIconTint="@color/colorPrimary">
 
-                <com.app.cityshow.views.EditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/edtEmail"
                     style="@style/EditTextStyle"
                     android:layout_width="match_parent"
@@ -82,7 +117,7 @@
                 app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
                 app:startIconTint="@color/colorPrimary">
 
-                <com.app.cityshow.views.EditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/edtFullName"
                     style="@style/EditTextStyle"
                     android:layout_width="match_parent"
@@ -103,7 +138,7 @@
                 app:startIconDrawable="@android:drawable/ic_lock_lock"
                 app:startIconTint="@color/colorPrimary">
 
-                <com.app.cityshow.views.EditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/edtPass"
                     style="@style/EditTextStyle"
                     android:layout_width="match_parent"

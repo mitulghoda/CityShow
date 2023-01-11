@@ -1,7 +1,12 @@
 package com.app.cityshow.ui.activity
 
+import android.app.Activity
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
@@ -12,8 +17,14 @@ import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.Validator
 import com.app.cityshow.utility.getTrimText
 import com.app.cityshow.viewmodel.UserViewModel
+import com.github.dhaval2404.imagepicker.ImagePicker
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 
 class RegisterActivity : NavigationActivity(), View.OnClickListener {
+    private var mProfileUri: Uri? = null
     private lateinit var binding: RegisterBinding
     private lateinit var viewModel: UserViewModel
     override fun initUi() {
@@ -40,6 +51,16 @@ class RegisterActivity : NavigationActivity(), View.OnClickListener {
             }
             binding.ivBack -> {
                 finish()
+            }
+            binding.layPhoto -> {
+                ImagePicker.with(this)
+                    .compress(1024)
+                    .cropSquare()         //Final image size will be less than 1 MB(Optional)
+                    .maxResultSize(1080,
+                        1080)  //Final image resolution will be less than 1080 x 1080(Optional)
+                    .createIntent { intent ->
+                        startForProfileImageResult.launch(intent)
+                    }
             }
 
         }
@@ -88,8 +109,16 @@ class RegisterActivity : NavigationActivity(), View.OnClickListener {
         param["role"] = "shop_keeper"
         param["password"] = binding.edtPass.getTrimText()
         param["password_confirmation"] = binding.edtPass.getTrimText()
-
-        viewModel.register(param).observe(this) {
+        var multipartBody: MultipartBody.Part? = null
+        if (mProfileUri != null) {
+            val file = File(mProfileUri!!.path.toString())
+            multipartBody = MultipartBody.Part.createFormData(
+                "profile_pic",
+                file.name,
+                file.asRequestBody("image/*".toMediaType())
+            )
+        }
+        viewModel.register(param, multipartBody).observe(this) {
             hideProgressDialog()
             it.status.typeCall(
                 success = {
@@ -112,4 +141,22 @@ class RegisterActivity : NavigationActivity(), View.OnClickListener {
 //                toast(fcmToken)
 //            }
     }
+
+    private val startForProfileImageResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            val resultCode = result.resultCode
+            val data = result.data
+
+            if (resultCode == Activity.RESULT_OK) {
+                //Image Uri will not be null for RESULT_OK
+                val fileUri = data?.data!!
+
+                mProfileUri = fileUri
+                binding.imgProfile.setImageURI(fileUri)
+            } else if (resultCode == ImagePicker.RESULT_ERROR) {
+                Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+            }
+        }
 }

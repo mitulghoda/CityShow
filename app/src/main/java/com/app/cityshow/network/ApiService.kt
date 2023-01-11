@@ -18,7 +18,11 @@ interface ApiService {
     suspend fun logout(): Response<BaseModel>
 
     @POST("register")
-    suspend fun register(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<LoginUserModel>>
+    @Multipart
+    suspend fun register(
+        @PartMap params: HashMap<String, Any>?,
+        @Part image: MultipartBody.Part?,
+    ): Response<ObjectBaseModel<LoginUserModel>>
 
     @POST("send-forgot-password-otp")
     suspend fun sendForgotPassword(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<LoginUserModel>>

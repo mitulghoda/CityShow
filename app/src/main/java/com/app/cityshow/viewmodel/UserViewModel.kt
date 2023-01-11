@@ -21,14 +21,15 @@ class UserViewModel : ViewModel() {
         }
     }
 
-    fun register(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
-        try {
-            responseParser(UserRepository.register(param), this)
-        } catch (e: Exception) {
-            e.message?.let { Log.e(it) }
-            emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
+    fun register(param: HashMap<String, Any>, image: MultipartBody.Part?) =
+        liveData(Dispatchers.IO) {
+            try {
+                responseParser(UserRepository.register(param, image), this)
+            } catch (e: Exception) {
+                e.message?.let { Log.e(it) }
+                emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
+            }
         }
-    }
 
     fun sendForgot(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
         try {

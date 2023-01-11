@@ -54,7 +54,7 @@
                     app:startIconDrawable="@drawable/ic_layers"
                     app:startIconTint="@color/colorPrimary">
 
-                    <com.app.cityshow.views.EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edtName"
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
@@ -84,7 +84,7 @@
                     app:startIconDrawable="@drawable/ic_layers"
                     app:startIconTint="@color/colorPrimary">
 
-                    <com.app.cityshow.views.EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edtBrandName"
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
@@ -113,7 +113,7 @@
                     app:startIconDrawable="@drawable/ic_layers"
                     app:startIconTint="@color/colorPrimary">
 
-                    <com.app.cityshow.views.EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edtModel"
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
@@ -154,7 +154,7 @@
                     app:startIconDrawable="@drawable/ic_currency"
                     app:startIconTint="@color/colorPrimary">
 
-                    <com.app.cityshow.views.EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -184,7 +184,7 @@
                     app:startIconDrawable="@drawable/ic_currency"
                     app:startIconTint="@color/colorPrimary">
 
-                    <com.app.cityshow.views.EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edtFullName"
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
@@ -217,12 +217,35 @@
                     app:startIconDrawable="@drawable/ic_category"
                     app:startIconTint="@color/colorPrimary">
 
-                    <com.app.cityshow.views.EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edtLocation"
                         style="@style/EditTextStyleClickable"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/select_category"
+                        android:imeOptions="actionNext"
+                        android:onClick="@{(v)->clickListener.onClick(v)}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tvInputSubCategiry"
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:onClick="@{(v)->clickListener.onClick(v)}"
+                    app:endIconDrawable="@drawable/ic_drop"
+                    app:endIconMode="custom"
+                    app:hintEnabled="true"
+                    app:startIconDrawable="@drawable/ic_category"
+                    app:startIconTint="@color/colorPrimary">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edtSubCategory"
+                        style="@style/EditTextStyleClickable"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/select_sub_category"
                         android:imeOptions="actionNext"
                         android:onClick="@{(v)->clickListener.onClick(v)}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -352,7 +375,7 @@
                     app:startIconDrawable="@drawable/ic_layers"
                     app:startIconTint="@color/colorPrimary">
 
-                    <com.app.cityshow.views.EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edtOs"
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
@@ -379,7 +402,7 @@
                     app:startIconDrawable="@drawable/ic_storage"
                     app:startIconTint="@color/colorPrimary">
 
-                    <com.app.cityshow.views.EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edtRam"
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
@@ -406,7 +429,7 @@
                     app:startIconDrawable="@drawable/ic_storage"
                     app:startIconTint="@color/colorPrimary">
 
-                    <com.app.cityshow.views.EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edtStorage"
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
@@ -433,7 +456,7 @@
                     app:startIconDrawable="@drawable/ic_wifi"
                     app:startIconTint="@color/colorPrimary">
 
-                    <com.app.cityshow.views.EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edtConnect"
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
@@ -460,7 +483,7 @@
                     app:startIconDrawable="@drawable/ic_layers"
                     app:startIconTint="@color/colorPrimary">
 
-                    <com.app.cityshow.views.EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edtColor"
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
@@ -489,7 +512,7 @@
                     app:startIconDrawable="@drawable/ic_layers"
                     app:startIconTint="@color/colorPrimary">
 
-                    <com.app.cityshow.views.EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edtMaterial"
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
@@ -517,7 +540,7 @@
                     app:startIconDrawable="@drawable/ic_weight"
                     app:startIconTint="@color/colorPrimary">
 
-                    <com.app.cityshow.views.EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edtGoldWeight"
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
@@ -628,7 +651,7 @@
                     app:hintEnabled="true"
                     app:startIconTint="@color/colorPrimary">
 
-                    <com.app.cityshow.views.EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edtDesc"
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
