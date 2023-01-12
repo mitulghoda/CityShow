@@ -49,6 +49,15 @@ class UserViewModel : ViewModel() {
         }
     }
 
+    fun changePassword(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
+        try {
+            responseParser(UserRepository.changePassword(param), this)
+        } catch (e: Exception) {
+            e.message?.let { Log.e(it) }
+            emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
+        }
+    }
+
     fun logout() = liveData(Dispatchers.IO) {
         try {
             responseParser(UserRepository.logout(), this)

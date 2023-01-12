@@ -10,8 +10,9 @@ import com.filepickersample.listener.FilePickerCallback
 
 abstract class NavigationActivity : BaseActivity() {
 
-    fun openOTPActivity() {
+    fun openOTPActivity(email: String) {
         val intent = Intent(this, OTPActivity::class.java)
+        intent.putExtra("email", email)
         startActivity(intent)
     }
 
@@ -30,6 +31,12 @@ abstract class NavigationActivity : BaseActivity() {
 
     fun openForgotPasswordActivity() {
         val intent = Intent(this, ForgotPasswordActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun openChangePasswordActivity(email: String) {
+        val intent = Intent(this, ChangePasswordActivity::class.java)
+        intent.putExtra("email", email)
         startActivity(intent)
     }
 

@@ -27,10 +27,13 @@ interface ApiService {
     ): Response<ObjectBaseModel<LoginUserModel>>
 
     @POST("send-forgot-password-otp")
-    suspend fun sendForgotPassword(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<LoginUserModel>>
+    suspend fun sendForgotPassword(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<User>>
 
     @POST("verify-otp")
-    suspend fun verifyOtp(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<LoginUserModel>>
+    suspend fun verifyOtp(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<User>>
+
+    @POST("forgot-password")
+    suspend fun changePassword(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<User>>
 
 
     @GET("get_user_details")

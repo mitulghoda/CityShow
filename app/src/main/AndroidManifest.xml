@@ -57,6 +57,9 @@
             android:name=".ui.activity.ForgotPasswordActivity"
             android:theme="@style/WhiteStatusBar" />
         <activity
+            android:name=".ui.activity.ChangePasswordActivity"
+            android:theme="@style/WhiteStatusBar" />
+        <activity
             android:name=".ui.activity.ShopsActivity"
             android:theme="@style/AppTheme" />
         <activity

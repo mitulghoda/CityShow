@@ -83,4 +83,7 @@
     <string name="notes">Notes</string>
     <string name="shop_images">Shop images</string>
     <string name="banner_image">Banner Image</string>
+    <string name="change_password">Change Password</string>
+    <string name="enter_password">Enter password</string>
+    <string name="enter_confirm_password">Enter confirm password</string>
 </resources>

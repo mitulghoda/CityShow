@@ -14,6 +14,7 @@ object UserRepository {
 
     suspend fun sendForgot(param: HashMap<String, Any>) = apiService.sendForgotPassword(param)
     suspend fun verifyOtp(param: HashMap<String, Any>) = apiService.verifyOtp(param)
+    suspend fun changePassword(param: HashMap<String, Any>) = apiService.changePassword(param)
 
     suspend fun getProfile() = apiService.getProfile()
 

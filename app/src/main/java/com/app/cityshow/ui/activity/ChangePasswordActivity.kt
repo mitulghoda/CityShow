@@ -5,19 +5,21 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
-import com.app.cityshow.databinding.ForgotPasswordBinding
-import com.app.cityshow.databinding.RegisterBinding
+import com.app.cityshow.databinding.ChangePasswordBinding
 import com.app.cityshow.network.typeCall
 import com.app.cityshow.ui.common.NavigationActivity
-import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.Validator
 import com.app.cityshow.utility.getTrimText
 import com.app.cityshow.viewmodel.UserViewModel
 
-class ForgotPasswordActivity : NavigationActivity(), View.OnClickListener {
-    private lateinit var binding: ForgotPasswordBinding
+class ChangePasswordActivity : NavigationActivity(), View.OnClickListener {
+    private lateinit var binding: ChangePasswordBinding
     private lateinit var viewModel: UserViewModel
+
+    var email: String? = ""
     override fun initUi() {
+        email = intent.getStringExtra("email")
+
         binding.clickListener = this
         viewModel = ViewModelProvider(
             this,
@@ -27,7 +29,7 @@ class ForgotPasswordActivity : NavigationActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ForgotPasswordBinding.inflate(layoutInflater)
+        binding = ChangePasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
     }
@@ -37,7 +39,7 @@ class ForgotPasswordActivity : NavigationActivity(), View.OnClickListener {
             binding.btnSubmit -> {
                 hideKeyBoard()
                 if (!isValid()) return
-                forgotPassword()
+                changePassword()
             }
             binding.ivBack -> {
                 finish()
@@ -53,13 +55,17 @@ class ForgotPasswordActivity : NavigationActivity(), View.OnClickListener {
     private fun isValid(): Boolean {
         var isValid = true
 
-        if (Validator.isEmptyFieldValidate(binding.edtEmail.getTrimText())) {
-            Validator.setError(binding.tvInputEmail, "Please enter email")
-            binding.tvInputEmail.requestFocus()
+        if (Validator.isEmptyFieldValidate(binding.edtPassword.getTrimText())) {
+            Validator.setError(binding.tvInputPassword, "Please enter new password")
+            binding.tvInputPassword.requestFocus()
             isValid = false
-        } else if (!Validator.isValidEmail(binding.edtEmail.getTrimText())) {
-            Validator.setError(binding.tvInputEmail, "Please enter valid email")
-            binding.tvInputEmail.requestFocus()
+        } else if (Validator.isEmptyFieldValidate(binding.edtReEnterPassword.getTrimText())) {
+            Validator.setError(binding.tvInputReEnterPassword, "Please enter confirm password")
+            binding.tvInputReEnterPassword.requestFocus()
+            isValid = false
+        } else if (binding.edtReEnterPassword.getTrimText().equals(binding.edtPassword.getTrimText())) {
+            Validator.setError(binding.tvInputReEnterPassword, "Please enter correct confirm password")
+            binding.tvInputReEnterPassword.requestFocus()
             isValid = false
         }
         return isValid
@@ -68,19 +74,21 @@ class ForgotPasswordActivity : NavigationActivity(), View.OnClickListener {
     /**
      * Login api call
      * */
-    private fun forgotPassword() {
+    private fun changePassword() {
         showProgressDialog()
 //        getFcmToken { fcmToken, isSuccess ->
 //            if (isSuccess) {
         val param = HashMap<String, Any>()
-        param["email"] = binding.edtEmail.getTrimText()
-        viewModel.sendForgot(param).observe(this) {
+        param["email"] = email.orEmpty()
+        param["password"] = binding.edtPassword.getTrimText()
+        param["password_confirmation"] = binding.edtReEnterPassword.getTrimText()
+
+        viewModel.changePassword(param).observe(this) {
             hideProgressDialog()
             it.status.typeCall(
                 success = {
                     if (it.data != null && it.data.success) {
-                        openOTPActivity(binding.edtEmail.getTrimText())
-                        finish()
+                        openLoginActivity()
                     } else {
                         showAlertMessage(it.message)
                     }
