@@ -1,19 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.activity.ShopsActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include layout="@layout/layout_toolbar" />
+    <data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvItem"
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/row_shops" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.activity.ShopsActivity">
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+        <include layout="@layout/layout_toolbar" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/row_shops" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="end"
+                android:layout_margin="@dimen/_10sdp"
+                android:contentDescription="@string/add_product"
+                android:onClick="@{(v)->clickListener.onClick(v)}"
+                android:padding="@dimen/_10sdp"
+                android:src="@drawable/ic_plus"
+                android:text="@string/add_product"
+                android:tint="@color/white"
+                app:borderWidth="0dp"
+                app:elevation="6dp"
+                app:fabSize="normal"
+                app:layout_anchorGravity="top|right|end"
+                app:pressedTranslationZ="12dp"
+                app:rippleColor="@color/colorHintGray" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

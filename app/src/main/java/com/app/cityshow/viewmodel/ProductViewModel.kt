@@ -55,12 +55,27 @@ class ProductViewModel : ViewModel() {
             emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
         }
     }
+  fun myShops(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
+        try {
+            responseParser(ProductRepository.myShops(param), this)
+        } catch (e: Exception) {
+            emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
+        }
+    }
 
 
-    fun createProduct(param: HashMap<String, RequestBody>, image: MultipartBody.Part?) =
+    fun createProduct(param: HashMap<String, RequestBody>, images: ArrayList<MultipartBody.Part?>) =
         liveData(Dispatchers.IO) {
             try {
-                responseParser(ProductRepository.createProduct(param = param, image = image), this)
+                responseParser(ProductRepository.createProduct(param = param, images = images), this)
+            } catch (e: Exception) {
+                emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
+            }
+        }
+    fun addEditShop(param: HashMap<String, RequestBody>, banner: MultipartBody.Part?, images: ArrayList<MultipartBody.Part?>) =
+        liveData(Dispatchers.IO) {
+            try {
+                responseParser(ProductRepository.addEditShop(param = param, banner = banner, images = images), this)
             } catch (e: Exception) {
                 emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
             }

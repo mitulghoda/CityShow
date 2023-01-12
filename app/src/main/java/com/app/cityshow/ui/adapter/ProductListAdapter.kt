@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cityshow.databinding.RowProductBinding
-import com.app.cityshow.model.CategoryModel
+import com.app.cityshow.model.category.CategoryModel
 
 class ProductListAdapter(
     var mArrayList: ArrayList<CategoryModel>,

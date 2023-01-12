@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ForgotPasswordBinding
-import com.app.cityshow.databinding.RegisterBinding
 import com.app.cityshow.network.typeCall
 import com.app.cityshow.ui.common.NavigationActivity
-import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.Validator
 import com.app.cityshow.utility.getTrimText
 import com.app.cityshow.viewmodel.UserViewModel
@@ -37,7 +35,7 @@ class ForgotPasswordActivity : NavigationActivity(), View.OnClickListener {
             binding.btnSubmit -> {
                 hideKeyBoard()
                 if (!isValid()) return
-                register()
+                forgotPassword()
             }
             binding.ivBack -> {
                 finish()
@@ -68,10 +66,8 @@ class ForgotPasswordActivity : NavigationActivity(), View.OnClickListener {
     /**
      * Login api call
      * */
-    private fun register() {
+    private fun forgotPassword() {
         showProgressDialog()
-//        getFcmToken { fcmToken, isSuccess ->
-//            if (isSuccess) {
         val param = HashMap<String, Any>()
         param["email"] = binding.edtEmail.getTrimText()
         viewModel.sendForgot(param).observe(this) {

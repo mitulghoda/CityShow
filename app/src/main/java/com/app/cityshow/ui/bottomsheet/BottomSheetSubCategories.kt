@@ -8,15 +8,18 @@ import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.FragmentActivity
 import com.app.cityshow.R
 import com.app.cityshow.databinding.BottomSheetRecyclerviewBinding
+import com.app.cityshow.model.category.Category
+import com.app.cityshow.model.category.SubCategory
 import com.app.cityshow.ui.adapter.BottomSheetCommonAdapter
+import com.app.cityshow.ui.adapter.BottomSheetSubCategoryAdapter
 import com.app.cityshow.utility.decorator.DividerItemDecorator
 import java.util.ArrayList
 
-class BottomSheetCommonPopup : BaseHeaderBottomSheet() {
+class BottomSheetSubCategories : BaseHeaderBottomSheet() {
     private lateinit var binding: BottomSheetRecyclerviewBinding
     private var clickListener: BottomSheetItemClickListener? = null
-    private var adapter: BottomSheetCommonAdapter? = null
-    private var mArrayList = ArrayList<String>()
+    private var adapter: BottomSheetSubCategoryAdapter? = null
+    private var mArrayList = ArrayList<Category>()
     private var title = ""
 
     override fun onCreateView(
@@ -41,7 +44,7 @@ class BottomSheetCommonPopup : BaseHeaderBottomSheet() {
         binding.recyclerView.addItemDecoration(
             DividerItemDecorator(getDrawable(requireContext(), R.drawable.divider_decorator_gray))
         )
-        adapter = BottomSheetCommonAdapter(mArrayList) {
+        adapter = BottomSheetSubCategoryAdapter(mArrayList) {
             clickListener?.onItemClick(it)
             dismiss()
         }
@@ -49,16 +52,16 @@ class BottomSheetCommonPopup : BaseHeaderBottomSheet() {
     }
 
     override fun show(activity: FragmentActivity): BaseBottomSheet? {
-        return super.show(activity, BottomSheetCommonPopup::class.java.simpleName)
+        return super.show(activity, BottomSheetSubCategories::class.java.simpleName)
     }
 
     companion object {
         fun newInstance(
             title: String,
-            mArrayList: ArrayList<String>,
+            mArrayList: ArrayList<Category>,
             itemClickListenerListener: BottomSheetItemClickListener,
-        ): BottomSheetCommonPopup {
-            val fragment = BottomSheetCommonPopup()
+        ): BottomSheetSubCategories {
+            val fragment = BottomSheetSubCategories()
             fragment.title = title
             fragment.mArrayList = mArrayList
             fragment.clickListener = itemClickListenerListener
@@ -67,6 +70,6 @@ class BottomSheetCommonPopup : BaseHeaderBottomSheet() {
     }
 
     interface BottomSheetItemClickListener {
-        fun onItemClick(data: String)
+        fun onItemClick(data: SubCategory)
     }
 }

@@ -7,6 +7,7 @@ import com.app.cityshow.Controller
 import com.app.cityshow.network.NetworkURL.ACTION_FOR_BIDDEN_RESPONSE
 import com.app.cityshow.network.NetworkURL.ACTION_FOR_BLOCKED
 import com.app.cityshow.network.NetworkURL.ACTION_FOR_INACTIVE_USER
+import com.app.cityshow.network.NetworkURL.BEARER
 import com.app.cityshow.network.NetworkURL.HEADER_AUTHORIZATION
 import com.app.cityshow.network.NetworkURL.RES_BLOCKED
 import com.app.cityshow.network.NetworkURL.RES_UNAUTHORISED
@@ -14,6 +15,7 @@ import com.app.cityshow.network.NetworkURL.RES_USER_INACTIVE
 import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.Log
 import okhttp3.ConnectionSpec
+import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -39,23 +41,25 @@ internal object RetroClient {
 
     private val headerInterceptor = Interceptor { chain ->
         val request = chain.request().newBuilder()
-        request.addHeader("accept", "application/json")
+//        request.addHeader("accept", "application/json")
         if (LocalDataHelper.login) {
             Log.e("$HEADER_AUTHORIZATION: ${LocalDataHelper.authToken}")
-            request.addHeader(HEADER_AUTHORIZATION, LocalDataHelper.authToken.orEmpty())
+            request.addHeader(HEADER_AUTHORIZATION, "Bearer " + LocalDataHelper.authToken.orEmpty())
         }
         chain.proceed(request.build())
     }
+/*
 
-//    private val apiTokenInterceptor = Interceptor { chain ->
-//        var request = chain.request()
-//        if (AppHelper.isLogin()) {
-//            val url: HttpUrl = request.url.newBuilder()
-//                .addQueryParameter(QUERY_AUTHORIZATION, AppHelper.getApiToken()).build()
-//            request = request.newBuilder().url(url).build()
-//        }
-//        chain.proceed(request)
-//    }
+    private val apiTokenInterceptor = Interceptor { chain ->
+        var request = chain.request()
+        if (LocalDataHelper.login) {
+            val url: HttpUrl = request.url.newBuilder()
+                .addQueryParameter(QUERY_AUTHORIZATION, AppHelper.getApiToken()).build()
+            request = request.newBuilder().url(url).build()
+        }
+        chain.proceed(request)
+    }
+*/
 
     private val forbiddenInterceptor = Interceptor { chain ->
         val request = chain.request()

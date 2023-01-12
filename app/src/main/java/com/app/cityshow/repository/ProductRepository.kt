@@ -13,7 +13,18 @@ object ProductRepository {
     suspend fun productAddToFav(param: HashMap<String, Any>) = apiService.productAddToFav(param)
 
     suspend fun getCategories(param: HashMap<String, Any>) = apiService.getCategories(param)
+    suspend fun myShops(param: HashMap<String, Any>) = apiService.myShops(param)
 
-    suspend fun createProduct(param: HashMap<String, RequestBody>, image: MultipartBody.Part?) =
-        apiService.createProduct(param, image)
+    suspend fun createProduct(
+        param: HashMap<String, RequestBody>,
+        images: ArrayList<MultipartBody.Part?>,
+    ) =
+        apiService.createProduct(param,  images)
+
+    suspend fun addEditShop(
+        param: HashMap<String, RequestBody>,
+        banner: MultipartBody.Part?,
+        images: ArrayList<MultipartBody.Part?>,
+    ) =
+        apiService.addEditShop(param, banner, images)
 }

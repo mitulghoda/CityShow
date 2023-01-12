@@ -4,34 +4,41 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cityshow.databinding.RowShopsBinding
-import com.app.cityshow.model.CategoryModel
+import com.app.cityshow.model.shops.Shop
 
 class ShopsAdapter(
-    var mArrayList: ArrayList<CategoryModel>,
-    var onClickItem: (device: CategoryModel) -> Unit,
-) : RecyclerView.Adapter<ShopsAdapter.Companion.CategoryHolder?>() {
+    var mArrayList: ArrayList<Shop>,
+    var onClickItem: (device: Shop) -> Unit,
+) : RecyclerView.Adapter<ShopsAdapter.Companion.ShopHolder?>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopHolder {
         val binding =
             RowShopsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CategoryHolder(binding, this)
+        return ShopHolder(binding, this)
     }
 
-    override fun onBindViewHolder(holder: CategoryHolder, position: Int) {
-//        holder.bind(mArrayList[position])
+    override fun onBindViewHolder(holder: ShopHolder, position: Int) {
+        holder.bind(mArrayList[position])
     }
 
     override fun getItemCount(): Int {
-        return 40
+        return mArrayList.size
+    }
+
+    fun setData(shops: List<Shop>) {
+        this.mArrayList.clear()
+        mArrayList = shops as ArrayList<Shop>
+        notifyDataSetChanged()
+
     }
 
     companion object {
-        class CategoryHolder(
+        class ShopHolder(
             var binding: RowShopsBinding,
             var adapter: ShopsAdapter,
         ) : RecyclerView.ViewHolder(binding.root) {
-            fun bind(reader: CategoryModel) {
-
+            fun bind(shop: Shop) {
+                binding.data = shop
             }
         }
     }

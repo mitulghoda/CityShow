@@ -6,7 +6,7 @@
 
         <variable
             name="data"
-            type="com.app.cityshow.model.CategoryModel" />
+            type="com.app.cityshow.model.category.CategoryModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -4,6 +4,8 @@ import com.app.cityshow.model.BaseModel
 import com.app.cityshow.model.LoginUserModel
 import com.app.cityshow.model.ObjectBaseModel
 import com.app.cityshow.model.User
+import com.app.cityshow.model.category.CategoryModel
+import com.app.cityshow.model.shops.ShopsModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -35,7 +37,7 @@ interface ApiService {
     suspend fun getProfile(): Response<ObjectBaseModel<User>>
 
     @GET("categories/get-list")
-    suspend fun getCategories(@QueryMap param: HashMap<String, Any>): Response<ObjectBaseModel<User>>
+    suspend fun getCategories(@QueryMap param: HashMap<String, Any>): Response<ObjectBaseModel<CategoryModel>>
 
     @GET("product/details/{id}")
     suspend fun getProductDetails(@Path("id") id: String): Response<ObjectBaseModel<User>>
@@ -49,6 +51,9 @@ interface ApiService {
     @POST("product/add-to-favourite")
     suspend fun productAddToFav(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<LoginUserModel>>
 
+    @POST("shops")
+    suspend fun myShops(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<ShopsModel>>
+
     @Multipart
     @POST("user/update_profile")
     suspend fun updateProfile(
@@ -60,7 +65,15 @@ interface ApiService {
     @POST("product/create")
     suspend fun createProduct(
         @PartMap params: HashMap<String, RequestBody>?,
-        @Part image: MultipartBody.Part?,
+        @Part images: ArrayList<MultipartBody.Part?>,
+    ): Response<ObjectBaseModel<User>>
+
+    @Multipart
+    @POST("shop-add")
+    suspend fun addEditShop(
+        @PartMap params: HashMap<String, RequestBody>?,
+        @Part banner: MultipartBody.Part?,
+        @Part images: ArrayList<MultipartBody.Part?>,
     ): Response<ObjectBaseModel<User>>
 
 

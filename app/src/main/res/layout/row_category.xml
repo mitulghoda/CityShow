@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.app.cityshow.model.CategoryModel" />
+            type="com.app.cityshow.model.category.Category" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:gravity="start"
-                    android:text="Jwellery"
+                    android:text="@{data.name}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_24sdp" />
 

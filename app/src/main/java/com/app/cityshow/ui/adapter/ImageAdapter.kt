@@ -24,6 +24,12 @@ class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
         holder.bind(arrayList[position])
     }
 
+    fun setData(mediaList: java.util.ArrayList<Media>) {
+        this.arrayList.clear()
+        arrayList = mediaList
+        notifyDataSetChanged()
+    }
+
     class ViewHolder(val binding: ItemAddImageBinding, private val adapter: ImageAdapter) :
         RecyclerView.ViewHolder(binding.root) {
 

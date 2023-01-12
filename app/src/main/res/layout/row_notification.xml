@@ -2,12 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
 
-        <variable
-            name="data"
-            type="com.app.cityshow.model.CategoryModel" />
-    </data>
 
     <androidx.cardview.widget.CardView
         style="?attr/materialCardViewElevatedStyle"

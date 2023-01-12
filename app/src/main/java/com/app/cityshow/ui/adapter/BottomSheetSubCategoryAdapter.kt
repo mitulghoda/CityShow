@@ -3,18 +3,19 @@ package com.app.cityshow.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.app.cityshow.databinding.RowTextviewBinding
+import com.app.cityshow.databinding.RowSubCategoryBinding
 import com.app.cityshow.model.category.Category
+import com.app.cityshow.model.category.SubCategory
 
-class BottomSheetCommonAdapter(
+class BottomSheetSubCategoryAdapter(
     private var mArrayList: ArrayList<Category>,
-    private val onItemClickCallback: (data: Category) -> Unit,
+    private val onItemClickCallback: (data: SubCategory) -> Unit,
 ) :
-    RecyclerView.Adapter<BottomSheetCommonAdapter.Companion.DataViewHolder?>() {
+    RecyclerView.Adapter<BottomSheetSubCategoryAdapter.Companion.DataViewHolder?>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
         val binding =
-            RowTextviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            RowSubCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return DataViewHolder(binding, this)
     }
 
@@ -28,12 +29,15 @@ class BottomSheetCommonAdapter(
 
     companion object {
         class DataViewHolder(
-            var binding: RowTextviewBinding,
-            var adapter: BottomSheetCommonAdapter,
+            var binding: RowSubCategoryBinding,
+            var adapter: BottomSheetSubCategoryAdapter,
         ) : RecyclerView.ViewHolder(binding.root) {
             fun bind(data: Category) {
                 binding.txtEpc.text = data.name
-                binding.linRoot.setOnClickListener { adapter.onItemClickCallback.invoke(data) }
+                binding.recyclerView.adapter =
+                    BottomSheetSubCategoryChildAdapter(data.sub_category) {
+                        adapter.onItemClickCallback.invoke(it)
+                    }
             }
         }
     }

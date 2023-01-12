@@ -18,13 +18,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CityShow"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".AddShopActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".ui.activity.SplashActivity"
             android:exported="true"
             android:theme="@style/AppTheme.White">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -43,6 +50,9 @@
         <activity
             android:name=".ui.activity.RegisterActivity"
             android:theme="@style/WhiteStatusBar" />
+        <activity
+            android:name=".ui.activity.AddShopActivity"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.ForgotPasswordActivity"
             android:theme="@style/WhiteStatusBar" />
