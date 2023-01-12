@@ -78,4 +78,7 @@
     <string name="something_went_wrong">Something went wrong,please try after some time</string>
     <string name="enter_your_email_and_you_will_get_new_password_in_your_registred_email_address">Enter your email and you will get new password in your registred email address</string>
     <string name="tag_line">चलो, कुछ देखते हैं</string>
+    <string name="change_password">Change Password</string>
+    <string name="enter_password">Enter password</string>
+    <string name="enter_confirm_password">Enter confirm password</string>
 </resources>

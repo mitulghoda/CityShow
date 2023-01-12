@@ -5,17 +5,17 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
-import com.app.cityshow.databinding.OtpViewBinding
+import com.app.cityshow.databinding.ChangePasswordBinding
 import com.app.cityshow.network.typeCall
 import com.app.cityshow.ui.common.NavigationActivity
 import com.app.cityshow.utility.Validator
-import com.app.cityshow.utility.getString
 import com.app.cityshow.utility.getTrimText
 import com.app.cityshow.viewmodel.UserViewModel
 
-class OTPActivity : NavigationActivity(), View.OnClickListener {
-    private lateinit var binding: OtpViewBinding
+class ChangePasswordActivity : NavigationActivity(), View.OnClickListener {
+    private lateinit var binding: ChangePasswordBinding
     private lateinit var viewModel: UserViewModel
+
     var email: String? = ""
     override fun initUi() {
         email = intent.getStringExtra("email")
@@ -29,32 +29,43 @@ class OTPActivity : NavigationActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = OtpViewBinding.inflate(layoutInflater)
+        binding = ChangePasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
     }
 
     override fun onClick(p0: View?) {
-
         when (p0) {
-            binding.btnVerify -> {
+            binding.btnSubmit -> {
                 hideKeyBoard()
                 if (!isValid()) return
-                verifyOTP()
+                changePassword()
             }
             binding.ivBack -> {
                 finish()
             }
+
         }
+
     }
+
     /**
      * check validation
      * */
     private fun isValid(): Boolean {
         var isValid = true
 
-        if (Validator.isEmptyFieldValidate(binding.edtEmail.getTrimText())) {
-            Validator.setError(binding.tvInputEmail, "Please enter OTP")
-            binding.tvInputEmail.requestFocus()
+        if (Validator.isEmptyFieldValidate(binding.edtPassword.getTrimText())) {
+            Validator.setError(binding.tvInputPassword, "Please enter new password")
+            binding.tvInputPassword.requestFocus()
+            isValid = false
+        } else if (Validator.isEmptyFieldValidate(binding.edtReEnterPassword.getTrimText())) {
+            Validator.setError(binding.tvInputReEnterPassword, "Please enter confirm password")
+            binding.tvInputReEnterPassword.requestFocus()
+            isValid = false
+        } else if (binding.edtReEnterPassword.getTrimText().equals(binding.edtPassword.getTrimText())) {
+            Validator.setError(binding.tvInputReEnterPassword, "Please enter correct confirm password")
+            binding.tvInputReEnterPassword.requestFocus()
             isValid = false
         }
         return isValid
@@ -63,22 +74,23 @@ class OTPActivity : NavigationActivity(), View.OnClickListener {
     /**
      * Login api call
      * */
-    private fun verifyOTP() {
+    private fun changePassword() {
         showProgressDialog()
 //        getFcmToken { fcmToken, isSuccess ->
 //            if (isSuccess) {
         val param = HashMap<String, Any>()
         param["email"] = email.orEmpty()
-        param["otp"] = binding.edtEmail.getTrimText()
-        viewModel.verifyOtp(param).observe(this) {
+        param["password"] = binding.edtPassword.getTrimText()
+        param["password_confirmation"] = binding.edtReEnterPassword.getTrimText()
+
+        viewModel.changePassword(param).observe(this) {
             hideProgressDialog()
             it.status.typeCall(
                 success = {
                     if (it.data != null && it.data.success) {
-                        openChangePasswordActivity(binding.edtEmail.getTrimText())
-                        finish()
+                        openLoginActivity()
                     } else {
-                        showAlertMessage(it.data?.message)
+                        showAlertMessage(it.message)
                     }
                 },
                 error = {
