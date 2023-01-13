@@ -90,12 +90,12 @@ class AddShopActivity : NavigationActivity(), View.OnClickListener {
                 openImageFilePicker(object : FilePickerCallback {
                     override fun onSuccess(media: Media?) {
                         if (media == null) return
-                        mAssetImages.add(0, media)
+                        mAssetImages.add(media)
                     }
 
                     override fun onSuccess(mediaList: ArrayList<Media>?) {
                         if (mediaList.isNullOrEmpty()) return
-                        mAssetImages.addAll(0, mediaList)
+                        mAssetImages = mediaList
                         assetImageAdapter.setData(mediaList)
                     }
 
@@ -211,5 +211,6 @@ class AddShopActivity : NavigationActivity(), View.OnClickListener {
 
     private fun onAssetImageDelete(media: Media, position: Int) {
         mAssetImages.removeAt(position)
+        assetImageAdapter.notifyItemRemoved(position)
     }
 }
