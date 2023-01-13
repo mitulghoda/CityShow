@@ -8,10 +8,12 @@ import com.app.cityshow.R
 import com.app.cityshow.databinding.AddProductBinding
 import com.app.cityshow.model.category.Category
 import com.app.cityshow.model.category.SubCategory
+import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.network.typeCall
 import com.app.cityshow.ui.adapter.EditTextAdapter
 import com.app.cityshow.ui.adapter.ImageAdapter
 import com.app.cityshow.ui.bottomsheet.BottomSheetCategories
+import com.app.cityshow.ui.bottomsheet.BottomSheetShops
 import com.app.cityshow.ui.bottomsheet.BottomSheetSubCategories
 import com.bumptech.glide.Glide
 import com.filepickersample.listener.FilePickerCallback
@@ -31,6 +33,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 class AddProductActivity : ActionBarActivity(), View.OnClickListener {
+    private var strShopId: String? = null
     private var strCategoryId: String? = null
     private var strSubCategory: String? = null
     private lateinit var mBinding: AddProductBinding
@@ -39,6 +42,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     var assetImageAdapter = ImageAdapter()
     var editTextAdapter = EditTextAdapter()
     private var mArrayList: ArrayList<Category>? = null
+    private var shopList: ArrayList<Shop>? = null
     private lateinit var viewModel: ProductViewModel
 
     override fun initUi() {
@@ -54,8 +58,32 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         mBinding.rvPhoto.adapter = assetImageAdapter
         mBinding.rvKeyFeature.adapter = editTextAdapter
         callGetCategoryApi()
+        callGetMyShop()
 
     }
+
+    private fun callGetMyShop() {
+        showProgressDialog()
+        val param = HashMap<String, Any>()
+        param["pagination"] = "false"
+        viewModel.myShops(param).observe(this) {
+            hideProgressDialog()
+            it.status.typeCall(
+                success = {
+                    if (it.data != null && it.data.success) {
+                        Log.e("CATEGORIES", Gson().toJson(it.data.data))
+                        shopList = it.data.data.shops as ArrayList<Shop>
+                    } else {
+                        showAlertMessage(it.message)
+                    }
+                },
+                error = {
+                    showAlertMessage(it.message)
+                }
+            )
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +96,18 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         super.onClick(v)
         when (v) {
+            mBinding.edtShops -> {
+                BottomSheetShops.newInstance(
+                    getString(R.string.select_shop),
+                    shopList!!,
+                    object :
+                        BottomSheetShops.BottomSheetItemClickListener {
+                        override fun onItemClick(data: Shop) {
+                            mBinding.edtShops.setText(data.shop_name)
+                            strShopId = data.id
+                        }
+                    }).show(this)
+            }
             mBinding.edtCategory -> {
                 BottomSheetCategories.newInstance(
                     getString(R.string.select_category),
@@ -94,19 +134,21 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                     }).show(this)
             }
             mBinding.btnSubmit -> {
-                openHomeActivity()
+                addEditProduct()
             }
             mBinding.cardAddImage -> {
                 openImageFilePicker(object : FilePickerCallback {
                     override fun onSuccess(media: Media?) {
                         if (media == null) return
                         mAssetImages.add(0, media)
+                        assetImageAdapter.setData(mAssetImages)
                         editTextAdapter.notifyDataSetChanged()
                     }
 
                     override fun onSuccess(mediaList: ArrayList<Media>?) {
                         if (mediaList.isNullOrEmpty()) return
-                        mAssetImages.addAll(0, mediaList)
+                        mAssetImages = mediaList
+                        assetImageAdapter.setData(mediaList)
                         editTextAdapter.notifyDataSetChanged()
                     }
 
@@ -148,7 +190,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
 //            }
     }
 
-    private fun addEditShop() {
+    private fun addEditProduct() {
         showProgressDialog()
 //        getFcmToken { fcmToken, isSuccess ->
 //            if (isSuccess) {
@@ -163,7 +205,6 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         param["product_selling_price"] = mBinding.edtSellingPrice.getTrimText().requestBody()
         param["gender"] = mBinding.edtName.getTrimText().requestBody()
         param["size[]"] = mBinding.edtName.getTrimText().requestBody()
-        param["size[]"] = mBinding.edtName.getTrimText().requestBody()
         param["color"] = mBinding.edtColor.getTrimText().requestBody()
         param["material"] = mBinding.edtMaterial.getTrimText().requestBody()
         param["weight"] = mBinding.edtGoldWeight.getTrimText().requestBody()
@@ -174,7 +215,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         param["connectivity"] = mBinding.edtConnect.getTrimText().requestBody()
         param["key_feature[]"] = mBinding.edtName.getTrimText().requestBody()
         param["description"] = mBinding.edtDesc.getTrimText().requestBody()
-        param["shop_id[0]"] = mBinding.edtName.getTrimText().requestBody()
+        param["shop_id[0]"] = strShopId!!.requestBody()
 
         val images = ArrayList<MultipartBody.Part?>()
         mAssetImages.forEach { media ->
@@ -216,6 +257,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
 
     private fun onAssetImageDelete(media: Media, position: Int) {
         mAssetImages.removeAt(position)
+        assetImageAdapter.notifyItemRemoved(position)
         editTextAdapter.notifyItemRemoved(position)
     }
 

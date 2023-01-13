@@ -39,10 +39,10 @@ class ShopsActivity : ActionBarActivity(), View.OnClickListener {
             this,
             ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]
-        callGetCategoryApi()
+        callGetMyShop()
     }
 
-    private fun callGetCategoryApi() {
+    private fun callGetMyShop() {
         showProgressDialog()
         val param = HashMap<String, Any>()
         param["pagination"] = "false"

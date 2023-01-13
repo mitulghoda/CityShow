@@ -86,4 +86,5 @@
     <string name="change_password">Change Password</string>
     <string name="enter_password">Enter password</string>
     <string name="enter_confirm_password">Enter confirm password</string>
+    <string name="select_shop">Select Shop</string>
 </resources>
