@@ -1,7 +1,7 @@
 package com.app.cityshow.network
 
 import com.app.cityshow.model.*
-import com.app.cityshow.model.categoryMode.CategoryModel
+import com.app.cityshow.model.category.CategoryModel
 import com.app.cityshow.model.product.Product
 import com.app.cityshow.model.product.ProductMainModel
 import com.app.cityshow.model.shops.ShopsModel

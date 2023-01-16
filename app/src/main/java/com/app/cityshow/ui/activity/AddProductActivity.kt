@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.AddProductBinding
-import com.app.cityshow.model.categoryMode.Category
-import com.app.cityshow.model.categoryMode.SubCategory
+import com.app.cityshow.model.category.Category
+import com.app.cityshow.model.category.SubCategory
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.ui.adapter.EditTextAdapter
 import com.app.cityshow.ui.adapter.ImageAdapter

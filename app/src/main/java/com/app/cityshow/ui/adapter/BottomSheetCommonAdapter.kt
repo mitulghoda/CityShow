@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cityshow.databinding.RowTextviewBinding
-import com.app.cityshow.model.categoryMode.Category
+import com.app.cityshow.model.category.Category
 
 class BottomSheetCommonAdapter(
     private var mArrayList: ArrayList<Category>,

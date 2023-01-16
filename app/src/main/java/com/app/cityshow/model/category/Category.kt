@@ -1,4 +1,4 @@
-package com.app.cityshow.model.categoryMode
+package com.app.cityshow.model.category
 
 import com.app.cityshow.model.shops.Shop
 

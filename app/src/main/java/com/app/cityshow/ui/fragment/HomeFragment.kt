@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.databinding.HomeFragmentBinding
-import com.app.cityshow.model.categoryMode.CategoryModel
+import com.app.cityshow.model.category.CategoryModel
 import com.app.cityshow.model.product.Product
 import com.app.cityshow.ui.activity.HomeActivity
 import com.app.cityshow.ui.adapter.CategoryListAdapter

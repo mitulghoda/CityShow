@@ -100,7 +100,8 @@
                     android:layout_gravity="start"
                     android:layout_margin="@dimen/_5sdp"
                     android:gravity="start"
-                    android:text="150+ products" />
+                    android:text="@{data.totalProduct}"
+                    tools:text="150+ products" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

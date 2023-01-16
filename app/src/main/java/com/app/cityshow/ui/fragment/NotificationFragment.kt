@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.app.cityshow.databinding.NotificationsListBinding
-import com.app.cityshow.model.categoryMode.CategoryModel
+import com.app.cityshow.model.category.CategoryModel
 import com.app.cityshow.ui.adapter.NotificationAdapter
 import com.app.cityshow.ui.common.BaseFragment
 

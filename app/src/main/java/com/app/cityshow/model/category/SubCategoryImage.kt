@@ -1,4 +1,4 @@
-package com.app.cityshow.model.categoryMode
+package com.app.cityshow.model.category
 
 data class SubCategoryImage(
     val category_id: String,

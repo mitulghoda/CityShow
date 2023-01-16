@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.FragmentActivity
 import com.app.cityshow.R
 import com.app.cityshow.databinding.BottomSheetRecyclerviewBinding
-import com.app.cityshow.model.categoryMode.Category
+import com.app.cityshow.model.category.Category
 import com.app.cityshow.ui.adapter.BottomSheetCommonAdapter
 import com.app.cityshow.utility.decorator.DividerItemDecorator
 import java.util.ArrayList
