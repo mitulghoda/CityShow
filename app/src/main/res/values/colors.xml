@@ -64,4 +64,5 @@
     <color name="dark_orange">#FF9800</color>
 
     <color name="icon_background">#4A4949</color>
+    <color name="list_back">#373D3D3D</color>
 </resources>

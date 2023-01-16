@@ -17,10 +17,10 @@
         <androidx.cardview.widget.CardView
             style="?attr/materialCardViewElevatedStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="@dimen/_5sdp"
             app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
             app:cardElevation="@dimen/_5sdp"
             app:cardMaxElevation="@dimen/_5sdp"
             app:cardPreventCornerOverlap="true"

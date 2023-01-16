@@ -704,7 +704,7 @@
                         android:gravity="top|start"
                         android:hint="@string/enter_description"
                         android:imeOptions="actionNext"
-                        android:inputType="textCapWords"
+                        android:inputType="textCapWords|textMultiLine"
                         android:minHeight="@dimen/_100sdp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
