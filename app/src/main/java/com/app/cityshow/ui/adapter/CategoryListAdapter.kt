@@ -4,8 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cityshow.databinding.RowCategoryBinding
-import com.app.cityshow.model.category.Category
-import com.app.cityshow.model.category.CategoryModel
+import com.app.cityshow.model.categoryMode.Category
 import com.app.cityshow.utility.loadImage
 
 class CategoryListAdapter(

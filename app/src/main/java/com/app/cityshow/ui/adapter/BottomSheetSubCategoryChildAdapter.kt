@@ -3,10 +3,8 @@ package com.app.cityshow.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.app.cityshow.databinding.RowSubCategoryBinding
 import com.app.cityshow.databinding.RowSubCategoryChildBinding
-import com.app.cityshow.model.category.Category
-import com.app.cityshow.model.category.SubCategory
+import com.app.cityshow.model.categoryMode.SubCategory
 
 class BottomSheetSubCategoryChildAdapter(
     private var mArrayList: List<SubCategory>,
