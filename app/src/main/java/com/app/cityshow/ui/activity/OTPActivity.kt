@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.OtpViewBinding
-import com.app.cityshow.network.typeCall
 import com.app.cityshow.ui.common.NavigationActivity
 import com.app.cityshow.utility.Validator
 import com.app.cityshow.utility.getString
 import com.app.cityshow.utility.getTrimText
+import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.UserViewModel
 
 class OTPActivity : NavigationActivity(), View.OnClickListener {
@@ -84,7 +84,7 @@ class OTPActivity : NavigationActivity(), View.OnClickListener {
                 error = {
                     showAlertMessage(getString(R.string.something_went_wrong))
                 }
-            )
+            , loading = {})
         }
 //            } else {
 //                hideProgressDialog()

@@ -76,6 +76,7 @@
                     app:drawableTint="@color/red" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etBrandName"
                     style="@style/TextInputLayoutStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -299,6 +300,7 @@
                         android:text="@string/gender" />
 
                     <RadioGroup
+                        android:id="@+id/rgGender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -342,11 +344,14 @@
                         android:padding="@dimen/_5sdp">
 
                         <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/rbMale"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="true"
                             android:text="@string/yes" />
 
                         <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/rbFemale"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/no" />
@@ -373,14 +378,16 @@
                         android:padding="@dimen/_5sdp">
 
                         <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/cbXXL"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="XXL" />
+                            android:text="@string/xxl" />
 
                         <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/cbxl"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="XL" />
+                            android:text="@string/xl" />
 
                         <androidx.appcompat.widget.AppCompatCheckBox
                             android:layout_width="wrap_content"
@@ -388,6 +395,7 @@
                             android:text="L" />
 
                         <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/cbS"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="S" />
@@ -588,6 +596,7 @@
 
 
                 <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/cbWarranty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_5sdp"

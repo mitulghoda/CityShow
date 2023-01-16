@@ -1,10 +1,9 @@
 package com.app.cityshow.network
 
-import com.app.cityshow.model.BaseModel
-import com.app.cityshow.model.LoginUserModel
-import com.app.cityshow.model.ObjectBaseModel
-import com.app.cityshow.model.User
+import com.app.cityshow.model.*
 import com.app.cityshow.model.category.CategoryModel
+import com.app.cityshow.model.product.Product
+import com.app.cityshow.model.product.ProductMainModel
 import com.app.cityshow.model.shops.ShopsModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -22,7 +21,7 @@ interface ApiService {
     @POST("register")
     @Multipart
     suspend fun register(
-        @PartMap params: HashMap<String, Any>?,
+        @PartMap params: HashMap<String, RequestBody>?,
         @Part image: MultipartBody.Part?,
     ): Response<ObjectBaseModel<LoginUserModel>>
 
@@ -43,7 +42,7 @@ interface ApiService {
     suspend fun getCategories(@QueryMap param: HashMap<String, Any>): Response<ObjectBaseModel<CategoryModel>>
 
     @GET("product/details/{id}")
-    suspend fun getProductDetails(@Path("id") id: String): Response<ObjectBaseModel<User>>
+    suspend fun getProductDetails(@Path("id") id: String): Response<ObjectBaseModel<Product>>
 
     @DELETE("product/{id}")
     suspend fun deleteProduct(@Path("id") id: String): Response<ObjectBaseModel<User>>
@@ -53,6 +52,9 @@ interface ApiService {
 
     @POST("product/add-to-favourite")
     suspend fun productAddToFav(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<LoginUserModel>>
+
+    @POST("product/list")
+    suspend fun listOfProduct(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<ProductMainModel>>
 
     @POST("shops")
     suspend fun myShops(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<ShopsModel>>
@@ -69,7 +71,7 @@ interface ApiService {
     suspend fun createProduct(
         @PartMap params: HashMap<String, RequestBody>?,
         @Part images: ArrayList<MultipartBody.Part?>,
-    ): Response<ObjectBaseModel<User>>
+    ): Response<ObjectBaseModel<Product>>
 
     @Multipart
     @POST("shop-add")

@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="productData"
+            type="com.app.cityshow.model.product.Product" />
+
+        <variable
             name="clickListener"
             type="android.view.View.OnClickListener" />
     </data>
@@ -50,8 +54,9 @@
                     android:fontFamily="@font/sf_bold"
                     android:gravity="center"
                     android:paddingHorizontal="@dimen/_10sdp"
-                    android:text="Galaxy Mobile"
-                    android:textSize="@dimen/_20sdp" />
+                    android:text="@{productData.name}"
+                    android:textSize="@dimen/_20sdp"
+                    tools:text="Galaxy Mobile" />
 
                 <com.app.cityshow.views.TextView
                     style="@style/TextViewStyle"
@@ -60,7 +65,7 @@
                     android:drawableStart="@drawable/ic_locaiton"
                     android:drawablePadding="@dimen/_5sdp"
                     android:paddingHorizontal="@dimen/_10sdp"
-                    android:text="31-89 Steinway St, Queens, NY 11103, United States" />
+                    tools:text="31-89 Steinway St, Queens, NY 11103, United States" />
 
                 <androidx.cardview.widget.CardView
                     style="?attr/materialCardViewElevatedStyle"
@@ -100,8 +105,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
-                            android:text="Samsung F-42 5G"
-                            android:textSize="@dimen/_14sdp" />
+                            android:text="@{productData.brand_name}"
+                            android:textSize="@dimen/_14sdp"
+                            tools:text="Samsung F-42 5G" />
 
                         <com.app.cityshow.views.TextView
                             style="@style/TextViewStyleBold"
@@ -109,8 +115,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
                             android:layout_marginVertical="@dimen/_5sdp"
-                            android:text="@string/mobile_tablets"
-                            android:textSize="@dimen/_12sdp" />
+                            android:text="@{productData.cat_id}"
+                            android:textSize="@dimen/_12sdp"
+                            tools:text="@string/mobile_tablets" />
 
                         <com.app.cityshow.views.TextView
                             style="@style/TextViewStyleBold"

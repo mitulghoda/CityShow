@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ProfileBinding
-import com.app.cityshow.network.typeCall
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.utility.LocalDataHelper
+import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.UserViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -94,8 +94,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
                 },
                 error = {
                     base?.logoutActions()
-                }
-            )
+                }, loading = {})
         }
     }
 

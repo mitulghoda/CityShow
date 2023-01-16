@@ -11,6 +11,7 @@ object ProductRepository {
 
     suspend fun updateProduct(param: HashMap<String, Any>) = apiService.updateProduct(param)
     suspend fun productAddToFav(param: HashMap<String, Any>) = apiService.productAddToFav(param)
+    suspend fun listOfProduct(param: HashMap<String, Any>) = apiService.listOfProduct(param)
 
     suspend fun getCategories(param: HashMap<String, Any>) = apiService.getCategories(param)
     suspend fun myShops(param: HashMap<String, Any>) = apiService.myShops(param)

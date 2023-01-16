@@ -40,6 +40,7 @@ class CategoryListAdapter(
         ) : RecyclerView.ViewHolder(binding.root) {
             fun bind(reader: Category) {
                 binding.data = reader
+                binding.image.loadImage(reader.getCategoryImage())
             }
         }
     }

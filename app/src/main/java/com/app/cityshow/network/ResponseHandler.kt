@@ -2,12 +2,9 @@ package com.app.cityshow.network
 
 import android.accounts.NetworkErrorException
 import android.util.MalformedJsonException
-import androidx.lifecycle.LiveDataScope
-import com.app.cityshow.model.BaseModel
-import com.google.gson.Gson
+import com.app.cityshow.model.ListBaseModel
+import com.app.cityshow.model.ObjectBaseModel
 import com.google.gson.JsonSyntaxException
-import kotlinx.coroutines.CoroutineExceptionHandler
-import okhttp3.ResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
@@ -44,50 +41,48 @@ object ResponseHandler {
         }
     }
 
-    fun baseError(error: ResponseBody?): BaseModel {
-        return try {
-            Gson().fromJson(error!!.charStream(), BaseModel::class.java)
-        } catch (e: Exception) {
-            BaseModel(0, handleErrorResponse(e))
-        }
-    }
-
-    fun <T> baseError(response: Response<T>): BaseModel {
-        return try {
-            return if (response.code() == NetworkURL.RESPONSE_OK || response.code() == NetworkURL.RESPONSE_CREATED) {
-                val baseModel = Gson().fromJson(response.body().toString(), BaseModel::class.java)
-                baseModel.code = response.code()
-                baseModel
-            } else {
-                val error = Gson().fromJson(response.errorBody()?.string(), BaseModel::class.java)
-                error.code = response.code()
-                error.message = error.message
-                error
-            }
-        } catch (e: Exception) {
-            if (response.body() is BaseModel) response.body() as BaseModel
-            else BaseModel(response.code(), handleErrorResponse(e))
-        }
-    }
-
-    fun exceptionHandler(callback: ((errorMessage: String) -> Unit)? = null): CoroutineExceptionHandler {
-        return CoroutineExceptionHandler { _, throwable ->
-            callback?.invoke(handleErrorResponse(throwable))
-        }
-    }
-
-    suspend fun <T> responseParser(
-        response: Response<T>,
-        liveDataScope: LiveDataScope<Resource<T>>,
-    ) {
+    fun <T> handleNormalResponse(response: Response<T>, callback: ResponseCallback<T>?) {
+        if (callback == null) return
         if (response.isSuccessful) {
-            val result = response.body()
-            if (result != null) liveDataScope.emit(Resource.success(result))
-            else liveDataScope.emit(
-                Resource.error(message = baseError(response).message)
-            )
+            val body = response.body()
+            if (body != null) callback.onSuccess(body)
+            else callback.onError(response.message(), response.code())
         } else {
-            liveDataScope.emit(Resource.error(message = baseError(response).message))
+            val message = response.message().takeIf { response.code() == 200 }
+                ?: ParserHelper.baseError(response.errorBody()).message
+            callback.onError(message, response.code())
+        }
+    }
+
+    fun <T> handleResponse(
+        response: Response<ObjectBaseModel<T>>,
+        callback: ResponseCallback<ObjectBaseModel<T>>?,
+    ) {
+        if (callback == null) return
+        if (response.isSuccessful) {
+            val body = response.body()
+            if (body != null) callback.onSuccess(body)
+            else callback.onError(response.message(), response.code())
+        } else {
+            val message = response.message().takeIf { response.code() == 200 }
+                ?: ParserHelper.baseError(response.errorBody()).message
+            callback.onError(message, response.code())
+        }
+    }
+
+    fun <T> handleListResponse(
+        response: Response<ListBaseModel<T>?>,
+        callback: ResponseCallback<ListBaseModel<T>>?,
+    ) {
+        if (callback == null) return
+        if (response.isSuccessful) {
+            val body = response.body()
+            if (body != null) callback.onSuccess(body)
+            else callback.onError(response.message(), response.code())
+        } else {
+            val message = response.message().takeIf { response.code() == 200 }
+                ?: ParserHelper.baseError(response.errorBody()).message
+            callback.onError(message, response.code())
         }
     }
 }

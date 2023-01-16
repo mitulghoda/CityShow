@@ -87,4 +87,7 @@
     <string name="enter_password">Enter password</string>
     <string name="enter_confirm_password">Enter confirm password</string>
     <string name="select_shop">Select Shop</string>
+    <string name="select_product_photos">Select product photos</string>
+    <string name="xxl">XXL</string>
+    <string name="xl">XL</string>
 </resources>

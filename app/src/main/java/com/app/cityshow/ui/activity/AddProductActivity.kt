@@ -9,7 +9,6 @@ import com.app.cityshow.databinding.AddProductBinding
 import com.app.cityshow.model.category.Category
 import com.app.cityshow.model.category.SubCategory
 import com.app.cityshow.model.shops.Shop
-import com.app.cityshow.network.typeCall
 import com.app.cityshow.ui.adapter.EditTextAdapter
 import com.app.cityshow.ui.adapter.ImageAdapter
 import com.app.cityshow.ui.bottomsheet.BottomSheetCategories
@@ -19,10 +18,7 @@ import com.bumptech.glide.Glide
 import com.filepickersample.listener.FilePickerCallback
 import com.filepickersample.model.Media
 import com.app.cityshow.ui.common.ActionBarActivity
-import com.app.cityshow.utility.LocalDataHelper
-import com.app.cityshow.utility.Log
-import com.app.cityshow.utility.getTrimText
-import com.app.cityshow.utility.requestBody
+import com.app.cityshow.utility.*
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.google.gson.Gson
 import com.stfalcon.imageviewer.StfalconImageViewer
@@ -33,6 +29,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 class AddProductActivity : ActionBarActivity(), View.OnClickListener {
+    private var strGender: String = "Male"
     private var strShopId: String? = null
     private var strCategoryId: String? = null
     private var strSubCategory: String? = null
@@ -59,7 +56,16 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         mBinding.rvKeyFeature.adapter = editTextAdapter
         callGetCategoryApi()
         callGetMyShop()
-
+        mBinding.rgGold.setOnCheckedChangeListener { radioGroup, i ->
+            when (radioGroup.id) {
+                mBinding.rbMale.id -> {
+                    strGender = mBinding.rbMale.text.toString()
+                }
+                mBinding.rbFemale.id -> {
+                    strGender = mBinding.rbFemale.text.toString()
+                }
+            }
+        }
     }
 
     private fun callGetMyShop() {
@@ -79,8 +85,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 },
                 error = {
                     showAlertMessage(it.message)
-                }
-            )
+                }, loading = {})
         }
     }
 
@@ -134,7 +139,9 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                     }).show(this)
             }
             mBinding.btnSubmit -> {
-                addEditProduct()
+                if (checkValidation()) {
+                    addEditProduct()
+                }
             }
             mBinding.cardAddImage -> {
                 openImageFilePicker(object : FilePickerCallback {
@@ -164,6 +171,46 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         }
     }
 
+    private fun checkValidation(): Boolean {
+        if (Validator.isEmptyFieldValidate(mBinding.edtName.getTrimText())) {
+            Validator.setError(mBinding.edtName, getString(R.string.enter_product_name))
+            mBinding.edtName.requestFocus()
+            return false
+        } else if (Validator.isEmptyFieldValidate(mBinding.edtBrandName.getTrimText())) {
+            Validator.setError(mBinding.etBrandName, getString(R.string.enter_brand_name))
+            mBinding.etBrandName.requestFocus()
+            return false
+        } else if (Validator.isEmptyFieldValidate(mBinding.edtModel.getTrimText())) {
+            Validator.setError(mBinding.edtModel, getString(R.string.enter_model_name))
+            mBinding.edtModel.requestFocus()
+            return false
+        } else if (Validator.isEmptyFieldValidate(mBinding.edtOriginalPrice.getTrimText())) {
+            Validator.setError(mBinding.edtOriginalPrice, getString(R.string.enter_original_price))
+            mBinding.edtOriginalPrice.requestFocus()
+            return false
+        } else if (Validator.isEmptyFieldValidate(mBinding.edtSellingPrice.getTrimText())) {
+            Validator.setError(mBinding.edtSellingPrice, getString(R.string.enter_selling_price))
+            mBinding.edtSellingPrice.requestFocus()
+            return false
+        } else if (Validator.isEmptyFieldValidate(mBinding.edtOriginalPrice.getTrimText())) {
+            Validator.setError(mBinding.edtOriginalPrice, getString(R.string.enter_original_price))
+            mBinding.edtOriginalPrice.requestFocus()
+            return false
+        } else if (Validator.isEmptyFieldValidate(mBinding.edtOriginalPrice.getTrimText())) {
+            Validator.setError(mBinding.edtOriginalPrice, getString(R.string.enter_original_price))
+            mBinding.edtOriginalPrice.requestFocus()
+            return false
+        } else if (Validator.isEmptyFieldValidate(mBinding.edtOriginalPrice.getTrimText())) {
+            Validator.setError(mBinding.edtOriginalPrice, getString(R.string.enter_original_price))
+            mBinding.edtOriginalPrice.requestFocus()
+            return false
+        } else if (mAssetImages.isEmpty()) {
+            showToast(getString(R.string.select_product_photos))
+            return false
+        }
+        return true
+    }
+
     private fun callGetCategoryApi() {
         showProgressDialog()
         val param = HashMap<String, Any>()
@@ -181,8 +228,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 },
                 error = {
                     showAlertMessage(it.message)
-                }
-            )
+                }, loading = {})
         }
 //            } else {
 //                hideProgressDialog()
@@ -192,8 +238,6 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
 
     private fun addEditProduct() {
         showProgressDialog()
-//        getFcmToken { fcmToken, isSuccess ->
-//            if (isSuccess) {
         val param = HashMap<String, RequestBody>()
         param["shop_keeper_id"] = LocalDataHelper.user?.id!!.requestBody()
         param["category_id"] = strCategoryId!!.requestBody()
@@ -203,19 +247,19 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         param["model_name"] = mBinding.edtModel.getTrimText().requestBody()
         param["product_price"] = mBinding.edtOriginalPrice.getTrimText().requestBody()
         param["product_selling_price"] = mBinding.edtSellingPrice.getTrimText().requestBody()
-        param["gender"] = mBinding.edtName.getTrimText().requestBody()
-        param["size[]"] = mBinding.edtName.getTrimText().requestBody()
+        param["gender"] = strGender.requestBody()
+//        param["size[]"] = mBinding.edtName.getTrimText().requestBody()
         param["color"] = mBinding.edtColor.getTrimText().requestBody()
         param["material"] = mBinding.edtMaterial.getTrimText().requestBody()
         param["weight"] = mBinding.edtGoldWeight.getTrimText().requestBody()
-        param["is_gold"] = mBinding.edtName.getTrimText().requestBody()
+//        param["is_gold"] = mBinding.edtName.getTrimText().requestBody()
         param["device_os"] = mBinding.edtOs.getTrimText().requestBody()
         param["ram"] = mBinding.edtRam.getTrimText().requestBody()
         param["storage"] = mBinding.edtStorage.getTrimText().requestBody()
         param["connectivity"] = mBinding.edtConnect.getTrimText().requestBody()
-        param["key_feature[]"] = mBinding.edtName.getTrimText().requestBody()
+//        param["key_feature[]"] = mBinding.edtName.getTrimText().requestBody()
         param["description"] = mBinding.edtDesc.getTrimText().requestBody()
-        param["shop_id[0]"] = strShopId!!.requestBody()
+        param["shop_id[]"] = strShopId!!.requestBody()
 
         val images = ArrayList<MultipartBody.Part?>()
         mAssetImages.forEach { media ->
@@ -240,8 +284,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 },
                 error = {
                     showAlertMessage(getString(R.string.something_went_wrong))
-                }
-            )
+                }, loading = {})
         }
 //            } else {
 //                hideProgressDialog()

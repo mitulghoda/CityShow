@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.databinding.BindingAdapter;
 
+import com.app.cityshow.R;
 import com.bumptech.glide.Glide;
 import com.filepickersample.model.Media;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -25,7 +26,7 @@ public class CircularImageView extends RoundedImageView {
 
     @BindingAdapter("loadImage")
     public static void loadImage(CircularImageView view, String imageUrl) {
-        Glide.with(view.getContext()).load(imageUrl).into(view);
+        Glide.with(view.getContext()).load(imageUrl).placeholder(R.drawable.ic_logo).into(view);
     }
 
     public void setUrl(String url) {

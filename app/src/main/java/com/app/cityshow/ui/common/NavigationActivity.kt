@@ -2,6 +2,7 @@ package com.app.cityshow.ui.common
 
 import android.content.Intent
 import com.app.cityshow.BuildConfig
+import com.app.cityshow.model.product.Product
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.ui.activity.*
 import com.filepickersample.bottomsheet.AndroidFilePicker
@@ -70,8 +71,9 @@ abstract class NavigationActivity : BaseActivity() {
             .start(supportFragmentManager)
     }
 
-    fun openProductDetails() {
+    fun openProductDetails(product: Product) {
         val intent = Intent(this, ProductDetailsActivity::class.java)
+        intent.putExtra("PRODUCT", product)
         startActivity(intent)
     }
 }

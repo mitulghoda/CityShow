@@ -5,10 +5,10 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.databinding.ActivityShopsBinding
-import com.app.cityshow.network.typeCall
 import com.app.cityshow.ui.adapter.ShopsAdapter
 import com.app.cityshow.ui.common.ActionBarActivity
 import com.app.cityshow.utility.Log
+import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.google.gson.Gson
 
@@ -45,7 +45,9 @@ class ShopsActivity : ActionBarActivity(), View.OnClickListener {
     private fun callGetMyShop() {
         showProgressDialog()
         val param = HashMap<String, Any>()
-        param["pagination"] = "false"
+        param["page"] = "1"
+        param["limit"] = "1000"
+        param["pagination"] = "true"
         viewModel?.myShops(param)?.observe(this) {
             hideProgressDialog()
             it.status.typeCall(
@@ -59,8 +61,9 @@ class ShopsActivity : ActionBarActivity(), View.OnClickListener {
                 },
                 error = {
                     showAlertMessage(it.message)
-                }
-            )
+                }, loading = {
+                    showProgressDialog()
+                })
         }
 //            } else {
 //                hideProgressDialog()
@@ -69,6 +72,7 @@ class ShopsActivity : ActionBarActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
+        super.onClick(v)
         when (v) {
             binding.fab -> {
                 openAddShopActivity(null)

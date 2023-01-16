@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ChangePasswordBinding
-import com.app.cityshow.network.typeCall
 import com.app.cityshow.ui.common.NavigationActivity
 import com.app.cityshow.utility.Validator
 import com.app.cityshow.utility.getTrimText
+import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.UserViewModel
 
 class ChangePasswordActivity : NavigationActivity(), View.OnClickListener {
@@ -63,8 +63,11 @@ class ChangePasswordActivity : NavigationActivity(), View.OnClickListener {
             Validator.setError(binding.tvInputReEnterPassword, "Please enter confirm password")
             binding.tvInputReEnterPassword.requestFocus()
             isValid = false
-        } else if (binding.edtReEnterPassword.getTrimText().equals(binding.edtPassword.getTrimText())) {
-            Validator.setError(binding.tvInputReEnterPassword, "Please enter correct confirm password")
+        } else if (!binding.edtReEnterPassword.getTrimText()
+                .equals(binding.edtPassword.getTrimText(), true)
+        ) {
+            Validator.setError(binding.tvInputReEnterPassword,
+                "Please enter correct confirm password")
             binding.tvInputReEnterPassword.requestFocus()
             isValid = false
         }
@@ -95,8 +98,7 @@ class ChangePasswordActivity : NavigationActivity(), View.OnClickListener {
                 },
                 error = {
                     showAlertMessage(getString(R.string.something_went_wrong))
-                }
-            )
+                }, loading = {})
         }
 //            } else {
 //                hideProgressDialog()

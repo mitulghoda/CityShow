@@ -12,13 +12,10 @@ import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityAddShopBinding
 import com.app.cityshow.model.shops.Shop
-import com.app.cityshow.network.typeCall
 import com.app.cityshow.ui.adapter.ImageAdapter
+import com.app.cityshow.ui.common.ActionBarActivity
 import com.app.cityshow.ui.common.NavigationActivity
-import com.app.cityshow.utility.LocalDataHelper
-import com.app.cityshow.utility.Validator
-import com.app.cityshow.utility.getTrimText
-import com.app.cityshow.utility.requestBody
+import com.app.cityshow.utility.*
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.app.cityshow.viewmodel.UserViewModel
 import com.bumptech.glide.Glide
@@ -32,7 +29,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
-class AddShopActivity : NavigationActivity(), View.OnClickListener {
+class AddShopActivity : ActionBarActivity(), View.OnClickListener {
     private var shop: Shop? = null
     private var mProfileUri: Uri? = null
     private lateinit var mBinding: ActivityAddShopBinding
@@ -43,6 +40,7 @@ class AddShopActivity : NavigationActivity(), View.OnClickListener {
 
 
     override fun initUi() {
+        setUpToolbar("Add Shop", true)
         mBinding.clickListener = this
         viewModel = ViewModelProvider(
             this,
@@ -70,6 +68,7 @@ class AddShopActivity : NavigationActivity(), View.OnClickListener {
     }
 
     override fun onClick(p0: View?) {
+        super.onClick(p0)
         when (p0) {
             mBinding.btnSubmit -> {
                 hideKeyBoard()
@@ -139,12 +138,10 @@ class AddShopActivity : NavigationActivity(), View.OnClickListener {
      * */
     private fun addEditShop() {
         showProgressDialog()
-//        getFcmToken { fcmToken, isSuccess ->
-//            if (isSuccess) {
         val param = HashMap<String, RequestBody>()
         param["shop_name"] = mBinding.edtShopName.getTrimText().requestBody()
-        param["address"] = mBinding.edtNotes.getTrimText().requestBody()
-        param["notes"] = mBinding.edtAddress.getTrimText().requestBody()
+        param["address"] = mBinding.edtAddress.getTrimText().requestBody()
+        param["notes"] = mBinding.edtNotes.getTrimText().requestBody()
         var multipartBody: MultipartBody.Part? = null
         if (mProfileUri != null) {
             val file = File(mProfileUri!!.path.toString())
@@ -176,8 +173,7 @@ class AddShopActivity : NavigationActivity(), View.OnClickListener {
                 },
                 error = {
                     showAlertMessage(getString(R.string.something_went_wrong))
-                }
-            )
+                }, loading = {})
         }
 //            } else {
 //                hideProgressDialog()

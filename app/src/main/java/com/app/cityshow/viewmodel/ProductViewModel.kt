@@ -1,9 +1,9 @@
 package com.app.cityshow.viewmodel
 
 import androidx.lifecycle.*
+import com.app.cityshow.network.ParserHelper.responseParser
 import com.app.cityshow.network.Resource
 import com.app.cityshow.network.ResponseHandler
-import com.app.cityshow.network.ResponseHandler.responseParser
 import com.app.cityshow.repository.ProductRepository
 import com.app.cityshow.utility.Log
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,7 @@ class ProductViewModel : ViewModel() {
             responseParser(ProductRepository.getProductDetails(param), this)
         } catch (e: Exception) {
             e.message?.let { Log.e(it) }
-            emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
+            emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }
 
@@ -26,7 +26,7 @@ class ProductViewModel : ViewModel() {
             responseParser(ProductRepository.deleteProduct(param), this)
         } catch (e: Exception) {
             e.message?.let { Log.e(it) }
-            emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
+            emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }
 
@@ -35,7 +35,7 @@ class ProductViewModel : ViewModel() {
             responseParser(ProductRepository.updateProduct(param), this)
         } catch (e: Exception) {
             e.message?.let { Log.e(it) }
-            emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
+            emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }
 
@@ -44,7 +44,15 @@ class ProductViewModel : ViewModel() {
             responseParser(ProductRepository.productAddToFav(param), this)
         } catch (e: Exception) {
             e.message?.let { Log.e(it) }
-            emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
+            emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
+        }
+    }
+   fun listOfProduct(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
+        try {
+            responseParser(ProductRepository.listOfProduct(param), this)
+        } catch (e: Exception) {
+            e.message?.let { Log.e(it) }
+            emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }
 
@@ -52,14 +60,15 @@ class ProductViewModel : ViewModel() {
         try {
             responseParser(ProductRepository.getCategories(param), this)
         } catch (e: Exception) {
-            emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
+            emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }
-  fun myShops(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
+
+    fun myShops(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
         try {
             responseParser(ProductRepository.myShops(param), this)
         } catch (e: Exception) {
-            emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
+            emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }
 
@@ -67,17 +76,25 @@ class ProductViewModel : ViewModel() {
     fun createProduct(param: HashMap<String, RequestBody>, images: ArrayList<MultipartBody.Part?>) =
         liveData(Dispatchers.IO) {
             try {
-                responseParser(ProductRepository.createProduct(param = param, images = images), this)
+                responseParser(ProductRepository.createProduct(param = param, images = images),
+                    this)
             } catch (e: Exception) {
-                emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
+                emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
             }
         }
-    fun addEditShop(param: HashMap<String, RequestBody>, banner: MultipartBody.Part?, images: ArrayList<MultipartBody.Part?>) =
+
+    fun addEditShop(
+        param: HashMap<String, RequestBody>,
+        banner: MultipartBody.Part?,
+        images: ArrayList<MultipartBody.Part?>,
+    ) =
         liveData(Dispatchers.IO) {
             try {
-                responseParser(ProductRepository.addEditShop(param = param, banner = banner, images = images), this)
+                responseParser(ProductRepository.addEditShop(param = param,
+                    banner = banner,
+                    images = images), this)
             } catch (e: Exception) {
-                emit(Resource.error(ResponseHandler.handleErrorResponse(e)))
+                emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
             }
         }
 }

@@ -42,6 +42,7 @@ class HomeActivity : ActionBarActivity(), View.OnClickListener {
         mBinding.viewPager.adapter =
             PageStateAdapter(this, fragments).also { pageStateAdapter = it }
         mBinding.viewPager.isUserInputEnabled = false
+        mBinding.viewPager.offscreenPageLimit = 1
         mBinding.bottomView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.action_home -> {

@@ -50,7 +50,7 @@
             android:id="@+id/rvProducts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
+            android:clipToPadding="true"
             android:paddingVertical="@dimen/_10sdp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"

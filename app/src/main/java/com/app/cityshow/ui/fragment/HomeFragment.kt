@@ -8,12 +8,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.databinding.HomeFragmentBinding
 import com.app.cityshow.model.category.CategoryModel
-import com.app.cityshow.network.typeCall
+import com.app.cityshow.model.product.Product
 import com.app.cityshow.ui.activity.HomeActivity
 import com.app.cityshow.ui.adapter.CategoryListAdapter
 import com.app.cityshow.ui.adapter.ProductListAdapter
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.utility.Log
+import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.google.gson.Gson
 
@@ -23,6 +24,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var binding: HomeFragmentBinding
     private var viewModel: ProductViewModel? = null
     val mArrayList = ArrayList<CategoryModel>()
+    val productList = ArrayList<Product>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,12 +47,15 @@ class HomeFragment : BaseFragment() {
             ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]
         callGetCategoryApi()
+        calGetProducts()
     }
 
     private fun callGetCategoryApi() {
         base?.showProgressDialog()
         val param = HashMap<String, Any>()
-        param["pagination"] = "false"
+        param["pagination"] = "true"
+        param["page"] = "1"
+        param["limit"] = "10000"
         viewModel?.getCategories(param)?.observe(viewLifecycleOwner) {
             base?.hideProgressDialog()
             it.status.typeCall(
@@ -64,13 +69,37 @@ class HomeFragment : BaseFragment() {
                 },
                 error = {
                     base?.showAlertMessage(it.message)
-                }
-            )
+                }, loading = {})
         }
 //            } else {
 //                hideProgressDialog()
 //                toast(fcmToken)
 //            }
+    }
+
+    private fun calGetProducts() {
+        base?.showProgressDialog()
+        val param = HashMap<String, Any>()
+        param["page"] = "1"
+        param["limit"] = "1000"
+        param["pagination"] = "true"
+        viewModel?.listOfProduct(param)?.observe(viewLifecycleOwner) {
+            base?.hideProgressDialog()
+            it.status.typeCall(
+                success = {
+                    if (it.data != null && it.data.success) {
+                        Log.e("Products", Gson().toJson(it.data.data.products))
+                        val list = it.data.data.products as java.util.ArrayList
+                        productListAdapter.setData(list)
+                    } else {
+                        base?.showAlertMessage(it.message)
+                    }
+                },
+                error = {
+                    base?.showAlertMessage(it.message)
+                }, loading = { base?.showProgressDialog() })
+        }
+
     }
 
     private fun setAdapter() {
@@ -79,8 +108,8 @@ class HomeFragment : BaseFragment() {
         }
         binding.recyclerView.adapter = categoryListAdapter
 
-        productListAdapter = ProductListAdapter(mArrayList) {
-            ((activity as HomeActivity)).openProductDetails()
+        productListAdapter = ProductListAdapter(productList) {
+            ((activity as HomeActivity)).openProductDetails(it)
         }
         binding.rvProducts.adapter = productListAdapter
     }

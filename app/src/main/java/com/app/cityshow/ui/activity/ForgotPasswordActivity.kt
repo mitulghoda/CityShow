@@ -6,12 +6,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ForgotPasswordBinding
-import com.app.cityshow.databinding.RegisterBinding
-import com.app.cityshow.network.typeCall
 import com.app.cityshow.ui.common.NavigationActivity
-import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.Validator
 import com.app.cityshow.utility.getTrimText
+import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.UserViewModel
 
 class ForgotPasswordActivity : NavigationActivity(), View.OnClickListener {
@@ -88,7 +86,7 @@ class ForgotPasswordActivity : NavigationActivity(), View.OnClickListener {
                 error = {
                     showAlertMessage(getString(R.string.something_went_wrong))
                 }
-            )
+           , loading = {} )
         }
 //            } else {
 //                hideProgressDialog()

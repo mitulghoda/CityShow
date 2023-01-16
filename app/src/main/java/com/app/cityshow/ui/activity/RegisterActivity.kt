@@ -11,16 +11,18 @@ import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.RegisterBinding
-import com.app.cityshow.network.typeCall
 import com.app.cityshow.ui.common.NavigationActivity
 import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.Validator
 import com.app.cityshow.utility.getTrimText
+import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.UserViewModel
 import com.github.dhaval2404.imagepicker.ImagePicker
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class RegisterActivity : NavigationActivity(), View.OnClickListener {
@@ -103,12 +105,12 @@ class RegisterActivity : NavigationActivity(), View.OnClickListener {
         showProgressDialog()
 //        getFcmToken { fcmToken, isSuccess ->
 //            if (isSuccess) {
-        val param = HashMap<String, Any>()
-        param["username"] = binding.edtFullName.getTrimText()
-        param["email"] = binding.edtEmail.getTrimText()
-        param["role"] = "shop_keeper"
-        param["password"] = binding.edtPass.getTrimText()
-        param["password_confirmation"] = binding.edtPass.getTrimText()
+        val param = HashMap<String, RequestBody>()
+        param["username"] = binding.edtFullName.getTrimText().toRequestBody()
+        param["email"] = binding.edtEmail.getTrimText().toRequestBody()
+        param["role"] = "shop_keeper".toRequestBody()
+        param["password"] = binding.edtPass.getTrimText().toRequestBody()
+        param["password_confirmation"] = binding.edtPass.getTrimText().toRequestBody()
         var multipartBody: MultipartBody.Part? = null
         if (mProfileUri != null) {
             val file = File(mProfileUri!!.path.toString())
@@ -123,18 +125,20 @@ class RegisterActivity : NavigationActivity(), View.OnClickListener {
             it.status.typeCall(
                 success = {
                     if (it.data != null && it.data.success) {
-                        LocalDataHelper.authToken = it.data.data.token
-                        LocalDataHelper.user = it.data.data.user
-                        LocalDataHelper.login = true
-                        openHomeActivity()
+//                        LocalDataHelper.authToken = it.data.data.token
+//                        LocalDataHelper.user = it.data.data.user
+//                        LocalDataHelper.login = true
+//                        openHomeActivity()
+                        openLoginActivity()
                     } else {
                         showAlertMessage(it.message)
                     }
                 },
                 error = {
                     showAlertMessage(getString(R.string.something_went_wrong))
-                }
-            )
+                }, loading = {
+                    showProgressDialog()
+                })
         }
 //            } else {
 //                hideProgressDialog()

@@ -35,6 +35,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.app.cityshow.BuildConfig
 import com.app.cityshow.Controller
+import com.app.cityshow.network.ApiStatus
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -170,6 +171,18 @@ fun isValidPassword(password: String): Boolean {
 val gson = GsonBuilder().disableHtmlEscaping().create()
 fun Any?.toJSONObject(): JSONObject {
     return JSONObject(this.toJson())
+}
+
+fun ApiStatus.typeCall(
+    success: () -> Unit,
+    error: () -> Unit,
+    loading: () -> Unit,
+) {
+    when (this) {
+        ApiStatus.SUCCESS -> success.invoke()
+        ApiStatus.ERROR -> error.invoke()
+        ApiStatus.LOADING -> loading.invoke()
+    }
 }
 
 fun Any?.toJson(): String = gson.toJson(this)
