@@ -78,9 +78,11 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
             mBinding.ivBanner -> {
                 ImagePicker.with(this)
                     .compress(1024)
-                    .crop(200f, 100f)         //Final image size will be less than 1 MB(Optional)
-                    .maxResultSize(1080,
-                        1080)  //Final image resolution will be less than 1080 x 1080(Optional)
+                    .crop(16f, 9f)         //Final image size will be less than 1 MB(Optional)
+                    .maxResultSize(
+                        1080,
+                        1080
+                    )  //Final image resolution will be less than 1080 x 1080(Optional)
                     .createIntent { intent ->
                         startForProfileImageResult.launch(intent)
                     }

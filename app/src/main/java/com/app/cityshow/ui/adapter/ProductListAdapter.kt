@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.cityshow.R
 import com.app.cityshow.databinding.RowProductBinding
 import com.app.cityshow.model.product.Product
+import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.loadImage
 
 class ProductListAdapter(
@@ -43,7 +44,7 @@ class ProductListAdapter(
         ) : RecyclerView.ViewHolder(binding.root) {
             fun bind(product: Product) {
                 binding.data = product
-                binding.ivProduct.loadImage(product.getCategoryImage(),
+                binding.ivProduct.loadImage(product.getProductImage(),
                     R.drawable.ic_logo)
             }
         }

@@ -90,4 +90,11 @@
     <string name="select_product_photos">Select product photos</string>
     <string name="xxl">XXL</string>
     <string name="xl">XL</string>
+    <string name="_6">6</string>
+    <string name="_8">8</string>
+    <string name="_10">10</string>
+    <string name="lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
+    <string name="_150_shops">150+ shops</string>
+    <string name="_15_999">15,999</string>
+    <string name="_13499">13499</string>
 </resources>

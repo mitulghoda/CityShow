@@ -19,7 +19,7 @@ class Product() : java.io.Serializable {
     val model_name: String = ""
     val name: String = ""
     val price: String = ""
-    val product_images: ArrayList<MyItemImages>? = null
+    val product_image: ArrayList<MyItemImages>? = null
     val product_shops: ArrayList<Shop>? = null
     val ram: String = ""
     val selling_price: String = ""
@@ -31,9 +31,9 @@ class Product() : java.io.Serializable {
     val wight: String = ""
     val shop: Shop? = null
 
-    fun getCategoryImage(): String {
-        return if (!product_images.isNullOrEmpty()) {
-            product_images[0].image_url
+    fun getProductImage(): String {
+        return if (!product_image.isNullOrEmpty()) {
+            product_image[0].image_url
         } else {
             ""
         }

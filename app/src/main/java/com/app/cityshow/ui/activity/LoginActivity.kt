@@ -101,8 +101,7 @@ class LoginActivity : NavigationActivity(), View.OnClickListener {
                 },
                 error = {
                     showAlertMessage(it.message)
-                }
-            , loading = {})
+                }, loading = {})
         }
 //            } else {
 //                hideProgressDialog()

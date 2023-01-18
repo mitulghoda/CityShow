@@ -7,4 +7,4 @@ data class MyItemImages(
     val image_url: String,
     val product_id: String,
     val updated_at: String
-)
+):java.io.Serializable

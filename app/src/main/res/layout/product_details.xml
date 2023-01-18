@@ -47,7 +47,7 @@
                     app:vpi_slider_checked_color="@color/colorPrimary"
                     app:vpi_slider_normal_color="@color/black_alpha_25" />
 
-                <com.app.cityshow.views.TextView
+               <androidx.appcompat.widget.AppCompatTextView
                     style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                     android:textSize="@dimen/_20sdp"
                     tools:text="Galaxy Mobile" />
 
-                <com.app.cityshow.views.TextView
+               <androidx.appcompat.widget.AppCompatTextView
                     style="@style/TextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                             android:theme="@style/RatingBar"
                             tools:rating="3.5" />
 
-                        <com.app.cityshow.views.TextView
+                       <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TextViewStyleBold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -109,23 +109,23 @@
                             android:textSize="@dimen/_14sdp"
                             tools:text="Samsung F-42 5G" />
 
-                        <com.app.cityshow.views.TextView
+                       <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TextViewStyleBold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
                             android:layout_marginVertical="@dimen/_5sdp"
                             android:text="@{productData.cat_id}"
-                            android:textSize="@dimen/_12sdp"
+                            android:textSize="@dimen/_12ssp"
                             tools:text="@string/mobile_tablets" />
 
-                        <com.app.cityshow.views.TextView
+                       <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TextViewStyleBold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
                             android:text="@string/size_"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12ssp" />
 
                         <GridLayout
                             android:layout_width="match_parent"
@@ -138,7 +138,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/gray_border_rounder_5dp"
                                 android:padding="@dimen/_5sdp"
-                                android:text="6" />
+                                android:text="@string/_6" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 style="@style/TextViewStyleBold"
@@ -147,7 +147,7 @@
                                 android:layout_marginHorizontal="@dimen/_10sdp"
                                 android:background="@drawable/gray_border_rounder_5dp"
                                 android:padding="@dimen/_5sdp"
-                                android:text="8" />
+                                android:text="@string/_8" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 style="@style/TextViewStyleBold"
@@ -155,7 +155,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/gray_border_rounder_5dp"
                                 android:padding="@dimen/_5sdp"
-                                android:text="10" />
+                                android:text="@string/_10" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 style="@style/TextViewStyleBold"
@@ -164,7 +164,7 @@
                                 android:layout_marginHorizontal="@dimen/_10sdp"
                                 android:background="@drawable/gray_border_rounder_5dp"
                                 android:padding="@dimen/_5sdp"
-                                android:text="10" />
+                                android:text="@string/_8" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 style="@style/TextViewStyleBold"
@@ -172,45 +172,45 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/gray_border_rounder_5dp"
                                 android:padding="@dimen/_5sdp"
-                                android:text="16" />
+                                android:text="@string/_8" />
 
 
                         </GridLayout>
 
-                        <com.app.cityshow.views.TextView
+                       <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TextViewStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="3"
-                            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+                            android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book"
                             android:textColor="@color/colorHintGray"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12ssp" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="gone">
 
-                            <com.app.cityshow.views.TextView
+                           <androidx.appcompat.widget.AppCompatTextView
                                 style="@style/TextViewStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:gravity="start"
-                                android:text="150+ shops" />
+                                android:text="@string/_150_shops" />
 
-                            <com.app.cityshow.views.TextView
+                           <androidx.appcompat.widget.AppCompatTextView
                                 style="@style/TextViewStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:gravity="start"
-                                android:text="150+ shops" />
+                                android:text="@string/_150_shops" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
-                        <com.app.cityshow.views.TextView
+                       <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TextViewStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -219,9 +219,9 @@
                             android:background="@drawable/striking_text"
                             android:drawableStart="@drawable/ic_currency"
                             android:foreground="@drawable/striking_text"
-                            android:text="15,999" />
+                            android:text="@string/_15_999" />
 
-                        <com.app.cityshow.views.TextView
+                       <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TextViewStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -231,13 +231,13 @@
                             android:fontFamily="@font/sf_bold"
                             android:gravity="center"
                             android:paddingHorizontal="@dimen/_10sdp"
-                            android:text="13499"
+                            android:text="@string/_13499"
                             android:textSize="@dimen/_20sdp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.cardview.widget.CardView>
 
 
-                <com.app.cityshow.views.TextView
+               <androidx.appcompat.widget.AppCompatTextView
                     style="@style/TextViewStyleBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -246,7 +246,7 @@
                     android:text="@string/_10days_return_policy"
                     android:textSize="@dimen/_14sdp" />
 
-                <com.app.cityshow.views.TextView
+               <androidx.appcompat.widget.AppCompatTextView
                     style="@style/TextViewStyleBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -256,7 +256,7 @@
                     android:text="Cash on Delivery Available"
                     android:textSize="@dimen/_14sdp" />
 
-                <com.app.cityshow.views.TextView
+               <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvMore"
                     style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
