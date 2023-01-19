@@ -30,6 +30,7 @@ import java.io.File
 
 class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     private var strGender: String = "Male"
+    private var strGold: String = ""
     private var strShopId: String? = null
     private var strCategoryId: String? = null
     private var strSubCategory: String? = null
@@ -56,13 +57,26 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         mBinding.rvKeyFeature.adapter = editTextAdapter
         callGetCategoryApi()
         callGetMyShop()
-        mBinding.rgGold.setOnCheckedChangeListener { radioGroup, i ->
+        mBinding.rgGender.setOnCheckedChangeListener { radioGroup, i ->
             when (radioGroup.id) {
                 mBinding.rbMale.id -> {
                     strGender = mBinding.rbMale.text.toString()
                 }
                 mBinding.rbFemale.id -> {
                     strGender = mBinding.rbFemale.text.toString()
+                }
+                mBinding.rbFemale.id -> {
+                    strGender = mBinding.rbChild.text.toString()
+                }
+            }
+        }
+        mBinding.rgGold.setOnCheckedChangeListener { radioGroup, i ->
+            when (radioGroup.id) {
+                mBinding.rbMale.id -> {
+                    strGold = mBinding.rbYes.text.toString()
+                }
+                mBinding.rbFemale.id -> {
+                    strGold = mBinding.rbNo.text.toString()
                 }
             }
         }
@@ -204,6 +218,10 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
             Validator.setError(mBinding.edtOriginalPrice, getString(R.string.enter_original_price))
             mBinding.edtOriginalPrice.requestFocus()
             return false
+        } else if (Validator.isEmptyFieldValidate(mBinding.edtDesc.getTrimText())) {
+            Validator.setError(mBinding.edtDesc, getString(R.string.enter_description))
+            mBinding.edtDesc.requestFocus()
+            return false
         } else if (mAssetImages.isEmpty()) {
             showToast(getString(R.string.select_product_photos))
             return false
@@ -223,11 +241,11 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                         Log.e("CATEGORIES", Gson().toJson(it.data.data))
                         mArrayList = it.data.data.categories as ArrayList<Category>?
                     } else {
-                        showAlertMessage(it.message)
+                        showAlertMessage("", it.message)
                     }
                 },
                 error = {
-                    showAlertMessage(it.message)
+                    showAlertMessage("", it.message)
                 }, loading = {})
         }
 //            } else {
@@ -238,6 +256,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
 
     private fun addEditProduct() {
         showProgressDialog()
+        Log.e("KEY_FEATURE", Gson().toJson(editTextAdapter.arrayList))
         val param = HashMap<String, RequestBody>()
         param["shop_keeper_id"] = LocalDataHelper.user?.id!!.requestBody()
         param["category_id"] = strCategoryId!!.requestBody()
@@ -252,13 +271,14 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         param["color"] = mBinding.edtColor.getTrimText().requestBody()
         param["material"] = mBinding.edtMaterial.getTrimText().requestBody()
         param["weight"] = mBinding.edtGoldWeight.getTrimText().requestBody()
-//        param["is_gold"] = mBinding.edtName.getTrimText().requestBody()
+        param["is_gold"] = strGold.requestBody()
         param["device_os"] = mBinding.edtOs.getTrimText().requestBody()
         param["ram"] = mBinding.edtRam.getTrimText().requestBody()
         param["storage"] = mBinding.edtStorage.getTrimText().requestBody()
         param["connectivity"] = mBinding.edtConnect.getTrimText().requestBody()
-//        param["key_feature[]"] = mBinding.edtName.getTrimText().requestBody()
+        param["key_feature[]"] = Gson().toJson(editTextAdapter.arrayList).requestBody()
         param["description"] = mBinding.edtDesc.getTrimText().requestBody()
+        param["warranty"] = mBinding.cbWarranty.isChecked.toString().requestBody()
         param["shop_id[]"] = strShopId!!.requestBody()
 
         val images = ArrayList<MultipartBody.Part?>()

@@ -19,6 +19,9 @@
         android:theme="@style/Theme.CityShow"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ProductDetIailsNew"
+            android:exported="false" />
+        <activity
             android:name=".TestMyS"
             android:exported="false" />
         <activity

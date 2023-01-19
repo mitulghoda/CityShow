@@ -6,12 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.cityshow.R
 import com.app.cityshow.databinding.RowProductBinding
 import com.app.cityshow.model.product.Product
-import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.loadImage
 
 class ProductListAdapter(
     var mArrayList: ArrayList<Product>,
-    var onClickItem: (device: Product) -> Unit,
+    var onClickItem: (product: Product, type: Int) -> Unit,
 ) : RecyclerView.Adapter<ProductListAdapter.Companion.CategoryHolder?>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryHolder {
@@ -23,8 +22,14 @@ class ProductListAdapter(
     override fun onBindViewHolder(holder: CategoryHolder, position: Int) {
         val data = mArrayList[position]
         holder.bind(data)
+        holder.binding.ivFav.isSelected = data.isFav!!
         holder.itemView.setOnClickListener {
-            onClickItem.invoke(data)
+            onClickItem.invoke(data, 1)
+        }
+        holder.binding.ivFav.setOnClickListener {
+            data.isFav = !data.isFav!!
+            notifyItemChanged(position)
+            onClickItem.invoke(data, 0)
         }
     }
 
@@ -44,8 +49,10 @@ class ProductListAdapter(
         ) : RecyclerView.ViewHolder(binding.root) {
             fun bind(product: Product) {
                 binding.data = product
-                binding.ivProduct.loadImage(product.getProductImage(),
-                    R.drawable.ic_logo)
+                binding.ivProduct.loadImage(
+                    product.getProductImage(),
+                    R.drawable.ic_logo
+                )
             }
         }
     }

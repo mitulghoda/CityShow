@@ -53,10 +53,7 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
 
     private fun setupViewPagerFragment() {
         if (pageStateAdapter != null) return
-        mBinding.viewPager.adapter = PageStateAdapter(this, getFragments()).also {
-            pageStateAdapter = it
-        }
-        mBinding.pageIndicator.setupWithViewPager(mBinding.viewPager)
+
         mBinding.viewPager.setPageTransformer(DepthPageTransformer())
         mBinding.viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageScrolled(
@@ -85,7 +82,9 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
             it.status.typeCall(
                 success = {
                     if (it.data != null && it.data.success) {
+                        getFragments(it.data.data)
                         mBinding.productData = it.data.data
+
                     } else {
                         showAlertMessage(it.message)
                     }
@@ -100,27 +99,18 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
 //            }
     }
 
-    private fun getFragments(): List<BaseFragment>? {
+    private fun getFragments(data: Product?) {
         val fragments: MutableList<BaseFragment> = ArrayList()
-        fragments.add(
-            ProductDetailsFragment(
+        data?.product_image?.forEach { images ->
+            fragments.add(
+                ProductDetailsFragment(
+                    images.image_url
+                )
             )
-        )
-        fragments.add(
-            ProductDetailsFragment(
-
-            )
-        )
-        fragments.add(
-            ProductDetailsFragment(
-
-            )
-        )
-        fragments.add(
-            ProductDetailsFragment(
-
-            )
-        )
-        return fragments
+        }
+        mBinding.viewPager.adapter = PageStateAdapter(this, fragments).also {
+            pageStateAdapter = it
+        }
+        mBinding.pageIndicator.setupWithViewPager(mBinding.viewPager)
     }
 }

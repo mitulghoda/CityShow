@@ -33,8 +33,7 @@ data class User(
     var otp: String?,
     @SerializedName("phone_number")
     var phoneNumber: String?,
-    @SerializedName("profile_pic")
-    var profilePic: String?,
+    var full_profile_image: String?,
     @SerializedName("role")
     var role: List<Role?>?,
     @SerializedName("status")
@@ -44,5 +43,5 @@ data class User(
     @SerializedName("updated_at")
     var updatedAt: String?,
     @SerializedName("username")
-    var username: String?
+    var username: String?,
 )

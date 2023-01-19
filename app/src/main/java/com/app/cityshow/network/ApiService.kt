@@ -40,6 +40,8 @@ interface ApiService {
 
     @GET("categories/get-list")
     suspend fun getCategories(@QueryMap param: HashMap<String, Any>): Response<ObjectBaseModel<CategoryModel>>
+    @POST("product/add-to-favourite")
+    suspend fun markFavProduct(@Body param: HashMap<String, Any>): Response<ObjectBaseModel<CategoryModel>>
 
     @GET("product/details/{id}")
     suspend fun getProductDetails(@Path("id") id: String): Response<ObjectBaseModel<Product>>
@@ -60,7 +62,7 @@ interface ApiService {
     suspend fun myShops(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<ShopsModel>>
 
     @Multipart
-    @POST("user/update_profile")
+    @POST("update-profile")
     suspend fun updateProfile(
         @PartMap params: HashMap<String, RequestBody>?,
         @Part image: MultipartBody.Part?,

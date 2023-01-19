@@ -65,7 +65,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     open fun showAlertMessage(
         title: String? = "",
-        str: String = "",
+        strMessage: String = "",
         isCancelable: Boolean = false,
         positiveText: String = "",
         negativeText: String = "",
@@ -76,7 +76,7 @@ abstract class BaseActivity : AppCompatActivity() {
                 alertDialog!!.dismiss()
             }
             val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AlertDialogCustom))
-                .setMessage(str)
+                .setMessage(strMessage)
                 .setCancelable(isCancelable)
                 .setPositiveButton(positiveText.takeIf { positiveText.isNotBlank() }
                     ?: getString(R.string.ok)) { _, _ -> callback?.invoke(true) }
@@ -237,7 +237,7 @@ abstract class BaseActivity : AppCompatActivity() {
             if (action.equals(ACTION_FOR_BIDDEN_RESPONSE, ignoreCase = true)) {
                 showAlertMessage(
                     title = null,
-                    str = "Unauthorized Access.. Please login to continue",
+                    strMessage = "Unauthorized Access.. Please login to continue",
                     isCancelable = false,
                     positiveText = "OK"
                 ) { _ ->
@@ -247,7 +247,7 @@ abstract class BaseActivity : AppCompatActivity() {
             } else if (action.equals(ACTION_FOR_BLOCKED, ignoreCase = true)) {
                 showAlertMessage(
                     title = null,
-                    str = "Your account access is blocked by administrator.",
+                    strMessage = "Your account access is blocked by administrator.",
                     isCancelable = false,
                     positiveText = "OK"
                 ) { _ ->
@@ -257,7 +257,7 @@ abstract class BaseActivity : AppCompatActivity() {
             } else if (action.equals(ACTION_FOR_INACTIVE_USER, ignoreCase = true)) {
                 showAlertMessage(
                     title = null,
-                    str = "Your account is inactive, Please contact to administrator.",
+                    strMessage = "Your account is inactive, Please contact to administrator.",
                     isCancelable = false,
                     positiveText = "OK"
                 ) { _ ->

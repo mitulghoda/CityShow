@@ -63,6 +63,13 @@ class ProductViewModel : ViewModel() {
             emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }
+    fun markFav(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
+        try {
+            responseParser(ProductRepository.markFavProduct(param), this)
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
+        }
+    }
 
     fun myShops(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
         try {

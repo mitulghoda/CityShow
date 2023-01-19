@@ -19,8 +19,6 @@ import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.UserViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.filepickersample.listener.FilePickerCallback
-import com.filepickersample.model.Media
 import com.github.dhaval2404.imagepicker.ImagePicker
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -46,8 +44,10 @@ class EditProfileActivity : ActionBarActivity() {
         binding.clickListener = this
         setUserData()
 
-        viewModel = ViewModelProvider(this,
-            ViewModelProvider.AndroidViewModelFactory(Controller.instance))[UserViewModel::class.java]
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory(Controller.instance)
+        )[UserViewModel::class.java]
     }
 
     override fun onClick(view: View?) {
@@ -57,8 +57,10 @@ class EditProfileActivity : ActionBarActivity() {
                 ImagePicker.with(this)
                     .compress(1024)
                     .cropSquare()     //Final image size will be less than 1 MB(Optional)
-                    .maxResultSize(1080,
-                        1080)  //Final image resolution will be less than 1080 x 1080(Optional)
+                    .maxResultSize(
+                        1080,
+                        1080
+                    )  //Final image resolution will be less than 1080 x 1080(Optional)
                     .createIntent { intent ->
                         startForProfileImageResult.launch(intent)
                     }
@@ -78,10 +80,11 @@ class EditProfileActivity : ActionBarActivity() {
     private fun setUserData() {
         val user = LocalDataHelper.user
         binding.edtEmail.setText(user?.email)
-        binding.edtFullName.setText(user?.username)
+        binding.edtLastName.setText(user?.firstName)
+        binding.edtLastName.setText(user?.lastname)
 
         Glide.with(this)
-            .load(user?.profilePic)
+            .load(user?.full_profile_image)
             .placeholder(R.drawable.ic_user)
             .error(R.drawable.ic_user)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -95,33 +98,14 @@ class EditProfileActivity : ActionBarActivity() {
     private fun isValid(): Boolean {
         var isValid = true
 
-        if (Validator.isEmptyFieldValidate(binding.edtFullName.getTrimText())) {
-            Validator.setError(binding.tvInputFullName, "Please enter name")
+        if (Validator.isEmptyFieldValidate(binding.edtFirstName.getTrimText())) {
+            Validator.setError(binding.edtFirstName, "Please enter first name")
             isValid = false
         }
-        if (Validator.isEmptyFieldValidate(binding.edtEmail.getTrimText())) {
-            Validator.setError(binding.tvInputEmail, "Please enter email")
-            isValid = false
-        } else if (!Validator.isValidEmail(binding.edtEmail.getTrimText())) {
-            Validator.setError(binding.tvInputEmail, "Please enter valid email")
+        if (Validator.isEmptyFieldValidate(binding.edtLastName.getTrimText())) {
+            Validator.setError(binding.edtLastName, "Please enter last name")
             isValid = false
         }
-        /*if (Validator.isEmptyFieldValidate(binding.edtCountryCode.selectedCountryName)) {
-            toast("Please select any country code")
-            isValid = false
-        }
-        if (Validator.isEmptyFieldValidate(binding.edtNumber.getTrimText())) {
-            Validator.setError(binding.tvInputNumber, "Please enter number")
-            isValid = false
-        } else if (!Validator.isPhoneNumberValidate(binding.edtNumber.getTrimText())) {
-            Validator.setError(binding.tvInputNumber, "Please enter valid number")
-            isValid = false
-        }
-        if (Validator.isEmptyFieldValidate(binding.edtAddress.getTrimText())) {
-            Validator.setError(binding.tvInputAddress, "Please enter address")
-            isValid = false
-        }*/
-
         return isValid
     }
 
@@ -132,14 +116,14 @@ class EditProfileActivity : ActionBarActivity() {
     private fun updateProfile() {
         showProgressDialog()
         val param = HashMap<String, RequestBody>()
-        param["username"] = binding.edtFullName.getTrimText().toRequestBody()
-        param["email"] = binding.edtEmail.getTrimText().toRequestBody()
+        param["first_name"] = binding.edtFirstName.getTrimText().toRequestBody()
+        param["last_name"] = binding.edtLastName.getTrimText().toRequestBody()
 
         var multipartBody: MultipartBody.Part? = null
         if (mProfileUri != null) {
             val file = File(mProfileUri!!.path.toString())
             multipartBody = MultipartBody.Part.createFormData(
-                "profile_pic",
+                "profile_picture",
                 file.name,
                 file.asRequestBody("image/*".toMediaType())
             )

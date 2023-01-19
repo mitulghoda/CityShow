@@ -43,11 +43,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_marginVertical="@dimen/_10sdp"
                     app:vpi_slide_mode="worm"
                     app:vpi_slider_checked_color="@color/colorPrimary"
                     app:vpi_slider_normal_color="@color/black_alpha_25" />
 
-               <androidx.appcompat.widget.AppCompatTextView
+                <androidx.appcompat.widget.AppCompatTextView
                     style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,7 +59,7 @@
                     android:textSize="@dimen/_20sdp"
                     tools:text="Galaxy Mobile" />
 
-               <androidx.appcompat.widget.AppCompatTextView
+                <androidx.appcompat.widget.AppCompatTextView
                     style="@style/TextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -89,18 +90,8 @@
                         android:orientation="vertical"
                         android:padding="@dimen/_5sdp">
 
-                        <androidx.appcompat.widget.AppCompatRatingBar
-                            android:id="@+id/ratingBar"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="-30dp"
-                            android:numStars="5"
-                            android:scaleX="0.7"
-                            android:scaleY="0.7"
-                            android:theme="@style/RatingBar"
-                            tools:rating="3.5" />
 
-                       <androidx.appcompat.widget.AppCompatTextView
+                        <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TextViewStyleBold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -109,7 +100,7 @@
                             android:textSize="@dimen/_14sdp"
                             tools:text="Samsung F-42 5G" />
 
-                       <androidx.appcompat.widget.AppCompatTextView
+                        <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TextViewStyleBold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -119,7 +110,7 @@
                             android:textSize="@dimen/_12ssp"
                             tools:text="@string/mobile_tablets" />
 
-                       <androidx.appcompat.widget.AppCompatTextView
+                        <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TextViewStyleBold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -177,21 +168,22 @@
 
                         </GridLayout>
 
-                       <androidx.appcompat.widget.AppCompatTextView
+                        <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TextViewStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="3"
-                            android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book"
+                            android:text="@{productData.description}"
                             android:textColor="@color/colorHintGray"
-                            android:textSize="@dimen/_12ssp" />
+                            android:textSize="@dimen/_12ssp"
+                            tools:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="gone">
 
-                           <androidx.appcompat.widget.AppCompatTextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 style="@style/TextViewStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -200,7 +192,7 @@
                                 android:gravity="start"
                                 android:text="@string/_150_shops" />
 
-                           <androidx.appcompat.widget.AppCompatTextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 style="@style/TextViewStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -210,7 +202,7 @@
                                 android:text="@string/_150_shops" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
-                       <androidx.appcompat.widget.AppCompatTextView
+                        <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TextViewStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -219,9 +211,10 @@
                             android:background="@drawable/striking_text"
                             android:drawableStart="@drawable/ic_currency"
                             android:foreground="@drawable/striking_text"
-                            android:text="@string/_15_999" />
+                            android:text="@{productData.price}"
+                            tools:text="@string/_15_999" />
 
-                       <androidx.appcompat.widget.AppCompatTextView
+                        <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TextViewStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -231,13 +224,14 @@
                             android:fontFamily="@font/sf_bold"
                             android:gravity="center"
                             android:paddingHorizontal="@dimen/_10sdp"
-                            android:text="@string/_13499"
-                            android:textSize="@dimen/_20sdp" />
+                            android:text="@{productData.selling_price}"
+                            android:textSize="@dimen/_20sdp"
+                            tools:text="@string/_13499" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.cardview.widget.CardView>
 
 
-               <androidx.appcompat.widget.AppCompatTextView
+                <androidx.appcompat.widget.AppCompatTextView
                     style="@style/TextViewStyleBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -246,7 +240,7 @@
                     android:text="@string/_10days_return_policy"
                     android:textSize="@dimen/_14sdp" />
 
-               <androidx.appcompat.widget.AppCompatTextView
+                <androidx.appcompat.widget.AppCompatTextView
                     style="@style/TextViewStyleBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -256,7 +250,7 @@
                     android:text="Cash on Delivery Available"
                     android:textSize="@dimen/_14sdp" />
 
-               <androidx.appcompat.widget.AppCompatTextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvMore"
                     style="@style/TextViewStyle"
                     android:layout_width="wrap_content"

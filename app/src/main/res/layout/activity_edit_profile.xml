@@ -70,13 +70,15 @@
                     style="@style/EditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:editable="false"
+                    android:enabled="false"
                     android:hint="@string/email"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tvInputFullName"
+                android:id="@+id/tvInputFirstName"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,7 +88,27 @@
                 app:startIconTint="@color/colorPrimary">
 
                 <com.app.cityshow.views.EditText
-                    android:id="@+id/edtFullName"
+                    android:id="@+id/edtFirstName"
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/full_name"
+                    android:imeOptions="actionDone"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tvInputLastName"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:hintEnabled="true"
+                app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
+                app:startIconTint="@color/colorPrimary">
+
+                <com.app.cityshow.views.EditText
+                    android:id="@+id/edtLastName"
                     style="@style/EditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

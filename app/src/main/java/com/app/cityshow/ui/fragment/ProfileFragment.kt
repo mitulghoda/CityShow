@@ -52,7 +52,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
         binding.txtStatus.text = user?.status
 
         Glide.with(this)
-            .load(user?.profilePic)
+            .load(user?.full_profile_image)
             .placeholder(R.drawable.ic_user)
             .error(R.drawable.ic_user)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -71,7 +71,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
             binding.txtLogout -> {
                 base?.showAlertMessage(
                     title = "Logout!",
-                    str = "Are you sure? You want to logout?",
+                    strMessage = "Are you sure? You want to logout?",
                     isCancelable = false,
                     positiveText = "Logout",
                     negativeText = "Cancel"

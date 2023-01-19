@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.databinding.FavListBinding
 import com.app.cityshow.model.category.CategoryModel
+import com.app.cityshow.model.product.Product
 import com.app.cityshow.ui.adapter.ProductListAdapter
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.utility.Log
@@ -41,7 +42,7 @@ class FavFragment : BaseFragment() {
 
     private fun setAdapter() {
         val mArrayList = ArrayList<CategoryModel>()
-        productListAdapter = ProductListAdapter(arrayListOf()) {
+        productListAdapter = ProductListAdapter(arrayListOf()) {product: Product, type: Int ->
 
         }
         binding.rvProducts.adapter = productListAdapter

@@ -91,16 +91,20 @@ class LoginActivity : NavigationActivity(), View.OnClickListener {
             it.status.typeCall(
                 success = {
                     if (it.data != null && it.data.success) {
-                        LocalDataHelper.authToken = it.data.data.token
-                        LocalDataHelper.user = it.data.data.user
-                        LocalDataHelper.login = true
-                        openHomeActivity()
+                        if (it.data.data.user != null) {
+                            LocalDataHelper.authToken = it.data.data.token
+                            LocalDataHelper.user = it.data.data.user
+                            LocalDataHelper.login = true
+                            openHomeActivity()
+                        } else {
+                            showAlertMessage("", it.data.message)
+                        }
                     } else {
-                        showAlertMessage(it.message)
+                        showAlertMessage("", it.data?.message ?: "")
                     }
                 },
                 error = {
-                    showAlertMessage(it.message)
+                    showAlertMessage("", it.message)
                 }, loading = {})
         }
 //            } else {

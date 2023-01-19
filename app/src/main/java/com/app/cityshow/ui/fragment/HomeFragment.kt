@@ -13,6 +13,7 @@ import com.app.cityshow.ui.activity.HomeActivity
 import com.app.cityshow.ui.adapter.CategoryListAdapter
 import com.app.cityshow.ui.adapter.ProductListAdapter
 import com.app.cityshow.ui.common.BaseFragment
+import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
@@ -43,8 +44,7 @@ class HomeFragment : BaseFragment() {
 
     private fun initViewModel() {
         viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory(Controller.instance)
+            this, ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]
         callGetCategoryApi()
         calGetProducts()
@@ -58,18 +58,16 @@ class HomeFragment : BaseFragment() {
         param["limit"] = "10000"
         viewModel?.getCategories(param)?.observe(viewLifecycleOwner) {
             base?.hideProgressDialog()
-            it.status.typeCall(
-                success = {
-                    if (it.data != null && it.data.success) {
-                        Log.e("CATEGORIES", Gson().toJson(it.data.data))
-                        categoryListAdapter.setData(it.data.data.categories)
-                    } else {
-                        base?.showAlertMessage(it.message)
-                    }
-                },
-                error = {
+            it.status.typeCall(success = {
+                if (it.data != null && it.data.success) {
+                    Log.e("CATEGORIES", Gson().toJson(it.data.data))
+                    categoryListAdapter.setData(it.data.data.categories)
+                } else {
                     base?.showAlertMessage(it.message)
-                }, loading = {})
+                }
+            }, error = {
+                base?.showAlertMessage(it.message)
+            }, loading = {})
         }
 //            } else {
 //                hideProgressDialog()
@@ -85,19 +83,17 @@ class HomeFragment : BaseFragment() {
         param["pagination"] = "true"
         viewModel?.listOfProduct(param)?.observe(viewLifecycleOwner) {
             base?.hideProgressDialog()
-            it.status.typeCall(
-                success = {
-                    if (it.data != null && it.data.success) {
-                        Log.e("Products", Gson().toJson(it.data.data.products))
-                        val list = it.data.data.products as java.util.ArrayList
-                        productListAdapter.setData(list)
-                    } else {
-                        base?.showAlertMessage(it.message)
-                    }
-                },
-                error = {
+            it.status.typeCall(success = {
+                if (it.data != null && it.data.success) {
+                    Log.e("Products", Gson().toJson(it.data.data.products))
+                    val list = it.data.data.products as java.util.ArrayList
+                    productListAdapter.setData(list)
+                } else {
                     base?.showAlertMessage(it.message)
-                }, loading = { base?.showProgressDialog() })
+                }
+            }, error = {
+                base?.showAlertMessage(it.message)
+            }, loading = { base?.showProgressDialog() })
         }
 
     }
@@ -108,9 +104,37 @@ class HomeFragment : BaseFragment() {
         }
         binding.recyclerView.adapter = categoryListAdapter
 
-        productListAdapter = ProductListAdapter(productList) {
-            ((activity as HomeActivity)).openProductDetails(it)
+        productListAdapter = ProductListAdapter(productList) { product, type ->
+            when (type) {
+                0 -> {
+                    markFavProduct(product)
+                }
+                1 -> {
+                    ((activity as HomeActivity)).openProductDetails(product)
+                }
+            }
+
         }
         binding.rvProducts.adapter = productListAdapter
+    }
+
+    private fun markFavProduct(device: Product) {
+        base?.showProgressDialog()
+        val param = HashMap<String, Any>()
+        param["userId"] = LocalDataHelper.userId
+        param["productId"] = device.id ?: ""
+        viewModel?.markFav(param)?.observe(viewLifecycleOwner) {
+            base?.hideProgressDialog()
+            it.status.typeCall(success = {
+                if (it.data != null && it.data.success) {
+                    base?.toast(it.data.message)
+                } else {
+                    base?.showAlertMessage(it.message)
+                }
+            }, error = {
+                base?.showAlertMessage(it.message)
+            }, loading = {})
+        }
+
     }
 }

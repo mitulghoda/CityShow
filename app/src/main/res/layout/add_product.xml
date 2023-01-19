@@ -307,16 +307,19 @@
                         android:padding="@dimen/_5sdp">
 
                         <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/rbMale"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/male" />
 
                         <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/rbFemale"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/female" />
 
                         <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/rbChild"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/child" />
@@ -344,14 +347,14 @@
                         android:padding="@dimen/_5sdp">
 
                         <androidx.appcompat.widget.AppCompatRadioButton
-                            android:id="@+id/rbMale"
+                            android:id="@+id/rbYes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="true"
                             android:text="@string/yes" />
 
                         <androidx.appcompat.widget.AppCompatRadioButton
-                            android:id="@+id/rbFemale"
+                            android:id="@+id/rbNo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/no" />
@@ -665,7 +668,8 @@
                     android:drawableEnd="@drawable/ic_plus"
                     android:onClick="@{(v)->clickListener.onClick(v)}"
                     android:padding="@dimen/_5sdp"
-                    android:text="@string/key_feature" />
+                    android:text="@string/key_feature"
+                    android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvKeyFeature"
@@ -674,6 +678,7 @@
                     android:isScrollContainer="false"
                     android:orientation="vertical"
                     android:scrollbars="none"
+                    android:visibility="gone"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="5"
                     tools:listitem="@layout/row_editext" />

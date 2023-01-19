@@ -42,7 +42,7 @@ abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
     fun setSubTitleText(value: String?) {
         actionView.txtSubTitle.text = value
         actionView.txtSubTitle.visibility =
-            View.GONE.takeIf { value == null || value.isEmpty() } ?: View.VISIBLE
+            View.GONE.takeIf { value == null || value.isEmpty() } ?: View.GONE
     }
 
     fun setSubTitleTextColor(resId: Int) {

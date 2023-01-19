@@ -58,8 +58,10 @@ class RegisterActivity : NavigationActivity(), View.OnClickListener {
                 ImagePicker.with(this)
                     .compress(1024)
                     .cropSquare()         //Final image size will be less than 1 MB(Optional)
-                    .maxResultSize(1080,
-                        1080)  //Final image resolution will be less than 1080 x 1080(Optional)
+                    .maxResultSize(
+                        1080,
+                        1080
+                    )  //Final image resolution will be less than 1080 x 1080(Optional)
                     .createIntent { intent ->
                         startForProfileImageResult.launch(intent)
                     }
@@ -131,11 +133,11 @@ class RegisterActivity : NavigationActivity(), View.OnClickListener {
 //                        openHomeActivity()
                         openLoginActivity()
                     } else {
-                        showAlertMessage(it.message)
+                        showAlertMessage("", it.data?.message ?: "")
                     }
                 },
                 error = {
-                    showAlertMessage(getString(R.string.something_went_wrong))
+                    showAlertMessage("", getString(R.string.something_went_wrong))
                 }, loading = {
                     showProgressDialog()
                 })

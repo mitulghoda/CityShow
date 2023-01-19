@@ -8,12 +8,12 @@ import com.app.cityshow.R
 import com.app.cityshow.databinding.FrgProductDetailsBinding
 import com.app.cityshow.ui.common.BaseFragment
 
-class ProductDetailsFragment() : BaseFragment() {
+class ProductDetailsFragment(val imageUrl: String) : BaseFragment() {
     private var binding: FrgProductDetailsBinding? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FrgProductDetailsBinding.inflate(inflater, container, false)
         return binding!!.root
@@ -21,6 +21,7 @@ class ProductDetailsFragment() : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding?.imageView?.setImageResource(R.drawable.dummy_mobile)
+        binding?.strUrl = imageUrl
+//        binding?.imageView?.setIma(R.drawable.dummy_mobile)
     }
 }

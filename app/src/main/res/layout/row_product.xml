@@ -102,8 +102,8 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/striking_text"
                         android:drawableStart="@drawable/ic_currency"
-                        android:foreground="@drawable/striking_text"
                         android:text="@{data.price}"
+                        android:visibility="gone"
                         tools:text="15,999" />
 
                     <com.app.cityshow.views.TextView
@@ -114,32 +114,33 @@
                         android:layout_marginHorizontal="@dimen/_10sdp"
                         android:layout_marginVertical="@dimen/_5sdp"
                         android:drawableStart="@drawable/ic_currency"
-                        android:drawablePadding="@dimen/_5sdp"
                         android:fontFamily="@font/sf_bold"
                         android:gravity="center"
                         android:maxLines="1"
                         android:paddingHorizontal="@dimen/_10sdp"
                         android:text="@{data.selling_price}"
-                        android:textSize="@dimen/_18sdp"
-                        tools:text="13499" />
+                        app:autoSizeMaxTextSize="@dimen/_20sdp"
+                        app:autoSizeMinTextSize="@dimen/_12ssp"
+                        app:autoSizeStepGranularity="@dimen/_1sdp"
+                        app:autoSizeTextType="uniform"
+                        tools:text="1347887" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
-                    android:padding="5sp"
+                    android:padding="@dimen/_10sdp"
                     android:src="@drawable/ic_offer"
                     android:tint="@color/colorPrimary" />
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_40sdp"
+                    android:id="@+id/ivFav"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
                     android:layout_alignParentEnd="true"
-                    android:padding="@dimen/_5sdp"
-                    android:src="@drawable/ic_fav"
-                    android:tint="@color/colorPrimary" />
-
+                    android:layout_margin="@dimen/_10sdp"
+                    android:background="@drawable/fav_selector" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
