@@ -40,8 +40,12 @@ interface ApiService {
 
     @GET("categories/get-list")
     suspend fun getCategories(@QueryMap param: HashMap<String, Any>): Response<ObjectBaseModel<CategoryModel>>
+
     @POST("product/add-to-favourite")
-    suspend fun markFavProduct(@Body param: HashMap<String, Any>): Response<ObjectBaseModel<CategoryModel>>
+    suspend fun markFavProduct(@Body param: HashMap<String, Any>): Response<ListBaseModel<CategoryModel>>
+
+    @GET("product/get-favourite-list")
+    suspend fun getFavProduct(): Response<ObjectBaseModel<ProductMainModel>>
 
     @GET("product/details/{id}")
     suspend fun getProductDetails(@Path("id") id: String): Response<ObjectBaseModel<Product>>
@@ -51,6 +55,7 @@ interface ApiService {
 
     @POST("product/update")
     suspend fun updateProduct(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<LoginUserModel>>
+
 
     @POST("product/add-to-favourite")
     suspend fun productAddToFav(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<LoginUserModel>>

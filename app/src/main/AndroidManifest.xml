@@ -19,13 +19,17 @@
         android:theme="@style/Theme.CityShow"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ProductDetIailsNew"
+            android:name=".ui.activity.ProductListActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.ProductDetIailsNew"
             android:exported="false" />
         <activity
-            android:name=".TestMyS"
+            android:name=".ui.activity.TestMyS"
             android:exported="false" />
         <activity
-            android:name=".AddShopActivity"
+            android:name=".ui.activity.AddShopActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -56,9 +60,7 @@
         <activity
             android:name=".ui.activity.RegisterActivity"
             android:theme="@style/WhiteStatusBar" />
-        <activity
-            android:name=".ui.activity.AddShopActivity"
-            android:theme="@style/AppTheme" />
+
         <activity
             android:name=".ui.activity.ForgotPasswordActivity"
             android:theme="@style/WhiteStatusBar" />

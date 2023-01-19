@@ -1,43 +1,41 @@
-package com.app.cityshow.ui.fragment
+package com.app.cityshow.ui.activity
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
-import com.app.cityshow.databinding.FavListBinding
-import com.app.cityshow.model.category.CategoryModel
+import com.app.cityshow.databinding.ActivityProductListBinding
 import com.app.cityshow.model.product.Product
 import com.app.cityshow.ui.adapter.ProductListAdapter
-import com.app.cityshow.ui.common.BaseFragment
+import com.app.cityshow.ui.common.ActionBarActivity
 import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.google.gson.Gson
 
-class FavFragment : BaseFragment() {
+class ProductListActivity : ActionBarActivity() {
     lateinit var productListAdapter: ProductListAdapter
-    private lateinit var binding: FavListBinding
+    private lateinit var binding: ActivityProductListBinding
     private lateinit var viewModel: ProductViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        binding = FavListBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initUi() {
+
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]
-        calGetProducts()
+        if (intent.hasExtra("CATEGORY_ID")) {
+            calGetProducts(intent.getStringExtra("CATEGORY_ID")!!)
+        }
         setAdapter()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityProductListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setUpToolbar("Home", true)
+        setSubTitleText("Ahmedabad")
     }
 
     private fun setAdapter() {
@@ -47,24 +45,26 @@ class FavFragment : BaseFragment() {
         binding.rvProducts.adapter = productListAdapter
     }
 
-    private fun calGetProducts() {
-        base?.showProgressDialog()
-        viewModel.getFavProduct().observe(viewLifecycleOwner) {
-            base?.hideProgressDialog()
+    private fun calGetProducts(strId: String) {
+        showProgressDialog()
+        val param = HashMap<String, Any>()
+        param["category_id"] = strId
+        param["pagination"] = "false"
+        viewModel.listOfProduct(param).observe(this) {
+            hideProgressDialog()
             it.status.typeCall(
                 success = {
                     if (it.data != null && it.data.success) {
-                        Log.e("FavProducts", Gson().toJson(it.data.data.products))
                         val list = it.data.data.products
                         productListAdapter.setData(list)
 
                     } else {
-                        base?.showAlertMessage(it.message)
+                        showAlertMessage(it.message)
                     }
                 },
                 error = {
-                    base?.showAlertMessage(it.message)
-                }, loading = { base?.showProgressDialog() })
+                    showAlertMessage(it.message)
+                }, loading = { showProgressDialog() })
         }
 
     }

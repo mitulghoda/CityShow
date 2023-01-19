@@ -35,6 +35,12 @@ abstract class NavigationActivity : BaseActivity() {
         startActivity(intent)
     }
 
+    fun openProductListActivity(strId: String?) {
+        val intent = Intent(this, ProductListActivity::class.java)
+        intent.putExtra("CATEGORY_ID",strId)
+        startActivity(intent)
+    }
+
     fun openChangePasswordActivity(email: String) {
         val intent = Intent(this, ChangePasswordActivity::class.java)
         intent.putExtra("email", email)

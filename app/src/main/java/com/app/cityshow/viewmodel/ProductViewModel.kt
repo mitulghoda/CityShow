@@ -55,6 +55,14 @@ class ProductViewModel : ViewModel() {
             emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }
+   fun getFavProduct() = liveData(Dispatchers.IO) {
+        try {
+            responseParser(ProductRepository.getFavProduct(), this)
+        } catch (e: Exception) {
+            e.message?.let { Log.e(it) }
+            emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
+        }
+    }
 
     fun getCategories(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
         try {

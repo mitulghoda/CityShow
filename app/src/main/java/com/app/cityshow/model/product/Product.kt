@@ -13,7 +13,7 @@ class Product() : java.io.Serializable {
     val device_os: String = ""
     val gender: String = ""
     val id: Int? = null
-    var isFav: Boolean? = false
+    var is_fav: Boolean? = false
     val is_gold: String = ""
     val key_featurees: String = ""
     val material: String = ""

@@ -40,6 +40,9 @@ class CategoryListAdapter(
             fun bind(reader: Category) {
                 binding.data = reader
                 binding.image.loadImage(reader.getCategoryImage())
+                binding.root.setOnClickListener {
+                    adapter.onClickItem(reader)
+                }
             }
         }
     }
