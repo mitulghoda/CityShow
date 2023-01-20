@@ -24,12 +24,12 @@
             android:layout_marginBottom="@dimen/_80sdp"
             android:fontFamily="@font/sf_bold"
             android:paddingHorizontal="@dimen/_10sdp"
-            android:shadowColor="@color/black"
+            android:shadowColor="@color/black_alpha_25"
             android:shadowDx="15"
             android:shadowDy="15"
             android:shadowRadius="6"
             android:text="@string/tag_line"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/white"
             android:textSize="@dimen/_24sdp" />
 
     </RelativeLayout>
