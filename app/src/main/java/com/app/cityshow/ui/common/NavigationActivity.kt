@@ -2,6 +2,7 @@ package com.app.cityshow.ui.common
 
 import android.content.Intent
 import com.app.cityshow.BuildConfig
+import com.app.cityshow.model.category.Category
 import com.app.cityshow.model.product.Product
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.ui.activity.*
@@ -35,7 +36,7 @@ abstract class NavigationActivity : BaseActivity() {
         startActivity(intent)
     }
 
-    fun openProductListActivity(strId: String?) {
+    fun openProductListActivity(strId: Category?) {
         val intent = Intent(this, ProductListActivity::class.java)
         intent.putExtra("CATEGORY_ID",strId)
         startActivity(intent)

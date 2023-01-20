@@ -418,6 +418,17 @@ val Activity.contentView: View?
     get() = findViewById<ViewGroup>(R.id.content)?.getChildAt(0)
 
 
+/*
+* Return true if view is visible otherwise return false
+* */
+fun View.hide() {
+    visibility = View.GONE
+}
+
+fun View.show() {
+    visibility = View.VISIBLE
+}
+
 /**
  * Hide/Show view with scale animation
  * */
@@ -518,10 +529,6 @@ fun View.gone() {
 
 fun View.visible() {
     visibility = View.VISIBLE
-}
-
-fun View.invisible() {
-    visibility = View.INVISIBLE
 }
 
 

@@ -13,7 +13,7 @@ class Product() : java.io.Serializable {
     val device_os: String = ""
     val gender: String = ""
     val id: Int? = null
-    var is_fav: Boolean? = false
+    var is_fav: String? = ""
     val is_gold: String = ""
     val key_featurees: String = ""
     val material: String = ""
@@ -38,5 +38,9 @@ class Product() : java.io.Serializable {
         } else {
             ""
         }
+    }
+
+    fun getIsFavOrNot(): Boolean {
+        return !is_fav.equals("0", true)
     }
 }

@@ -9,4 +9,4 @@ data class SubCategoryImage(
     val image: String,
     val type: String,
     val updated_at: String
-)
+):java.io.Serializable

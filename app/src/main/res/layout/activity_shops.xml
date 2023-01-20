@@ -20,14 +20,16 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".ui.activity.AllAiActivity">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvItem"
+            <include
+                android:id="@+id/laySearch"
+                layout="@layout/lay_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/row_shops" />
+                android:layout_height="match_parent"
+                android:visibility="visible" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
@@ -50,5 +52,6 @@
                 app:pressedTranslationZ="12dp"
                 app:rippleColor="@color/colorHintGray" />
         </RelativeLayout>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.app.cityshow.views.TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/txtErrorMsg"
     style="@style/TextViewStyle"
     android:layout_width="wrap_content"
@@ -12,5 +13,7 @@
     android:gravity="center"
     android:paddingHorizontal="@dimen/_10sdp"
     android:text="@string/no_data_found"
-    android:textColor="@color/textColorSecondary"
-    android:visibility="gone" />
+    android:textColor="@color/colorAccent"
+    android:textSize="@dimen/_20sdp"
+    android:visibility="gone"
+    app:fontFamily="@font/sf_bold" />

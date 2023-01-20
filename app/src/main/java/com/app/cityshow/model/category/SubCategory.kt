@@ -9,4 +9,4 @@ data class SubCategory(
     val slug: String,
     val sub_category_image: List<SubCategoryImage>,
     val updated_at: String
-)
+):java.io.Serializable

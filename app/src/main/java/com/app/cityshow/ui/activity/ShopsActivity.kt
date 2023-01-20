@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
+import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityShopsBinding
+import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.ui.adapter.ShopsAdapter
 import com.app.cityshow.ui.common.ActionBarActivity
 import com.app.cityshow.utility.Log
+import com.app.cityshow.utility.hide
+import com.app.cityshow.utility.show
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.google.gson.Gson
@@ -31,7 +35,7 @@ class ShopsActivity : ActionBarActivity(), View.OnClickListener {
         shopsAdapter = ShopsAdapter(arrayListOf()) {
             openAddShopActivity(it)
         }
-        binding.rvItem.adapter = shopsAdapter
+        binding.laySearch.recyclerView.adapter = shopsAdapter
     }
 
     private fun initViewModel() {
@@ -54,7 +58,8 @@ class ShopsActivity : ActionBarActivity(), View.OnClickListener {
                 success = {
                     if (it.data != null && it.data.success) {
                         Log.e("CATEGORIES", Gson().toJson(it.data.data))
-                        shopsAdapter?.setData(it.data.data.shops)
+                        setData(it.data.data.shops)
+
                     } else {
                         showAlertMessage(it.message)
                     }
@@ -69,6 +74,16 @@ class ShopsActivity : ActionBarActivity(), View.OnClickListener {
 //                hideProgressDialog()
 //                toast(fcmToken)
 //            }
+    }
+
+    private fun setData(shops: List<Shop>) {
+        if (shops.isEmpty()) {
+            binding.laySearch.layError.root.show()
+            binding.laySearch.layError.txtErrorMsg.text = getString(R.string.no_shop_found)
+        } else {
+            shopsAdapter?.setData(shops)
+        }
+
     }
 
     override fun onClick(v: View?) {

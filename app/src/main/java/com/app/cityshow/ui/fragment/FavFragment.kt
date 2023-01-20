@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.databinding.FavListBinding
-import com.app.cityshow.model.category.CategoryModel
 import com.app.cityshow.model.product.Product
 import com.app.cityshow.ui.adapter.ProductListAdapter
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.typeCall
+import com.app.cityshow.utility.visible
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.google.gson.Gson
+import java.util.ArrayList
 
 class FavFragment : BaseFragment() {
     lateinit var productListAdapter: ProductListAdapter
@@ -44,7 +45,7 @@ class FavFragment : BaseFragment() {
         productListAdapter = ProductListAdapter(arrayListOf()) { product: Product, type: Int ->
 
         }
-        binding.rvProducts.adapter = productListAdapter
+        binding.laySearch.recyclerView.adapter = productListAdapter
     }
 
     private fun calGetProducts() {
@@ -56,7 +57,7 @@ class FavFragment : BaseFragment() {
                     if (it.data != null && it.data.success) {
                         Log.e("FavProducts", Gson().toJson(it.data.data.products))
                         val list = it.data.data.products
-                        productListAdapter.setData(list)
+                        setData(list)
 
                     } else {
                         base?.showAlertMessage(it.message)
@@ -65,6 +66,15 @@ class FavFragment : BaseFragment() {
                 error = {
                     base?.showAlertMessage(it.message)
                 }, loading = { base?.showProgressDialog() })
+        }
+
+    }
+
+    private fun setData(list: ArrayList<Product>) {
+        if (list.isEmpty()) {
+            binding.laySearch.layError.root.visible()
+        } else {
+            productListAdapter.setData(list)
         }
 
     }

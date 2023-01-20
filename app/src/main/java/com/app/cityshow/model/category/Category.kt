@@ -12,7 +12,7 @@ data class Category(
     val category_images: List<String>,
     val updated_at: String,
     val shops: List<Shop>,
-) {
+):java.io.Serializable {
     fun getTotalShop(): String {
         return "${shops.size}+shops"
     }

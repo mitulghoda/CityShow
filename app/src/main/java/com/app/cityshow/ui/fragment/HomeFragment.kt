@@ -100,7 +100,7 @@ class HomeFragment : BaseFragment() {
 
     private fun setAdapter() {
         categoryListAdapter = CategoryListAdapter(arrayListOf()) {
-            navigation?.openProductListActivity(it.id)
+            navigation?.openProductListActivity(it)
         }
         binding.recyclerView.adapter = categoryListAdapter
 
@@ -122,7 +122,6 @@ class HomeFragment : BaseFragment() {
         base?.showProgressDialog()
         val param = HashMap<String, Any>()
         param["productId"] = device.id ?: ""
-        param["isFav"] = device.is_fav ?: false
         viewModel?.markFav(param)?.observe(viewLifecycleOwner) {
             base?.hideProgressDialog()
             it.status.typeCall(success = {
