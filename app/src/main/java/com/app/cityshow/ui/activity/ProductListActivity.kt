@@ -2,6 +2,7 @@ package com.app.cityshow.ui.activity
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityProductListBinding
@@ -38,13 +39,11 @@ class ProductListActivity : ActionBarActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProductListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
     }
-
     private fun setAdapter() {
         productListAdapter = ProductListAdapter(arrayListOf()) { product: Product, type: Int ->
-
         }
+        binding.laySearch.recyclerView.layoutManager = GridLayoutManager(this, 2)
         binding.laySearch.recyclerView.adapter = productListAdapter
     }
 

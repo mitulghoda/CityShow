@@ -74,7 +74,7 @@
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/txtToolbarTitle"
-                                style="@style/TextViewStyle"
+                                style="@style/TextViewStyle.Medium"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
@@ -84,7 +84,7 @@
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/txtSubTitle"
-                                style="@style/TextViewStyle"
+                                style="@style/TextViewStyle.Medium"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_2sdp"
