@@ -120,7 +120,7 @@ class EditProfileActivity : ActionBarActivity() {
         val param = HashMap<String, RequestBody>()
         param["first_name"] = binding.edtFullName.getTrimText().toRequestBody()
         param["last_name"] = binding.edtLastName.getTrimText().toRequestBody()
-        param["phone_number"] = binding.edtLastName.getTrimText().toRequestBody()
+//        param["phone_number"] = binding.edtNumber.getTrimText().toRequestBody()
 
         var multipartBody: MultipartBody.Part? = null
         if (mProfileUri != null) {
