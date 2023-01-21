@@ -51,9 +51,9 @@ class FavFragment : BaseFragment() {
     private fun calGetProducts() {
         base?.showProgressDialog()
         viewModel.getFavProduct().observe(viewLifecycleOwner) {
-            base?.hideProgressDialog()
             it.status.typeCall(
                 success = {
+                    base?.hideProgressDialog()
                     if (it.data != null && it.data.success) {
                         Log.e("FavProducts", Gson().toJson(it.data.data.products))
                         val list = it.data.data.products

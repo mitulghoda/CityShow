@@ -247,7 +247,7 @@
                     android:layout_gravity="start"
                     android:layout_marginVertical="@dimen/_5sdp"
                     android:gravity="center"
-                    android:text="Cash on Delivery Available"
+                    android:text="@string/cash_on_delivery_available"
                     android:textSize="@dimen/_14sdp" />
 
                 <androidx.appcompat.widget.AppCompatTextView

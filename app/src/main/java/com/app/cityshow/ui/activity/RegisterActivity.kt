@@ -123,9 +123,9 @@ class RegisterActivity : NavigationActivity(), View.OnClickListener {
             )
         }
         viewModel.register(param, multipartBody).observe(this) {
-            hideProgressDialog()
             it.status.typeCall(
                 success = {
+                    hideProgressDialog()
                     if (it.data != null && it.data.success) {
 //                        LocalDataHelper.authToken = it.data.data.token
 //                        LocalDataHelper.user = it.data.data.user
@@ -137,6 +137,7 @@ class RegisterActivity : NavigationActivity(), View.OnClickListener {
                     }
                 },
                 error = {
+                    hideProgressDialog()
                     showAlertMessage("", getString(R.string.something_went_wrong))
                 }, loading = {
                     showProgressDialog()

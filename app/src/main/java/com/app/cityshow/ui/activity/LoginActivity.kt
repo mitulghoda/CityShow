@@ -87,9 +87,9 @@ class LoginActivity : NavigationActivity(), View.OnClickListener {
 //                param["device_id"] = fcmToken
 
         viewModel.login(param).observe(this) {
-            hideProgressDialog()
             it.status.typeCall(
                 success = {
+                    hideProgressDialog()
                     if (it.data != null && it.data.success) {
                         if (it.data.data.user != null) {
                             LocalDataHelper.authToken = it.data.data.token
@@ -104,6 +104,7 @@ class LoginActivity : NavigationActivity(), View.OnClickListener {
                     }
                 },
                 error = {
+                    hideProgressDialog()
                     showAlertMessage("", it.message)
                 }, loading = {})
         }

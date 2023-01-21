@@ -97,6 +97,7 @@
     <string name="_150_shops">150+ shops</string>
     <string name="_15_999">15,999</string>
     <string name="_13499">13499</string>
-    <string name="no_shop_found">You didnt have added shop yet, You can add your shop by click on bottom plus button</string>
+    <string name="cash_on_delivery_available">Cash on Delivery Available</string>
+    <string name="no_shop_found">You didn\'t have added shop yet, You can add your shop by click on bottom plus button</string>
     <string name="no_product_found_category">There is no product found for selected category, We will add product for this category shortly, \nThanks</string>
 </resources>

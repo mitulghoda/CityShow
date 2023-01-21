@@ -71,9 +71,9 @@ class OTPActivity : NavigationActivity(), View.OnClickListener {
         param["email"] = email.orEmpty()
         param["otp"] = binding.edtEmail.getTrimText()
         viewModel.verifyOtp(param).observe(this) {
-            hideProgressDialog()
             it.status.typeCall(
                 success = {
+                    hideProgressDialog()
                     if (it.data != null && it.data.success) {
                         openChangePasswordActivity(binding.edtEmail.getTrimText())
                         finish()
@@ -82,6 +82,7 @@ class OTPActivity : NavigationActivity(), View.OnClickListener {
                     }
                 },
                 error = {
+                    hideProgressDialog()
                     showAlertMessage(getString(R.string.something_went_wrong))
                 }
             , loading = {})

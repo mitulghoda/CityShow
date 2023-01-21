@@ -10,6 +10,7 @@ import com.app.cityshow.R
 import com.app.cityshow.databinding.BottomSheetRecyclerviewBinding
 import com.app.cityshow.databinding.MoreDetailsBinding
 import com.app.cityshow.ui.adapter.BottomSheetCommonAdapter
+import com.app.cityshow.ui.adapter.KeyFeatureAdapter
 import com.app.cityshow.utility.decorator.DividerItemDecorator
 import java.util.ArrayList
 
@@ -38,8 +39,7 @@ class BottomSheetMoreDetails : BaseHeaderBottomSheet() {
     }
 
     private fun initUi() {
-
-
+        binding.rvKeyFeature.adapter = KeyFeatureAdapter()
     }
 
     override fun show(activity: FragmentActivity): BaseBottomSheet? {

@@ -87,9 +87,9 @@ class ChangePasswordActivity : NavigationActivity(), View.OnClickListener {
         param["password_confirmation"] = binding.edtReEnterPassword.getTrimText()
 
         viewModel.changePassword(param).observe(this) {
-            hideProgressDialog()
             it.status.typeCall(
                 success = {
+                    hideProgressDialog()
                     if (it.data != null && it.data.success) {
                         openLoginActivity()
                     } else {
@@ -97,6 +97,7 @@ class ChangePasswordActivity : NavigationActivity(), View.OnClickListener {
                     }
                 },
                 error = {
+                    hideProgressDialog()
                     showAlertMessage(getString(R.string.something_went_wrong))
                 }, loading = {})
         }

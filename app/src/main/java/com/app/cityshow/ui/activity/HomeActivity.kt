@@ -32,38 +32,78 @@ class HomeActivity : ActionBarActivity(), View.OnClickListener {
         setUpCurveBottomNavigation()
     }
 
-    private fun setupViewPagerFragment() {
-        if (pageStateAdapter != null) return
+    fun getFragments(): MutableList<BaseFragment?> {
         val fragments: MutableList<BaseFragment?> = ArrayList()
         fragments.add(HomeFragment())
         fragments.add(FavFragment())
         fragments.add(NotificationFragment())
         fragments.add(ProfileFragment())
-        mBinding.viewPager.adapter =
+        return fragments
+    }
+
+    private fun setupViewPagerFragment() {
+        if (pageStateAdapter != null) return
+        val fragments = getFragments()
+        /*mBinding.viewPager.adapter =
             PageStateAdapter(this, fragments).also { pageStateAdapter = it }
         mBinding.viewPager.isUserInputEnabled = false
-        mBinding.viewPager.offscreenPageLimit = 1
-        mBinding.bottomView.setOnItemSelectedListener {
+        mBinding.viewPager.offscreenPageLimit = 1*/
+        fragments[0]?.let { fragment ->
+            loadFragmentWithClearedStack(
+                fragment,
+                fragment.javaClass.simpleName,
+                R.id.fragment_container
+            )
+        }
+        mBinding.bottomView.setOnItemSelectedListener { it ->
             when (it.itemId) {
                 R.id.action_home -> {
                     showFab(true)
                     setUpToolbar("Home", false)
-                    mBinding.viewPager.currentItem = 0
+                    //mBinding.viewPager.currentItem = 0
+                    fragments[0]?.let { fragment ->
+                        loadFragmentWithClearedStack(
+                            fragment,
+                            fragment.javaClass.simpleName,
+                            R.id.fragment_container
+                        )
+                    }
                 }
                 R.id.action_fav -> {
                     showFab(true)
                     setUpToolbar("Wishlist", false)
-                    mBinding.viewPager.currentItem = 1
+                    //mBinding.viewPager.currentItem = 1
+                    fragments[1]?.let { fragment ->
+                        loadFragmentWithClearedStack(
+                            fragment,
+                            fragment.javaClass.simpleName,
+                            R.id.fragment_container
+                        )
+                    }
                 }
                 R.id.action_not -> {
                     showFab(true)
                     setUpToolbar("Notifications", false)
-                    mBinding.viewPager.currentItem = 2
+                    //mBinding.viewPager.currentItem = 2
+                    fragments[2]?.let { fragment ->
+                        loadFragmentWithClearedStack(
+                            fragment,
+                            fragment.javaClass.simpleName,
+                            R.id.fragment_container
+                        )
+                    }
                 }
                 R.id.action_account -> {
                     showFab(false)
                     setUpToolbar("Account", false)
-                    mBinding.viewPager.currentItem = 3
+                    //mBinding.viewPager.currentItem = 3
+                    fragments[3]?.let { fragment ->
+                        loadFragmentWithClearedStack(
+                            fragment,
+                            fragment.javaClass.simpleName,
+                            R.id.fragment_container
+                        )
+                    }
                 }
             }
             true
@@ -85,6 +125,7 @@ class HomeActivity : ActionBarActivity(), View.OnClickListener {
     }
 
     private fun setUpCurveBottomNavigation() {
+        val fragments = getFragments()
         val bottomNavigationItems = mutableListOf(
             CurvedBottomNavigation.Model(1, "", R.drawable.ic_home),
             CurvedBottomNavigation.Model(
@@ -92,9 +133,11 @@ class HomeActivity : ActionBarActivity(), View.OnClickListener {
                 "",
                 R.drawable.ic_fav
             ),
-            CurvedBottomNavigation.Model(3,
+            CurvedBottomNavigation.Model(
+                3,
                 "",
-                R.drawable.ic_notification),
+                R.drawable.ic_notification
+            ),
             CurvedBottomNavigation.Model(4, "", R.drawable.ic_baseline_account_circle_24),
         )
         mBinding.bottomNavigationCurve.apply {
@@ -103,19 +146,47 @@ class HomeActivity : ActionBarActivity(), View.OnClickListener {
                 when (it.id) {
                     1 -> {
                         setUpToolbar("Home", false)
-                        mBinding.viewPager.currentItem = 0
+                        //mBinding.viewPager.currentItem = 0
+                        fragments[0]?.let { fragment ->
+                            loadFragmentWithClearedStack(
+                                fragment,
+                                fragment.javaClass.simpleName,
+                                R.id.fragment_container
+                            )
+                        }
                     }
                     2 -> {
                         setUpToolbar("Wishlist", false)
-                        mBinding.viewPager.currentItem = 1
+                        //mBinding.viewPager.currentItem = 1
+                        fragments[1]?.let { fragment ->
+                            loadFragmentWithClearedStack(
+                                fragment,
+                                fragment.javaClass.simpleName,
+                                R.id.fragment_container
+                            )
+                        }
                     }
                     3 -> {
                         setUpToolbar("Notifications", false)
-                        mBinding.viewPager.currentItem = 2
+                        //mBinding.viewPager.currentItem = 2
+                        fragments[2]?.let { fragment ->
+                            loadFragmentWithClearedStack(
+                                fragment,
+                                fragment.javaClass.simpleName,
+                                R.id.fragment_container
+                            )
+                        }
                     }
                     4 -> {
                         setUpToolbar("Account", false)
-                        mBinding.viewPager.currentItem = 3
+                        //mBinding.viewPager.currentItem = 3
+                        fragments[3]?.let { fragment ->
+                            loadFragmentWithClearedStack(
+                                fragment,
+                                fragment.javaClass.simpleName,
+                                R.id.fragment_container
+                            )
+                        }
                     }
                 }
             }

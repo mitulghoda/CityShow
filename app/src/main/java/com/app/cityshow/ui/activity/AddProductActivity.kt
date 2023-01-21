@@ -87,9 +87,9 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         val param = HashMap<String, Any>()
         param["pagination"] = "false"
         viewModel.myShops(param).observe(this) {
-            hideProgressDialog()
             it.status.typeCall(
                 success = {
+                    hideProgressDialog()
                     if (it.data != null && it.data.success) {
                         Log.e("CATEGORIES", Gson().toJson(it.data.data))
                         shopList = it.data.data.shops as ArrayList<Shop>
@@ -98,6 +98,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                     }
                 },
                 error = {
+                    hideProgressDialog()
                     showAlertMessage(it.message)
                 }, loading = {})
         }
@@ -234,9 +235,9 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         val param = HashMap<String, Any>()
         param["pagination"] = "false"
         viewModel.getCategories(param).observe(this) {
-            hideProgressDialog()
             it.status.typeCall(
                 success = {
+                    hideProgressDialog()
                     if (it.data != null && it.data.success) {
                         Log.e("CATEGORIES", Gson().toJson(it.data.data))
                         mArrayList = it.data.data.categories as ArrayList<Category>?
@@ -245,6 +246,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                     }
                 },
                 error = {
+                    hideProgressDialog()
                     showAlertMessage("", it.message)
                 }, loading = {})
         }
@@ -281,21 +283,26 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         param["warranty"] = mBinding.cbWarranty.isChecked.toString().requestBody()
         param["shop_id[]"] = strShopId!!.requestBody()
 
+        if (mBinding.cbXXL.isChecked) param["size[0]"] = mBinding.cbXXL.text.toString().requestBody()
+        if (mBinding.cbxl.isChecked) param["size[1]"] = mBinding.cbxl.text.toString().requestBody()
+        if (mBinding.cbS.isChecked) param["size[2]"] = mBinding.cbS.text.toString().requestBody()
+        if (mBinding.cbL.isChecked) param["size[3]"] = mBinding.cbL.text.toString().requestBody()
+
         val images = ArrayList<MultipartBody.Part?>()
-        mAssetImages.forEach { media ->
+        mAssetImages.forEachIndexed {i, media ->
             val file = File(media.mediaFile.toString())
             var multipartBody: MultipartBody.Part? = null
             multipartBody = MultipartBody.Part.createFormData(
-                "images[]",
+                "images[$i]",
                 file.name,
                 file.asRequestBody("image/*".toMediaType())
             )
             images.add(multipartBody)
         }
         viewModel.createProduct(param, images).observe(this) {
-            hideProgressDialog()
             it.status.typeCall(
                 success = {
+                    hideProgressDialog()
                     if (it.data != null && it.data.success) {
                         openHomeActivity()
                     } else {
@@ -303,6 +310,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                     }
                 },
                 error = {
+                    hideProgressDialog()
                     showAlertMessage(getString(R.string.something_went_wrong))
                 }, loading = {})
         }

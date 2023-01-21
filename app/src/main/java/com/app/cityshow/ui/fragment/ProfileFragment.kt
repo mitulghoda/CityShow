@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ProfileBinding
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.utility.LocalDataHelper
+import com.app.cityshow.utility.loadImage
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.UserViewModel
 import com.bumptech.glide.Glide
@@ -66,7 +68,12 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
                 navigation?.openShopsActivity()
             }
             binding.linearLayoutProfile -> {
-                navigation?.openEditProfileActivity()
+                navigation?.openEditProfileActivity {
+                    binding.imgProfile.loadImage(
+                        LocalDataHelper.user?.full_profile_image,
+                        R.drawable.ic_user
+                    )
+                }
             }
             binding.txtLogout -> {
                 base?.showAlertMessage(
@@ -87,12 +94,13 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     private fun logout() {
         base?.showProgressDialog()
         viewModel.logout().observe(this) {
-            base?.hideProgressDialog()
             it.status.typeCall(
                 success = {
+                    base?.hideProgressDialog()
                     base?.logoutActions()
                 },
                 error = {
+                    base?.hideProgressDialog()
                     base?.logoutActions()
                 }, loading = {})
         }

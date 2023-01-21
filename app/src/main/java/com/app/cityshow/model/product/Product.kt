@@ -2,6 +2,8 @@ package com.app.cityshow.model.product
 
 import com.app.cityshow.model.MyItemImages
 import com.app.cityshow.model.shops.Shop
+import com.app.cityshow.utility.fromJsonList
+import com.google.gson.Gson
 
 class Product() : java.io.Serializable {
     val brand_name: String = ""
@@ -30,6 +32,7 @@ class Product() : java.io.Serializable {
     val subcat_id: String = ""
     val updated_at: String = ""
     val wight: String = ""
+    val warranty: String = ""
     val shop: Shop? = null
 
     fun getProductImage(): String {
@@ -42,5 +45,17 @@ class Product() : java.io.Serializable {
 
     fun getIsFavOrNot(): Boolean {
         return !is_fav.equals("0", true)
+    }
+
+    fun isGold(): String {
+        return "Yes".takeIf { is_gold.equals("1", true) } ?: "No"
+    }
+
+    fun isWarranty(): String {
+        return "Yes".takeIf { warranty.equals("1", true) } ?: "No"
+    }
+
+    fun getKeyFeatures(): List<String> {
+        return key_featurees.fromJsonList()
     }
 }

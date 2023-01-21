@@ -1,6 +1,7 @@
 package com.app.cityshow.ui.common
 
 import android.content.Intent
+import androidx.activity.result.ActivityResult
 import com.app.cityshow.BuildConfig
 import com.app.cityshow.model.category.Category
 import com.app.cityshow.model.product.Product
@@ -65,9 +66,9 @@ abstract class NavigationActivity : BaseActivity() {
         startActivity(intent)
     }
 
-    fun openEditProfileActivity() {
+    fun openEditProfileActivity(callback: (result: ActivityResult) -> Unit) {
         val intent = Intent(this, EditProfileActivity::class.java)
-        startActivity(intent)
+        activityLauncher.launch(intent) { callback.invoke(it) }
     }
 
     fun openImageFilePicker(callback: FilePickerCallback) {

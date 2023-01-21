@@ -53,9 +53,9 @@ class ShopsActivity : ActionBarActivity(), View.OnClickListener {
         param["limit"] = "1000"
         param["pagination"] = "true"
         viewModel?.myShops(param)?.observe(this) {
-            hideProgressDialog()
             it.status.typeCall(
                 success = {
+                    hideProgressDialog()
                     if (it.data != null && it.data.success) {
                         Log.e("CATEGORIES", Gson().toJson(it.data.data))
                         setData(it.data.data.shops)
@@ -65,6 +65,7 @@ class ShopsActivity : ActionBarActivity(), View.OnClickListener {
                     }
                 },
                 error = {
+                    hideProgressDialog()
                     showAlertMessage(it.message)
                 }, loading = {
                     showProgressDialog()

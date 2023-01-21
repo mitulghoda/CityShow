@@ -13,6 +13,8 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.app.cityshow.R
 import com.app.cityshow.network.NetworkURL.ACTION_FOR_BIDDEN_RESPONSE
@@ -114,6 +116,44 @@ abstract class BaseActivity : AppCompatActivity() {
     fun toast(str: String?) {
         if (str.isNullOrEmpty()) return
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
+    }
+
+    fun loadFragmentWithClearedStack(
+        fragment: Fragment,
+        tag: String,
+        fragmentContainer: Int,
+    ) {
+        justTry {
+            if (supportFragmentManager.fragments.isNotEmpty())
+                supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
+            val currentFragment = supportFragmentManager.findFragmentById(fragmentContainer)
+//        if (currentFragment?.javaClass?.simpleName == fragment.javaClass.simpleName) return
+            supportFragmentManager.beginTransaction()
+                .replace(fragmentContainer, fragment, tag)
+                .commit()
+        }
+    }
+
+    fun clearFragment(fragName: String) {
+        supportFragmentManager.popBackStack(fragName, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    }
+
+    fun loadFragment(fragment: Fragment, tag: String, backstack: String, fragmentContainer: Int) {
+        val currentFragment = supportFragmentManager.findFragmentById(fragmentContainer)
+        if (currentFragment?.javaClass?.simpleName != fragment.javaClass.simpleName) {
+//            fragment.apply {
+//                setTargetFragment(
+//                    currentFragment,
+//                    Constants.FRAGMENT_ADD_CODE
+//                )
+//            }
+            supportFragmentManager.beginTransaction()
+                .replace(fragmentContainer, fragment, tag)
+                .addToBackStack(backstack).commit()
+
+        }
+
     }
 
     fun openDatePickerDialog(

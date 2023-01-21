@@ -53,9 +53,9 @@ class ProductListActivity : ActionBarActivity() {
         param["category_id"] = strId
         param["pagination"] = "false"
         viewModel.listOfProduct(param).observe(this) {
-            hideProgressDialog()
             it.status.typeCall(
                 success = {
+                    hideProgressDialog()
                     if (it.data != null && it.data.success) {
                         val list = it.data.data.products
                         setData(list)
@@ -65,6 +65,7 @@ class ProductListActivity : ActionBarActivity() {
                     }
                 },
                 error = {
+                    hideProgressDialog()
                     updateView(true)
                     showAlertMessage(it.message)
                 }, loading = { showProgressDialog() })

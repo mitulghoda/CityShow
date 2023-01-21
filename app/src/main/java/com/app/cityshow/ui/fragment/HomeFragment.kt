@@ -57,17 +57,19 @@ class HomeFragment : BaseFragment() {
         param["page"] = "1"
         param["limit"] = "10000"
         viewModel?.getCategories(param)?.observe(viewLifecycleOwner) {
-            base?.hideProgressDialog()
-            it.status.typeCall(success = {
-                if (it.data != null && it.data.success) {
-                    Log.e("CATEGORIES", Gson().toJson(it.data.data))
-                    categoryListAdapter.setData(it.data.data.categories)
-                } else {
+            it.status.typeCall(
+                success = {
+                    base?.hideProgressDialog()
+                    if (it.data != null && it.data.success) {
+                        Log.e("CATEGORIES", Gson().toJson(it.data.data))
+                        categoryListAdapter.setData(it.data.data.categories)
+                    } else {
+                        base?.showAlertMessage(it.message)
+                    }
+                }, error = {
+                    base?.hideProgressDialog()
                     base?.showAlertMessage(it.message)
-                }
-            }, error = {
-                base?.showAlertMessage(it.message)
-            }, loading = {})
+                }, loading = {})
         }
 //            } else {
 //                hideProgressDialog()
@@ -82,18 +84,20 @@ class HomeFragment : BaseFragment() {
         param["limit"] = "1000"
         param["pagination"] = "true"
         viewModel?.listOfProduct(param)?.observe(viewLifecycleOwner) {
-            base?.hideProgressDialog()
-            it.status.typeCall(success = {
-                if (it.data != null && it.data.success) {
-                    Log.e("Products", Gson().toJson(it.data.data.products))
-                    val list = it.data.data.products as java.util.ArrayList
-                    productListAdapter.setData(list)
-                } else {
+            it.status.typeCall(
+                success = {
+                    base?.hideProgressDialog()
+                    if (it.data != null && it.data.success) {
+                        Log.e("Products", Gson().toJson(it.data.data.products))
+                        val list = it.data.data.products as java.util.ArrayList
+                        productListAdapter.setData(list)
+                    } else {
+                        base?.showAlertMessage(it.message)
+                    }
+                }, error = {
+                    base?.hideProgressDialog()
                     base?.showAlertMessage(it.message)
-                }
-            }, error = {
-                base?.showAlertMessage(it.message)
-            }, loading = { base?.showProgressDialog() })
+                }, loading = { base?.showProgressDialog() })
         }
 
     }
@@ -110,7 +114,7 @@ class HomeFragment : BaseFragment() {
                     markFavProduct(product)
                 }
                 1 -> {
-                    ((activity as HomeActivity)).openProductDetails(product)
+                    navigation?.openProductDetails(product)
                 }
             }
 
@@ -123,19 +127,21 @@ class HomeFragment : BaseFragment() {
         val param = HashMap<String, Any>()
         param["productId"] = device.id ?: ""
         viewModel?.markFav(param)?.observe(viewLifecycleOwner) {
-            base?.hideProgressDialog()
-            it.status.typeCall(success = {
-                if (it.data != null && it.data.success) {
-                    base?.toast(it.data.message)
-                } else {
-                    base?.showAlertMessage(
-                        "",
-                        it.data?.message ?: getString(R.string.something_went_wrong)
-                    )
-                }
-            }, error = {
-                base?.showAlertMessage("", it.message)
-            }, loading = {})
+            it.status.typeCall(
+                success = {
+                    base?.hideProgressDialog()
+                    if (it.data != null && it.data.success) {
+                        base?.toast(it.data.message)
+                    } else {
+                        base?.showAlertMessage(
+                            "",
+                            it.data?.message ?: getString(R.string.something_went_wrong)
+                        )
+                    }
+                }, error = {
+                    base?.hideProgressDialog()
+                    base?.showAlertMessage("", it.message)
+                }, loading = {})
         }
 
     }

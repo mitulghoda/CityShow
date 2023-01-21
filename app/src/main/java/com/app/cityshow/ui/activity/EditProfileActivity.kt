@@ -80,7 +80,7 @@ class EditProfileActivity : ActionBarActivity() {
     private fun setUserData() {
         val user = LocalDataHelper.user
         binding.edtEmail.setText(user?.email)
-        binding.edtLastName.setText(user?.firstName)
+        binding.edtFirstName.setText(user?.firstName)
         binding.edtLastName.setText(user?.lastname)
 
         Glide.with(this)
@@ -130,9 +130,9 @@ class EditProfileActivity : ActionBarActivity() {
         }
 
         viewModel.updateProfile(param, multipartBody).observe(this) {
-            hideProgressDialog()
             it.status.typeCall(
                 success = {
+                    hideProgressDialog()
                     if (it.data != null && it.data.success) {
                         LocalDataHelper.user = it.data.data
                         setResult(RESULT_OK)
@@ -142,6 +142,7 @@ class EditProfileActivity : ActionBarActivity() {
                     }
                 },
                 error = {
+                    hideProgressDialog()
                     showAlertMessage(it.message)
                 }, loading = {})
         }

@@ -73,9 +73,9 @@ class ForgotPasswordActivity : NavigationActivity(), View.OnClickListener {
         val param = HashMap<String, Any>()
         param["email"] = binding.edtEmail.getTrimText()
         viewModel.sendForgot(param).observe(this) {
-            hideProgressDialog()
             it.status.typeCall(
                 success = {
+                    hideProgressDialog()
                     if (it.data != null && it.data.success) {
                         openOTPActivity(binding.edtEmail.getTrimText())
                         finish()
@@ -84,6 +84,7 @@ class ForgotPasswordActivity : NavigationActivity(), View.OnClickListener {
                     }
                 },
                 error = {
+                    hideProgressDialog()
                     showAlertMessage(getString(R.string.something_went_wrong))
                 }
            , loading = {} )

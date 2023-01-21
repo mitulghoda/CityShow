@@ -78,9 +78,9 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
     private fun getProductDetails(id: String) {
         showProgressDialog()
         viewModel.getProductDetails(id).observe(this) {
-            hideProgressDialog()
             it.status.typeCall(
                 success = {
+                    hideProgressDialog()
                     if (it.data != null && it.data.success) {
                         getFragments(it.data.data)
                         mBinding.productData = it.data.data
@@ -90,6 +90,7 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
                     }
                 },
                 error = {
+                    hideProgressDialog()
                     showAlertMessage(getString(R.string.something_went_wrong))
                 }, loading = { showProgressDialog() })
         }

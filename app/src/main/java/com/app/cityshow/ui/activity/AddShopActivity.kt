@@ -164,9 +164,9 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
             images.add(tempMultipartBody)
         }
         viewModel.addEditShop(param, multipartBody, images).observe(this) {
-            hideProgressDialog()
             it.status.typeCall(
                 success = {
+                    hideProgressDialog()
                     if (it.data != null && it.data.success) {
                         openHomeActivity()
                     } else {
@@ -174,6 +174,7 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
                     }
                 },
                 error = {
+                    hideProgressDialog()
                     showAlertMessage(getString(R.string.something_went_wrong))
                 }, loading = {})
         }
