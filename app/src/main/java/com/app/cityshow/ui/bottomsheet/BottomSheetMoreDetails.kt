@@ -4,15 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.FragmentActivity
-import com.app.cityshow.R
-import com.app.cityshow.databinding.BottomSheetRecyclerviewBinding
 import com.app.cityshow.databinding.MoreDetailsBinding
+import com.app.cityshow.model.product.Product
 import com.app.cityshow.ui.adapter.BottomSheetCommonAdapter
 import com.app.cityshow.ui.adapter.KeyFeatureAdapter
-import com.app.cityshow.utility.decorator.DividerItemDecorator
-import java.util.ArrayList
 
 class BottomSheetMoreDetails : BaseHeaderBottomSheet() {
     private lateinit var binding: MoreDetailsBinding
@@ -20,6 +16,7 @@ class BottomSheetMoreDetails : BaseHeaderBottomSheet() {
     private var adapter: BottomSheetCommonAdapter? = null
     private var mArrayList = ArrayList<String>()
     private var title = ""
+    private var productData: Product? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +36,8 @@ class BottomSheetMoreDetails : BaseHeaderBottomSheet() {
     }
 
     private fun initUi() {
-        binding.rvKeyFeature.adapter = KeyFeatureAdapter()
+        binding.productData = productData
+        binding.rvKeyFeature.adapter = KeyFeatureAdapter(productData?.getKeyFeatures() ?: ArrayList())
     }
 
     override fun show(activity: FragmentActivity): BaseBottomSheet? {
@@ -56,6 +54,14 @@ class BottomSheetMoreDetails : BaseHeaderBottomSheet() {
             fragment.title = title
             fragment.mArrayList = mArrayList
             fragment.clickListener = itemClickListenerListener
+            return fragment
+        }
+
+        fun newInstance(
+            productData: Product?
+        ): BottomSheetMoreDetails {
+            val fragment = BottomSheetMoreDetails()
+            fragment.productData = productData
             return fragment
         }
     }

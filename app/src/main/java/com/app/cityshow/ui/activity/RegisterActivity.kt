@@ -87,8 +87,22 @@ class RegisterActivity : NavigationActivity(), View.OnClickListener {
             isValid = false
         }
         if (binding.edtFullName.text.isNullOrEmpty()) {
-            Validator.setError(binding.tvInputFullName, "Please enter your full name")
+            Validator.setError(binding.tvInputFullName, "Please enter your first name")
             binding.tvInputFullName.requestFocus()
+            isValid = false
+        }
+        if (binding.edtLastName.text.isNullOrEmpty()) {
+            Validator.setError(binding.tvInputLastName, "Please enter your last name")
+            binding.tvInputLastName.requestFocus()
+            isValid = false
+        }
+        if (binding.edtNumber.text.isNullOrEmpty()) {
+            Validator.setError(binding.tvInputNumber, "Please enter your phone number")
+            binding.tvInputNumber.requestFocus()
+            isValid = false
+        } else if (Validator.isPhoneNumberValidate(binding.edtNumber.getTrimText()).not()) {
+            Validator.setError(binding.tvInputNumber, "Please enter your valid phone number")
+            binding.tvInputNumber.requestFocus()
             isValid = false
         }
         if (binding.edtPass.text.isNullOrEmpty()) {
@@ -108,8 +122,10 @@ class RegisterActivity : NavigationActivity(), View.OnClickListener {
 //        getFcmToken { fcmToken, isSuccess ->
 //            if (isSuccess) {
         val param = HashMap<String, RequestBody>()
-        param["username"] = binding.edtFullName.getTrimText().toRequestBody()
+        param["first_name"] = binding.edtFullName.getTrimText().toRequestBody()
+        param["last_name"] = binding.edtLastName.getTrimText().toRequestBody()
         param["email"] = binding.edtEmail.getTrimText().toRequestBody()
+        param["phone_number"] = binding.edtNumber.getTrimText().toRequestBody()
         param["role"] = "shop_keeper".toRequestBody()
         param["password"] = binding.edtPass.getTrimText().toRequestBody()
         param["password_confirmation"] = binding.edtPass.getTrimText().toRequestBody()

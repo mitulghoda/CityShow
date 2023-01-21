@@ -22,12 +22,12 @@ class ProductListAdapter(
     override fun onBindViewHolder(holder: CategoryHolder, position: Int) {
         val data = mArrayList[position]
         holder.bind(data)
-        holder.binding.ivFav.isSelected = data.getIsFavOrNot()
+        holder.binding.ivFav.isSelected = data.isFavourite()
         holder.itemView.setOnClickListener {
             onClickItem.invoke(data, 1)
         }
         holder.binding.ivFav.setOnClickListener {
-            data.is_fav = if (data.getIsFavOrNot()) "0" else "1"
+            data.is_fav = if (data.isFavourite()) "0" else "1"
             notifyItemChanged(position)
             onClickItem.invoke(data, 0)
         }

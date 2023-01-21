@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cityshow.databinding.RawKeyFeatureBinding
 
-class KeyFeatureAdapter : RecyclerView.Adapter<KeyFeatureAdapter.ViewHolder>() {
-    var arrayList = ArrayList<String>()
+class KeyFeatureAdapter(
+    var arrayList: ArrayList<String>
+) : RecyclerView.Adapter<KeyFeatureAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =

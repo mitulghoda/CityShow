@@ -12,13 +12,8 @@ import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityEditProfileBinding
 import com.app.cityshow.ui.common.ActionBarActivity
-import com.app.cityshow.utility.LocalDataHelper
-import com.app.cityshow.utility.Validator
-import com.app.cityshow.utility.getTrimText
-import com.app.cityshow.utility.typeCall
+import com.app.cityshow.utility.*
 import com.app.cityshow.viewmodel.UserViewModel
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.github.dhaval2404.imagepicker.ImagePicker
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -80,15 +75,11 @@ class EditProfileActivity : ActionBarActivity() {
     private fun setUserData() {
         val user = LocalDataHelper.user
         binding.edtEmail.setText(user?.email)
-        binding.edtFirstName.setText(user?.firstName)
+        binding.edtFullName.setText(user?.firstName)
         binding.edtLastName.setText(user?.lastname)
+        binding.edtNumber.setText(user?.phoneNumber)
 
-        Glide.with(this)
-            .load(user?.full_profile_image)
-            .placeholder(R.drawable.ic_user)
-            .error(R.drawable.ic_user)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(binding.imgProfile)
+        binding.imgProfile.loadImage(user?.full_profile_image, R.drawable.ic_user)
     }
 
     /**
@@ -98,12 +89,23 @@ class EditProfileActivity : ActionBarActivity() {
     private fun isValid(): Boolean {
         var isValid = true
 
-        if (Validator.isEmptyFieldValidate(binding.edtFirstName.getTrimText())) {
-            Validator.setError(binding.edtFirstName, "Please enter first name")
+        if (binding.edtFullName.text.isNullOrEmpty()) {
+            Validator.setError(binding.tvInputFullName, "Please enter your first name")
+            binding.tvInputFullName.requestFocus()
             isValid = false
         }
-        if (Validator.isEmptyFieldValidate(binding.edtLastName.getTrimText())) {
-            Validator.setError(binding.edtLastName, "Please enter last name")
+        if (binding.edtLastName.text.isNullOrEmpty()) {
+            Validator.setError(binding.tvInputLastName, "Please enter your last name")
+            binding.tvInputLastName.requestFocus()
+            isValid = false
+        }
+        if (binding.edtNumber.text.isNullOrEmpty()) {
+            Validator.setError(binding.tvInputNumber, "Please enter your phone number")
+            binding.tvInputNumber.requestFocus()
+            isValid = false
+        } else if (Validator.isPhoneNumberValidate(binding.edtNumber.getTrimText()).not()) {
+            Validator.setError(binding.tvInputNumber, "Please enter your valid phone number")
+            binding.tvInputNumber.requestFocus()
             isValid = false
         }
         return isValid
@@ -116,12 +118,13 @@ class EditProfileActivity : ActionBarActivity() {
     private fun updateProfile() {
         showProgressDialog()
         val param = HashMap<String, RequestBody>()
-        param["first_name"] = binding.edtFirstName.getTrimText().toRequestBody()
+        param["first_name"] = binding.edtFullName.getTrimText().toRequestBody()
         param["last_name"] = binding.edtLastName.getTrimText().toRequestBody()
+        param["phone_number"] = binding.edtLastName.getTrimText().toRequestBody()
 
         var multipartBody: MultipartBody.Part? = null
         if (mProfileUri != null) {
-            val file = File(mProfileUri!!.path.toString())
+            val file = File(mProfileUri?.path.toString())
             multipartBody = MultipartBody.Part.createFormData(
                 "profile_picture",
                 file.name,
@@ -154,16 +157,20 @@ class EditProfileActivity : ActionBarActivity() {
             val resultCode = result.resultCode
             val data = result.data
 
-            if (resultCode == Activity.RESULT_OK) {
-                //Image Uri will not be null for RESULT_OK
-                val fileUri = data?.data!!
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    //Image Uri will not be null for RESULT_OK
+                    val fileUri = data?.data!!
 
-                mProfileUri = fileUri
-                binding.imgProfile.setImageURI(fileUri)
-            } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+                    mProfileUri = fileUri
+                    binding.imgProfile.setImageURI(fileUri)
+                }
+                ImagePicker.RESULT_ERROR -> {
+                    Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

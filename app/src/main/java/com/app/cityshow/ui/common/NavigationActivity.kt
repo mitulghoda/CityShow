@@ -84,4 +84,10 @@ abstract class NavigationActivity : BaseActivity() {
         intent.putExtra("PRODUCT", product)
         startActivity(intent)
     }
+
+    fun openShopDetails(shop: Shop) {
+        val intent = Intent(this, ShopDetailsActivity::class.java)
+        intent.putExtra("SHOP", shop)
+        startActivity(intent)
+    }
 }

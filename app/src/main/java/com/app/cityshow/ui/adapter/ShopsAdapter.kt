@@ -39,6 +39,10 @@ class ShopsAdapter(
         ) : RecyclerView.ViewHolder(binding.root) {
             fun bind(shop: Shop) {
                 binding.data = shop
+
+                binding.root.setOnClickListener {
+                    adapter.onClickItem.invoke(shop)
+                }
             }
         }
     }

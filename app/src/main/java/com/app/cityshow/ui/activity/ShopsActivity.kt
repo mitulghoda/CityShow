@@ -33,7 +33,7 @@ class ShopsActivity : ActionBarActivity(), View.OnClickListener {
         binding.clickListener = this
         initViewModel()
         shopsAdapter = ShopsAdapter(arrayListOf()) {
-            openAddShopActivity(it)
+            openShopDetails(it)
         }
         binding.laySearch.recyclerView.adapter = shopsAdapter
     }
@@ -50,7 +50,7 @@ class ShopsActivity : ActionBarActivity(), View.OnClickListener {
         showProgressDialog()
         val param = HashMap<String, Any>()
         param["page"] = "1"
-        param["limit"] = "1000"
+        param["limit"] = "100"
         param["pagination"] = "true"
         viewModel?.myShops(param)?.observe(this) {
             it.status.typeCall(

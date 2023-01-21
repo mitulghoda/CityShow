@@ -3,7 +3,7 @@ package com.app.cityshow.model.product
 import com.app.cityshow.model.MyItemImages
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.utility.fromJsonList
-import com.google.gson.Gson
+import com.app.cityshow.utility.justTry
 
 class Product() : java.io.Serializable {
     val brand_name: String = ""
@@ -43,8 +43,8 @@ class Product() : java.io.Serializable {
         }
     }
 
-    fun getIsFavOrNot(): Boolean {
-        return !is_fav.equals("0", true)
+    fun isFavourite(): Boolean {
+        return is_fav.equals("1", true)
     }
 
     fun isGold(): String {
@@ -55,7 +55,12 @@ class Product() : java.io.Serializable {
         return "Yes".takeIf { warranty.equals("1", true) } ?: "No"
     }
 
-    fun getKeyFeatures(): List<String> {
-        return key_featurees.fromJsonList()
+    fun getKeyFeatures(): ArrayList<String> {
+        return try {
+            key_featurees.fromJsonList()
+        } catch (e: Throwable) {
+            e.printStackTrace()
+            arrayListOf()
+        }
     }
 }

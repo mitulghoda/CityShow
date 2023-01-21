@@ -9,6 +9,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:windowBackground">@color/white</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme" parent="BaseAppTheme">

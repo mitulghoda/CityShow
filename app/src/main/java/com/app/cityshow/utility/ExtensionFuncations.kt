@@ -196,8 +196,12 @@ fun Any?.toJsonExcludeExpose(): String {
 
 fun <T> String?.fromJson(classOfT: Class<T>): T = Gson().fromJson(this, classOfT)
 
-fun <T> String?.fromJsonList(): List<T> {
-    return Gson().fromJson(this, object : TypeToken<List<T>>() {}.type) ?: emptyList<T>()
+fun <T> String?.fromJsonList(): ArrayList<T> {
+    return try {
+        Gson().fromJson(this, object : TypeToken<ArrayList<T>>() {}.type)
+    } catch (e: Exception) {
+        arrayListOf<T>()
+    }
 }
 
 /**
@@ -674,7 +678,7 @@ fun ImageView.loadImage(
     @DrawableRes placeholder: Int = 0,
 ) {
     justTry {
-        Glide.with(Controller.instance).load(imageUrl).placeholder(placeholder).into(this)
+        Glide.with(Controller.instance).load(imageUrl).placeholder(placeholder).error(placeholder).into(this)
     }
 }
 

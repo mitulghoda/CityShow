@@ -46,7 +46,7 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
         super.onClick(v)
         when (v) {
             mBinding.tvMore -> {
-                BottomSheetMoreDetails().show(this)
+                BottomSheetMoreDetails.newInstance(mBinding.productData).show(this)
             }
         }
     }

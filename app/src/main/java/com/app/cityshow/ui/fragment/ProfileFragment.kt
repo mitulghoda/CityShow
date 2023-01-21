@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.app.cityshow.BuildConfig
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ProfileBinding
@@ -14,8 +14,6 @@ import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.loadImage
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.UserViewModel
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class ProfileFragment : BaseFragment(), View.OnClickListener {
     private lateinit var binding: ProfileBinding
@@ -50,15 +48,11 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
 
     private fun setUserData() {
         val user = LocalDataHelper.user
-        binding.txtName.text = user?.username
+        binding.txtName.text = String.format("${user?.firstName} ${user?.lastname}")
         binding.txtStatus.text = user?.status
+        binding.imgProfile.loadImage(user?.full_profile_image, R.drawable.ic_user)
 
-        Glide.with(this)
-            .load(user?.full_profile_image)
-            .placeholder(R.drawable.ic_user)
-            .error(R.drawable.ic_user)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(binding.imgProfile)
+        binding.txtVersion.text = BuildConfig.VERSION_NAME
     }
 
     override fun onClick(p0: View?) {

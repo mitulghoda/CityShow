@@ -70,15 +70,16 @@
                     style="@style/EditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:editable="false"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:enabled="false"
                     android:hint="@string/email"
                     android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tvInputFirstName"
+                android:id="@+id/tvInputFullName"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -87,13 +88,13 @@
                 app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
                 app:startIconTint="@color/colorPrimary">
 
-                <com.app.cityshow.views.EditText
-                    android:id="@+id/edtFirstName"
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edtFullName"
                     style="@style/EditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/full_name"
-                    android:imeOptions="actionDone"
+                    android:hint="@string/first_name"
+                    android:imeOptions="actionNext"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,14 +108,35 @@
                 app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
                 app:startIconTint="@color/colorPrimary">
 
-                <com.app.cityshow.views.EditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/edtLastName"
                     style="@style/EditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/full_name"
-                    android:imeOptions="actionDone"
+                    android:hint="@string/last_name"
+                    android:imeOptions="actionNext"
                     android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tvInputNumber"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:hintEnabled="true"
+                app:startIconDrawable="@drawable/ic_baseline_phone_24"
+                app:startIconTint="@color/colorPrimary">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edtNumber"
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/phone_number"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="10" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

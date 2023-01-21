@@ -60,7 +60,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{productData.gender}"
+                        android:text="@{productData.gender ?? `N/A`}"
                         android:textColor="@color/black"
                         tools:text="Male"
                         android:textSize="@dimen/_12sdp" />
@@ -85,7 +85,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{productData.color}"
+                        android:text="@{productData.color ?? `N/A`}"
                         tools:text="Grey"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp" />
@@ -109,7 +109,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{productData.model_name}"
+                        android:text="@{productData.model_name ?? `N/A`}"
                         tools:text="WED6465SSA"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp" />
@@ -118,6 +118,7 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:visibility="gone"
                     android:layout_marginVertical="@dimen/_10sdp">
 
                     <com.app.cityshow.views.TextView
@@ -141,6 +142,7 @@
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
+                    android:visibility="gone"
                     android:layout_height="match_parent">
 
                     <com.app.cityshow.views.TextView
@@ -182,7 +184,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         tools:text="Android 12"
-                        android:text="@{productData.device_os}"
+                        android:text="@{productData.device_os ?? `N/A`}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -207,7 +209,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         tools:text="12GB"
-                        android:text="@{productData.ram}"
+                        android:text="@{productData.ram ?? `N/A`}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -231,7 +233,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         tools:text="128GB"
-                        android:text="@{productData.storage}"
+                        android:text="@{productData.storage ?? `N/A`}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -256,7 +258,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         tools:text="5G"
-                        android:text="@{productData.connectivity}"
+                        android:text="@{productData.connectivity ?? `N/A`}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -280,7 +282,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         tools:text="Rose Gold"
-                        android:text="@{productData.material}"
+                        android:text="@{productData.material ?? `N/A`}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -305,7 +307,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         tools:text="6 Months"
-                        android:text="@{productData.isWarranty()}"
+                        android:text="@{productData.isWarranty() ?? `N/A`}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -322,6 +324,7 @@
             app:cardCornerRadius="@dimen/_10sdp"
             app:cardElevation="@dimen/_5sdp"
             app:cardMaxElevation="@dimen/_5sdp"
+            android:visibility="gone"
             app:cardPreventCornerOverlap="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,5 +1,6 @@
 package com.app.cityshow.model.shops
 
+import com.app.cityshow.model.MyItemImages
 import com.app.cityshow.model.product.Product
 
 data class Shop(
@@ -15,7 +16,7 @@ data class Shop(
     val latitude: String,
     val longitude: String,
     val notes: String,
-    val shop_images: List<Any>,
+    val shop_images: List<MyItemImages> = ArrayList(),
     val products: ArrayList<Product> = ArrayList(),
     val shop_name: String,
     val status: String,
