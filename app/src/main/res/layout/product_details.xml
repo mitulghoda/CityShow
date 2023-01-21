@@ -245,11 +245,15 @@
                             android:onClick="@{(v)->clickListener.onClick(v)}"
                             android:paddingHorizontal="@dimen/_10sdp"
                             android:paddingVertical="@dimen/_5sdp"
+                            android:visibility="gone"
                             android:text="@string/more_details"
                             android:textSize="@dimen/_16sdp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.cardview.widget.CardView>
 
+                <include
+                    android:id="@+id/moreDetail"
+                    layout="@layout/more_details" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     style="@style/TextViewStyleBold"

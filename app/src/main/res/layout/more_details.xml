@@ -20,6 +20,7 @@
 
         <include
             android:id="@+id/headerView"
+            android:visibility="gone"
             layout="@layout/layout_bottomsheet_header" />
 
         <androidx.cardview.widget.CardView

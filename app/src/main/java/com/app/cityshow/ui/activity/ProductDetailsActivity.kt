@@ -84,7 +84,7 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
                     if (it.data != null && it.data.success) {
                         getFragments(it.data.data)
                         mBinding.productData = it.data.data
-
+                        mBinding.moreDetail.productData = it.data.data
                     } else {
                         showAlertMessage(it.message)
                     }

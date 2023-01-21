@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.AddProductBinding
+import com.app.cityshow.model.FootwearSizeModel
 import com.app.cityshow.model.category.Category
 import com.app.cityshow.model.category.SubCategory
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.ui.adapter.EditTextAdapter
+import com.app.cityshow.ui.adapter.FootwearSizeAdapter
 import com.app.cityshow.ui.adapter.ImageAdapter
 import com.app.cityshow.ui.bottomsheet.BottomSheetCategories
 import com.app.cityshow.ui.bottomsheet.BottomSheetShops
@@ -26,6 +28,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class AddProductActivity : ActionBarActivity(), View.OnClickListener {
@@ -42,6 +45,9 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     private var mArrayList: ArrayList<Category>? = null
     private var shopList: ArrayList<Shop>? = null
     private lateinit var viewModel: ProductViewModel
+
+    private var footwearSizeAdapter: FootwearSizeAdapter? = null
+    val filterFootwearSizeList: ArrayList<String> = ArrayList()
 
     override fun initUi() {
         viewModel = ViewModelProvider(
@@ -111,6 +117,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         setContentView(mBinding.root)
         mBinding.clickListener = this
         setUpToolbar("Add product", true)
+        setTypePlaceAdapter()
     }
 
     override fun onClick(v: View?) {
@@ -183,7 +190,39 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 editTextAdapter.setItem(0, "")
                 editTextAdapter.notifyDataSetChanged()
             }
+            mBinding.layoutFootwear -> {
+                if (mBinding.expandableLayoutPlaces.isExpanded) {
+                    mBinding.expandableLayoutPlaces.isExpanded = false
+                    mBinding.imgDownArrow.rotation = 0f
+                } else {
+                    mBinding.expandableLayoutPlaces.isExpanded = true
+                    mBinding.imgDownArrow.rotation = 180f
+                }
+            }
         }
+    }
+
+    private fun setTypePlaceAdapter() {
+
+        val sizeList = ArrayList<FootwearSizeModel>()
+        sizeList.add(FootwearSizeModel("3"))
+        sizeList.add(FootwearSizeModel("4"))
+        sizeList.add(FootwearSizeModel("5"))
+        sizeList.add(FootwearSizeModel("6"))
+        sizeList.add(FootwearSizeModel("7"))
+        sizeList.add(FootwearSizeModel("8"))
+        sizeList.add(FootwearSizeModel("9"))
+        sizeList.add(FootwearSizeModel("10"))
+        sizeList.add(FootwearSizeModel("11"))
+        sizeList.add(FootwearSizeModel("12"))
+
+        footwearSizeAdapter = FootwearSizeAdapter(sizeList) { id, position, data ->
+            filterFootwearSizeList.clear()
+            for (i in sizeList.filter { it.isCheck }) {
+                filterFootwearSizeList.add("\"${i.name.toString()}\"")
+            }
+        }
+        mBinding.rvTypePlace.adapter = footwearSizeAdapter
     }
 
     private fun checkValidation(): Boolean {
@@ -283,13 +322,17 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         param["warranty"] = mBinding.cbWarranty.isChecked.toString().requestBody()
         param["shop_id[]"] = strShopId!!.requestBody()
 
-        if (mBinding.cbXXL.isChecked) param["size[0]"] = mBinding.cbXXL.text.toString().requestBody()
+        if (mBinding.cbXXL.isChecked) param["size[0]"] =
+            mBinding.cbXXL.text.toString().requestBody()
         if (mBinding.cbxl.isChecked) param["size[1]"] = mBinding.cbxl.text.toString().requestBody()
         if (mBinding.cbS.isChecked) param["size[2]"] = mBinding.cbS.text.toString().requestBody()
         if (mBinding.cbL.isChecked) param["size[3]"] = mBinding.cbL.text.toString().requestBody()
 
+        Log.e(filterFootwearSizeList.joinToString())
+        param["footwear_size"] = filterFootwearSizeList.joinToString().toRequestBody()
+
         val images = ArrayList<MultipartBody.Part?>()
-        mAssetImages.forEachIndexed {i, media ->
+        mAssetImages.forEachIndexed { i, media ->
             val file = File(media.mediaFile.toString())
             var multipartBody: MultipartBody.Part? = null
             multipartBody = MultipartBody.Part.createFormData(
