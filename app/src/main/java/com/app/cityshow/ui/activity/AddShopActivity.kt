@@ -14,10 +14,11 @@ import com.app.cityshow.databinding.ActivityAddShopBinding
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.ui.adapter.ImageAdapter
 import com.app.cityshow.ui.common.ActionBarActivity
-import com.app.cityshow.ui.common.NavigationActivity
-import com.app.cityshow.utility.*
+import com.app.cityshow.utility.Validator
+import com.app.cityshow.utility.getTrimText
+import com.app.cityshow.utility.requestBody
+import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
-import com.app.cityshow.viewmodel.UserViewModel
 import com.bumptech.glide.Glide
 import com.filepickersample.listener.FilePickerCallback
 import com.filepickersample.model.Media
@@ -28,6 +29,11 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
+import kotlin.collections.forEach
+import kotlin.collections.isNullOrEmpty
+import kotlin.collections.set
 
 class AddShopActivity : ActionBarActivity(), View.OnClickListener {
     private var shop: Shop? = null
@@ -170,7 +176,7 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
                     if (it.data != null && it.data.success) {
                         openHomeActivity()
                     } else {
-                        showAlertMessage(it.message)
+                        showAlertMessage(strMessage = it.data?.message ?: "")
                     }
                 },
                 error = {
