@@ -286,386 +286,6 @@
                         android:onClick="@{(v)->clickListener.onClick(v)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/layGender"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <com.app.cityshow.views.TextView
-                        style="@style/TextViewStyleBold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:text="@string/gender" />
-
-                    <RadioGroup
-                        android:id="@+id/rgGender"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/_5sdp">
-
-                        <androidx.appcompat.widget.AppCompatRadioButton
-                            android:id="@+id/rbMale"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/male" />
-
-                        <androidx.appcompat.widget.AppCompatRadioButton
-                            android:id="@+id/rbFemale"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/female" />
-
-                        <androidx.appcompat.widget.AppCompatRadioButton
-                            android:id="@+id/rbChild"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/child" />
-                    </RadioGroup>
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/layGold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <com.app.cityshow.views.TextView
-                        style="@style/TextViewStyleBold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:text="@string/is_gold" />
-
-                    <RadioGroup
-                        android:id="@+id/rgGold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/_5sdp">
-
-                        <androidx.appcompat.widget.AppCompatRadioButton
-                            android:id="@+id/rbYes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="true"
-                            android:text="@string/yes" />
-
-                        <androidx.appcompat.widget.AppCompatRadioButton
-                            android:id="@+id/rbNo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/no" />
-                    </RadioGroup>
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/laySize"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <com.app.cityshow.views.TextView
-                        style="@style/TextViewStyleBold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:text="@string/size" />
-
-                    <GridLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:columnCount="6"
-                        android:padding="@dimen/_5sdp">
-
-                        <androidx.appcompat.widget.AppCompatCheckBox
-                            android:id="@+id/cbXXL"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/xxl" />
-
-                        <androidx.appcompat.widget.AppCompatCheckBox
-                            android:id="@+id/cbxl"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/xl" />
-
-                        <androidx.appcompat.widget.AppCompatCheckBox
-                            android:id="@+id/cbL"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="L" />
-
-                        <androidx.appcompat.widget.AppCompatCheckBox
-                            android:id="@+id/cbS"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="S" />
-                    </GridLayout>
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/bottom_round_rectangle"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/layoutFootwear"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="@{(v)->clickListener.onClick(v)}"
-                        app:endIconDrawable="@drawable/ic_drop"
-                        app:endIconMode="custom"
-                        app:hintEnabled="true"
-                        android:padding="@dimen/_10sdp"
-                        android:orientation="horizontal">
-
-                        <com.app.cityshow.views.TextView
-                            style="@style/TextViewStyle"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_vertical"
-                            android:drawableStart="@drawable/ic_category"
-                            android:gravity="center_vertical"
-                            android:drawablePadding="@dimen/_4sdp"
-                            android:lineSpacingExtra="0dp"
-                            android:drawableTint="@color/colorPrimary"
-                            android:text="@string/footwear_size"
-                            android:textSize="@dimen/_12ssp" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/imgDownArrow"
-                            android:layout_width="@dimen/_20sdp"
-                            android:layout_height="@dimen/_20sdp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_arrow_drop_down"
-                            android:tint="@color/black" />
-
-                    </LinearLayout>
-
-                    <net.cachapa.expandablelayout.ExpandableLayout
-                        android:id="@+id/expandableLayoutPlaces"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:el_duration="500"
-                        app:el_expanded="false">
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/rvTypePlace"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingVertical="@dimen/_10sdp"
-                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                                tools:itemCount="2" />
-                    </net.cachapa.expandablelayout.ExpandableLayout>
-                </LinearLayout>
-
-                <com.app.cityshow.views.TextView
-                    style="@style/TextViewStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="@string/enter_os"
-                    android:visibility="gone" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_5sdp"
-                    app:hintEnabled="true"
-                    app:startIconDrawable="@drawable/ic_layers"
-                    app:startIconTint="@color/colorPrimary">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/edtOs"
-                        style="@style/EditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/enter_os"
-                        android:imeOptions="actionNext"
-                        android:inputType="textCapWords" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.app.cityshow.views.TextView
-                    style="@style/TextViewStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="@string/enter_ram"
-                    android:visibility="gone" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_5sdp"
-                    app:hintEnabled="true"
-                    app:startIconDrawable="@drawable/ic_storage"
-                    app:startIconTint="@color/colorPrimary">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/edtRam"
-                        style="@style/EditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/enter_ram"
-                        android:imeOptions="actionNext"
-                        android:inputType="textCapWords" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.app.cityshow.views.TextView
-                    style="@style/TextViewStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="@string/enter_storage"
-                    android:visibility="gone" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_5sdp"
-                    app:hintEnabled="true"
-                    app:startIconDrawable="@drawable/ic_storage"
-                    app:startIconTint="@color/colorPrimary">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/edtStorage"
-                        style="@style/EditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/enter_storage"
-                        android:imeOptions="actionNext"
-                        android:inputType="textCapWords" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.app.cityshow.views.TextView
-                    style="@style/TextViewStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="@string/enter_connectivity"
-                    android:visibility="gone" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_5sdp"
-                    app:hintEnabled="true"
-                    app:startIconDrawable="@drawable/ic_wifi"
-                    app:startIconTint="@color/colorPrimary">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/edtConnect"
-                        style="@style/EditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/enter_connectivity"
-                        android:imeOptions="actionNext"
-                        android:inputType="textCapWords" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.app.cityshow.views.TextView
-                    style="@style/TextViewStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="@string/enter_color"
-                    android:visibility="gone" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_5sdp"
-                    app:hintEnabled="true"
-                    app:startIconDrawable="@drawable/ic_layers"
-                    app:startIconTint="@color/colorPrimary">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/edtColor"
-                        style="@style/EditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/enter_color"
-                        android:imeOptions="actionNext"
-                        android:inputType="textCapWords" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.app.cityshow.views.TextView
-                    style="@style/TextViewStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:drawableTint="@color/red"
-                    android:text="@string/enter_material"
-                    android:visibility="gone"
-                    app:drawableTint="@color/red" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_5sdp"
-                    app:hintEnabled="true"
-                    app:startIconDrawable="@drawable/ic_layers"
-                    app:startIconTint="@color/colorPrimary">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/edtMaterial"
-                        style="@style/EditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/enter_material"
-                        android:imeOptions="actionNext"
-                        android:inputType="textCapWords" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.app.cityshow.views.TextView
-                    style="@style/TextViewStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTint="@color/red"
-                    android:text="@string/enter_gold_weight"
-                    android:visibility="gone"
-                    app:drawableTint="@color/red" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_5sdp"
-                    app:hintEnabled="true"
-                    app:startIconDrawable="@drawable/ic_weight"
-                    app:startIconTint="@color/colorPrimary">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/edtGoldWeight"
-                        style="@style/EditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/enter_gold_weight"
-                        android:imeOptions="actionNext"
-                        android:inputType="textCapWords" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/cbWarranty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/_5sdp"
-                    android:text="@string/warranty" />
-
                 <com.app.cityshow.views.TextView
                     style="@style/TextViewStyle"
                     android:layout_width="match_parent"
@@ -720,29 +340,433 @@
                 </RelativeLayout>
 
                 <com.app.cityshow.views.TextView
-                    android:id="@+id/txtKeyFeature"
+                    android:id="@+id/tvAdditional"
                     style="@style/TextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:background="?android:selectableItemBackground"
-                    android:drawableEnd="@drawable/ic_plus"
+                    android:layout_gravity="start"
+                    android:background="@color/orange35"
+                    android:drawableEnd="@drawable/ic_down"
+                    android:gravity="start|center"
                     android:onClick="@{(v)->clickListener.onClick(v)}"
-                    android:padding="@dimen/_5sdp"
-                    android:text="@string/key_feature"
-                    android:visibility="gone" />
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:paddingVertical="@dimen/_5sdp"
+                    android:text="@string/additional_details" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvKeyFeature"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layAdditional"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:isScrollContainer="false"
                     android:orientation="vertical"
-                    android:scrollbars="none"
-                    android:visibility="gone"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="5"
-                    tools:listitem="@layout/row_editext" />
+                    android:visibility="gone">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/layGender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.app.cityshow.views.TextView
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_3sdp"
+                            android:text="@string/gender" />
+
+                        <RadioGroup
+                            android:id="@+id/rgGender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/_5sdp">
+
+                            <androidx.appcompat.widget.AppCompatRadioButton
+                                android:id="@+id/rbMale"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/male" />
+
+                            <androidx.appcompat.widget.AppCompatRadioButton
+                                android:id="@+id/rbFemale"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/female" />
+
+                            <androidx.appcompat.widget.AppCompatRadioButton
+                                android:id="@+id/rbChild"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/child" />
+                        </RadioGroup>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/layGold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.app.cityshow.views.TextView
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_3sdp"
+                            android:text="@string/is_gold" />
+
+                        <RadioGroup
+                            android:id="@+id/rgGold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/_5sdp">
+
+                            <androidx.appcompat.widget.AppCompatRadioButton
+                                android:id="@+id/rbYes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:text="@string/yes" />
+
+                            <androidx.appcompat.widget.AppCompatRadioButton
+                                android:id="@+id/rbNo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/no" />
+                        </RadioGroup>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/laySize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.app.cityshow.views.TextView
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_3sdp"
+                            android:text="@string/size" />
+
+                        <GridLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:columnCount="6"
+                            android:padding="@dimen/_5sdp">
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/cbXXL"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/xxl" />
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/cbxl"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/xl" />
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/cbL"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="L" />
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/cbS"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="S" />
+                        </GridLayout>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/bottom_round_rectangle"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/layoutFootwear"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{(v)->clickListener.onClick(v)}"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_10sdp"
+                            app:endIconDrawable="@drawable/ic_drop"
+                            app:endIconMode="custom"
+                            app:hintEnabled="true">
+
+                            <com.app.cityshow.views.TextView
+                                style="@style/TextViewStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:drawableStart="@drawable/ic_category"
+                                android:drawablePadding="@dimen/_4sdp"
+                                android:drawableTint="@color/colorPrimary"
+                                android:gravity="center_vertical"
+                                android:lineSpacingExtra="0dp"
+                                android:text="@string/footwear_size"
+                                android:textSize="@dimen/_12ssp" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/imgDownArrow"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_arrow_drop_down"
+                                android:tint="@color/black" />
+
+                        </LinearLayout>
+
+                        <net.cachapa.expandablelayout.ExpandableLayout
+                            android:id="@+id/expandableLayoutPlaces"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:el_duration="500"
+                            app:el_expanded="false">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rvTypePlace"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingVertical="@dimen/_10sdp"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                tools:itemCount="2" />
+                        </net.cachapa.expandablelayout.ExpandableLayout>
+                    </LinearLayout>
+
+                    <com.app.cityshow.views.TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/enter_os"
+                        android:visibility="gone" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/_5sdp"
+                        app:hintEnabled="true"
+                        app:startIconDrawable="@drawable/ic_layers"
+                        app:startIconTint="@color/colorPrimary">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/edtOs"
+                            style="@style/EditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_os"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.app.cityshow.views.TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/enter_ram"
+                        android:visibility="gone" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/_5sdp"
+                        app:hintEnabled="true"
+                        app:startIconDrawable="@drawable/ic_storage"
+                        app:startIconTint="@color/colorPrimary">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/edtRam"
+                            style="@style/EditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_ram"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.app.cityshow.views.TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/enter_storage"
+                        android:visibility="gone" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/_5sdp"
+                        app:hintEnabled="true"
+                        app:startIconDrawable="@drawable/ic_storage"
+                        app:startIconTint="@color/colorPrimary">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/edtStorage"
+                            style="@style/EditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_storage"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.app.cityshow.views.TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/enter_connectivity"
+                        android:visibility="gone" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/_5sdp"
+                        app:hintEnabled="true"
+                        app:startIconDrawable="@drawable/ic_wifi"
+                        app:startIconTint="@color/colorPrimary">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/edtConnect"
+                            style="@style/EditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_connectivity"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.app.cityshow.views.TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/enter_color"
+                        android:visibility="gone" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/_5sdp"
+                        app:hintEnabled="true"
+                        app:startIconDrawable="@drawable/ic_layers"
+                        app:startIconTint="@color/colorPrimary">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/edtColor"
+                            style="@style/EditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_color"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.app.cityshow.views.TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:drawableTint="@color/red"
+                        android:text="@string/enter_material"
+                        android:visibility="gone"
+                        app:drawableTint="@color/red" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/_5sdp"
+                        app:hintEnabled="true"
+                        app:startIconDrawable="@drawable/ic_layers"
+                        app:startIconTint="@color/colorPrimary">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/edtMaterial"
+                            style="@style/EditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_material"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.app.cityshow.views.TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTint="@color/red"
+                        android:text="@string/enter_gold_weight"
+                        android:visibility="gone"
+                        app:drawableTint="@color/red" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/_5sdp"
+                        app:hintEnabled="true"
+                        app:startIconDrawable="@drawable/ic_weight"
+                        app:startIconTint="@color/colorPrimary">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/edtGoldWeight"
+                            style="@style/EditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_gold_weight"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/cbWarranty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@string/warranty" />
+
+
+                    <com.app.cityshow.views.TextView
+                        android:id="@+id/txtKeyFeature"
+                        style="@style/TextViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:background="?android:selectableItemBackground"
+                        android:drawableEnd="@drawable/ic_plus"
+                        android:onClick="@{(v)->clickListener.onClick(v)}"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@string/key_feature"
+                        android:visibility="gone" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvKeyFeature"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:isScrollContainer="false"
+                        android:orientation="vertical"
+                        android:scrollbars="none"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/row_editext" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <com.app.cityshow.views.TextView
                     style="@style/TextViewStyle"

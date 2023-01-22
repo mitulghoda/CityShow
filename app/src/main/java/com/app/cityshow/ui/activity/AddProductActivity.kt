@@ -1,5 +1,6 @@
 package com.app.cityshow.ui.activity
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -16,12 +17,12 @@ import com.app.cityshow.ui.adapter.ImageAdapter
 import com.app.cityshow.ui.bottomsheet.BottomSheetCategories
 import com.app.cityshow.ui.bottomsheet.BottomSheetShops
 import com.app.cityshow.ui.bottomsheet.BottomSheetSubCategories
-import com.bumptech.glide.Glide
-import com.filepickersample.listener.FilePickerCallback
-import com.filepickersample.model.Media
 import com.app.cityshow.ui.common.ActionBarActivity
 import com.app.cityshow.utility.*
 import com.app.cityshow.viewmodel.ProductViewModel
+import com.bumptech.glide.Glide
+import com.filepickersample.listener.FilePickerCallback
+import com.filepickersample.model.Media
 import com.google.gson.Gson
 import com.stfalcon.imageviewer.StfalconImageViewer
 import okhttp3.MediaType.Companion.toMediaType
@@ -30,6 +31,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+
 
 class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     private var strGender: String = "Male"
@@ -123,6 +125,13 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         super.onClick(v)
         when (v) {
+            mBinding.tvAdditional -> {
+                if (mBinding.layAdditional.isVisible()) {
+                    mBinding.layAdditional.gone()
+                } else {
+                    mBinding.layAdditional.show()
+                }
+            }
             mBinding.edtShops -> {
                 BottomSheetShops.newInstance(
                     getString(R.string.select_shop),

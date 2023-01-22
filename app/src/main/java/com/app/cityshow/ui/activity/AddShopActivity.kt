@@ -81,6 +81,7 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
                 if (!isValid()) return
                 addEditShop()
             }
+
             mBinding.ivBanner -> {
                 ImagePicker.with(this)
                     .compress(1024)

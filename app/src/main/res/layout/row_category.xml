@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp"
-        app:cardCornerRadius="@dimen/_7sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
         app:cardElevation="@dimen/_10sdp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -64,7 +64,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:gravity="start"
                     android:paddingHorizontal="@dimen/_10sdp"
-                    android:text="@{data.totalShop}"
+                    android:text="@{data.totalProductCount}"
                     android:textColor="@color/white"
                     tools:text="150+ shops" />
             </androidx.appcompat.widget.LinearLayoutCompat>
