@@ -61,6 +61,12 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
             binding.layShops -> {
                 navigation?.openShopsActivity()
             }
+            binding.layProducts -> {
+                navigation?.openMyProductListActivity()
+            }
+            binding.layDiscount -> {
+                navigation?.openDiscountActivity()
+            }
             binding.linearLayoutProfile -> {
                 navigation?.openEditProfileActivity {
                     binding.imgProfile.loadImage(

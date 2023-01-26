@@ -46,6 +46,7 @@ class OTPActivity : NavigationActivity(), View.OnClickListener {
             }
         }
     }
+
     /**
      * check validation
      * */
@@ -84,8 +85,7 @@ class OTPActivity : NavigationActivity(), View.OnClickListener {
                 error = {
                     hideProgressDialog()
                     showAlertMessage(getString(R.string.something_went_wrong))
-                }
-            , loading = {})
+                }, loading = {})
         }
 //            } else {
 //                hideProgressDialog()

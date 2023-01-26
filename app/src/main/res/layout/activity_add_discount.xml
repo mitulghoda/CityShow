@@ -59,29 +59,48 @@
                     app:startIconTint="@color/colorPrimary">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/edtShopName"
+                        android:id="@+id/edtDiscountName"
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="@string/enter_shop_name"
+                        android:hint="Enter discount name"
                         android:imeOptions="actionNext"
                         android:inputType="textCapSentences"
                         android:text="@{shopData.shop_name}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.app.cityshow.views.TextView
-                    style="@style/TextViewStyle"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layDiscountType"
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:drawableEnd="@drawable/asterisk"
-                    android:drawableTint="@color/red"
-                    android:text="@string/enter_brand_name"
-                    android:visibility="gone"
-                    app:drawableTint="@color/red" />
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    app:hintEnabled="true"
+                    app:startIconDrawable="@drawable/ic_offer"
+                    app:startIconTint="@color/colorPrimary">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edtDiscountType"
+                        style="@style/EditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:editable="false"
+                        android:gravity="top|start"
+                        android:hint="@string/discount_type"
+                        android:imeOptions="actionDone"
+                        android:inputType="textCapWords|textImeMultiLine"
+                        android:text="@{shopData.notes}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spDiscountType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/discount"
+                    android:visibility="gone" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layAddress"
+                    android:id="@+id/layCouponCode"
                     style="@style/TextInputLayoutStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -91,48 +110,15 @@
                     app:startIconTint="@color/colorPrimary">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/edtAddress"
+                        android:id="@+id/edtCouponCode"
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="@string/enter_shop_address"
+                        android:hint="Enter coupon code"
                         android:imeOptions="actionNext"
-                        android:inputType="textCapSentences"
+                        android:inputType="textCapWords"
                         android:text="@{shopData.address}" />
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <com.app.cityshow.views.TextView
-                    style="@style/TextViewStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:drawableTint="@color/red"
-                    android:text="@string/enter_model_name"
-                    android:visibility="gone"
-                    app:drawableTint="@color/red" />
-
-
-                <com.app.cityshow.views.TextView
-                    style="@style/TextViewStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:drawableEnd="@drawable/asterisk"
-                    android:drawableTint="@color/red"
-                    android:text="@string/enter_model_name"
-                    android:visibility="gone"
-                    app:drawableTint="@color/red" />
-
-
-                <com.app.cityshow.views.TextView
-                    style="@style/TextViewStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/asterisk"
-                    android:drawableTint="@color/red"
-                    android:text="@string/enter_description"
-                    android:visibility="gone"
-                    app:drawableTint="@color/red" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layNotes"
@@ -151,9 +137,9 @@
                         android:gravity="top|start"
                         android:hint="@string/notes"
                         android:imeOptions="actionDone"
+                        android:inputType="textCapWords|textImeMultiLine"
                         android:minHeight="@dimen/_100sdp"
-                        android:text="@{shopData.notes}"
-                        tools:text="dsdfsdfsdfdfsdf fsdf sd sdsdfsdfs fsdfsf sdfs fs sd ds dsf sdfs dfsdfssdfssdfsfds" />
+                        android:text="@{shopData.notes}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.app.cityshow.views.TextView
@@ -161,12 +147,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_3sdp"
-                    android:text="@string/banner_image" />
+                    android:text="Discount banner" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/divider_decorator_gray"
                     android:padding="@dimen/_5sdp">
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -174,61 +159,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_100sdp"
                         android:onClick="@{(v)->clickListener.onClick(v)}"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/ic_image" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <com.app.cityshow.views.TextView
-                    style="@style/TextViewStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:text="@string/shop_images" />
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_80sdp"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/cardAddImage"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:layout_marginEnd="@dimen/_3sdp"
-                        android:layout_marginBottom="@dimen/_3sdp"
-                        android:onClick="@{(v)->clickListener.onClick(v)}"
-                        app:cardBackgroundColor="@color/lightest_grey"
-                        app:cardCornerRadius="@dimen/_8sdp"
-                        app:cardElevation="@dimen/_2sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="@dimen/_25sdp"
-                            android:layout_height="@dimen/_25sdp"
-                            android:layout_gravity="center"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_plus"
-                            tools:ignore="ContentDescription" />
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvPhoto"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@id/cardAddImage"
-                        android:isScrollContainer="false"
-                        android:orientation="horizontal"
-                        android:scrollbars="none"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:itemCount="10"
-                        tools:listitem="@layout/item_add_image" />
-                </RelativeLayout>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.core.widget.NestedScrollView>
 

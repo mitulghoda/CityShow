@@ -32,6 +32,14 @@ abstract class NavigationActivity : BaseActivity() {
         startActivity(intent)
     }
 
+    fun openAddDiscountActivity(shop: Shop?) {
+        val intent = Intent(this, AddDiscountActivity::class.java)
+        if (shop != null) {
+            intent.putExtra("SHOP", shop)
+        }
+        startActivity(intent)
+    }
+
     fun openForgotPasswordActivity() {
         val intent = Intent(this, ForgotPasswordActivity::class.java)
         startActivity(intent)
@@ -39,7 +47,12 @@ abstract class NavigationActivity : BaseActivity() {
 
     fun openProductListActivity(strId: Category?) {
         val intent = Intent(this, ProductListActivity::class.java)
-        intent.putExtra("CATEGORY_ID",strId)
+        intent.putExtra("CATEGORY_ID", strId)
+        startActivity(intent)
+    }
+
+    fun openMyProductListActivity() {
+        val intent = Intent(this, MyProductListActivity::class.java)
         startActivity(intent)
     }
 
@@ -63,6 +76,11 @@ abstract class NavigationActivity : BaseActivity() {
 
     fun openShopsActivity() {
         val intent = Intent(this, ShopsActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun openDiscountActivity() {
+        val intent = Intent(this, DiscountActivity::class.java)
         startActivity(intent)
     }
 

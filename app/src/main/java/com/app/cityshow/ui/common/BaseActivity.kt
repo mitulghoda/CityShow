@@ -2,8 +2,12 @@ package com.app.cityshow.ui.common
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -23,13 +27,16 @@ import com.app.cityshow.network.NetworkURL.ACTION_FOR_INACTIVE_USER
 import com.app.cityshow.ui.activity.LoginActivity
 import com.app.cityshow.utility.KeyboardUtil
 import com.app.cityshow.utility.LocalDataHelper
+import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.justTry
 import com.google.android.material.snackbar.Snackbar
 import com.kaopiz.kprogresshud.KProgressHUD
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
+import pub.devrel.easypermissions.AppSettingsDialog
+import pub.devrel.easypermissions.EasyPermissions
 import java.util.*
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     protected val tag: String = this::class.java.simpleName
     protected lateinit var activityLauncher: BetterActivityResult<Intent, ActivityResult>
     var portraitOrientation: Int = Configuration.ORIENTATION_PORTRAIT
@@ -40,6 +47,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityLauncher = BetterActivityResult.registerActivityForResult(this)
+        requestPermission()
     }
 
     override fun setContentView(view: View?) {
@@ -53,6 +61,32 @@ abstract class BaseActivity : AppCompatActivity() {
         val large =
             resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK == Configuration.SCREENLAYOUT_SIZE_LARGE
         return xlarge || large
+    }
+
+    private fun requestPermission() {
+        val perms = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arrayOf(
+                android.Manifest.permission.POST_NOTIFICATIONS
+            )
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            arrayOf(
+                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            )
+        } else {
+            arrayOf(
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            )
+        }
+        if (!EasyPermissions.hasPermissions(this, *perms)) {
+            // Ask for one permission
+            EasyPermissions.requestPermissions(
+                this,
+                getString(R.string.rationale_permission),
+                RC_AUDIO,
+                *perms
+            )
+        }
     }
 
     fun hideKeyBoard() {
@@ -308,4 +342,36 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray,
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        Log.d(
+            "PERMISSION_DENIED",
+            "onPermissionsDenied:" + requestCode.toString() + ":" + perms.size
+        )
+        // (Optional) Check whether the user denied any permissions and checked "NEVER ASK AGAIN."
+        // This will display a dialog directing them to enable the permission in app settings.
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            AppSettingsDialog.Builder(this).build().show()
+        }
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+
+    }
+
+    companion object {
+        private val WRITE_STORAGE = 123
+        private val READ = 124
+        private val RC_AUDIO = 125
+
+    }
 }

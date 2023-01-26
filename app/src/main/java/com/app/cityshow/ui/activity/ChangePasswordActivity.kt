@@ -66,8 +66,10 @@ class ChangePasswordActivity : NavigationActivity(), View.OnClickListener {
         } else if (!binding.edtReEnterPassword.getTrimText()
                 .equals(binding.edtPassword.getTrimText(), true)
         ) {
-            Validator.setError(binding.tvInputReEnterPassword,
-                "Please enter correct confirm password")
+            Validator.setError(
+                binding.tvInputReEnterPassword,
+                "Please enter correct confirm password"
+            )
             binding.tvInputReEnterPassword.requestFocus()
             isValid = false
         }

@@ -101,9 +101,12 @@
                         android:layout_marginHorizontal="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/striking_text"
-                        android:drawableStart="@drawable/ic_currency"
+                        android:drawableStart="@drawable/ic_currency_small"
                         android:text="@{data.price}"
-                        android:visibility="gone"
+                        app:autoSizeMaxTextSize="@dimen/_16sdp"
+                        app:autoSizeMinTextSize="@dimen/_10ssp"
+                        app:autoSizeStepGranularity="@dimen/_1sdp"
+                        app:autoSizeTextType="uniform"
                         tools:text="15,999" />
 
                     <com.app.cityshow.views.TextView
@@ -113,7 +116,7 @@
                         android:layout_gravity="center"
                         android:layout_marginHorizontal="@dimen/_10sdp"
                         android:layout_marginVertical="@dimen/_5sdp"
-                        android:drawableStart="@drawable/ic_currency"
+                        android:drawableStart="@drawable/ic_currency_small"
                         android:fontFamily="@font/sf_bold"
                         android:gravity="center"
                         android:maxLines="1"
@@ -139,7 +142,10 @@
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:layout_alignParentEnd="true"
-                    android:layout_margin="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:background="@drawable/fav_selector" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

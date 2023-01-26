@@ -10,7 +10,6 @@ import com.app.cityshow.R
 import com.app.cityshow.databinding.HomeFragmentBinding
 import com.app.cityshow.model.category.CategoryModel
 import com.app.cityshow.model.product.Product
-import com.app.cityshow.ui.activity.HomeActivity
 import com.app.cityshow.ui.adapter.CategoryListAdapter
 import com.app.cityshow.ui.adapter.ProductListAdapter
 import com.app.cityshow.ui.common.BaseFragment
@@ -106,7 +105,8 @@ class HomeFragment : BaseFragment() {
         categoryListAdapter = CategoryListAdapter(arrayListOf()) {
             navigation?.openProductListActivity(it)
         }
-        binding.recyclerView.adapter = categoryListAdapter
+        binding.rvCategories.adapter = categoryListAdapter
+        binding.rvDiscounts.adapter = categoryListAdapter
 
         productListAdapter = ProductListAdapter(productList) { product, type ->
             when (type) {

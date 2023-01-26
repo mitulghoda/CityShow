@@ -105,4 +105,12 @@
     <string name="products">Products</string>
     <string name="footwear_size">Footwear Size</string>
     <string name="additional_details">Addition Details?</string>
+    <string name="add_discount">Add Discount</string>
+    <string name="discount_type">Discount types</string>
+    <string name="offers_discounts"><![CDATA[Offers & Discounts]]></string>
+    <string name="rationale_permission">We need your permission to access the media</string>
+    <string-array name="discount">
+        <item>Fixed</item>
+        <item>Percentage</item>
+    </string-array>
 </resources>

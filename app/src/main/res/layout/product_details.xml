@@ -118,8 +118,8 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_marginVertical="@dimen/_10sdp"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_10sdp">
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 style="@style/TextViewStyleBold"
@@ -213,7 +213,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:background="@drawable/striking_text"
-                                android:foreground="@drawable/striking_text"
+                                android:drawableStart="@drawable/ic_currency_small"
                                 android:gravity="center"
                                 android:text="@{productData.price}"
                                 android:textSize="@dimen/_14ssp"
@@ -223,7 +223,7 @@
                                 style="@style/TextViewStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:drawableStart="@drawable/ic_currency"
+                                android:drawableStart="@drawable/ic_currency_small"
                                 android:drawablePadding="@dimen/_5sdp"
                                 android:fontFamily="@font/sf_bold"
                                 android:gravity="center"
@@ -245,9 +245,9 @@
                             android:onClick="@{(v)->clickListener.onClick(v)}"
                             android:paddingHorizontal="@dimen/_10sdp"
                             android:paddingVertical="@dimen/_5sdp"
-                            android:visibility="gone"
                             android:text="@string/more_details"
-                            android:textSize="@dimen/_16sdp" />
+                            android:textSize="@dimen/_16sdp"
+                            android:visibility="gone" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.cardview.widget.CardView>
 

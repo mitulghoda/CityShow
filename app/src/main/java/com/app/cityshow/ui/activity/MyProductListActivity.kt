@@ -1,6 +1,7 @@
 package com.app.cityshow.ui.activity
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.app.cityshow.Controller
@@ -16,7 +17,7 @@ import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
 import java.util.ArrayList
 
-class ProductListActivity : ActionBarActivity() {
+class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
     lateinit var productListAdapter: ProductListAdapter
     private lateinit var binding: ActivityProductListBinding
     private lateinit var viewModel: ProductViewModel
@@ -26,13 +27,11 @@ class ProductListActivity : ActionBarActivity() {
             this,
             ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]
+        binding.clickListener = this
+        binding.fab.show()
         setAdapter()
-        if (intent.hasExtra("CATEGORY_ID")) {
-            val category = intent.getSerializableExtra("CATEGORY_ID") as Category
-            calGetProducts(category.id)
-            setUpToolbar(category.name, true)
-            setSubTitleText("Ahmedabad")
-        }
+        setUpToolbar(getString(R.string.my_product), true)
+        setSubTitleText("Ahmedabad")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,6 +71,15 @@ class ProductListActivity : ActionBarActivity() {
                 }, loading = { showProgressDialog() })
         }
 
+    }
+
+    override fun onClick(v: View?) {
+        when (v) {
+            binding.fab -> {
+                openAddProductActivity()
+            }
+
+        }
     }
 
     private fun setData(list: ArrayList<Product>) {

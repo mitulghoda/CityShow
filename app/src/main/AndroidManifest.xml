@@ -23,6 +23,18 @@
             android:exported="false"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".ui.activity.AddDiscountActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.DiscountActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.MyProductListActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".ui.activity.ProductDetIailsNew"
             android:exported="false" />
         <activity
