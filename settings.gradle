@@ -18,3 +18,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CityShow"
 include ':app'
+include ':mediafilepicker'
+include ':filepicker'

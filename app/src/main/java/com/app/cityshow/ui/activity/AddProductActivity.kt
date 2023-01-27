@@ -53,8 +53,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
 
     override fun initUi() {
         viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory(Controller.instance)
+            this, ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]
         assetImageAdapter.arrayList = mAssetImages
         editTextAdapter.arrayList = mKeyFeature
@@ -95,20 +94,18 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         val param = HashMap<String, Any>()
         param["pagination"] = "false"
         viewModel.myShops(param).observe(this) {
-            it.status.typeCall(
-                success = {
-                    hideProgressDialog()
-                    if (it.data != null && it.data.success) {
-                        Log.e("CATEGORIES", Gson().toJson(it.data.data))
-                        shopList = it.data.data.shops as ArrayList<Shop>
-                    } else {
-                        showAlertMessage(it.message)
-                    }
-                },
-                error = {
-                    hideProgressDialog()
+            it.status.typeCall(success = {
+                hideProgressDialog()
+                if (it.data != null && it.data.success) {
+                    Log.e("CATEGORIES", Gson().toJson(it.data.data))
+                    shopList = it.data.data.shops as ArrayList<Shop>
+                } else {
                     showAlertMessage(it.message)
-                }, loading = {})
+                }
+            }, error = {
+                hideProgressDialog()
+                showAlertMessage(it.message)
+            }, loading = {})
         }
     }
 
@@ -133,11 +130,9 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 }
             }
             mBinding.edtShops -> {
-                BottomSheetShops.newInstance(
-                    getString(R.string.select_shop),
+                BottomSheetShops.newInstance(getString(R.string.select_shop),
                     shopList!!,
-                    object :
-                        BottomSheetShops.BottomSheetItemClickListener {
+                    object : BottomSheetShops.BottomSheetItemClickListener {
                         override fun onItemClick(data: Shop) {
                             mBinding.edtShops.setText(data.shop_name)
                             strShopId = data.id
@@ -145,11 +140,9 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                     }).show(this)
             }
             mBinding.edtCategory -> {
-                BottomSheetCategories.newInstance(
-                    getString(R.string.select_category),
+                BottomSheetCategories.newInstance(getString(R.string.select_category),
                     mArrayList!!,
-                    object :
-                        BottomSheetCategories.BottomSheetItemClickListener {
+                    object : BottomSheetCategories.BottomSheetItemClickListener {
                         override fun onItemClick(data: Category) {
                             mBinding.edtCategory.setText(data.name)
                             strCategoryId = data.id
@@ -157,11 +150,9 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                     }).show(this)
             }
             mBinding.edtSubCategory -> {
-                BottomSheetSubCategories.newInstance(
-                    getString(R.string.select_sub_category),
+                BottomSheetSubCategories.newInstance(getString(R.string.select_sub_category),
                     mArrayList!!,
-                    object :
-                        BottomSheetSubCategories.BottomSheetItemClickListener {
+                    object : BottomSheetSubCategories.BottomSheetItemClickListener {
                         override fun onItemClick(data: SubCategory) {
                             mBinding.edtSubCategory.setText(data.name)
                             strCategoryId = data.category_id
@@ -178,15 +169,15 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 openImageFilePicker(object : FilePickerCallback {
                     override fun onSuccess(media: Media?) {
                         if (media == null) return
-                        mAssetImages.add(0, media)
-                        assetImageAdapter.setData(mAssetImages)
+                        mAssetImages.add(media)
+                        assetImageAdapter.notifyDataSetChanged()
                         editTextAdapter.notifyDataSetChanged()
                     }
 
                     override fun onSuccess(mediaList: ArrayList<Media>?) {
                         if (mediaList.isNullOrEmpty()) return
-                        mAssetImages = mediaList
-                        assetImageAdapter.setData(mediaList)
+                        mAssetImages.addAll(mediaList)
+                        assetImageAdapter.notifyDataSetChanged()
                         editTextAdapter.notifyDataSetChanged()
                     }
 
@@ -283,20 +274,18 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         val param = HashMap<String, Any>()
         param["pagination"] = "false"
         viewModel.getCategories(param).observe(this) {
-            it.status.typeCall(
-                success = {
-                    hideProgressDialog()
-                    if (it.data != null && it.data.success) {
-                        Log.e("CATEGORIES", Gson().toJson(it.data.data))
-                        mArrayList = it.data.data.categories as ArrayList<Category>?
-                    } else {
-                        showAlertMessage("", it.message)
-                    }
-                },
-                error = {
-                    hideProgressDialog()
+            it.status.typeCall(success = {
+                hideProgressDialog()
+                if (it.data != null && it.data.success) {
+                    Log.e("CATEGORIES", Gson().toJson(it.data.data))
+                    mArrayList = it.data.data.categories as ArrayList<Category>?
+                } else {
                     showAlertMessage("", it.message)
-                }, loading = {})
+                }
+            }, error = {
+                hideProgressDialog()
+                showAlertMessage("", it.message)
+            }, loading = {})
         }
 //            } else {
 //                hideProgressDialog()
@@ -345,26 +334,22 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
             val file = File(media.mediaFile.toString())
             var multipartBody: MultipartBody.Part? = null
             multipartBody = MultipartBody.Part.createFormData(
-                "images[$i]",
-                file.name,
-                file.asRequestBody("image/*".toMediaType())
+                "images[$i]", file.name, file.asRequestBody("image/*".toMediaType())
             )
             images.add(multipartBody)
         }
         viewModel.createProduct(param, images).observe(this) {
-            it.status.typeCall(
-                success = {
-                    hideProgressDialog()
-                    if (it.data != null && it.data.success) {
-                        openHomeActivity()
-                    } else {
-                        showAlertMessage(it.message)
-                    }
-                },
-                error = {
-                    hideProgressDialog()
-                    showAlertMessage(getString(R.string.something_went_wrong))
-                }, loading = {})
+            it.status.typeCall(success = {
+                hideProgressDialog()
+                if (it.data != null && it.data.success) {
+                    openHomeActivity()
+                } else {
+                    showAlertMessage(it.message)
+                }
+            }, error = {
+                hideProgressDialog()
+                showAlertMessage(getString(R.string.something_went_wrong))
+            }, loading = {})
         }
 //            } else {
 //                hideProgressDialog()

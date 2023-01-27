@@ -99,12 +99,14 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
                     override fun onSuccess(media: Media?) {
                         if (media == null) return
                         mAssetImages.add(media)
+                        assetImageAdapter.notifyDataSetChanged()
                     }
 
                     override fun onSuccess(mediaList: ArrayList<Media>?) {
                         if (mediaList.isNullOrEmpty()) return
-                        mAssetImages = mediaList
-                        assetImageAdapter.setData(mediaList)
+                        mAssetImages.addAll(mediaList)
+                        assetImageAdapter.notifyDataSetChanged()
+
                     }
 
                     override fun onError(error: String?) {

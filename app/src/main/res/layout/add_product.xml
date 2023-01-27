@@ -346,7 +346,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:background="@color/orange35"
-                    android:drawableEnd="@drawable/ic_down"
                     android:gravity="start|center"
                     android:onClick="@{(v)->clickListener.onClick(v)}"
                     android:paddingHorizontal="@dimen/_10sdp"
