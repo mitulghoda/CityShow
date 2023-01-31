@@ -125,7 +125,7 @@ class HomeFragment : BaseFragment() {
     private fun markFavProduct(device: Product) {
         base?.showProgressDialog()
         val param = HashMap<String, Any>()
-        param["productId"] = device.id ?: ""
+        param["product_id"] = device.id ?: ""
         viewModel?.markFav(param)?.observe(viewLifecycleOwner) {
             it.status.typeCall(
                 success = {

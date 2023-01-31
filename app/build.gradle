@@ -4,8 +4,8 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
 }
-def DEV_BASE_URL = "http://cityshow.in/cityshow/public/api/"
-def LIVE_BASE_URL = "http://pashupati.storeerp.in/api/"
+def DEV_BASE_URL = "https://cityshow.in/cityshow/public/api/"
+def LIVE_BASE_URL =  "https://cityshow.in/cityshow/public/api/"
 
 def ROOT_URL = DEV_BASE_URL
 

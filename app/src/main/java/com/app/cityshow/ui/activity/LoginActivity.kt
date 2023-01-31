@@ -30,10 +30,10 @@ class LoginActivity : NavigationActivity(), View.OnClickListener {
             ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[UserViewModel::class.java]
 
-        /*if (BuildConfig.DEBUG) {
-            binding.edtEmail.setText("mitul02@mailinator.com")
-            binding.edtPassword.setText("admin@123")
-        }*/
+        if (BuildConfig.DEBUG) {
+            binding.edtEmail.setText("md.ghoda@gmail.com")
+            binding.edtPassword.setText("123456")
+        }
     }
 
     override fun onClick(p0: View?) {

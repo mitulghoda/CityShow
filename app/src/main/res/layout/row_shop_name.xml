@@ -2,12 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="shops"
-            type="com.app.cityshow.model.shops.Shop" />
-    </data>
 
     <LinearLayout
         android:id="@+id/linRoot"
@@ -22,7 +16,6 @@
             style="@style/TextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{shops.shop_name}"
             tools:text="@string/app_name" />
     </LinearLayout>
 </layout>

@@ -69,8 +69,11 @@ abstract class NavigationActivity : BaseActivity() {
         finishAffinity()
     }
 
-    fun openAddProductActivity() {
+    fun openAddProductActivity(product: Product? = null) {
         val intent = Intent(this, AddProductActivity::class.java)
+        if (product != null) {
+            intent.putExtra("data", product)
+        }
         startActivity(intent)
     }
 

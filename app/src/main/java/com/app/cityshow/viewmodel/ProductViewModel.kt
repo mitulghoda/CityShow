@@ -47,7 +47,8 @@ class ProductViewModel : ViewModel() {
             emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }
-   fun listOfProduct(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
+
+    fun listOfProduct(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
         try {
             responseParser(ProductRepository.listOfProduct(param), this)
         } catch (e: Exception) {
@@ -55,7 +56,17 @@ class ProductViewModel : ViewModel() {
             emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }
-   fun getFavProduct() = liveData(Dispatchers.IO) {
+
+    fun myProduct(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
+        try {
+            responseParser(ProductRepository.myProduct(param), this)
+        } catch (e: Exception) {
+            e.message?.let { Log.e(it) }
+            emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
+        }
+    }
+
+    fun getFavProduct() = liveData(Dispatchers.IO) {
         try {
             responseParser(ProductRepository.getFavProduct(), this)
         } catch (e: Exception) {
@@ -71,6 +82,7 @@ class ProductViewModel : ViewModel() {
             emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }
+
     fun markFav(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
         try {
             responseParser(ProductRepository.markFavProduct(param), this)
@@ -86,13 +98,22 @@ class ProductViewModel : ViewModel() {
             emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }
+    fun myDiscounts(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
+        try {
+            responseParser(ProductRepository.myDiscounts(param), this)
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
+        }
+    }
 
 
     fun createProduct(param: HashMap<String, RequestBody>, images: ArrayList<MultipartBody.Part?>) =
         liveData(Dispatchers.IO) {
             try {
-                responseParser(ProductRepository.createProduct(param = param, images = images),
-                    this)
+                responseParser(
+                    ProductRepository.createProduct(param = param, images = images),
+                    this
+                )
             } catch (e: Exception) {
                 emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
             }
@@ -105,9 +126,31 @@ class ProductViewModel : ViewModel() {
     ) =
         liveData(Dispatchers.IO) {
             try {
-                responseParser(ProductRepository.addEditShop(param = param,
-                    banner = banner,
-                    images = images), this)
+                responseParser(
+                    ProductRepository.addEditShop(
+                        param = param,
+                        banner = banner,
+                        images = images
+                    ), this
+                )
+            } catch (e: Exception) {
+                emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
+            }
+        }
+    fun addEditDiscount(
+        param: HashMap<String, RequestBody>,
+        banner: MultipartBody.Part?,
+        images: ArrayList<MultipartBody.Part?>,
+    ) =
+        liveData(Dispatchers.IO) {
+            try {
+                responseParser(
+                    ProductRepository.addEditDiscount(
+                        param = param,
+                        banner = banner,
+                        images = images
+                    ), this
+                )
             } catch (e: Exception) {
                 emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
             }

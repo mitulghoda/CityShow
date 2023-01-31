@@ -155,7 +155,7 @@ class RegisterActivity : NavigationActivity(), View.OnClickListener {
                 },
                 error = {
                     hideProgressDialog()
-                    showAlertMessage("", getString(R.string.something_went_wrong))
+                    showAlertMessage("", it.message)
                 }, loading = {
                     showProgressDialog()
                 })

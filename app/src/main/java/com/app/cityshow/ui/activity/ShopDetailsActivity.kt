@@ -71,7 +71,7 @@ class ShopDetailsActivity : ActionBarActivity(), View.OnClickListener {
     private fun markFavProduct(device: Product) {
         showProgressDialog()
         val param = HashMap<String, Any>()
-        param["productId"] = device.id ?: ""
+        param["product_id"] = device.id ?: ""
         viewModel.markFav(param).observe(this) {
             it.status.typeCall(
                 success = {

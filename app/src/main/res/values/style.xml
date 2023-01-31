@@ -29,6 +29,12 @@
         <item name="android:fontFamily">@font/sf_medium</item>
     </style>
 
+    <style name="TextViewShadow.Black">
+        <item name="android:shadowRadius">10</item>
+        <item name="android:shadowColor">@color/black</item>
+        <item name="android:fontFamily">@font/sf_medium</item>
+    </style>
+
     <style name="Style.App.circleImageView" parent="">
         <item name="shapeAppearance">@style/ShapeAppearanceOverlay.App.circleImageView</item>
     </style>

@@ -714,7 +714,6 @@ open class AndroidFilePicker(private val applicationId: String) : BaseFilePicker
             arrayOf(
                 CAMERA,
                 READ_EXTERNAL_STORAGE,
-               RECORD_AUDIO,
             )
         } else {
             arrayOf(
@@ -723,11 +722,12 @@ open class AndroidFilePicker(private val applicationId: String) : BaseFilePicker
                 READ_EXTERNAL_STORAGE,
             )
         }
-       /* private val permissions =
-            if (VERSION.SDK_INT >= VERSION_CODES.Q)
-                arrayOf(CAMERA, READ_EXTERNAL_STORAGE, ACCESS_MEDIA_LOCATION)
-            else arrayOf(CAMERA, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE)
-*/
+
+        /* private val permissions =
+             if (VERSION.SDK_INT >= VERSION_CODES.Q)
+                 arrayOf(CAMERA, READ_EXTERNAL_STORAGE, ACCESS_MEDIA_LOCATION)
+             else arrayOf(CAMERA, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE)
+ */
         private const val RQ_FILE_PERMISSION = 1001
 
         fun with(applicationId: String): AndroidFilePicker {

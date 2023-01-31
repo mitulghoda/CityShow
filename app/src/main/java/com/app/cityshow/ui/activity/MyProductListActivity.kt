@@ -7,10 +7,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityProductListBinding
-import com.app.cityshow.model.category.Category
 import com.app.cityshow.model.product.Product
+import com.app.cityshow.ui.adapter.MyProductListAdapter
 import com.app.cityshow.ui.adapter.ProductListAdapter
 import com.app.cityshow.ui.common.ActionBarActivity
+import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.hide
 import com.app.cityshow.utility.show
 import com.app.cityshow.utility.typeCall
@@ -18,7 +19,7 @@ import com.app.cityshow.viewmodel.ProductViewModel
 import java.util.ArrayList
 
 class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
-    lateinit var productListAdapter: ProductListAdapter
+    lateinit var productListAdapter: MyProductListAdapter
     private lateinit var binding: ActivityProductListBinding
     private lateinit var viewModel: ProductViewModel
 
@@ -40,19 +41,54 @@ class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
         setContentView(binding.root)
     }
 
+    override fun onResume() {
+        super.onResume()
+        callGetMyProductList()
+    }
+
     private fun setAdapter() {
-        productListAdapter = ProductListAdapter(arrayListOf()) { product: Product, type: Int ->
+        productListAdapter = MyProductListAdapter(arrayListOf()) { product: Product, type: Int ->
+            when (type) {
+                0 -> {
+                    deleteProduct(product)
+                }
+                1 -> {
+                    openAddProductActivity(product)
+                }
+            }
         }
         binding.laySearch.recyclerView.layoutManager = GridLayoutManager(this, 2)
         binding.laySearch.recyclerView.adapter = productListAdapter
+
     }
 
-    private fun calGetProducts(strId: String) {
+    private fun deleteProduct(device: Product) {
+        showProgressDialog()
+        viewModel.deleteProduct(device.id ?: "").observe(this) {
+            it.status.typeCall(
+                success = {
+                    hideProgressDialog()
+                    if (it.data != null && it.data.success) {
+                        toast(it.data.message)
+                    } else {
+                        showAlertMessage(
+                            "",
+                            it.data?.message ?: getString(R.string.something_went_wrong)
+                        )
+                    }
+                }, error = {
+                    hideProgressDialog()
+                    showAlertMessage("", it.message)
+                }, loading = {})
+        }
+
+    }
+
+    private fun callGetMyProductList() {
         showProgressDialog()
         val param = HashMap<String, Any>()
-        param["category_id"] = strId
-        param["pagination"] = "false"
-        viewModel.listOfProduct(param).observe(this) {
+        param["user_id"] = LocalDataHelper.userId
+        viewModel.myProduct(param).observe(this) {
             it.status.typeCall(
                 success = {
                     hideProgressDialog()
@@ -95,7 +131,7 @@ class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
         if (isShowError) {
             binding.laySearch.layError.root.show()
             binding.laySearch.layError.txtErrorMsg.text =
-                getString(R.string.no_product_found_category)
+                getString(R.string.no_data_found)
         } else {
             binding.laySearch.layError.root.hide()
         }

@@ -135,7 +135,24 @@
                     android:layout_height="@dimen/_40sdp"
                     android:padding="@dimen/_10sdp"
                     android:src="@drawable/ic_offer"
-                    android:tint="@color/colorPrimary" />
+                    android:tint="@color/colorPrimary"
+                    android:visibility="gone" />
+
+                <com.app.cityshow.views.TextView
+                    style="@style/TextViewStyleBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:background="@drawable/offer_rectangle"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:paddingVertical="@dimen/_5sdp"
+                    android:text="25% off"
+                    android:textAppearance="@style/TextViewShadow.Black"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"
+                    tools:text="25% off" />
+
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivFav"
@@ -143,10 +160,19 @@
                     android:layout_height="@dimen/_20sdp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
                     android:background="@drawable/fav_selector" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivRemove"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="gone"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:src="@drawable/ic_delete" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>

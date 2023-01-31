@@ -14,13 +14,13 @@ class Product() : java.io.Serializable {
     val description: String = ""
     val device_os: String = ""
     val gender: String = ""
-    val id: Int? = null
+    val id: String? = null
     var is_fav: String? = ""
     val is_gold: String = ""
     val key_featurees: String = ""
     val material: String = ""
     val model_name: String = ""
-    val name: String = ""
+    var name: String = ""
     val price: String = ""
     val product_image: ArrayList<MyItemImages>? = null
     val product_shops: ArrayList<Shop>? = null

@@ -7,10 +7,10 @@ import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityShopsBinding
 import com.app.cityshow.model.shops.Shop
-import com.app.cityshow.ui.adapter.ShopsAdapter
+import com.app.cityshow.ui.adapter.DiscountsAdapter
 import com.app.cityshow.ui.common.ActionBarActivity
+import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.Log
-import com.app.cityshow.utility.hide
 import com.app.cityshow.utility.show
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
@@ -18,7 +18,7 @@ import com.google.gson.Gson
 
 class DiscountActivity : ActionBarActivity(), View.OnClickListener {
     private lateinit var binding: ActivityShopsBinding
-    private var shopsAdapter: ShopsAdapter? = null
+    private var discountsAdapter: DiscountsAdapter? = null
 
     private var viewModel: ProductViewModel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,10 +32,9 @@ class DiscountActivity : ActionBarActivity(), View.OnClickListener {
         setSubTitleText("Ahmedabad")
         binding.clickListener = this
         initViewModel()
-        shopsAdapter = ShopsAdapter(arrayListOf()) {
-            openShopDetails(it)
+        discountsAdapter = DiscountsAdapter(arrayListOf()) {
         }
-        binding.laySearch.recyclerView.adapter = shopsAdapter
+        binding.laySearch.recyclerView.adapter = discountsAdapter
     }
 
     private fun initViewModel() {
@@ -43,16 +42,14 @@ class DiscountActivity : ActionBarActivity(), View.OnClickListener {
             this,
             ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]
-        callGetMyShop()
+        callGetMyDiscounts()
     }
 
-    private fun callGetMyShop() {
+    private fun callGetMyDiscounts() {
         showProgressDialog()
         val param = HashMap<String, Any>()
-        param["page"] = "1"
-        param["limit"] = "100"
-        param["pagination"] = "true"
-        viewModel?.myShops(param)?.observe(this) {
+        param["user_id"] = LocalDataHelper.userId
+        viewModel?.myDiscounts(param)?.observe(this) {
             it.status.typeCall(
                 success = {
                     hideProgressDialog()
@@ -82,7 +79,7 @@ class DiscountActivity : ActionBarActivity(), View.OnClickListener {
             binding.laySearch.layError.root.show()
             binding.laySearch.layError.txtErrorMsg.text = getString(R.string.no_shop_found)
         } else {
-            shopsAdapter?.setData(shops)
+            discountsAdapter?.setData(shops)
         }
 
     }

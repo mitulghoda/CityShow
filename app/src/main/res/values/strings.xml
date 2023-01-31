@@ -88,6 +88,7 @@
     <string name="enter_confirm_password">Enter confirm password</string>
     <string name="select_shop">Select Shop</string>
     <string name="select_product_photos">Select product photos</string>
+    <string name="select_product">Select product</string>
     <string name="xxl">XXL</string>
     <string name="xl">XL</string>
     <string name="_6">6</string>
@@ -106,9 +107,16 @@
     <string name="footwear_size">Footwear Size</string>
     <string name="additional_details">Addition Details?</string>
     <string name="add_discount">Add Discount</string>
-    <string name="discount_type">Discount types</string>
+    <string name="discount_type">Discount types, IsPrice?</string>
     <string name="offers_discounts"><![CDATA[Offers & Discounts]]></string>
     <string name="rationale_permission">We need your permission to access the media</string>
+    <string name="discount">Discount</string>
+    <string name="discount_desc">If you want to give flat discount select yes and enter flat amount in discount fields, if you want to give discount in percentage add percentage in discount</string>
+    <string name="discount_banner">Discount banner</string>
+    <string name="or">Or</string>
+    <string name="enter_disount_name">Enter discount name</string>
+    <string name="enter_disount_code">Enter discount code</string>
+    <string name="enter_discount">Enter discount</string>
     <string-array name="discount">
         <item>Fixed</item>
         <item>Percentage</item>

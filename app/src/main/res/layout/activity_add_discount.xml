@@ -69,28 +69,6 @@
                         android:text="@{shopData.shop_name}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layDiscountType"
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_5sdp"
-                    app:hintEnabled="true"
-                    app:startIconDrawable="@drawable/ic_offer"
-                    app:startIconTint="@color/colorPrimary">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/edtDiscountType"
-                        style="@style/EditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:editable="false"
-                        android:gravity="top|start"
-                        android:hint="@string/discount_type"
-                        android:imeOptions="actionDone"
-                        android:inputType="textCapWords|textImeMultiLine"
-                        android:text="@{shopData.notes}" />
-                </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/spDiscountType"
@@ -120,6 +98,115 @@
                         android:text="@{shopData.address}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+
+                <com.app.cityshow.views.TextView
+                    style="@style/TextViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/discount_type" />
+
+                <com.app.cityshow.views.TextView
+                    style="@style/TextViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/discount_desc"
+                    android:textColor="@color/dark_red" />
+
+                <RadioGroup
+                    android:id="@+id/rbgType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/rbYes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes" />
+
+                    <RadioButton
+                        android:id="@+id/rbNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+                </RadioGroup>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layDiscountType"
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:hintEnabled="true"
+                    app:startIconDrawable="@drawable/ic_offer"
+                    app:startIconTint="@color/colorPrimary">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edtDiscount"
+                        style="@style/EditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="top|start"
+                        android:hint="@string/discount"
+                        android:imeOptions="actionDone"
+                        android:inputType="textCapWords|textImeMultiLine"
+                        android:text="@{shopData.notes}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tvInputshop"
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:onClick="@{(v)->clickListener.onClick(v)}"
+                    app:endIconDrawable="@drawable/ic_drop"
+                    app:endIconMode="custom"
+                    app:hintEnabled="true"
+                    app:startIconDrawable="@drawable/ic_category"
+                    app:startIconTint="@color/colorPrimary">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edtShops"
+                        style="@style/EditTextStyleClickable"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/select_shop"
+                        android:imeOptions="actionNext"
+                        android:onClick="@{(v)->clickListener.onClick(v)}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.app.cityshow.views.TextView
+                    style="@style/TextViewStyleBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:text="@string/or"
+                    android:textSize="@dimen/_18sdp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tvInputProduct"
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:onClick="@{(v)->clickListener.onClick(v)}"
+                    app:endIconDrawable="@drawable/ic_drop"
+                    app:endIconMode="custom"
+                    app:hintEnabled="true"
+                    app:startIconDrawable="@drawable/ic_product_24"
+                    app:startIconTint="@color/colorPrimary">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edtProduct"
+                        style="@style/EditTextStyleClickable"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/select_product"
+                        android:imeOptions="actionNext"
+                        android:onClick="@{(v)->clickListener.onClick(v)}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layNotes"
                     style="@style/TextInputLayoutStyle"
@@ -147,7 +234,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_3sdp"
-                    android:text="Discount banner" />
+                    android:text="@string/discount_banner" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"

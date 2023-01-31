@@ -51,7 +51,7 @@ interface ApiService {
     suspend fun getProductDetails(@Path("id") id: String): Response<ObjectBaseModel<Product>>
 
     @DELETE("product/{id}")
-    suspend fun deleteProduct(@Path("id") id: String): Response<ObjectBaseModel<User>>
+    suspend fun deleteProduct(@Path("id") id: String): Response<ListBaseModel<User>>
 
     @POST("product/update")
     suspend fun updateProduct(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<LoginUserModel>>
@@ -63,8 +63,13 @@ interface ApiService {
     @POST("product/list")
     suspend fun listOfProduct(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<ProductMainModel>>
 
+    @POST("product/list")
+    suspend fun myProduct(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<ProductMainModel>>
+
     @POST("shops")
     suspend fun myShops(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<ShopsModel>>
+    @POST("discounts")
+    suspend fun myDiscounts(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<ShopsModel>>
 
     @Multipart
     @POST("update-profile")
@@ -83,6 +88,13 @@ interface ApiService {
     @Multipart
     @POST("shop-add")
     suspend fun addEditShop(
+        @PartMap params: HashMap<String, RequestBody>?,
+        @Part banner: MultipartBody.Part?,
+        @Part images: ArrayList<MultipartBody.Part?>,
+    ): Response<ObjectBaseModel<User>>
+    @Multipart
+    @POST("discount-add")
+    suspend fun addEditDiscount(
         @PartMap params: HashMap<String, RequestBody>?,
         @Part banner: MultipartBody.Part?,
         @Part images: ArrayList<MultipartBody.Part?>,

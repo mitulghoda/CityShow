@@ -72,7 +72,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 mBinding.rbFemale.id -> {
                     strGender = mBinding.rbFemale.text.toString()
                 }
-                mBinding.rbFemale.id -> {
+                mBinding.rbChild.id -> {
                     strGender = mBinding.rbChild.text.toString()
                 }
             }
@@ -342,7 +342,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
             it.status.typeCall(success = {
                 hideProgressDialog()
                 if (it.data != null && it.data.success) {
-                    openHomeActivity()
+                    finish()
                 } else {
                     showAlertMessage(it.message)
                 }
