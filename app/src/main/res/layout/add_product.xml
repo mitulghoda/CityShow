@@ -8,6 +8,9 @@
         <variable
             name="clickListener"
             type="android.view.View.OnClickListener" />
+        <variable
+            name="data"
+            type="com.app.cityshow.model.product.Product" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -61,6 +64,7 @@
                         android:layout_height="match_parent"
                         android:hint="@string/enter_product_name"
                         android:imeOptions="actionNext"
+                        android:text="@{data.name}"
                         android:inputType="textCapWords" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,6 +96,7 @@
                         android:layout_height="match_parent"
                         android:hint="@string/enter_brand_name"
                         android:imeOptions="actionNext"
+                        android:text="@{data.brand_name}"
                         android:inputType="textCapWords" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,6 +126,7 @@
                         android:layout_height="match_parent"
                         android:hint="@string/enter_model_name"
                         android:imeOptions="actionNext"
+                        android:text="@{data.model_name}"
                         android:inputType="textCapWords" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -161,6 +167,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/enter_original_price"
+                        android:text="@{data.price}"
                         android:imeOptions="actionNext"
                         android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -193,6 +200,7 @@
                         android:layout_height="match_parent"
                         android:hint="@string/enter_selling_price"
                         android:imeOptions="actionNext"
+                        android:text="@{data.selling_price}"
                         android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -793,6 +801,7 @@
                         android:gravity="top|start"
                         android:hint="@string/enter_description"
                         android:imeOptions="actionNext"
+                        android:text="@{data.description}"
                         android:inputType="textCapWords|textMultiLine"
                         android:minHeight="@dimen/_100sdp" />
                 </com.google.android.material.textfield.TextInputLayout>

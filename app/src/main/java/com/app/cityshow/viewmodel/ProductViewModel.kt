@@ -119,6 +119,18 @@ class ProductViewModel : ViewModel() {
             }
         }
 
+    fun updateProduct(param: HashMap<String, RequestBody>, images: ArrayList<MultipartBody.Part?>) =
+        liveData(Dispatchers.IO) {
+            try {
+                responseParser(
+                    ProductRepository.updateProduct(param = param, images = images),
+                    this
+                )
+            } catch (e: Exception) {
+                emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
+            }
+        }
+
     fun addEditShop(
         param: HashMap<String, RequestBody>,
         banner: MultipartBody.Part?,

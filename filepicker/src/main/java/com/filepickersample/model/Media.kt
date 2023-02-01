@@ -37,6 +37,10 @@ class Media() : Parcelable {
         fileType = parcel.readParcelable(FileType::class.java.classLoader) ?: IMAGE
     }
 
+    constructor(imageUrl: String): this() {
+        this.url = imageUrl
+    }
+
     override fun describeContents(): Int = 0
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

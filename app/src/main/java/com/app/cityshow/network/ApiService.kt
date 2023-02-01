@@ -34,6 +34,12 @@ interface ApiService {
     @POST("forgot-password")
     suspend fun changePassword(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<User>>
 
+    @Multipart
+    @POST("update-profile")
+    suspend fun updateProfile(
+        @PartMap params: HashMap<String, RequestBody>?,
+        @Part image: MultipartBody.Part?,
+    ): Response<ObjectBaseModel<User>>
 
     @GET("get_user_details")
     suspend fun getProfile(): Response<ObjectBaseModel<User>>
@@ -72,15 +78,15 @@ interface ApiService {
     suspend fun myDiscounts(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<ShopsModel>>
 
     @Multipart
-    @POST("update-profile")
-    suspend fun updateProfile(
-        @PartMap params: HashMap<String, RequestBody>?,
-        @Part image: MultipartBody.Part?,
-    ): Response<ObjectBaseModel<User>>
-
-    @Multipart
     @POST("product/create")
     suspend fun createProduct(
+        @PartMap params: HashMap<String, RequestBody>?,
+        @Part images: ArrayList<MultipartBody.Part?>,
+    ): Response<ObjectBaseModel<Product>>
+
+    @Multipart
+    @POST("product/update")
+    suspend fun updateProduct(
         @PartMap params: HashMap<String, RequestBody>?,
         @Part images: ArrayList<MultipartBody.Part?>,
     ): Response<ObjectBaseModel<Product>>
