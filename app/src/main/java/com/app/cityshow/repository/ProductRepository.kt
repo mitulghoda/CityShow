@@ -26,6 +26,12 @@ object ProductRepository {
     ) =
         apiService.createProduct(param, images)
 
+    suspend fun updateProduct(
+        param: HashMap<String, RequestBody>,
+        images: ArrayList<MultipartBody.Part?>,
+    ) =
+        apiService.createProduct(param, images)
+
     suspend fun addEditShop(
         param: HashMap<String, RequestBody>,
         banner: MultipartBody.Part?,

@@ -1,6 +1,6 @@
 package com.app.cityshow.ui.activity
 
-import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +10,7 @@ import com.app.cityshow.databinding.AddProductBinding
 import com.app.cityshow.model.FootwearSizeModel
 import com.app.cityshow.model.category.Category
 import com.app.cityshow.model.category.SubCategory
+import com.app.cityshow.model.product.Product
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.ui.adapter.EditTextAdapter
 import com.app.cityshow.ui.adapter.FootwearSizeAdapter
@@ -51,7 +52,13 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     private var footwearSizeAdapter: FootwearSizeAdapter? = null
     val filterFootwearSizeList: ArrayList<String> = ArrayList()
 
+    var productData: Product? = null
+
     override fun initUi() {
+         productData = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("data", Product::class.java)
+        } else intent.getSerializableExtra("data") as Product?
+
         viewModel = ViewModelProvider(
             this, ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]
@@ -87,6 +94,16 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 }
             }
         }
+        setProductData()
+    }
+
+    private fun setProductData() {
+        mBinding.data = productData
+
+        productData?.product_image?.forEach {
+            mAssetImages.add(Media(it.image_url))
+        }
+        assetImageAdapter.notifyDataSetChanged()
     }
 
     private fun callGetMyShop() {
@@ -99,6 +116,11 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 if (it.data != null && it.data.success) {
                     Log.e("CATEGORIES", Gson().toJson(it.data.data))
                     shopList = it.data.data.shops as ArrayList<Shop>
+                    val shop = shopList!!.filter { it1 -> it1.id == productData?.shopkeeper_id }
+                    Log.e("Shop Size", shop.size.toString())
+                    if (shop.size > 1) {
+                        mBinding.edtShops.setText(shop[0].shop_name)
+                    }
                 } else {
                     showAlertMessage(it.message)
                 }
@@ -115,8 +137,8 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         mBinding = AddProductBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         mBinding.clickListener = this
-        setUpToolbar("Add product", true)
-        setTypePlaceAdapter()
+        setUpToolbar("Add product".takeIf {productData == null} ?: "Update product", true)
+        setFootwearAdapter()
     }
 
     override fun onClick(v: View?) {
@@ -202,8 +224,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         }
     }
 
-    private fun setTypePlaceAdapter() {
-
+    private fun setFootwearAdapter() {
         val sizeList = ArrayList<FootwearSizeModel>()
         sizeList.add(FootwearSizeModel("3"))
         sizeList.add(FootwearSizeModel("4"))
@@ -279,6 +300,13 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 if (it.data != null && it.data.success) {
                     Log.e("CATEGORIES", Gson().toJson(it.data.data))
                     mArrayList = it.data.data.categories as ArrayList<Category>?
+
+                    val category = mArrayList?.filter { it.equals(productData?.cat_id) }?.get(0)
+                    val subCategory = category?.sub_category?.filter { it.equals(productData?.subcat_id) }?.get(0)
+                    strCategoryId = subCategory?.category_id
+                    strSubCategory = subCategory?.id
+                    mBinding.edtCategory.setText(category?.name)
+                    mBinding.edtSubCategory.setText(subCategory?.name)
                 } else {
                     showAlertMessage("", it.message)
                 }
@@ -338,18 +366,35 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
             )
             images.add(multipartBody)
         }
-        viewModel.createProduct(param, images).observe(this) {
-            it.status.typeCall(success = {
-                hideProgressDialog()
-                if (it.data != null && it.data.success) {
-                    finish()
-                } else {
-                    showAlertMessage(it.message)
-                }
-            }, error = {
-                hideProgressDialog()
-                showAlertMessage(getString(R.string.something_went_wrong))
-            }, loading = {})
+        if (productData == null) {
+            viewModel.createProduct(param, images).observe(this) {
+                it.status.typeCall(success = {
+                    hideProgressDialog()
+                    if (it.data != null && it.data.success) {
+                        finish()
+                    } else {
+                        showAlertMessage(it.message)
+                    }
+                }, error = {
+                    hideProgressDialog()
+                    showAlertMessage(getString(R.string.something_went_wrong))
+                }, loading = {})
+            }
+        } else {
+            param["id"] = productData!!.id.orEmpty().toRequestBody()
+            viewModel.updateProduct(param, images).observe(this) {
+                it.status.typeCall(success = {
+                    hideProgressDialog()
+                    if (it.data != null && it.data.success) {
+                        finish()
+                    } else {
+                        showAlertMessage(it.message)
+                    }
+                }, error = {
+                    hideProgressDialog()
+                    showAlertMessage(getString(R.string.something_went_wrong))
+                }, loading = {})
+            }
         }
 //            } else {
 //                hideProgressDialog()
