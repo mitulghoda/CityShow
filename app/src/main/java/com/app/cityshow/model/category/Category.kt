@@ -10,15 +10,17 @@ data class Category(
     val slug: String,
     val sub_category: List<SubCategory>,
     val category_images: List<String>,
-    val products_count: String,
+    val product_count: String,
     val updated_at: String,
     val shops: List<Shop>,
-):java.io.Serializable {
+) : java.io.Serializable {
     fun getTotalShop(): String {
+
         return "${shops.size}+shops"
     }
+
     fun getTotalProductCount(): String {
-        return "${products_count}+products"
+        return "${product_count ?: 0}+products"
     }
 
     fun getCategoryImage(): String {

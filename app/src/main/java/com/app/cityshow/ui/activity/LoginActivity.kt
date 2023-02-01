@@ -7,10 +7,7 @@ import com.app.cityshow.BuildConfig
 import com.app.cityshow.Controller
 import com.app.cityshow.databinding.LoginBinding
 import com.app.cityshow.ui.common.NavigationActivity
-import com.app.cityshow.utility.LocalDataHelper
-import com.app.cityshow.utility.Validator
-import com.app.cityshow.utility.getTrimText
-import com.app.cityshow.utility.typeCall
+import com.app.cityshow.utility.*
 import com.app.cityshow.viewmodel.UserViewModel
 
 class LoginActivity : NavigationActivity(), View.OnClickListener {
@@ -41,7 +38,12 @@ class LoginActivity : NavigationActivity(), View.OnClickListener {
             binding.btnLogin -> {
                 hideKeyBoard()
                 if (!isValid()) return
-                login()
+                getFcmToken { fcmToken, isSuccess ->
+                    LocalDataHelper.fcmToken = fcmToken
+                    Log.e("FCM_TOKEN", fcmToken)
+                    login(fcmToken)
+                }
+
             }
             binding.tvForgot -> {
                 openForgotPasswordActivity()
@@ -76,13 +78,14 @@ class LoginActivity : NavigationActivity(), View.OnClickListener {
     /**
      * Login api call
      * */
-    private fun login() {
+    private fun login(fcmToken: String) {
         showProgressDialog()
 //        getFcmToken { fcmToken, isSuccess ->
 //            if (isSuccess) {
         val param = HashMap<String, Any>()
         param["email"] = binding.edtEmail.getTrimText()
         param["password"] = binding.edtPassword.getTrimText()
+        param["fcm_token"] = fcmToken
 //                param["device_type"] = NetworkURL.DEVICE_TYPE_ANDROID
 //                param["device_id"] = fcmToken
 

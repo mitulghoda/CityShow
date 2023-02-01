@@ -29,7 +29,9 @@ import com.app.cityshow.utility.KeyboardUtil
 import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.justTry
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.messaging.FirebaseMessaging
 import com.kaopiz.kprogresshud.KProgressHUD
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import pub.devrel.easypermissions.AppSettingsDialog
@@ -248,14 +250,14 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         justTry { if (dialog != null) dialog!!.dismiss() }
     }
 
-    /*open fun getFcmToken(callBack: (fcmToken: String, isSuccess: Boolean) -> Unit) {
+    open fun getFcmToken(callBack: (fcmToken: String, isSuccess: Boolean) -> Unit) {
         val fcmToken = LocalDataHelper.fcmToken
         if (fcmToken.isNullOrEmpty()) {
             FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
                     callBack.invoke(
                         task.exception?.localizedMessage
-                            ?: getString(R.string.fetching_fcm_registration_token_failed), false
+                            ?: "Fetching FCM registration token failed", false
                     )
                     return@OnCompleteListener
                 }
@@ -263,7 +265,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
                 if (token.isNullOrEmpty()) {
                     callBack.invoke(
                         task.exception?.localizedMessage
-                            ?: getString(R.string.fetching_fcm_registration_token_failed), false
+                            ?: "Fetching FCM registration token failed", false
                     )
                     return@OnCompleteListener
                 }
@@ -273,7 +275,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         } else {
             callBack.invoke(fcmToken, true)
         }
-    }*/
+    }
 
     fun logoutActions() {
         LocalDataHelper.authToken = ""

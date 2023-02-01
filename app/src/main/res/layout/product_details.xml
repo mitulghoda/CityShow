@@ -61,11 +61,23 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     style="@style/TextViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_bold"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:text="@{productData.shopName}"
+                    android:textSize="@dimen/_16sdp"
+                    tools:text="Galaxy Mobile" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_locaiton"
                     android:drawablePadding="@dimen/_5sdp"
                     android:paddingHorizontal="@dimen/_10sdp"
+                    android:text="@{productData.shopAddress}"
                     tools:text="31-89 Steinway St, Queens, NY 11103, United States" />
 
                 <androidx.cardview.widget.CardView

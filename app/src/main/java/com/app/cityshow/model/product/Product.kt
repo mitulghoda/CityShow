@@ -23,7 +23,7 @@ class Product() : java.io.Serializable {
     var name: String = ""
     val price: String = ""
     val product_image: ArrayList<MyItemImages>? = null
-    val product_shops: ArrayList<Shop>? = null
+    val product_shop: ArrayList<Shop>? = null
     val ram: String = ""
     val selling_price: String = ""
     val shopkeeper_id: String = ""
@@ -49,6 +49,22 @@ class Product() : java.io.Serializable {
 
     fun isGold(): String {
         return "Yes".takeIf { is_gold.equals("1", true) } ?: "No"
+    }
+
+    fun getShopAddress(): String {
+        return if (product_shop.isNullOrEmpty()) {
+            ""
+        } else {
+            product_shop[0].address
+        }
+    }
+
+    fun getShopName(): String {
+        return if (product_shop.isNullOrEmpty()) {
+            ""
+        } else {
+            product_shop[0].shop_name
+        }
     }
 
     fun isWarranty(): String {

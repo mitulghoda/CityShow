@@ -6,6 +6,7 @@ import android.os.Looper
 import com.app.cityshow.R
 import com.app.cityshow.ui.common.NavigationActivity
 import com.app.cityshow.utility.LocalDataHelper
+import com.app.cityshow.utility.Log
 
 class SplashActivity : NavigationActivity() {
 
@@ -16,6 +17,7 @@ class SplashActivity : NavigationActivity() {
     }
 
     override fun initUi() {
+
         Handler(Looper.getMainLooper()).postDelayed({
             if (!LocalDataHelper.login) {
                 openLoginActivity()

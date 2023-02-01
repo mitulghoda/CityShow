@@ -33,6 +33,10 @@ object LocalDataHelper {
         get() = preference.getString("api_token", "")
         set(value) = preference.edit { it.putString("api_token", value) }
 
+    var fcmToken: String?
+        get() = preference.getString("fcmToken", "")
+        set(value) = preference.edit { it.putString("fcmToken", value) }
+
     var user: User?
         get() = preference.getString("user_details", "").fromJson(User::class.java)
         set(value) = preference.edit { it.putString("user_details", value.toJson()) }

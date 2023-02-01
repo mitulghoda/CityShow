@@ -51,6 +51,7 @@
                 android:tint="@color/white"
                 app:borderWidth="0dp"
                 app:elevation="6dp"
+                android:visibility="gone"
                 app:fabSize="normal"
                 app:layout_anchorGravity="top|right|end"
                 app:pressedTranslationZ="12dp"

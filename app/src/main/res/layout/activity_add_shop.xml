@@ -97,8 +97,9 @@
                         android:layout_height="match_parent"
                         android:hint="@string/enter_shop_address"
                         android:imeOptions="actionNext"
-                        android:inputType="textCapSentences"
-                        android:text="@{shopData.address}" />
+                        android:inputType="textCapSentences|textMultiLine"
+                        android:text="@{shopData.address}"
+                        tools:text="asdlkjadasdjaljsdlasjdlajsldjalsjdasjdlaasdasdasdasasdadsad" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.app.cityshow.views.TextView
@@ -174,6 +175,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_100sdp"
                         android:onClick="@{(v)->clickListener.onClick(v)}"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/ic_image" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 

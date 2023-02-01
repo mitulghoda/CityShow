@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "296552314287",
+    "firebase_url": "https://mitulprac.firebaseio.com",
+    "project_id": "mitulprac",
+    "storage_bucket": "mitulprac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296552314287:android:3b03a3a500ae2f27392b5a",
+        "android_client_info": {
+          "package_name": "com.app.cityshow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296552314287-9bjua1r4q491a99f3udd40dlfcbq3tps.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1Ls1AV5OeNQCzpupYy7oviRuw8GiR9-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296552314287-9bjua1r4q491a99f3udd40dlfcbq3tps.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
