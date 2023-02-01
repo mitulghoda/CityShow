@@ -21,23 +21,15 @@ class FirebaseNotificationService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         Log.e(TAG, "onMessageReceived")
         Log.e(TAG, Gson().toJson(remoteMessage.notification))
-        if (remoteMessage.data.isEmpty()) return
-        val param: Map<String, String> = remoteMessage.data
-        val jsonData = Gson().toJson(param)
-        Log.e(TAG, "Notification Data $jsonData")
-        //if (!LocalDataHelper.isLogin()) return
-
-        val title = param["title"]
-        val body = param["body"]
-        val type = param["type"] ?: TYPE_GENERAL
-        manageNotification(title, body, type, param)
+        val title = remoteMessage.notification?.title
+        val body = remoteMessage.notification?.body
+        manageNotification(title, body, "general")
     }
 
     private fun manageNotification(
         title: String?,
         body: String?,
         type: String,
-        param: Map<String, String>,
     ) {
         val notificationId = uniqueId
         when (type) {
