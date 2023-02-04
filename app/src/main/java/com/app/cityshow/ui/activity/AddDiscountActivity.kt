@@ -28,7 +28,7 @@ import java.io.File
 import kotlin.collections.set
 
 class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
-    private var strDiscountType: String? = null
+    private var strDiscountType: String = "Yes"
     private var strProductId: String? = null
     private var strShopId: String? = null
     private var shop: Shop? = null
@@ -47,7 +47,7 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
         callGetMyShop()
         callGetMyProductList()
         mBinding.rbgType.setOnCheckedChangeListener { radioGroup, i ->
-            when (radioGroup.id) {
+            when (i) {
                 mBinding.rbYes.id -> {
                     strDiscountType = mBinding.rbYes.text.toString()
                 }
@@ -194,18 +194,18 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
     private fun addEditDiscount() {
         showProgressDialog()
         val param = HashMap<String, RequestBody>()
-        param["discount_name"] = mBinding.edtDiscountName.getTrimText().requestBody()
-        param["discount_code"] = mBinding.edtCouponCode.getTrimText().requestBody()
-        param["discount_type"] = strDiscountType!!.requestBody()
+        param["coupon_name"] = mBinding.edtDiscountName.getTrimText().requestBody()
+        param["coupon_code"] = mBinding.edtCouponCode.getTrimText().requestBody()
+        param["is_price"] = strDiscountType.requestBody()
         param["discount"] = mBinding.edtDiscount.getTrimText().requestBody()
-        param["shop_id"] = mBinding.edtCouponCode.getTrimText().requestBody()
-        param["product_id"] = mBinding.edtCouponCode.getTrimText().requestBody()
+        param["shop_id"] = strShopId!!.requestBody()
+        param["product_id"] = strProductId!!.requestBody()
         param["notes"] = mBinding.edtNotes.getTrimText().requestBody()
         var multipartBody: MultipartBody.Part? = null
         if (discountBannerImage != null) {
             val file = File(discountBannerImage!!.path.toString())
             multipartBody = MultipartBody.Part.createFormData(
-                "banner_image", file.name, file.asRequestBody("image/*".toMediaType())
+                "image", file.name, file.asRequestBody("image/*".toMediaType())
             )
         }
         val images = ArrayList<MultipartBody.Part?>()
@@ -213,7 +213,8 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
             it.status.typeCall(success = {
                 hideProgressDialog()
                 if (it.data != null && it.data.success) {
-                    openHomeActivity()
+                    toast(it.data.message)
+                    finish()
                 } else {
                     showAlertMessage(strMessage = it.data?.message ?: "")
                 }

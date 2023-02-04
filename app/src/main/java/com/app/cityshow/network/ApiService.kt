@@ -2,6 +2,7 @@ package com.app.cityshow.network
 
 import com.app.cityshow.model.*
 import com.app.cityshow.model.category.CategoryModel
+import com.app.cityshow.model.disocunt.DiscountListModel
 import com.app.cityshow.model.product.Product
 import com.app.cityshow.model.product.ProductMainModel
 import com.app.cityshow.model.shops.ShopsModel
@@ -74,8 +75,8 @@ interface ApiService {
 
     @POST("shops")
     suspend fun myShops(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<ShopsModel>>
-    @POST("discounts")
-    suspend fun myDiscounts(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<ShopsModel>>
+    @POST("discount/list")
+    suspend fun myDiscounts(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<DiscountListModel>>
 
     @Multipart
     @POST("product/create")
@@ -99,7 +100,7 @@ interface ApiService {
         @Part images: ArrayList<MultipartBody.Part?>,
     ): Response<ObjectBaseModel<User>>
     @Multipart
-    @POST("discount-add")
+    @POST("discount/create")
     suspend fun addEditDiscount(
         @PartMap params: HashMap<String, RequestBody>?,
         @Part banner: MultipartBody.Part?,

@@ -11,6 +11,7 @@ import com.app.cityshow.databinding.HomeFragmentBinding
 import com.app.cityshow.model.category.CategoryModel
 import com.app.cityshow.model.product.Product
 import com.app.cityshow.ui.adapter.CategoryListAdapter
+import com.app.cityshow.ui.adapter.DiscountListAdapter
 import com.app.cityshow.ui.adapter.ProductListAdapter
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.utility.Log
@@ -20,6 +21,7 @@ import com.google.gson.Gson
 
 class HomeFragment : BaseFragment() {
     lateinit var categoryListAdapter: CategoryListAdapter
+    lateinit var discountsAdapter: DiscountListAdapter
     lateinit var productListAdapter: ProductListAdapter
     private lateinit var binding: HomeFragmentBinding
     private var viewModel: ProductViewModel? = null
@@ -47,6 +49,28 @@ class HomeFragment : BaseFragment() {
         )[ProductViewModel::class.java]
         callGetCategoryApi()
         calGetProducts()
+        callGetMyDiscounts()
+    }
+
+    private fun callGetMyDiscounts() {
+        val param = HashMap<String, Any>()
+        viewModel?.myDiscounts(param)?.observe(this) {
+            it.status.typeCall(
+                success = {
+                    if (it.data != null && it.data.success) {
+                        Log.e("disocunts", Gson().toJson(it.data.data))
+                        discountsAdapter.setData(it.data.data.discounts)
+                    } else {
+                    }
+                },
+                error = {
+                }, loading = {
+                })
+        }
+//            } else {
+//                hideProgressDialog()
+//                toast(fcmToken)
+//            }
     }
 
     private fun callGetCategoryApi() {
@@ -105,8 +129,9 @@ class HomeFragment : BaseFragment() {
         categoryListAdapter = CategoryListAdapter(arrayListOf()) {
             navigation?.openProductListActivity(it)
         }
+        discountsAdapter = DiscountListAdapter(arrayListOf()) {}
         binding.rvCategories.adapter = categoryListAdapter
-        binding.rvDiscounts.adapter = categoryListAdapter
+        binding.rvDiscounts.adapter = discountsAdapter
 
         productListAdapter = ProductListAdapter(productList) { product, type ->
             when (type) {

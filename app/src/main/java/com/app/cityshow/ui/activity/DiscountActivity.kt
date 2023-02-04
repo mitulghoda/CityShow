@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityShopsBinding
-import com.app.cityshow.model.shops.Shop
+import com.app.cityshow.model.disocunt.Discount
 import com.app.cityshow.ui.adapter.DiscountsAdapter
 import com.app.cityshow.ui.common.ActionBarActivity
 import com.app.cityshow.utility.LocalDataHelper
@@ -55,8 +55,7 @@ class DiscountActivity : ActionBarActivity(), View.OnClickListener {
                     hideProgressDialog()
                     if (it.data != null && it.data.success) {
                         Log.e("CATEGORIES", Gson().toJson(it.data.data))
-                        setData(it.data.data.shops)
-
+                        setData(it.data.data.discounts)
                     } else {
                         showAlertMessage(it.message)
                     }
@@ -74,7 +73,7 @@ class DiscountActivity : ActionBarActivity(), View.OnClickListener {
 //            }
     }
 
-    private fun setData(shops: List<Shop>) {
+    private fun setData(shops: List<Discount>) {
         if (shops.isEmpty()) {
             binding.laySearch.layError.root.show()
             binding.laySearch.layError.txtErrorMsg.text = getString(R.string.no_shop_found)
