@@ -29,7 +29,7 @@ class DiscountedProductListActivity : ActionBarActivity() {
         setAdapter()
         if (intent.hasExtra("DISCOUNT_ID")) {
             val discount = intent.getSerializableExtra("DISCOUNT_ID") as Discount
-            setUpToolbar(getString(R.string.discount), true)
+            setUpToolbar(getString(R.string.discounted_products), true)
             setSubTitleText(discount.coupon_name)
             calGetProducts(discount.id)
         }
@@ -84,7 +84,7 @@ class DiscountedProductListActivity : ActionBarActivity() {
         if (isShowError) {
             binding.laySearch.layError.root.show()
             binding.laySearch.layError.txtErrorMsg.text =
-                getString(R.string.no_product_found_category)
+                getString(R.string.no_data_found)
         } else {
             binding.laySearch.layError.root.hide()
         }

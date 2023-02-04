@@ -21,6 +21,7 @@ class Product() : java.io.Serializable {
     val material: String = ""
     val model_name: String = ""
     var name: String = ""
+    var checked: Boolean = false
     val price: String = ""
     val product_image: ArrayList<MyItemImages>? = null
     val product_shop: ArrayList<Shop>? = null

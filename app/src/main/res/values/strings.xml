@@ -117,6 +117,7 @@
     <string name="enter_disount_name">Enter discount name</string>
     <string name="enter_disount_code">Enter discount code</string>
     <string name="enter_discount">Enter discount</string>
+    <string name="discounted_products">Discounted Products</string>
     <string-array name="discount">
         <item>Fixed</item>
         <item>Percentage</item>

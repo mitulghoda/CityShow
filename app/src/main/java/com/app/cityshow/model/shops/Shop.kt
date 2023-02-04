@@ -4,6 +4,7 @@ import com.app.cityshow.model.MyItemImages
 import com.app.cityshow.model.product.Product
 
 class Shop : java.io.Serializable {
+    var checked: Boolean = false
     val address: String = ""
     val banner: String = ""
     val banner_image: String = ""

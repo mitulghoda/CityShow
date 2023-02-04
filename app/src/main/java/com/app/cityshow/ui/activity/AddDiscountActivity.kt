@@ -198,8 +198,8 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
         param["coupon_code"] = mBinding.edtCouponCode.getTrimText().requestBody()
         param["is_price"] = strDiscountType.requestBody()
         param["discount"] = mBinding.edtDiscount.getTrimText().requestBody()
-        param["shop_id"] = strShopId!!.requestBody()
-        param["product_id"] = strProductId!!.requestBody()
+        param["shop_id"] = (strShopId ?: "").requestBody()
+        param["product_id"] = (strProductId ?: "").requestBody()
         param["notes"] = mBinding.edtNotes.getTrimText().requestBody()
         var multipartBody: MultipartBody.Part? = null
         if (discountBannerImage != null) {

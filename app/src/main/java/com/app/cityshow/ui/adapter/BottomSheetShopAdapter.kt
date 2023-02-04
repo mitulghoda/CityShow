@@ -33,7 +33,12 @@ class BottomSheetShopAdapter(
         ) : RecyclerView.ViewHolder(binding.root) {
             fun bind(data: Shop) {
                 binding.txtEpc.text = data.shop_name
-                binding.linRoot.setOnClickListener { adapter.onItemClickCallback.invoke(data) }
+                binding.checkboxName.isChecked = data.checked
+                binding.linRoot.setOnClickListener {
+                    data.checked = data.checked
+                    adapter.notifyItemChanged(adapterPosition)
+                    adapter.onItemClickCallback.invoke(data)
+                }
             }
         }
     }

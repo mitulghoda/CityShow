@@ -76,7 +76,7 @@ class DiscountActivity : ActionBarActivity(), View.OnClickListener {
     private fun setData(shops: List<Discount>) {
         if (shops.isEmpty()) {
             binding.laySearch.layError.root.show()
-            binding.laySearch.layError.txtErrorMsg.text = getString(R.string.no_shop_found)
+            binding.laySearch.layError.txtErrorMsg.text = getString(R.string.no_data_found)
         } else {
             discountsAdapter?.setData(shops)
         }
