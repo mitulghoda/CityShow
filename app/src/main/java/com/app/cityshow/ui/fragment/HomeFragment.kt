@@ -129,7 +129,9 @@ class HomeFragment : BaseFragment() {
         categoryListAdapter = CategoryListAdapter(arrayListOf()) {
             navigation?.openProductListActivity(it)
         }
-        discountsAdapter = DiscountListAdapter(arrayListOf()) {}
+        discountsAdapter = DiscountListAdapter(arrayListOf()) {
+            navigation?.openDiscountProductListActivity(it)
+        }
         binding.rvCategories.adapter = categoryListAdapter
         binding.rvDiscounts.adapter = discountsAdapter
 

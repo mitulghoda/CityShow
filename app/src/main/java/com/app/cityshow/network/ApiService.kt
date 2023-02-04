@@ -3,6 +3,7 @@ package com.app.cityshow.network
 import com.app.cityshow.model.*
 import com.app.cityshow.model.category.CategoryModel
 import com.app.cityshow.model.disocunt.DiscountListModel
+import com.app.cityshow.model.disocunt.DiscountProduct
 import com.app.cityshow.model.product.Product
 import com.app.cityshow.model.product.ProductMainModel
 import com.app.cityshow.model.shops.ShopsModel
@@ -56,6 +57,8 @@ interface ApiService {
 
     @GET("product/details/{id}")
     suspend fun getProductDetails(@Path("id") id: String): Response<ObjectBaseModel<Product>>
+    @GET("discount/details/{id}")
+    suspend fun getDiscountedProduct(@Path("id") id: String): Response<ObjectBaseModel<DiscountProduct>>
 
     @DELETE("product/{id}")
     suspend fun deleteProduct(@Path("id") id: String): Response<ListBaseModel<User>>

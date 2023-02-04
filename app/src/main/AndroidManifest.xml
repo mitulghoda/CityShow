@@ -40,6 +40,10 @@
             android:exported="false"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".ui.activity.DiscountedProductListActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".ui.activity.ProductDetIailsNew"
             android:exported="false" />
         <activity

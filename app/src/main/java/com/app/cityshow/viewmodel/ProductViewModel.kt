@@ -21,6 +21,15 @@ class ProductViewModel : ViewModel() {
         }
     }
 
+    fun getDiscountedProduct(param: String) = liveData(Dispatchers.IO) {
+        try {
+            responseParser(ProductRepository.getDiscountedProduct(param), this)
+        } catch (e: Exception) {
+            e.message?.let { Log.e(it) }
+            emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
+        }
+    }
+
     fun deleteProduct(param: String) = liveData(Dispatchers.IO) {
         try {
             responseParser(ProductRepository.deleteProduct(param), this)
@@ -98,6 +107,7 @@ class ProductViewModel : ViewModel() {
             emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }
+
     fun myDiscounts(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
         try {
             responseParser(ProductRepository.myDiscounts(param), this)
@@ -149,6 +159,7 @@ class ProductViewModel : ViewModel() {
                 emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
             }
         }
+
     fun addEditDiscount(
         param: HashMap<String, RequestBody>,
         banner: MultipartBody.Part?,
