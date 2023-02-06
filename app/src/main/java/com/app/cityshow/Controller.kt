@@ -5,6 +5,7 @@ import android.app.Application
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.app.cityshow.utility.ActivityLifeCycle
+import com.app.cityshow.utility.RegionManager
 
 class Controller : Application(), LifecycleObserver {
     private var activityLifeCycle = ActivityLifeCycle()
@@ -14,6 +15,7 @@ class Controller : Application(), LifecycleObserver {
         instance = this
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
         registerActivityLifecycleCallbacks(activityLifeCycle)
+        RegionManager.init(this)
     }
 
     fun getActivityLifeCycle(): ActivityLifeCycle {

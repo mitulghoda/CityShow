@@ -3,6 +3,7 @@ package com.app.cityshow.ui.activity
 import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -11,13 +12,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityAddShopBinding
+import com.app.cityshow.model.CountryModel
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.ui.adapter.ImageAdapter
+import com.app.cityshow.ui.bottomsheet.BottomSheetCountry
+import com.app.cityshow.ui.bottomsheet.BottomSheetShops
 import com.app.cityshow.ui.common.ActionBarActivity
-import com.app.cityshow.utility.Validator
-import com.app.cityshow.utility.getTrimText
-import com.app.cityshow.utility.requestBody
-import com.app.cityshow.utility.typeCall
+import com.app.cityshow.utility.*
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.bumptech.glide.Glide
 import com.filepickersample.listener.FilePickerCallback
@@ -36,6 +37,7 @@ import kotlin.collections.isNullOrEmpty
 import kotlin.collections.set
 
 class AddShopActivity : ActionBarActivity(), View.OnClickListener {
+    private var strCities: String? = null
     private var shop: Shop? = null
     private var mProfileUri: Uri? = null
     private lateinit var mBinding: ActivityAddShopBinding
@@ -43,7 +45,6 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
 
     private var mAssetImages = ArrayList<Media>()
     var assetImageAdapter = ImageAdapter()
-
 
     override fun initUi() {
         setUpToolbar("Add Shop", true)
@@ -80,6 +81,16 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
                 hideKeyBoard()
                 if (!isValid()) return
                 addEditShop()
+            }
+            mBinding.edtCountry -> {
+                BottomSheetCountry.newInstance(getString(R.string.select_city),
+                    RegionManager.getCountries()!!,
+                    object : BottomSheetCountry.BottomSheetItemClickListener {
+                        override fun onItemClick(data: ArrayList<String>) {
+                            strCities = TextUtils.join(", ", data)
+                            mBinding.edtCountry.setText(strCities)
+                        }
+                    }).show(this)
             }
 
             mBinding.ivBanner -> {
@@ -140,7 +151,9 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
             Validator.setError(mBinding.layNotes, getString(R.string.enter_description))
             isValid = false
         }
-
+        if (strCities.isNullOrEmpty()) {
+            toast("Select cities")
+        }
         return isValid
     }
 
@@ -151,7 +164,8 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
         showProgressDialog()
         val param = HashMap<String, RequestBody>()
         param["shop_name"] = mBinding.edtShopName.getTrimText().requestBody()
-        param["address"] = mBinding.edtAddress.getTrimText().requestBody()
+        param["address"] = strCities!!.requestBody()
+        param["city"] = strCities!!.requestBody()
         param["notes"] = mBinding.edtNotes.getTrimText().requestBody()
         var multipartBody: MultipartBody.Part? = null
         if (mProfileUri != null) {

@@ -84,15 +84,20 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
                     val stringBundle = java.lang.StringBuilder()
                     stringBundle.append(dayOfMonth)
                     stringBundle.append("-")
-                    stringBundle.append(month)
+                    stringBundle.append(month + 1)
                     stringBundle.append("-")
                     stringBundle.append(year)
-                    strstartDate = DateTimeUtil.formatDate(
+                    strstartDate =DateTimeUtil.formatDate(
+                        "dd-mm-yyyy",
+                        "yyyy-mm-dd",
+                        stringBundle.toString()
+                    )
+                    Log.e("END_DATE","$strstartDate")
+                    mBinding.tvStartDate.text =  DateTimeUtil.formatDate(
                         "dd-MM-yyyy",
                         "dd MMMM, yyyy",
                         stringBundle.toString()
                     )
-                    mBinding.tvStartDate.text = strstartDate
                 }, isFuture = true, isPast = false)
             }
             mBinding.tvEndDate -> {
@@ -100,15 +105,20 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
                     val stringBundle = java.lang.StringBuilder()
                     stringBundle.append(dayOfMonth)
                     stringBundle.append("-")
-                    stringBundle.append(month)
+                    stringBundle.append(month + 1)
                     stringBundle.append("-")
                     stringBundle.append(year)
-                    strEndDate = DateTimeUtil.formatDate(
+                    strEndDate =DateTimeUtil.formatDate(
+                        "dd-mm-yyyy",
+                        "yyyy-mm-dd",
+                        stringBundle.toString()
+                    )
+                    Log.e("END_DATE","$strEndDate")
+                    mBinding.tvEndDate.text =  DateTimeUtil.formatDate(
                         "dd-MM-yyyy",
                         "dd MMMM, yyyy",
                         stringBundle.toString()
                     )
-                    mBinding.tvEndDate.text = strEndDate
                 }, isFuture = true, isPast = false)
             }
             mBinding.layDiscountType -> {

@@ -1,42 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/llBottomSheet"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:clipToPadding="false"
-    android:elevation="@dimen/_5sdp"
-    android:orientation="vertical"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include
-        android:id="@+id/headerView"
-        layout="@layout/layout_bottomsheet_header" />
+    <data>
 
-    <RelativeLayout
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/llBottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:orientation="vertical">
+        android:clipToPadding="false"
+        android:elevation="@dimen/_5sdp"
+        android:orientation="vertical"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-        <com.app.cityshow.views.TextView
-            android:id="@+id/txtError"
-            style="@style/TextViewStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/no_data_found"
-            android:visibility="gone" />
+        <include
+            android:id="@+id/headerView"
+            layout="@layout/layout_bottomsheet_header" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtSearch"
+            style="@style/TextViewStyleBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/row_textview" />
-    </RelativeLayout>
-</LinearLayout>
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/gray_border_rounder"
+            android:drawableEnd="@android:drawable/ic_menu_search"
+            android:drawablePadding="@dimen/_5sdp"
+            android:hint="@string/search_cities"
+            android:imeOptions="actionSearch"
+            android:padding="@dimen/_7sdp"
+            android:singleLine="true"
+            android:textColor="@color/colorAccent"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.app.cityshow.views.TextView
+                android:id="@+id/txtError"
+                style="@style/TextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/no_data_found"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/row_textview" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnSubmit"
+            style="@style/ButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:gravity="center"
+            android:onClick="@{(v)->clickListener.onClick(v)}"
+            android:paddingHorizontal="@dimen/_50sdp"
+            android:text="@string/submit"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</layout>
