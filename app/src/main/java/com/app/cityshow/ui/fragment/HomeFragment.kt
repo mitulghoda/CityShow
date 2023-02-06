@@ -60,7 +60,6 @@ class HomeFragment : BaseFragment() {
                     if (it.data != null && it.data.success) {
                         Log.e("disocunts", Gson().toJson(it.data.data))
                         discountsAdapter.setData(it.data.data.discounts)
-                    } else {
                     }
                 },
                 error = {

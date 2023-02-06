@@ -118,6 +118,8 @@
     <string name="enter_disount_code">Enter discount code</string>
     <string name="enter_discount">Enter discount</string>
     <string name="discounted_products">Discounted Products</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
     <string-array name="discount">
         <item>Fixed</item>
         <item>Percentage</item>

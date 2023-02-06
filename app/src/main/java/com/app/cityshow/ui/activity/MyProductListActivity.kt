@@ -24,6 +24,8 @@ class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
     private lateinit var viewModel: ProductViewModel
 
     override fun initUi() {
+        setUpToolbar(getString(R.string.my_product), true)
+        setSubTitleText("Ahmedabad")
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory(Controller.instance)
@@ -31,8 +33,6 @@ class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
         binding.clickListener = this
         binding.fab.show()
         setAdapter()
-        setUpToolbar(getString(R.string.my_product), true)
-        setSubTitleText("Ahmedabad")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,6 +110,7 @@ class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
+        super.onClick(v)
         when (v) {
             binding.fab -> {
                 openAddProductActivity()

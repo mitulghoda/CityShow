@@ -42,6 +42,10 @@ class DiscountActivity : ActionBarActivity(), View.OnClickListener {
             this,
             ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]
+    }
+
+    override fun onResume() {
+        super.onResume()
         callGetMyDiscounts()
     }
 

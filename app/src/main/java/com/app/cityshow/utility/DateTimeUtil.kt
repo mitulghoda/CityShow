@@ -64,7 +64,19 @@ object DateTimeUtil {
     fun getFormattedDateTime(value: Long?, simpleDateFormat: SimpleDateFormat): String {
         return simpleDateFormat.format(Date(value ?: 0))
     }
-
+    fun formatDate(fromFormat: String, toFormat: String?, strInputDate: String?): String {
+        val inFormat = SimpleDateFormat(fromFormat, Locale.ENGLISH)
+        val date: Date
+        var strDate = ""
+        try {
+            date = inFormat.parse(strInputDate)
+            val outFormat = SimpleDateFormat(toFormat, Locale.ENGLISH)
+            strDate = outFormat.format(date)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        return strDate
+    }
     fun getFormattedDateTimeFromUtc(
         mDate: String?,
         newPattern: SimpleDateFormat

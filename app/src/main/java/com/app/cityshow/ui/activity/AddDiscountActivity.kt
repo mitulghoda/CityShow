@@ -1,6 +1,7 @@
 package com.app.cityshow.ui.activity
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -31,6 +32,8 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
     private var strDiscountType: String = "Yes"
     private var strProductId: String? = null
     private var strShopId: String? = null
+    private var strstartDate: String? = null
+    private var strEndDate: String? = null
     private var shop: Shop? = null
     private var discountBannerImage: Uri? = null
     private lateinit var mBinding: ActivityAddDiscountBinding
@@ -72,6 +75,41 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
                 hideKeyBoard()
                 if (!isValid()) return
                 addEditDiscount()
+            }
+            mBinding.layDiscountType -> {
+                mBinding.spDiscountType.performClick()
+            }
+            mBinding.tvStartDate -> {
+                openDatePickerDialog(",", { view, year, month, dayOfMonth ->
+                    val stringBundle = java.lang.StringBuilder()
+                    stringBundle.append(dayOfMonth)
+                    stringBundle.append("-")
+                    stringBundle.append(month)
+                    stringBundle.append("-")
+                    stringBundle.append(year)
+                    strstartDate = DateTimeUtil.formatDate(
+                        "dd-MM-yyyy",
+                        "dd MMMM, yyyy",
+                        stringBundle.toString()
+                    )
+                    mBinding.tvStartDate.text = strstartDate
+                }, isFuture = true, isPast = false)
+            }
+            mBinding.tvEndDate -> {
+                openDatePickerDialog(",", { view, year, month, dayOfMonth ->
+                    val stringBundle = java.lang.StringBuilder()
+                    stringBundle.append(dayOfMonth)
+                    stringBundle.append("-")
+                    stringBundle.append(month)
+                    stringBundle.append("-")
+                    stringBundle.append(year)
+                    strEndDate = DateTimeUtil.formatDate(
+                        "dd-MM-yyyy",
+                        "dd MMMM, yyyy",
+                        stringBundle.toString()
+                    )
+                    mBinding.tvEndDate.text = strEndDate
+                }, isFuture = true, isPast = false)
             }
             mBinding.layDiscountType -> {
                 mBinding.spDiscountType.performClick()
@@ -167,8 +205,12 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
             mBinding.edtCouponCode.requestFocus()
             isValid = false
         }
-        if (strDiscountType == null) {
+        if (strDiscountType.isNullOrEmpty()) {
             toast("Select discount type")
+            isValid = false
+        }
+        if (strstartDate.isNullOrEmpty() && strEndDate.isNullOrEmpty()) {
+            toast("Select start and end date of discount")
             isValid = false
         }
         if (mBinding.edtDiscount.text.isNullOrEmpty()) {
@@ -185,6 +227,7 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
             toast("Select discount banner image")
             isValid = false
         }
+
         return isValid
     }
 
@@ -201,6 +244,8 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
         param["shop_id"] = (strShopId ?: "").requestBody()
         param["product_id"] = (strProductId ?: "").requestBody()
         param["notes"] = mBinding.edtNotes.getTrimText().requestBody()
+        param["start_date"] = strstartDate!!.requestBody()
+        param["end_date"] = strEndDate!!.requestBody()
         var multipartBody: MultipartBody.Part? = null
         if (discountBannerImage != null) {
             val file = File(discountBannerImage!!.path.toString())

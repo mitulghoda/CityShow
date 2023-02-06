@@ -23,7 +23,7 @@ object ProductRepository {
 
     suspend fun createProduct(
         param: HashMap<String, RequestBody>,
-        images: ArrayList<MultipartBody.Part?>,
+        images: ArrayList<MultipartBody.Part?>?=null,
     ) =
         apiService.createProduct(param, images)
 
@@ -31,7 +31,7 @@ object ProductRepository {
         param: HashMap<String, RequestBody>,
         images: ArrayList<MultipartBody.Part?>,
     ) =
-        apiService.createProduct(param, images)
+        apiService.updateProduct(param, images)
 
     suspend fun addEditShop(
         param: HashMap<String, RequestBody>,

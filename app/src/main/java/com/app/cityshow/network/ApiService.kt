@@ -57,6 +57,7 @@ interface ApiService {
 
     @GET("product/details/{id}")
     suspend fun getProductDetails(@Path("id") id: String): Response<ObjectBaseModel<Product>>
+
     @GET("discount/details/{id}")
     suspend fun getDiscountedProduct(@Path("id") id: String): Response<ObjectBaseModel<DiscountProduct>>
 
@@ -78,6 +79,7 @@ interface ApiService {
 
     @POST("shops")
     suspend fun myShops(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<ShopsModel>>
+
     @POST("discount/list")
     suspend fun myDiscounts(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<DiscountListModel>>
 
@@ -85,7 +87,7 @@ interface ApiService {
     @POST("product/create")
     suspend fun createProduct(
         @PartMap params: HashMap<String, RequestBody>?,
-        @Part images: ArrayList<MultipartBody.Part?>,
+        @Part images: ArrayList<MultipartBody.Part?>? = null,
     ): Response<ObjectBaseModel<Product>>
 
     @Multipart
@@ -102,6 +104,7 @@ interface ApiService {
         @Part banner: MultipartBody.Part?,
         @Part images: ArrayList<MultipartBody.Part?>,
     ): Response<ObjectBaseModel<User>>
+
     @Multipart
     @POST("discount/create")
     suspend fun addEditDiscount(

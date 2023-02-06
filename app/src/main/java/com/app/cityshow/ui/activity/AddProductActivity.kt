@@ -55,7 +55,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     var productData: Product? = null
 
     override fun initUi() {
-         productData = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        productData = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra("data", Product::class.java)
         } else intent.getSerializableExtra("data") as Product?
 
@@ -99,7 +99,9 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
 
     private fun setProductData() {
         mBinding.data = productData
-
+        strCategoryId = productData?.cat_id
+        strSubCategory = productData?.subcat_id
+        strShopId = productData?.shop?.id
         productData?.product_image?.forEach {
             mAssetImages.add(Media(it.image_url))
         }
@@ -137,7 +139,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         mBinding = AddProductBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         mBinding.clickListener = this
-        setUpToolbar("Add product".takeIf {productData == null} ?: "Update product", true)
+        setUpToolbar("Add product".takeIf { productData == null } ?: "Update product", true)
         setFootwearAdapter()
     }
 
@@ -286,6 +288,9 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         } else if (mAssetImages.isEmpty()) {
             showToast(getString(R.string.select_product_photos))
             return false
+        } else if (strShopId.isNullOrEmpty()) {
+            showToast(getString(R.string.select_shop))
+            return false
         }
         return true
     }
@@ -302,7 +307,8 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                     mArrayList = it.data.data.categories as ArrayList<Category>?
 
                     val category = mArrayList?.filter { it.equals(productData?.cat_id) }?.get(0)
-                    val subCategory = category?.sub_category?.filter { it.equals(productData?.subcat_id) }?.get(0)
+                    val subCategory =
+                        category?.sub_category?.filter { it.equals(productData?.subcat_id) }?.get(0)
                     strCategoryId = subCategory?.category_id
                     strSubCategory = subCategory?.id
                     mBinding.edtCategory.setText(category?.name)
@@ -323,7 +329,6 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
 
     private fun addEditProduct() {
         showProgressDialog()
-        Log.e("KEY_FEATURE", Gson().toJson(editTextAdapter.arrayList))
         val param = HashMap<String, RequestBody>()
         param["shop_keeper_id"] = LocalDataHelper.user?.id!!.requestBody()
         param["category_id"] = strCategoryId!!.requestBody()
@@ -347,7 +352,6 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         param["description"] = mBinding.edtDesc.getTrimText().requestBody()
         param["warranty"] = mBinding.cbWarranty.isChecked.toString().requestBody()
         param["shop_id[]"] = strShopId!!.requestBody()
-
         if (mBinding.cbXXL.isChecked) param["size[0]"] =
             mBinding.cbXXL.text.toString().requestBody()
         if (mBinding.cbxl.isChecked) param["size[1]"] = mBinding.cbxl.text.toString().requestBody()
@@ -358,14 +362,20 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         param["footwear_size"] = filterFootwearSizeList.joinToString().toRequestBody()
 
         val images = ArrayList<MultipartBody.Part?>()
-        mAssetImages.forEachIndexed { i, media ->
-            val file = File(media.mediaFile.toString())
-            var multipartBody: MultipartBody.Part? = null
-            multipartBody = MultipartBody.Part.createFormData(
-                "images[$i]", file.name, file.asRequestBody("image/*".toMediaType())
-            )
-            images.add(multipartBody)
+        if (mAssetImages.isNotEmpty()) {
+            mAssetImages.forEachIndexed { i, media ->
+                if (!media.url.startsWith("http", true)) {
+                    val file = File(media.mediaFile.toString())
+                    var multipartBody: MultipartBody.Part? = null
+                    multipartBody = MultipartBody.Part.createFormData(
+                        "images[$i]", file.name, file.asRequestBody("image/*".toMediaType())
+                    )
+                    images.add(multipartBody)
+                }
+
+            }
         }
+
         if (productData == null) {
             viewModel.createProduct(param, images).observe(this) {
                 it.status.typeCall(success = {

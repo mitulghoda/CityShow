@@ -57,6 +57,7 @@
                     tools:text="Jwellory" />
 
                 <com.app.cityshow.views.TextView
+                    android:id="@+id/tvSubType"
                     style="@style/TextViewShadow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,6 +66,20 @@
                     android:gravity="start"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:text="@{data.coupon_code}"
+                    android:textColor="@color/white"
+                    tools:text="150+ shops" />
+
+                <com.app.cityshow.views.TextView
+                    android:id="@+id/tvDate"
+                    android:visibility="gone"
+                    style="@style/TextViewShadow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:gravity="start"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:text="@{data.discountDate}"
                     android:textColor="@color/white"
                     tools:text="150+ shops" />
             </androidx.appcompat.widget.LinearLayoutCompat>

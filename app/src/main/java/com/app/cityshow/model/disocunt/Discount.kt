@@ -1,5 +1,7 @@
 package com.app.cityshow.model.disocunt
 
+import com.app.cityshow.utility.DateTimeUtil
+
 data class Discount(
     val coupon_code: String,
     val coupon_name: String,
@@ -12,5 +14,19 @@ data class Discount(
     val notes: String,
     val shop_keeper_id: String,
     val start_date: String,
-    val updated_at: String
-):java.io.Serializable
+    val updated_at: String,
+) : java.io.Serializable {
+    fun getDiscountDate(): String {
+        val startDate = DateTimeUtil.formatDate(
+            "yyyy-MM-dd hh:mm:ss",
+            "dd MMM, yyyy",
+            start_date
+        )
+        val endDate = DateTimeUtil.formatDate(
+            "yyyy-MM-dd hh:mm:ss",
+            "dd MMM, yyyy",
+            start_date
+        )
+        return "Start-$startDate to End-$endDate"
+    }
+}

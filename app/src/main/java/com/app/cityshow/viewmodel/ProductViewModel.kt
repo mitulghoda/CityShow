@@ -117,7 +117,10 @@ class ProductViewModel : ViewModel() {
     }
 
 
-    fun createProduct(param: HashMap<String, RequestBody>, images: ArrayList<MultipartBody.Part?>) =
+    fun createProduct(
+        param: HashMap<String, RequestBody>,
+        images: ArrayList<MultipartBody.Part?>? = null,
+    ) =
         liveData(Dispatchers.IO) {
             try {
                 responseParser(
@@ -137,6 +140,7 @@ class ProductViewModel : ViewModel() {
                     this
                 )
             } catch (e: Exception) {
+                Log.e(e.message ?: "")
                 emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
             }
         }
