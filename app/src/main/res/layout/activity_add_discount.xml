@@ -148,7 +148,7 @@
                         android:gravity="top|start"
                         android:hint="@string/discount"
                         android:imeOptions="actionDone"
-                        android:inputType="textCapWords|textImeMultiLine"
+                        android:inputType="numberDecimal"
                         android:text="@{shopData.notes}" />
                 </com.google.android.material.textfield.TextInputLayout>
 

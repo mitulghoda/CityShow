@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.cityshow.R
 import com.app.cityshow.databinding.RowProductBinding
 import com.app.cityshow.model.product.Product
+import com.app.cityshow.utility.hide
 import com.app.cityshow.utility.loadImage
+import com.app.cityshow.utility.show
 
 class ProductListAdapter(
     var mArrayList: ArrayList<Product>,
@@ -23,6 +25,11 @@ class ProductListAdapter(
         val data = mArrayList[position]
         holder.bind(data)
         holder.binding.ivFav.isSelected = data.isFavourite()
+        if (data.discount != null && !data.discount?.id.isNullOrEmpty()) {
+            holder.binding.tvDiscount.show()
+        } else {
+            holder.binding.tvDiscount.hide()
+        }
         holder.itemView.setOnClickListener {
             onClickItem.invoke(data, 1)
         }

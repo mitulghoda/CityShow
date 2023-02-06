@@ -1,6 +1,7 @@
 package com.app.cityshow.model.product
 
 import com.app.cityshow.model.MyItemImages
+import com.app.cityshow.model.disocunt.Discount
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.utility.fromJsonList
 import com.app.cityshow.utility.justTry
@@ -16,6 +17,7 @@ class Product() : java.io.Serializable {
     val gender: String = ""
     val id: String? = null
     var is_fav: String? = ""
+    var discount: Discount? = null
     val is_gold: String = ""
     val key_featurees: String = ""
     val material: String = ""
@@ -58,6 +60,17 @@ class Product() : java.io.Serializable {
         } else {
             product_shop[0].address
         }
+    }
+
+    fun getDiscountTitle(): String {
+        if (discount != null) {
+            if (discount!!.is_price.equals("yes", true)) {
+                return "${discount!!.discount}off"
+            } else {
+                return "${discount!!.discount}%off"
+            }
+        }
+        return ""
     }
 
     fun getShopName(): String {
