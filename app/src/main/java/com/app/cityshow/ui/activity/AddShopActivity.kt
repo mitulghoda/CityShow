@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
@@ -24,11 +25,16 @@ import com.bumptech.glide.Glide
 import com.filepickersample.listener.FilePickerCallback
 import com.filepickersample.model.Media
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.AutocompleteActivity
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.stfalcon.imageviewer.StfalconImageViewer
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -42,6 +48,8 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
     private var mProfileUri: Uri? = null
     private lateinit var mBinding: ActivityAddShopBinding
     private lateinit var viewModel: ProductViewModel
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
 
     private var mAssetImages = ArrayList<Media>()
     var assetImageAdapter = ImageAdapter()
@@ -65,6 +73,13 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
 
     private fun setShopData(shop: Shop?) {
         mBinding.shopData = shop
+        mBinding.ivBanner.loadImage(shop?.banner_image)
+        mProfileUri = shop?.banner_image?.toUri()
+
+        shop?.shop_images?.forEach {
+            mAssetImages.add(Media(it.image_url))
+        }
+        assetImageAdapter.notifyDataSetChanged()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -125,9 +140,54 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
                     }
                 })
             }
-
+            mBinding.edtAddress -> {
+                fetchLocation()
+            }
         }
+    }
 
+    private fun fetchLocation() {
+        val fields = listOf(
+            Place.Field.ID,
+            Place.Field.NAME,
+            Place.Field.PHOTO_METADATAS,
+            Place.Field.LAT_LNG,
+            Place.Field.ADDRESS,
+            Place.Field.TYPES,
+            Place.Field.ADDRESS_COMPONENTS
+        )
+        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
+            .build(this)
+        activityLauncher.launch(intent) {
+            when (it.resultCode) {
+                RESULT_OK -> {
+                    val place = it.data?.let { Autocomplete.getPlaceFromIntent(it) }
+                    Log.e(
+                        "Place: " + place?.name + ", " + place?.id + ", " + place?.address + ", " + place?.addressComponents,
+                        "Location settings are not satisfied. Attempting to upgrade location settings "
+                    )
+
+                    latitude = place?.latLng?.latitude!!
+                    longitude = place.latLng?.longitude!!
+                    mBinding.edtAddress.setText(place.address)
+                }
+                AutocompleteActivity.RESULT_ERROR -> {
+                    val status = it.data?.let { Autocomplete.getStatusFromIntent(it) }
+                    Toast.makeText(
+                        this,
+                        "Error: " + status?.statusMessage,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.e(
+                        status?.statusMessage.toString(),
+                        "Location settings are not satisfied. Attempting to upgrade location settings "
+                    )
+                }
+                RESULT_CANCELED -> {
+                    // The user canceled the operation.
+                }
+            }
+        }
     }
 
     /**
@@ -185,6 +245,9 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
                 file.asRequestBody("image/*".toMediaType())
             )
             images.add(tempMultipartBody)
+        }
+        if (shop != null) {
+            param["id"] = shop!!.id.toRequestBody()
         }
         viewModel.addEditShop(param, multipartBody, images).observe(this) {
             it.status.typeCall(
