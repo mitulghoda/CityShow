@@ -23,8 +23,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="@dimen/_250sdp"
-            android:layout_height="@dimen/_100sdp">
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_80sdp">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/image"
@@ -38,19 +38,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_gradient"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:padding="@dimen/_20sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.app.cityshow.views.TextView
                     style="@style/TextViewShadow"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:gravity="start"
-                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:gravity="center"
                     android:text="@{data.coupon_name}"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_24sdp"
@@ -59,28 +57,23 @@
                 <com.app.cityshow.views.TextView
                     android:id="@+id/tvSubType"
                     style="@style/TextViewShadow"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:gravity="start"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:text="@{data.coupon_code}"
+                    android:gravity="center"
+                    android:text="@{data.coupon_code}"pl
                     android:textColor="@color/white"
                     tools:text="150+ shops" />
 
                 <com.app.cityshow.views.TextView
                     android:id="@+id/tvDate"
-                    android:visibility="gone"
                     style="@style/TextViewShadow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginTop="@dimen/_5sdp"
                     android:gravity="start"
-                    android:paddingHorizontal="@dimen/_10sdp"
                     android:text="@{data.discountDate}"
                     android:textColor="@color/white"
+                    android:visibility="gone"
                     tools:text="150+ shops" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.constraintlayout.widget.ConstraintLayout>

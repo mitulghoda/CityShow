@@ -29,7 +29,7 @@
             android:shadowDy="15"
             android:shadowRadius="6"
             android:text="@string/tag_line"
-            android:textColor="@color/white"
+            android:textColor="@color/colorAccent"
             android:textSize="@dimen/_24sdp" />
 
     </RelativeLayout>
