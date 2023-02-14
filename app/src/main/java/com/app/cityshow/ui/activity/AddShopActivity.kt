@@ -224,8 +224,10 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
         showProgressDialog()
         val param = HashMap<String, RequestBody>()
         param["shop_name"] = mBinding.edtShopName.getTrimText().requestBody()
-        param["address"] = strCities!!.requestBody()
+        param["address"] = mBinding.edtAddress.text.toString().requestBody()
         param["city"] = strCities!!.requestBody()
+        param["lat"] = "0.000000".requestBody()
+        param["lan"] = "0.000000".requestBody()
         param["notes"] = mBinding.edtNotes.getTrimText().requestBody()
         var multipartBody: MultipartBody.Part? = null
         if (mProfileUri != null) {

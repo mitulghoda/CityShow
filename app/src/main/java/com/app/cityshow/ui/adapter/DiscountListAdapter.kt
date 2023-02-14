@@ -24,8 +24,8 @@ class DiscountListAdapter(
 
     override fun onBindViewHolder(holder: DiscountHolder, position: Int) {
         holder.bind(mArrayList[position])
-        holder.binding.tvSubType.hide()
-        holder.binding.tvDate.show()
+//        holder.binding.tvSubType.hide()
+//        holder.binding.tvDate.show()
         /*2023-01-06 20:23:00*/
     }
 

@@ -46,23 +46,30 @@
 
                 <com.app.cityshow.views.TextView
                     style="@style/TextViewShadow"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:gravity="start"
+                    android:maxLines="1"
                     android:text="@{data.name}"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_24sdp"
-                    tools:text="Jwellory" />
+                    android:visibility="gone"
+                    app:autoSizeMaxTextSize="@dimen/_20sdp"
+                    app:autoSizeMinTextSize="@dimen/_10sdp"
+                    app:autoSizeTextType="uniform"
+                    tools:text="Jwellory Category" />
 
                 <com.app.cityshow.views.TextView
                     style="@style/TextViewShadow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:gravity="start"
+                    android:singleLine="true"
                     android:text="@{data.totalProductCount}"
                     android:textColor="@color/white"
+                    android:visibility="gone"
+                    app:autoSizeMaxTextSize="@dimen/_20sdp"
+                    app:autoSizeMinTextSize="@dimen/_10sdp"
+                    app:autoSizeTextType="uniform"
                     tools:text="150+ shops" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.constraintlayout.widget.ConstraintLayout>

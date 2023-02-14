@@ -54,7 +54,7 @@ class HomeFragment : BaseFragment() {
 
     private fun callGetMyDiscounts() {
         val param = HashMap<String, Any>()
-        viewModel?.myDiscounts(param)?.observe(this) {
+        viewModel?.myDiscounts(param)?.observe(viewLifecycleOwner) {
             it.status.typeCall(
                 success = {
                     if (it.data != null && it.data.success) {

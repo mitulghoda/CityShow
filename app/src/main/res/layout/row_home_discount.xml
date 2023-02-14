@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="@dimen/_150sdp"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_80sdp">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -51,7 +51,10 @@
                     android:gravity="center"
                     android:text="@{data.coupon_name}"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_24sdp"
+                    android:visibility="gone"
+                    app:autoSizeMaxTextSize="@dimen/_20sdp"
+                    app:autoSizeMinTextSize="@dimen/_14sdp"
+                    app:autoSizeTextType="uniform"
                     tools:text="Jwellory" />
 
                 <com.app.cityshow.views.TextView
@@ -62,6 +65,10 @@
                     android:gravity="center"
                     android:text="@{data.coupon_code}"
                     android:textColor="@color/white"
+                    android:visibility="gone"
+                    app:autoSizeMaxTextSize="@dimen/_20sdp"
+                    app:autoSizeMinTextSize="@dimen/_10sdp"
+                    app:autoSizeTextType="uniform"
                     tools:text="150+ shops" />
 
                 <com.app.cityshow.views.TextView
@@ -69,12 +76,15 @@
                     style="@style/TextViewShadow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:gravity="start"
+                    android:layout_gravity="center"
+                    android:singleLine="true"
                     android:text="@{data.discountDate}"
                     android:textColor="@color/white"
                     android:visibility="gone"
-                    tools:text="150+ shops" />
+                    app:autoSizeMaxTextSize="@dimen/_20sdp"
+                    app:autoSizeMinTextSize="@dimen/_10sdp"
+                    app:autoSizeTextType="uniform"
+                    tools:text="Jan 2022 to Jan 2022" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
