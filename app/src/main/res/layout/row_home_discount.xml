@@ -60,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{data.coupon_code}"pl
+                    android:text="@{data.coupon_code}"
                     android:textColor="@color/white"
                     tools:text="150+ shops" />
 
