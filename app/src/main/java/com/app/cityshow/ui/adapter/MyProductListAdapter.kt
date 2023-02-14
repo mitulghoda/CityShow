@@ -25,6 +25,7 @@ class MyProductListAdapter(
         val data = mArrayList[position]
         holder.bind(data)
         holder.binding.ivRemove.show()
+        holder.binding.ivFav.hide()
         holder.itemView.setOnClickListener {
             onClickItem.invoke(data, 1)
         }
