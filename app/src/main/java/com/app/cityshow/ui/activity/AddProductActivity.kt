@@ -376,35 +376,21 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
             }
         }
 
-        if (productData == null) {
-            viewModel.createProduct(param, images).observe(this) {
-                it.status.typeCall(success = {
-                    hideProgressDialog()
-                    if (it.data != null && it.data.success) {
-                        finish()
-                    } else {
-                        showAlertMessage(it.message)
-                    }
-                }, error = {
-                    hideProgressDialog()
-                    showAlertMessage(getString(R.string.something_went_wrong))
-                }, loading = {})
-            }
-        } else {
+        if (productData != null) {
             param["id"] = productData!!.id.orEmpty().toRequestBody()
-            viewModel.updateProduct(param, images).observe(this) {
-                it.status.typeCall(success = {
-                    hideProgressDialog()
-                    if (it.data != null && it.data.success) {
-                        finish()
-                    } else {
-                        showAlertMessage(it.message)
-                    }
-                }, error = {
-                    hideProgressDialog()
-                    showAlertMessage(getString(R.string.something_went_wrong))
-                }, loading = {})
-            }
+        }
+        viewModel.createProduct(param, images).observe(this) {
+            it.status.typeCall(success = {
+                hideProgressDialog()
+                if (it.data != null && it.data.success) {
+                    finish()
+                } else {
+                    showAlertMessage(it.message)
+                }
+            }, error = {
+                hideProgressDialog()
+                showAlertMessage(getString(R.string.something_went_wrong))
+            }, loading = {})
         }
 //            } else {
 //                hideProgressDialog()

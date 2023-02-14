@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">CityShow</string>
+    <string name="google_maps_key">AIza</string>
     <string name="let_s_explore_together">Let’s Explore Together!</string>
     <string name="are_you_ready_to_uproot_and_start_over_in_a_new_area_this_app_will_help_you_on_your_journey">Are you ready to uproot and start over in a new area? This app will help you on your journey!</string>
     <string name="login">LogIn</string>

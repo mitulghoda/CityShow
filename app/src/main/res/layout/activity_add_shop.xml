@@ -118,8 +118,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/enter_shop_address"
-                        android:imeOptions="actionNext"
-                        android:inputType="textCapSentences|textMultiLine"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:onClick="@{(v) -> clickListener.onClick(v)}"
+                        android:inputType="none"
                         android:text="@{shopData.address}"
                         tools:text="asdlkjadasdjaljsdlasjdlajsldjalsjdasjdlaasdasdasdasasdadsad" />
                 </com.google.android.material.textfield.TextInputLayout>

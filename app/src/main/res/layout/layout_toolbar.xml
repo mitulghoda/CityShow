@@ -111,6 +111,16 @@
                                 android:src="@drawable/ic_search_black_24dp"
                                 android:visibility="gone" />
 
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/imgEdit"
+                                android:layout_width="?android:attr/actionBarSize"
+                                android:layout_height="match_parent"
+                                android:background="?android:selectableItemBackgroundBorderless"
+                                android:onClick="onClick"
+                                android:padding="@dimen/_10sdp"
+                                android:src="@drawable/ic_edit"
+                                android:visibility="gone" />
+
 
                         </LinearLayout>
 

@@ -49,6 +49,8 @@ class ShopDetailsActivity : ActionBarActivity(), View.OnClickListener {
         setAdapter()
         setupViewPagerFragment()
         getFragments(shop)
+
+        actionView.imgEdit.visibility = View.VISIBLE
     }
 
     private fun setAdapter() {
@@ -95,7 +97,9 @@ class ShopDetailsActivity : ActionBarActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         super.onClick(v)
         when (v) {
-
+            actionView.imgEdit -> {
+                openAddShopActivity(shop)
+            }
         }
     }
 
