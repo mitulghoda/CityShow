@@ -111,7 +111,6 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
             mBinding.ivBanner -> {
                 ImagePicker.with(this)
                     .compress(1024)
-                    .crop(16f, 9f)         //Final image size will be less than 1 MB(Optional)
                     .maxResultSize(
                         1080,
                         1080

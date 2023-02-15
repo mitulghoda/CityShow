@@ -102,9 +102,6 @@ class HomeFragment : BaseFragment() {
     private fun calGetProducts() {
         base?.showProgressDialog()
         val param = HashMap<String, Any>()
-        param["page"] = "1"
-        param["limit"] = "100"
-        param["pagination"] = "true"
         viewModel?.listOfProduct(param)?.observe(viewLifecycleOwner) {
             it.status.typeCall(
                 success = {

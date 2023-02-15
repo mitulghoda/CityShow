@@ -15,8 +15,11 @@ import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.ui.fragment.ProductDetailsFragment
 import com.app.cityshow.utility.*
 import com.app.cityshow.viewmodel.ProductViewModel
+import com.bumptech.glide.Glide
+import com.stfalcon.imageviewer.StfalconImageViewer
 
 class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
+    private var productdata: Product? = null
     private lateinit var mBinding: ProductDetailsBinding
     private var pageStateAdapter: PageStateAdapter<BaseFragment>? = null
 
@@ -47,6 +50,14 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
         when (v) {
             mBinding.tvMore -> {
                 BottomSheetMoreDetails.newInstance(mBinding.productData).show(this)
+            }
+            mBinding.viewPager -> {
+                val images = ArrayList<String>()
+                productdata?.product_image?.forEach { myItemImages ->
+                    images.add(myItemImages.image_url)
+                }
+                StfalconImageViewer.Builder(this, images) { view, image ->
+                }.withStartPosition(0).show()
             }
         }
     }
@@ -82,6 +93,7 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
                 success = {
                     hideProgressDialog()
                     if (it.data != null && it.data.success) {
+                        productdata = it.data.data
                         getFragments(it.data.data)
                         mBinding.productData = it.data.data
                         mBinding.moreDetail.productData = it.data.data

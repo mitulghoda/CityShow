@@ -117,11 +117,11 @@
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="@string/enter_shop_address"
                         android:clickable="true"
                         android:focusable="true"
-                        android:onClick="@{(v) -> clickListener.onClick(v)}"
+                        android:hint="@string/enter_shop_address"
                         android:inputType="none"
+                        android:onClick="@{(v) -> clickListener.onClick(v)}"
                         android:text="@{shopData.address}"
                         tools:text="asdlkjadasdjaljsdlasjdlajsldjalsjdasjdlaasdasdasdasasdadsad" />
                 </com.google.android.material.textfield.TextInputLayout>

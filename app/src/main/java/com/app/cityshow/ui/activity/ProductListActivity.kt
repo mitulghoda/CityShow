@@ -43,6 +43,7 @@ class ProductListActivity : ActionBarActivity() {
 
     private fun setAdapter() {
         productListAdapter = ProductListAdapter(arrayListOf()) { product: Product, type: Int ->
+            openProductDetails(product)
         }
         binding.laySearch.recyclerView.layoutManager = GridLayoutManager(this, 2)
         binding.laySearch.recyclerView.adapter = productListAdapter
