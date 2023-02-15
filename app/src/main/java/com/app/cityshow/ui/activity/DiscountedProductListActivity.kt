@@ -30,7 +30,6 @@ class DiscountedProductListActivity : ActionBarActivity() {
         if (intent.hasExtra("DISCOUNT_ID")) {
             val discount = intent.getSerializableExtra("DISCOUNT_ID") as Discount
             setUpToolbar(getString(R.string.discounted_products), true)
-            setSubTitleText(discount.coupon_name)
             calGetProducts(discount.id)
         }
     }

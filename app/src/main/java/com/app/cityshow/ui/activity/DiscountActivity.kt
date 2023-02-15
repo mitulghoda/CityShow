@@ -29,7 +29,6 @@ class DiscountActivity : ActionBarActivity(), View.OnClickListener {
 
     override fun initUi() {
         setUpToolbar("My Discounts", true)
-        setSubTitleText("Ahmedabad")
         binding.clickListener = this
         initViewModel()
         discountsAdapter = DiscountsAdapter(arrayListOf()) {id, discount, position ->

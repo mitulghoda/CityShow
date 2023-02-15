@@ -8,6 +8,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Configuration
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
@@ -28,12 +30,10 @@ import com.app.cityshow.network.NetworkURL.ACTION_FOR_BIDDEN_RESPONSE
 import com.app.cityshow.network.NetworkURL.ACTION_FOR_BLOCKED
 import com.app.cityshow.network.NetworkURL.ACTION_FOR_INACTIVE_USER
 import com.app.cityshow.ui.activity.LoginActivity
-import com.app.cityshow.utility.KeyboardUtil
-import com.app.cityshow.utility.LocalDataHelper
-import com.app.cityshow.utility.Log
-import com.app.cityshow.utility.justTry
+import com.app.cityshow.utility.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
@@ -157,6 +157,27 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
     fun keepScreenOn() = window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
     private var alertDialog: AlertDialog? = null
+    fun getAddress(latLng: LatLng): String {
+        val geocoder = Geocoder(this, Locale.getDefault())
+        val address: Address?
+        var fulladdress = ""
+        val addresses: List<Address>? =
+            geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
+
+        if (!addresses.isNullOrEmpty()) {
+            address = addresses[0]
+            fulladdress =
+                address.getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex
+            val city = address.locality
+            val state = address.adminArea
+            val country = address.countryName
+            var postalCode = address.postalCode
+            var knownName = address.featureName // Only if available else return NULL
+            Log.e("CURRENT_ADDRESS-->", fulladdress)
+            return "You are at $city,$state"
+        }
+        return ""
+    }
 
     open fun showAlertMessage(
         title: String? = "",

@@ -25,7 +25,6 @@ class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
 
     override fun initUi() {
         setUpToolbar(getString(R.string.my_product), true)
-        setSubTitleText("Ahmedabad")
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory(Controller.instance)

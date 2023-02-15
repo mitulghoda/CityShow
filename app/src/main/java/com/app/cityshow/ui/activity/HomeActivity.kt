@@ -2,6 +2,7 @@ package com.app.cityshow.ui.activity
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import com.app.cityshow.R
 import com.app.cityshow.databinding.HomeBinding
 import com.app.cityshow.ui.adapter.PageStateAdapter
@@ -11,7 +12,11 @@ import com.app.cityshow.ui.common.ActionBarActivity
 import com.app.cityshow.ui.fragment.FavFragment
 import com.app.cityshow.ui.fragment.NotificationFragment
 import com.app.cityshow.ui.fragment.ProfileFragment
+import com.google.android.gms.maps.model.LatLng
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.ArrayList
 
 class HomeActivity : ActionBarActivity(), View.OnClickListener {
@@ -27,12 +32,11 @@ class HomeActivity : ActionBarActivity(), View.OnClickListener {
         setContentView(mBinding.root)
         mBinding.clickListener = this
         setUpToolbar("Home", false)
-        setSubTitleText("Ahmedabad")
         setupViewPagerFragment()
         setUpCurveBottomNavigation()
     }
 
-    fun getFragments(): MutableList<BaseFragment?> {
+    private fun getFragments(): MutableList<BaseFragment?> {
         val fragments: MutableList<BaseFragment?> = ArrayList()
         fragments.add(HomeFragment())
         fragments.add(FavFragment())

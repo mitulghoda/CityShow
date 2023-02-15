@@ -35,7 +35,6 @@ class EditProfileActivity : ActionBarActivity() {
 
     override fun initUi() {
         setUpToolbar("Update Profile", true)
-        setSubTitleText("Ahmedabad")
         binding.clickListener = this
         setUserData()
 

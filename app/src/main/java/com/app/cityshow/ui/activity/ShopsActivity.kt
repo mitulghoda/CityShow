@@ -29,7 +29,6 @@ class ShopsActivity : ActionBarActivity(), View.OnClickListener {
 
     override fun initUi() {
         setUpToolbar("My Shops", true)
-        setSubTitleText("Ahmedabad")
         binding.clickListener = this
         initViewModel()
         shopsAdapter = ShopsAdapter(arrayListOf()) {

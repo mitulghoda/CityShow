@@ -2,8 +2,12 @@ package com.app.cityshow.ui.common
 
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.app.cityshow.databinding.LayoutToolbarBinding
+import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
     lateinit var actionView: LayoutToolbarBinding
@@ -24,6 +28,10 @@ abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
     private fun homeUpEnable(enable: Boolean) {
         actionView.imgBack.visibility = View.VISIBLE.takeIf { enable } ?: View.GONE
         actionView.imgLogo.visibility = View.VISIBLE.takeIf { !enable } ?: View.GONE
+        lifecycleScope.launch {
+            delay(200)
+            setSubTitleText(getAddress(LatLng(lattitude, longitude)))
+        }
     }
 
     protected fun setUpToolbar(title: String?, isHomeUpEnabled: Boolean = true) {
@@ -42,7 +50,7 @@ abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
     fun setSubTitleText(value: String?) {
         actionView.txtSubTitle.text = value
         actionView.txtSubTitle.visibility =
-            View.GONE.takeIf { value == null || value.isEmpty() } ?: View.GONE
+            View.GONE.takeIf { value == null || value.isEmpty() } ?: View.VISIBLE
     }
 
     fun setSubTitleTextColor(resId: Int) {

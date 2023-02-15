@@ -31,7 +31,6 @@ class ProductListActivity : ActionBarActivity() {
             val category = intent.getSerializableExtra("CATEGORY_ID") as Category
             calGetProducts(category.id)
             setUpToolbar(category.name, true)
-            setSubTitleText("Ahmedabad")
         }
     }
 
