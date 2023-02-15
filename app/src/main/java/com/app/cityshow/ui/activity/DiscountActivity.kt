@@ -32,7 +32,15 @@ class DiscountActivity : ActionBarActivity(), View.OnClickListener {
         setSubTitleText("Ahmedabad")
         binding.clickListener = this
         initViewModel()
-        discountsAdapter = DiscountsAdapter(arrayListOf()) {
+        discountsAdapter = DiscountsAdapter(arrayListOf()) {id, discount, position ->
+            when (id) {
+                R.id.ivDelete -> {
+                    //TODO delete discount
+                }
+                R.id.ivEdit -> {
+                    openAddDiscountActivity(discount)
+                }
+            }
         }
         binding.laySearch.recyclerView.adapter = discountsAdapter
     }

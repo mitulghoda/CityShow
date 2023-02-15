@@ -3,6 +3,7 @@ package com.app.cityshow.ui.activity
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityAddDiscountBinding
+import com.app.cityshow.model.disocunt.Discount
 import com.app.cityshow.model.product.Product
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.ui.bottomsheet.BottomSheetProducts
@@ -35,6 +37,7 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
     private var strstartDate: String? = null
     private var strEndDate: String? = null
     private var shop: Shop? = null
+    private var discount: Discount? = null
     private var discountBannerImage: Uri? = null
     private lateinit var mBinding: ActivityAddDiscountBinding
     private lateinit var viewModel: ProductViewModel
@@ -43,7 +46,14 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
     private var productsList: ArrayList<Product>? = null
     override fun initUi() {
         setUpToolbar("Add Discount", true)
+        discount = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("DISCOUNT", Discount::class.java)
+        } else {
+            intent.getSerializableExtra("DISCOUNT") as Discount?
+        }
         mBinding.clickListener = this
+        mBinding.discount = discount
+
         viewModel = ViewModelProvider(
             this, ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]
@@ -87,13 +97,13 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
                     stringBundle.append(month + 1)
                     stringBundle.append("-")
                     stringBundle.append(year)
-                    strstartDate =DateTimeUtil.formatDate(
+                    strstartDate = DateTimeUtil.formatDate(
                         "dd-mm-yyyy",
                         "yyyy-mm-dd",
                         stringBundle.toString()
                     )
-                    Log.e("END_DATE","$strstartDate")
-                    mBinding.tvStartDate.text =  DateTimeUtil.formatDate(
+                    Log.e("END_DATE", "$strstartDate")
+                    mBinding.tvStartDate.text = DateTimeUtil.formatDate(
                         "dd-MM-yyyy",
                         "dd MMMM, yyyy",
                         stringBundle.toString()
@@ -108,13 +118,13 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
                     stringBundle.append(month + 1)
                     stringBundle.append("-")
                     stringBundle.append(year)
-                    strEndDate =DateTimeUtil.formatDate(
+                    strEndDate = DateTimeUtil.formatDate(
                         "dd-mm-yyyy",
                         "yyyy-mm-dd",
                         stringBundle.toString()
                     )
-                    Log.e("END_DATE","$strEndDate")
-                    mBinding.tvEndDate.text =  DateTimeUtil.formatDate(
+                    Log.e("END_DATE", "$strEndDate")
+                    mBinding.tvEndDate.text = DateTimeUtil.formatDate(
                         "dd-MM-yyyy",
                         "dd MMMM, yyyy",
                         stringBundle.toString()
@@ -256,6 +266,11 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
         param["notes"] = mBinding.edtNotes.getTrimText().requestBody()
         param["start_date"] = strstartDate!!.requestBody()
         param["end_date"] = strEndDate!!.requestBody()
+
+        if (discount != null) {
+            param["id"] = (discount?.id ?: "").requestBody()
+        }
+
         var multipartBody: MultipartBody.Part? = null
         if (discountBannerImage != null) {
             val file = File(discountBannerImage!!.path.toString())
