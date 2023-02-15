@@ -6,6 +6,7 @@ import com.app.cityshow.network.Resource
 import com.app.cityshow.network.ResponseHandler
 import com.app.cityshow.repository.ProductRepository
 import com.app.cityshow.utility.Log
+import com.app.cityshow.utility.gson
 import kotlinx.coroutines.Dispatchers
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -128,6 +129,7 @@ class ProductViewModel : ViewModel() {
                     this
                 )
             } catch (e: Exception) {
+                Log.e(gson.toJson(e))
                 emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
             }
         }

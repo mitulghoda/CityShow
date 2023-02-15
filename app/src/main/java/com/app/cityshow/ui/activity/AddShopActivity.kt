@@ -48,8 +48,6 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
     private var mProfileUri: Uri? = null
     private lateinit var mBinding: ActivityAddShopBinding
     private lateinit var viewModel: ProductViewModel
-    var latitude: Double = 0.0
-    var longitude: Double = 0.0
 
     private var mAssetImages = ArrayList<Media>()
     var assetImageAdapter = ImageAdapter()
@@ -110,7 +108,7 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
 
             mBinding.ivBanner -> {
                 ImagePicker.with(this)
-                    .compress(1024)
+                    .compress(1024).crop(16f,9f)
                     .maxResultSize(
                         1080,
                         1080
@@ -140,7 +138,7 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
                 })
             }
             mBinding.edtAddress -> {
-                fetchLocation()
+//                fetchLocation()
             }
         }
     }
@@ -166,7 +164,7 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
                         "Location settings are not satisfied. Attempting to upgrade location settings "
                     )
 
-                    latitude = place?.latLng?.latitude!!
+                    lattitude = place?.latLng?.latitude!!
                     longitude = place.latLng?.longitude!!
                     mBinding.edtAddress.setText(place.address)
                 }
@@ -225,8 +223,8 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
         param["shop_name"] = mBinding.edtShopName.getTrimText().requestBody()
         param["address"] = mBinding.edtAddress.text.toString().requestBody()
         param["city"] = strCities!!.requestBody()
-        param["lat"] = "0.000000".requestBody()
-        param["lan"] = "0.000000".requestBody()
+        param["latitude"] = lattitude.toString().requestBody()
+        param["longitude"] = longitude.toString().requestBody()
         param["notes"] = mBinding.edtNotes.getTrimText().requestBody()
         var multipartBody: MultipartBody.Part? = null
         if (mProfileUri != null) {

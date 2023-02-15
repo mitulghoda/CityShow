@@ -52,8 +52,8 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
 
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
     private var mLastLocation: Location? = null
-    private var longitude: Double = 0.0
-    private var lattitude: Double = 0.0
+    var longitude: Double = 0.0
+    var lattitude: Double = 0.0
 
     abstract fun initUi()
 
@@ -113,6 +113,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         )
 
     private fun requestLocationPermission() {
+
         if (!EasyPermissions.hasPermissions(this, *locationPerms)) {
             // Ask for one permission
             EasyPermissions.requestPermissions(
