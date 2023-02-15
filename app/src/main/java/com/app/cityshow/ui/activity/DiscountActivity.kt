@@ -31,10 +31,17 @@ class DiscountActivity : ActionBarActivity(), View.OnClickListener {
         setUpToolbar("My Discounts", true)
         binding.clickListener = this
         initViewModel()
-        discountsAdapter = DiscountsAdapter(arrayListOf()) {id, discount, position ->
+        discountsAdapter = DiscountsAdapter(arrayListOf()) { id, discount, position ->
             when (id) {
                 R.id.ivDelete -> {
-                    //TODO delete discount
+                    showAlertMessage(getString(R.string.are_you_sure_want_to_delete)) {
+                        if (it) {
+                            deleteDiscount(discount)
+                            discountsAdapter?.mArrayList?.remove(discount)
+                            discountsAdapter?.notifyDataSetChanged()
+                        }
+                    }
+
                 }
                 R.id.ivEdit -> {
                     openAddDiscountActivity(discount)
@@ -42,6 +49,28 @@ class DiscountActivity : ActionBarActivity(), View.OnClickListener {
             }
         }
         binding.laySearch.recyclerView.adapter = discountsAdapter
+    }
+
+    private fun deleteDiscount(discount: Discount) {
+        showProgressDialog()
+        viewModel?.deleteDiscount(discount.id ?: "")?.observe(this) {
+            it.status.typeCall(
+                success = {
+                    hideProgressDialog()
+                    if (it.data != null && it.data.success) {
+                        toast(it.data.message)
+                    } else {
+                        showAlertMessage(
+                            "",
+                            it.data?.message ?: getString(R.string.something_went_wrong)
+                        )
+                    }
+                }, error = {
+                    hideProgressDialog()
+                    showAlertMessage("", it.message)
+                }, loading = {})
+        }
+
     }
 
     private fun initViewModel() {

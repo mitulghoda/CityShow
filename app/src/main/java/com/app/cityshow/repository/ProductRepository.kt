@@ -9,6 +9,7 @@ object ProductRepository {
     suspend fun getProductDetails(param: String) = apiService.getProductDetails(param)
     suspend fun getDiscountedProduct(param: String) = apiService.getDiscountedProduct(param)
     suspend fun deleteProduct(param: String) = apiService.deleteProduct(param)
+    suspend fun deleteDiscount(param: String) = apiService.deleteDiscount(param)
 
     suspend fun updateProduct(param: HashMap<String, Any>) = apiService.updateProduct(param)
     suspend fun productAddToFav(param: HashMap<String, Any>) = apiService.productAddToFav(param)

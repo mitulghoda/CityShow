@@ -63,6 +63,8 @@ interface ApiService {
 
     @DELETE("product/{id}")
     suspend fun deleteProduct(@Path("id") id: String): Response<ListBaseModel<User>>
+    @DELETE("discount/{id}")
+    suspend fun deleteDiscount(@Path("id") id: String): Response<ListBaseModel<User>>
 
     @POST("product/update")
     suspend fun updateProduct(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<LoginUserModel>>

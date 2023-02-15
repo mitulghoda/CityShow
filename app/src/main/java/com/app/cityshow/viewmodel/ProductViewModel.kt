@@ -40,6 +40,15 @@ class ProductViewModel : ViewModel() {
         }
     }
 
+    fun deleteDiscount(param: String) = liveData(Dispatchers.IO) {
+        try {
+            responseParser(ProductRepository.deleteDiscount(param), this)
+        } catch (e: Exception) {
+            e.message?.let { Log.e(it) }
+            emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
+        }
+    }
+
     fun updateProduct(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
         try {
             responseParser(ProductRepository.updateProduct(param), this)
