@@ -9,6 +9,7 @@ import com.filepickersample.utils.FileUtil
 import java.io.File
 
 class Media() : Parcelable {
+    var id: String = ""
     var url: String = ""
     var thumbUrl: String = ""
     var thumb: ByteArray? = null
@@ -37,8 +38,9 @@ class Media() : Parcelable {
         fileType = parcel.readParcelable(FileType::class.java.classLoader) ?: IMAGE
     }
 
-    constructor(imageUrl: String): this() {
+    constructor(imageUrl: String, id: String) : this() {
         this.url = imageUrl
+        this.id = id
     }
 
     override fun describeContents(): Int = 0

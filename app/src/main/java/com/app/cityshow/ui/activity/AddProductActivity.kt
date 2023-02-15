@@ -2,6 +2,7 @@ package com.app.cityshow.ui.activity
 
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
@@ -42,6 +43,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     private var strSubCategory: String? = null
     private lateinit var mBinding: AddProductBinding
     private var mAssetImages = ArrayList<Media>()
+    private var deletedImagesId = ArrayList<String>()
     private var mKeyFeature = ArrayList<String>()
     var assetImageAdapter = ImageAdapter()
     var editTextAdapter = EditTextAdapter()
@@ -103,7 +105,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         strSubCategory = productData?.subcat_id
         strShopId = productData?.shop?.id
         productData?.product_image?.forEach {
-            mAssetImages.add(Media(it.image_url))
+            mAssetImages.add(Media(it.image_url, it.id))
         }
         assetImageAdapter.notifyDataSetChanged()
     }
@@ -351,6 +353,10 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         param["key_feature[]"] = Gson().toJson(editTextAdapter.arrayList).requestBody()
         param["description"] = mBinding.edtDesc.getTrimText().requestBody()
         param["warranty"] = mBinding.cbWarranty.isChecked.toString().requestBody()
+        if (deletedImagesId.isNotEmpty()) {
+            Log.e("DELETED_IMAGES_ID", TextUtils.join(",", deletedImagesId))
+            param["deletedImagesId"] = TextUtils.join(",", deletedImagesId).toString().requestBody()
+        }
         param["shop_id[]"] = strShopId!!.requestBody()
         if (mBinding.cbXXL.isChecked) param["size[0]"] =
             mBinding.cbXXL.text.toString().requestBody()
@@ -378,20 +384,35 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
 
         if (productData != null) {
             param["id"] = productData!!.id.orEmpty().toRequestBody()
+            viewModel.updateProduct(param, images).observe(this) {
+                it.status.typeCall(success = {
+                    hideProgressDialog()
+                    if (it.data != null && it.data.success) {
+                        finish()
+                    } else {
+                        showAlertMessage(it.message)
+                    }
+                }, error = {
+                    hideProgressDialog()
+                    showAlertMessage(getString(R.string.something_went_wrong))
+                }, loading = {})
+            }
+        } else {
+            viewModel.createProduct(param, images).observe(this) {
+                it.status.typeCall(success = {
+                    hideProgressDialog()
+                    if (it.data != null && it.data.success) {
+                        finish()
+                    } else {
+                        showAlertMessage(it.message)
+                    }
+                }, error = {
+                    hideProgressDialog()
+                    showAlertMessage(getString(R.string.something_went_wrong))
+                }, loading = {})
+            }
         }
-        viewModel.createProduct(param, images).observe(this) {
-            it.status.typeCall(success = {
-                hideProgressDialog()
-                if (it.data != null && it.data.success) {
-                    finish()
-                } else {
-                    showAlertMessage(it.message)
-                }
-            }, error = {
-                hideProgressDialog()
-                showAlertMessage(getString(R.string.something_went_wrong))
-            }, loading = {})
-        }
+
 //            } else {
 //                hideProgressDialog()
 //                toast(fcmToken)
@@ -405,6 +426,9 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     }
 
     private fun onAssetImageDelete(media: Media, position: Int) {
+        if (media.url.startsWith("http", true)) {
+            deletedImagesId.add(media.id)
+        }
         mAssetImages.removeAt(position)
         assetImageAdapter.notifyItemRemoved(position)
         editTextAdapter.notifyItemRemoved(position)

@@ -75,7 +75,7 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
         mProfileUri = shop?.banner_image?.toUri()
 
         shop?.shop_images?.forEach {
-            mAssetImages.add(Media(it.image_url))
+            mAssetImages.add(Media(it.image_url, ""))
         }
         assetImageAdapter.notifyDataSetChanged()
     }
@@ -108,7 +108,7 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
 
             mBinding.ivBanner -> {
                 ImagePicker.with(this)
-                    .compress(1024).crop(16f,9f)
+                    .compress(1024).crop(16f, 9f)
                     .maxResultSize(
                         1080,
                         1080
