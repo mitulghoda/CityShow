@@ -64,10 +64,10 @@
                     style="@style/TextViewStyleBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:padding="@dimen/_5sdp"
                     android:text="@{data.shop_name}"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginHorizontal="@dimen/_5sdp"
                     android:textSize="@dimen/_18sdp"
                     tools:text="New Galaxy Mobile &amp; Accessriee" />
 
@@ -76,8 +76,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_5sdp"
-                    android:text="@{data.address ?? `N/A`}"
                     android:paddingHorizontal="@dimen/_5sdp"
+                    android:text="@{data.getShopAddress() ?? `N/A`}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12sdp"
                     tools:text="Shop No. 2, Jalaramkrupa Society, Sola Bhamariya Chowkdi, Science City Rd, Sola, Ahmedabad, Gujarat 380054" />
@@ -101,8 +101,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_margin="@dimen/_5sdp"
-                    android:paddingHorizontal="@dimen/_5sdp"
                     android:gravity="start"
+                    android:paddingHorizontal="@dimen/_5sdp"
                     android:text="@{data.totalProduct}"
                     tools:text="150+ products" />
 

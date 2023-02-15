@@ -36,7 +36,8 @@
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_200sdp"
-                    android:background="@color/white" />
+                    android:background="@color/white"
+                    android:onClick="@{(v)->clickListener.onClick(v)}" />
 
                 <com.zhpan.indicator.IndicatorView
                     android:id="@+id/pageIndicator"

@@ -6,6 +6,7 @@ import com.app.cityshow.model.product.Product
 class Shop : java.io.Serializable {
     var checked: Boolean = false
     val address: String = ""
+    val city: String = ""
     val banner: String = ""
     val banner_image: String = ""
     val category_id: String = ""
@@ -26,5 +27,9 @@ class Shop : java.io.Serializable {
     val video: String = ""
     fun getTotalProduct(): String {
         return "${products.size} products "
+    }
+
+    fun getShopAddress(): String {
+        return "$address,$city"
     }
 }

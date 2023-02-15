@@ -58,7 +58,7 @@ class Product() : java.io.Serializable {
         return if (product_shop.isNullOrEmpty()) {
             ""
         } else {
-            product_shop[0].address
+            product_shop[0].address + ",\n" + product_shop[0].city
         }
     }
 

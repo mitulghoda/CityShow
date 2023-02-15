@@ -59,7 +59,6 @@ class ShopsActivity : ActionBarActivity(), View.OnClickListener {
                     if (it.data != null && it.data.success) {
                         Log.e("CATEGORIES", Gson().toJson(it.data.data))
                         setData(it.data.data.shops)
-
                     } else {
                         showAlertMessage(it.message)
                     }
