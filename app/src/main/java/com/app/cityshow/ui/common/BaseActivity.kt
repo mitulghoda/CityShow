@@ -113,7 +113,6 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         )
 
     private fun requestLocationPermission() {
-
         if (!EasyPermissions.hasPermissions(this, *locationPerms)) {
             // Ask for one permission
             EasyPermissions.requestPermissions(
@@ -122,6 +121,8 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
                 LOCATION,
                 *locationPerms
             )
+        } else {
+            getLastLocation()
         }
     }
 
