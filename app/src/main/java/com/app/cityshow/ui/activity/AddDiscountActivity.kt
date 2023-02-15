@@ -52,8 +52,12 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
             intent.getSerializableExtra("DISCOUNT") as Discount?
         }
         mBinding.clickListener = this
-        mBinding.discount = discount
 
+        if (discount != null) {
+            mBinding.discount = discount
+            mBinding.rbYes.isChecked = discount?.is_price.equals("yes", true)
+            mBinding.rbNo.isChecked = !discount?.is_price.equals("yes", true)
+        }
         viewModel = ViewModelProvider(
             this, ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]

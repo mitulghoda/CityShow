@@ -29,4 +29,22 @@ data class Discount(
         )
         return "Start-$startDate to End-$endDate"
     }
+
+    fun getStartDate(): String {
+//        "2023-03-31 00:00:00"
+        return  DateTimeUtil.formatDate(
+            "yyyy-MM-dd hh:mm:ss",
+            "dd MMM, yyyy",
+            start_date
+        )
+    }
+
+    fun getEndDate(): String {
+//        "2023-03-31 00:00:00"
+        return  DateTimeUtil.formatDate(
+            "yyyy-MM-dd hh:mm:ss",
+            "dd MMM, yyyy",
+            end_date
+        )
+    }
 }
