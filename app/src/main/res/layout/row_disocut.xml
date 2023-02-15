@@ -103,7 +103,24 @@
             android:layout_height="match_parent"
             android:elevation="@dimen/_5sdp"
             android:padding="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:background="@drawable/circle_white"
             android:src="@drawable/ic_delete"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:elevation="@dimen/_5sdp"
+            android:padding="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:src="@drawable/ic_edit"
+            android:background="@drawable/circle_white"
+            app:layout_constraintTop_toTopOf="@id/ivDelete"
+            app:layout_constraintEnd_toStartOf="@id/ivDelete" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

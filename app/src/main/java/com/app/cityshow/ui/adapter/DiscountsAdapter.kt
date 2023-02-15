@@ -8,7 +8,7 @@ import com.app.cityshow.model.disocunt.Discount
 
 class DiscountsAdapter(
     var mArrayList: ArrayList<Discount>,
-    var onClickItem: (device: Discount) -> Unit,
+    var onClickItem: (id: Int, device: Discount, position: Int) -> Unit,
 ) : RecyclerView.Adapter<DiscountsAdapter.Companion.DiscountHolder?>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiscountHolder {
@@ -40,7 +40,13 @@ class DiscountsAdapter(
             fun bind(discount: Discount) {
                 binding.data = discount
                 binding.root.setOnClickListener {
-                    adapter.onClickItem.invoke(discount)
+                    adapter.onClickItem.invoke(it.id, discount, adapterPosition)
+                }
+                binding.ivDelete.setOnClickListener {
+                    adapter.onClickItem.invoke(it.id, discount, adapterPosition)
+                }
+                binding.ivEdit.setOnClickListener {
+                    adapter.onClickItem.invoke(it.id, discount, adapterPosition)
                 }
             }
         }

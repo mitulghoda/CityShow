@@ -33,10 +33,10 @@ abstract class NavigationActivity : BaseActivity() {
         startActivity(intent)
     }
 
-    fun openAddDiscountActivity(shop: Shop?) {
+    fun openAddDiscountActivity(discount: Discount?) {
         val intent = Intent(this, AddDiscountActivity::class.java)
-        if (shop != null) {
-            intent.putExtra("SHOP", shop)
+        if (discount != null) {
+            intent.putExtra("DISCOUNT", discount)
         }
         startActivity(intent)
     }
