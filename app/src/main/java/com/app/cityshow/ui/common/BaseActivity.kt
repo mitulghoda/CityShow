@@ -1,5 +1,6 @@
 package com.app.cityshow.ui.common
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.BroadcastReceiver
@@ -7,8 +8,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Configuration
+import android.location.Location
 import android.os.Build
 import android.os.Bundle
+import android.os.Looper
 import android.view.View
 import android.view.WindowManager
 import android.view.WindowManager.LayoutParams.FLAG_SECURE
@@ -29,11 +32,14 @@ import com.app.cityshow.utility.KeyboardUtil
 import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.justTry
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
 import com.kaopiz.kprogresshud.KProgressHUD
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
+import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import java.util.*
@@ -44,11 +50,21 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
     var portraitOrientation: Int = Configuration.ORIENTATION_PORTRAIT
     var landscapeOrientation: Int = Configuration.ORIENTATION_LANDSCAPE
 
+    private var fusedLocationProviderClient: FusedLocationProviderClient? = null
+    private var mLastLocation: Location? = null
+    private var longitude: Double = 0.0
+    private var lattitude: Double = 0.0
+
     abstract fun initUi()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityLauncher = BetterActivityResult.registerActivityForResult(this)
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
+        if (LocalDataHelper.login) {
+            requestLocationPermission()
+        }
     }
 
     override fun setContentView(view: View?) {
@@ -87,6 +103,46 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
                 RC_AUDIO,
                 *perms
             )
+        }
+    }
+
+    val locationPerms =
+        arrayOf(
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+        )
+
+    private fun requestLocationPermission() {
+
+        if (!EasyPermissions.hasPermissions(this, *locationPerms)) {
+            // Ask for one permission
+            EasyPermissions.requestPermissions(
+                this,
+                getString(R.string.location_rationale_permission),
+                LOCATION,
+                *locationPerms
+            )
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    @AfterPermissionGranted(LOCATION)
+    private fun getLastLocation() {
+        fusedLocationProviderClient?.lastLocation?.addOnCompleteListener(this) { task ->
+            if (task.isSuccessful && task.result != null) {
+                mLastLocation = task.result
+                Log.e("LATTITUDE-->", (mLastLocation)!!.latitude.toString())
+                Log.e("LONGITUDE-->", (mLastLocation)!!.longitude.toString())
+                lattitude = (mLastLocation)!!.latitude
+                longitude = (mLastLocation)!!.longitude
+
+            } else {
+                toast("Enable to find your current location.")
+                Log.w(
+                    "LAST_LOCATION--",
+                    "getLastLocation:exception${task.exception?.localizedMessage}"
+                )
+            }
         }
     }
 
@@ -366,13 +422,13 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-
+        getLastLocation()
     }
 
     companion object {
         private val WRITE_STORAGE = 123
         private val READ = 124
         private val RC_AUDIO = 125
-
+        private const val LOCATION = 100124
     }
 }

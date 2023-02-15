@@ -111,6 +111,7 @@
     <string name="discount_type">Discount types, IsPrice?</string>
     <string name="offers_discounts"><![CDATA[Offers & Discounts]]></string>
     <string name="rationale_permission">We need your permission to access the media</string>
+    <string name="location_rationale_permission">We need your permission to access the location</string>
     <string name="discount">Discount</string>
     <string name="discount_desc">If you want to give flat discount select yes and enter flat amount in discount fields, if you want to give discount in percentage add percentage in discount</string>
     <string name="discount_banner">Discount banner</string>
