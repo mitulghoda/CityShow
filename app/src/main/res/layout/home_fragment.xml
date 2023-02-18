@@ -67,6 +67,8 @@
                     tools:listitem="@layout/row_category" />
 
                 <com.app.cityshow.views.TextView
+                    android:id="@+id/txtTrending"
+                    android:onClick="@{(v) -> clickListener.onClick(v)}"
                     style="@style/TextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

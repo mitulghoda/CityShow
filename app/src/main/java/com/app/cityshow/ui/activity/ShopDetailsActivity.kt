@@ -15,8 +15,10 @@ import com.app.cityshow.ui.common.ActionBarActivity
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.ui.fragment.ProductDetailsFragment
 import com.app.cityshow.utility.DepthPageTransformer
+import com.app.cityshow.utility.loadImage
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
+import com.stfalcon.imageviewer.StfalconImageViewer
 import kotlin.collections.HashMap
 import kotlin.collections.set
 
@@ -132,16 +134,32 @@ class ShopDetailsActivity : ActionBarActivity(), View.OnClickListener {
 
         if (data?.shop_images.isNullOrEmpty()) {
             fragments.add(
-                ProductDetailsFragment(
+                ProductDetailsFragment.newInstance(
                     data?.banner_image.orEmpty()
-                )
+                ) {
+                    val images = ArrayList<String>()
+                    shop?.shop_images?.forEach { myItemImages ->
+                        images.add(myItemImages.image_url)
+                    }
+                    StfalconImageViewer.Builder(this, images) { view, image ->
+                        view.loadImage(image)
+                    }.withStartPosition(0).show()
+                }
             )
         } else {
             data?.shop_images?.forEach { images ->
                 fragments.add(
-                    ProductDetailsFragment(
+                    ProductDetailsFragment.newInstance(
                         images.image_url
-                    )
+                    ) {
+                        val images = ArrayList<String>()
+                        shop?.shop_images?.forEach { myItemImages ->
+                            images.add(myItemImages.image_url)
+                        }
+                        StfalconImageViewer.Builder(this, images) { view, image ->
+                            view.loadImage(image)
+                        }.withStartPosition(0).show()
+                    }
                 )
             }
         }

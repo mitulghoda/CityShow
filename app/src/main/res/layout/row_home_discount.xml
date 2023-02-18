@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="@dimen/_80sdp"
+            android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_80sdp">
 
             <androidx.appcompat.widget.AppCompatImageView

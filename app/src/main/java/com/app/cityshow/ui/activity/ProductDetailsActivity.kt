@@ -116,9 +116,15 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
         val fragments: MutableList<BaseFragment> = ArrayList()
         data?.product_image?.forEach { images ->
             fragments.add(
-                ProductDetailsFragment(
-                    images.image_url
-                )
+                ProductDetailsFragment.newInstance(images.image_url) {
+                    val images = ArrayList<String>()
+                    productdata?.product_image?.forEach { myItemImages ->
+                        images.add(myItemImages.image_url)
+                    }
+                    StfalconImageViewer.Builder(this, images) { view, image ->
+                        view.loadImage(image)
+                    }.withStartPosition(0).show()
+                }
             )
         }
         mBinding.viewPager.adapter = PageStateAdapter(this, fragments).also {
