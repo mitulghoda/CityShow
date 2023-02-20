@@ -12,11 +12,14 @@ import androidx.recyclerview.widget.SnapHelper
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.HomeFragmentBinding
+import com.app.cityshow.model.category.Category
 import com.app.cityshow.model.category.CategoryModel
 import com.app.cityshow.model.product.Product
 import com.app.cityshow.ui.adapter.CategoryListAdapter
 import com.app.cityshow.ui.adapter.DiscountListAdapter
 import com.app.cityshow.ui.adapter.ProductListAdapter
+import com.app.cityshow.ui.bottomsheet.BottomSheetCategories
+import com.app.cityshow.ui.bottomsheet.BottomSheetFilter
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.Utils
@@ -54,7 +57,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             this, ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]
         callGetCategoryApi()
-        calGetProducts()
+        calGetProducts("")
         callGetMyDiscounts()
     }
 
@@ -106,9 +109,10 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 //            }
     }
 
-    private fun calGetProducts() {
+    private fun calGetProducts(strFilter: String) {
         base?.showProgressDialog()
         val param = HashMap<String, Any>()
+        param["filter"] = strFilter
         viewModel?.listOfProduct(param)?.observe(viewLifecycleOwner) {
             it.status.typeCall(
                 success = {
@@ -195,8 +199,15 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v) {
-            binding.txtTrending -> {
-
+            binding.ivFilter -> {
+                BottomSheetFilter.newInstance(getString(R.string.filter),
+                    arrayListOf(),
+                    object : BottomSheetFilter.BottomSheetItemClickListener {
+                        override fun onItemClick(data: String) {
+                            calGetProducts(data)
+                            binding.txtTrending.text = data
+                        }
+                    }).show(base!!)
             }
         }
     }

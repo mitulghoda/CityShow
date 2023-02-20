@@ -34,9 +34,14 @@ abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
         }
     }
 
-    protected fun setUpToolbar(title: String?, isHomeUpEnabled: Boolean = true) {
+    protected fun setUpToolbar(
+        title: String?,
+        isHomeUpEnabled: Boolean = true,
+        isFilterVisible: Boolean = false,
+    ) {
         actionView.txtToolbarTitle.text = title
         homeUpEnable(isHomeUpEnabled)
+        actionView.ivFilter.visibility = View.VISIBLE.takeIf { isFilterVisible } ?: View.GONE
     }
 
     protected fun setUpToolbar(resId: Int, isHomeUpEnabled: Boolean? = true) {
@@ -70,6 +75,7 @@ abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
         when (view) {
             actionView.imgBack -> onBackPressed()
             actionView.imgOption -> onOptionMenuClick()
+            actionView.ivFilter -> onFilterClick()
         }
     }
 
@@ -82,5 +88,6 @@ abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
     open fun onBluetooothMenuClick() {}
     open fun onOptionMenuClick() {}
     open fun onActionMenuDoneClick() {}
+    open fun onFilterClick() {}
     open fun onProfileClick() {}
 }

@@ -197,4 +197,9 @@ class HomeActivity : ActionBarActivity(), View.OnClickListener {
         }
         mBinding.bottomNavigationCurve.show(1, true)
     }
+
+    override fun onFilterClick() {
+        super.onFilterClick()
+
+    }
 }
