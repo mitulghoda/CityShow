@@ -49,7 +49,14 @@ class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
         productListAdapter = MyProductListAdapter(arrayListOf()) { product: Product, type: Int ->
             when (type) {
                 0 -> {
-                    deleteProduct(product)
+                    showAlertMessage(
+                        getString(R.string.delete),
+                        getString(R.string.are_you_sure_want_to_delete)
+                    ) {
+                        if (it) {
+                            deleteProduct(product)
+                        }
+                    }
                 }
                 1 -> {
                     openAddProductActivity(product)

@@ -190,6 +190,7 @@ class ProductViewModel : ViewModel() {
                     ), this
                 )
             } catch (e: Exception) {
+                Log.e(e.message ?: "")
                 emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
             }
         }

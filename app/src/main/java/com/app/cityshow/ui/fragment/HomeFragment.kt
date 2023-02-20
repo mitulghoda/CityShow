@@ -162,7 +162,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                 recyclerView.smoothScrollToPosition(getCurrentItem(recyclerView) + 1)
             }
             autoScrollRecyclerView(recyclerView)
-        }, 2500)
+        }, 500)
     }
 
     private fun getCurrentItem(recyclerView: RecyclerView): Int {

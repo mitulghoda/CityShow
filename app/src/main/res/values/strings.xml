@@ -125,6 +125,7 @@
     <string name="select_city">Select city</string>
     <string name="search_cities">Search cities</string>
     <string name="are_you_sure_want_to_delete">Are you sure, want to delete?</string>
+    <string name="delete">Delete</string>
     <string-array name="discount">
         <item>Fixed</item>
         <item>Percentage</item>

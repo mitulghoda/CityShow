@@ -34,11 +34,14 @@ class DiscountActivity : ActionBarActivity(), View.OnClickListener {
         discountsAdapter = DiscountsAdapter(arrayListOf()) { id, discount, position ->
             when (id) {
                 R.id.ivDelete -> {
-                    showAlertMessage(getString(R.string.are_you_sure_want_to_delete)) {
+                    showAlertMessage(
+                        getString(R.string.delete),
+                        getString(R.string.are_you_sure_want_to_delete)
+                    ) {
                         if (it) {
                             deleteDiscount(discount)
                             discountsAdapter?.mArrayList?.remove(discount)
-                            discountsAdapter?.notifyDataSetChanged()
+                            discountsAdapter?.notifyItemRemoved(position)
                         }
                     }
 

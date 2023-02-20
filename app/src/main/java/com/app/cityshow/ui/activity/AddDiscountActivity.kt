@@ -163,7 +163,8 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
                 ImagePicker.with(this).compress(1024)
                     .maxResultSize(
                         1080, 1080
-                    )  //Final image resolution will be less than 1080 x 1080(Optional)
+                    ).crop()
+                    .compress(1024) //Final image resolution will be less than 1080 x 1080(Optional)
                     .createIntent { intent ->
                         startForProfileImageResult.launch(intent)
                     }
