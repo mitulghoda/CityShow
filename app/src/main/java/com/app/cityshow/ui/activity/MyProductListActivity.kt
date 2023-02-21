@@ -46,23 +46,26 @@ class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
     }
 
     private fun setAdapter() {
-        productListAdapter = MyProductListAdapter(arrayListOf()) { product: Product, type: Int ->
-            when (type) {
-                0 -> {
-                    showAlertMessage(
-                        getString(R.string.delete),
-                        getString(R.string.are_you_sure_want_to_delete)
-                    ) {
-                        if (it) {
-                            deleteProduct(product)
+        productListAdapter =
+            MyProductListAdapter(arrayListOf()) { product: Product, type: Int, pos: Int ->
+                when (type) {
+                    0 -> {
+                        showAlertMessage(
+                            getString(R.string.delete),
+                            getString(R.string.are_you_sure_want_to_delete)
+                        ) {
+                            if (it) {
+                                deleteProduct(product)
+                                productListAdapter.mArrayList.remove(product)
+                                productListAdapter.notifyItemRemoved(pos)
+                            }
                         }
                     }
-                }
-                1 -> {
-                    openAddProductActivity(product)
+                    1 -> {
+                        openAddProductActivity(product)
+                    }
                 }
             }
-        }
         binding.laySearch.recyclerView.layoutManager = GridLayoutManager(this, 2)
         binding.laySearch.recyclerView.adapter = productListAdapter
 

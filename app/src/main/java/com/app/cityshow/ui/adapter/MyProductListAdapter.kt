@@ -12,7 +12,7 @@ import com.app.cityshow.utility.show
 
 class MyProductListAdapter(
     var mArrayList: ArrayList<Product>,
-    var onClickItem: (product: Product, type: Int) -> Unit,
+    var onClickItem: (product: Product, type: Int, pos: Int) -> Unit,
 ) : RecyclerView.Adapter<MyProductListAdapter.Companion.CategoryHolder?>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryHolder {
@@ -27,11 +27,10 @@ class MyProductListAdapter(
         holder.binding.ivRemove.show()
         holder.binding.ivFav.hide()
         holder.itemView.setOnClickListener {
-            onClickItem.invoke(data, 1)
+            onClickItem.invoke(data, 1, position)
         }
         holder.binding.ivRemove.setOnClickListener {
-            onClickItem.invoke(data, 0)
-            notifyItemRemoved(position)
+            onClickItem.invoke(data, 0, position)
         }
     }
 

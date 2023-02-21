@@ -75,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:paddingHorizontal="@dimen/_10sdp">
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -86,9 +86,11 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         style="@style/TextViewStyle"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_2sdp"
                         android:text="@{productData.shopAddress}"
-                        tools:text="31-89 Steinway St, Queens, NY 11103, United States" />
+                        tools:text="United States" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.cardview.widget.CardView

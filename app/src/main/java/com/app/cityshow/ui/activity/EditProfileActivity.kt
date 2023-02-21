@@ -155,20 +155,14 @@ class EditProfileActivity : ActionBarActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             val resultCode = result.resultCode
             val data = result.data
-
             when (resultCode) {
                 Activity.RESULT_OK -> {
-                    //Image Uri will not be null for RESULT_OK
                     val fileUri = data?.data!!
-
                     mProfileUri = fileUri
                     binding.imgProfile.setImageURI(fileUri)
                 }
                 ImagePicker.RESULT_ERROR -> {
                     Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
-                }
-                else -> {
-                    Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
                 }
             }
         }
