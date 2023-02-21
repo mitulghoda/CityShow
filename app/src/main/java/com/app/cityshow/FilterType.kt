@@ -5,5 +5,5 @@ enum class FilterType(val strValue: String, val type: Int) {
     HIGH_TO_LOW("Price High to Low", 2),
     NEW_COLLECTION("New Collection", 3),
 //    MOST_LIKED("Most Liked", 4),
-    TRENDING("Trending", 5)
+    TRENDING("Trending", 4)
 }
