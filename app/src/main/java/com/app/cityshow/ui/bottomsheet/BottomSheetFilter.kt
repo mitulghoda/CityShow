@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.FragmentActivity
+import com.app.cityshow.FilterType
 import com.app.cityshow.R
 import com.app.cityshow.databinding.BottomSheetRecyclerviewBinding
-import com.app.cityshow.model.category.Category
-import com.app.cityshow.ui.adapter.BottomSheetCommonAdapter
 import com.app.cityshow.ui.adapter.BottomSheetFilterAdapter
 import com.app.cityshow.utility.decorator.DividerItemDecorator
 import java.util.ArrayList
@@ -42,16 +41,14 @@ class BottomSheetFilter : BaseHeaderBottomSheet() {
         binding.recyclerView.addItemDecoration(
             DividerItemDecorator(getDrawable(requireContext(), R.drawable.divider_decorator_gray))
         )
+        val list = ArrayList<FilterType>()
+        list.add(FilterType.HIGH_TO_LOW)
+        list.add(FilterType.LOW_TO_HIGH)
+        list.add(FilterType.NEW_COLLECTION)
+//        list.add(FilterType.MOST_LIKED)
+        list.add(FilterType.TRENDING)
         adapter = BottomSheetFilterAdapter(
-            arrayListOf(
-                "Price Low to High",
-                "Price High to Low",
-                "New Collection",
-                "Most Viewed",
-                "Most Liked",
-                "Trending",
-                "Nearby"
-            )
+            list
         ) {
             clickListener?.onItemClick(it)
             dismiss()
@@ -78,6 +75,6 @@ class BottomSheetFilter : BaseHeaderBottomSheet() {
     }
 
     interface BottomSheetItemClickListener {
-        fun onItemClick(data: String)
+        fun onItemClick(data: FilterType)
     }
 }

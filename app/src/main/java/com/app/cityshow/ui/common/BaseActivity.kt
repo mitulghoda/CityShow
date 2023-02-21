@@ -45,6 +45,7 @@ import pub.devrel.easypermissions.EasyPermissions
 import java.util.*
 
 abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
+    var city: String?=null
     protected val tag: String = this::class.java.simpleName
     protected lateinit var activityLauncher: BetterActivityResult<Intent, ActivityResult>
     var portraitOrientation: Int = Configuration.ORIENTATION_PORTRAIT
@@ -61,7 +62,6 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         super.onCreate(savedInstanceState)
         activityLauncher = BetterActivityResult.registerActivityForResult(this)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-
         if (LocalDataHelper.login) {
             requestLocationPermission()
         }
@@ -168,7 +168,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
             address = addresses[0]
             fulladdress =
                 address.getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex
-            val city = address.locality
+            city = address.locality
             val state = address.adminArea
             val country = address.countryName
             var postalCode = address.postalCode
@@ -446,7 +446,10 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
         getLastLocation()
+        setAddress()
     }
+
+    open fun setAddress() {}
 
     companion object {
         private val WRITE_STORAGE = 123

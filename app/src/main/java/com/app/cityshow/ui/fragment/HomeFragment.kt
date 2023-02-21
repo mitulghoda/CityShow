@@ -10,15 +10,14 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.app.cityshow.Controller
+import com.app.cityshow.FilterType
 import com.app.cityshow.R
 import com.app.cityshow.databinding.HomeFragmentBinding
-import com.app.cityshow.model.category.Category
 import com.app.cityshow.model.category.CategoryModel
 import com.app.cityshow.model.product.Product
 import com.app.cityshow.ui.adapter.CategoryListAdapter
 import com.app.cityshow.ui.adapter.DiscountListAdapter
 import com.app.cityshow.ui.adapter.ProductListAdapter
-import com.app.cityshow.ui.bottomsheet.BottomSheetCategories
 import com.app.cityshow.ui.bottomsheet.BottomSheetFilter
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.utility.Log
@@ -67,7 +66,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             it.status.typeCall(
                 success = {
                     if (it.data != null && it.data.success) {
-                        Log.e("disocunts", Gson().toJson(it.data.data))
                         discountsAdapter.setData(it.data.data.discounts)
                         autoScrollRecyclerView(binding.rvDiscounts)
                     }
@@ -93,7 +91,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                 success = {
                     base?.hideProgressDialog()
                     if (it.data != null && it.data.success) {
-                        Log.e("CATEGORIES", Gson().toJson(it.data.data))
                         categoryListAdapter.setData(it.data.data.categories)
                     } else {
                         base?.showAlertMessage(it.message)
@@ -113,12 +110,14 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         base?.showProgressDialog()
         val param = HashMap<String, Any>()
         param["filter"] = strFilter
+        param["city"] = base?.city.toString()
+        param["latitude"] = base?.lattitude.toString()
+        param["longitude"] = base?.longitude.toString()
         viewModel?.listOfProduct(param)?.observe(viewLifecycleOwner) {
             it.status.typeCall(
                 success = {
                     base?.hideProgressDialog()
                     if (it.data != null && it.data.success) {
-                        Log.e("Products", Gson().toJson(it.data.data.products))
                         val list = it.data.data.products
                         productListAdapter.setData(list)
                     } else {
@@ -203,9 +202,9 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                 BottomSheetFilter.newInstance(getString(R.string.filter),
                     arrayListOf(),
                     object : BottomSheetFilter.BottomSheetItemClickListener {
-                        override fun onItemClick(data: String) {
-                            calGetProducts(data)
-                            binding.txtTrending.text = data
+                        override fun onItemClick(data: FilterType) {
+                            calGetProducts(data.type.toString())
+                            binding.txtTrending.text = data.strValue
                         }
                     }).show(base!!)
             }

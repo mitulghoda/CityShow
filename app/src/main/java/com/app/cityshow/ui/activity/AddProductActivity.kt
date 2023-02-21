@@ -64,6 +64,8 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         viewModel = ViewModelProvider(
             this, ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]
+        val data = RegionManager.getCategoryWiseView()
+        Log.e("CATEGORY_VIEW", gson.toJson(data))
         assetImageAdapter.arrayList = mAssetImages
         editTextAdapter.arrayList = mKeyFeature
         assetImageAdapter.clickCallback = this::onAssetImageClick
@@ -307,10 +309,15 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 if (it.data != null && it.data.success) {
                     Log.e("CATEGORIES", Gson().toJson(it.data.data))
                     mArrayList = it.data.data.categories as ArrayList<Category>?
-
-                    val category = mArrayList?.filter { it.equals(productData?.cat_id) }?.get(0)
+                    val category =
+                        mArrayList?.filter { category -> category.equals(productData?.cat_id) }
+                            ?.get(0)
                     val subCategory =
-                        category?.sub_category?.filter { it.equals(productData?.subcat_id) }?.get(0)
+                        category?.sub_category?.filter { subCategory ->
+                            subCategory.equals(
+                                productData?.subcat_id
+                            )
+                        }?.get(0)
                     strCategoryId = subCategory?.category_id
                     strSubCategory = subCategory?.id
                     mBinding.edtCategory.setText(category?.name)

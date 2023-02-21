@@ -34,6 +34,14 @@ abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
         }
     }
 
+    override fun setAddress() {
+        super.setAddress()
+        lifecycleScope.launch {
+            delay(200)
+            setSubTitleText(getAddress(LatLng(lattitude, longitude)))
+        }
+    }
+
     protected fun setUpToolbar(
         title: String?,
         isHomeUpEnabled: Boolean = true,

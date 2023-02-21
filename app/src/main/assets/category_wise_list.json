@@ -1,0 +1,141 @@
+[
+  {
+    "category": "footwear",
+    "required_details": [
+      {
+        "title": "For",
+        "type": "optional",
+        "value": [
+          "Male",
+          "FeMale",
+          "Child"
+        ]
+      },
+      {
+        "title": "Brand name",
+        "type": "textField"
+      },
+      {
+        "title": "Brand name",
+        "type": "textField"
+      },
+      {
+        "title": "Size",
+        "type": "dropdown",
+        "min": 5,
+        "max": 11
+      }
+    ]
+  },
+  {
+    "category": "Jwellery",
+    "required_details": [
+      {
+        "title": "Type",
+        "type": "optional",
+        "value": [
+          "Gold",
+          "Other"
+        ]
+      },
+      {
+        "title": "Gross weight",
+        "type": "textField"
+      },
+      {
+        "title": "100% certified jwellery",
+        "type": "checkbox"
+      }
+    ]
+  },
+  {
+    "category": "Other"
+  },
+  {
+    "category": "MOBILE & ACCESSORIES",
+    "required_details": [
+      {
+        "title": "Warranty",
+        "type": "optional",
+        "value": [
+          "Yes",
+          "No"
+        ]
+      },
+      {
+        "title": "Model Name",
+        "type": "textField"
+      },
+      {
+        "title": "Live Demo",
+        "type": "optional",
+        "value": [
+          "Available",
+          "Not Available"
+        ]
+      },
+      {
+        "title": "EMI",
+        "type": "optional",
+        "value": [
+          "Available",
+          "Not Available"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Cloths",
+    "required_details": [
+      {
+        "title": "Colors",
+        "type": "textField"
+      },
+      {
+        "title": "Material",
+        "type": "textField"
+      }
+    ]
+  },
+  {
+    "category": "ELECRONICS ",
+    "required_details": [
+      {
+        "title": "Brand",
+        "type": "textField"
+      },
+      {
+        "title": "Installation",
+        "type": "optional",
+        "value": [
+          "Added",
+          "Self Service"
+        ]
+      },
+      {
+        "title": "Warranty",
+        "type": "optional",
+        "value": [
+          "Yes",
+          "No"
+        ]
+      },
+      {
+        "title": "Guaranty",
+        "type": "optional",
+        "value": [
+          "Yes",
+          "No"
+        ]
+      },
+      {
+        "title": "EMI",
+        "type": "optional",
+        "value": [
+          "Available",
+          "Not Available"
+        ]
+      }
+    ]
+  }
+]

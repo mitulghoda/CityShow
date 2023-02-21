@@ -52,7 +52,7 @@
             style="@style/TextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_locaiton"
+            android:drawableStart="@drawable/ic_location"
             android:drawablePadding="@dimen/_5sdp"
             android:paddingHorizontal="@dimen/_10sdp"
             tools:text="31-89 Steinway St, Queens, NY 11103, United States" />

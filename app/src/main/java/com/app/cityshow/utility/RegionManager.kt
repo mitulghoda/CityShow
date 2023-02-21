@@ -2,6 +2,8 @@ package com.app.cityshow.utility
 
 import android.content.Context
 import com.app.cityshow.model.CountryModel
+import com.app.cityshow.model.dynamicview.CategoryWiseViewModel
+import com.app.cityshow.model.dynamicview.CategoryWiseViewModelItem
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
@@ -15,9 +17,22 @@ class RegionManager private constructor() {
         )
     }
 
+    private fun loadCategoryWise(context: Context) {
+        try {
+            categoryWiseViewModel = Gson().fromJson<List<CategoryWiseViewModelItem>?>(
+                readJsonFromAsset("category_wise_list.json", context),
+                object : TypeToken<List<CategoryWiseViewModelItem?>?>() {}.type
+            )
+        } catch (ex: Exception) {
+            Log.e("Exception", ex.message ?: "")
+        }
+
+    }
+
     companion object {
         private var regionManager: RegionManager? = null
         private var countries: List<CountryModel>? = null
+        private var categoryWiseViewModel: List<CategoryWiseViewModelItem>? = null
         val instance: RegionManager?
             get() {
                 if (regionManager == null) regionManager = RegionManager()
@@ -26,11 +41,16 @@ class RegionManager private constructor() {
 
         fun init(context: Context) {
             val regionManager = instance
-            regionManager!!.loadCountries(context)
+            regionManager?.loadCountries(context)
+            regionManager?.loadCategoryWise(context)
         }
 
         fun getCountries(): ArrayList<CountryModel>? {
             return countries?.sortedBy { it.city }?.let { ArrayList(it) }
+        }
+
+        fun getCategoryWiseView(): ArrayList<CategoryWiseViewModel>? {
+            return categoryWiseViewModel as ArrayList<CategoryWiseViewModel>?
         }
 
         fun readJsonFromAsset(filename: String?, context: Context): String? {

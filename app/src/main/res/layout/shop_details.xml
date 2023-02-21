@@ -63,7 +63,7 @@
                     style="@style/TextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_locaiton"
+                    android:drawableStart="@drawable/ic_location"
                     android:text="@{data.address}"
                     android:drawablePadding="@dimen/_5sdp"
                     android:paddingHorizontal="@dimen/_10sdp"

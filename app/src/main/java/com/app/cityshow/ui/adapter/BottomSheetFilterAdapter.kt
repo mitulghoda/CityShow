@@ -3,12 +3,15 @@ package com.app.cityshow.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.app.cityshow.FilterType
 import com.app.cityshow.databinding.RowTextviewBinding
 import com.app.cityshow.utility.hide
+import java.util.ArrayList
+import java.util.logging.Filter
 
 class BottomSheetFilterAdapter(
-    private var mArrayList: ArrayList<String>,
-    private val onItemClickCallback: (data: String) -> Unit,
+    private var mArrayList: ArrayList<FilterType>,
+    private val onItemClickCallback: (data: FilterType) -> Unit,
 ) :
     RecyclerView.Adapter<BottomSheetFilterAdapter.Companion.DataViewHolder?>() {
 
@@ -32,8 +35,8 @@ class BottomSheetFilterAdapter(
             var binding: RowTextviewBinding,
             var adapter: BottomSheetFilterAdapter,
         ) : RecyclerView.ViewHolder(binding.root) {
-            fun bind(data: String) {
-                binding.txtEpc.text = data
+            fun bind(data: FilterType) {
+                binding.txtEpc.text = data.strValue
                 binding.linRoot.setOnClickListener { adapter.onItemClickCallback.invoke(data) }
             }
         }

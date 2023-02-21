@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cityshow.databinding.RowTextviewBinding
 import com.app.cityshow.model.category.Category
+import com.app.cityshow.utility.hide
 
 class BottomSheetCommonAdapter(
     private var mArrayList: ArrayList<Category>,
@@ -20,6 +21,7 @@ class BottomSheetCommonAdapter(
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         holder.bind(mArrayList[position])
+        holder.binding.checkboxName.hide()
     }
 
     override fun getItemCount(): Int {

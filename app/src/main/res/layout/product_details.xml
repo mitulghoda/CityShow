@@ -71,15 +71,25 @@
                     android:textSize="@dimen/_16sdp"
                     tools:text="Galaxy Mobile" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    style="@style/TextViewStyle"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_locaiton"
-                    android:drawablePadding="@dimen/_5sdp"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:text="@{productData.shopAddress}"
-                    tools:text="31-89 Steinway St, Queens, NY 11103, United States" />
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/_10sdp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/ic_location" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{productData.shopAddress}"
+                        tools:text="31-89 Steinway St, Queens, NY 11103, United States" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.cardview.widget.CardView
                     style="?attr/materialCardViewElevatedStyle"
@@ -216,6 +226,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
                             android:layout_marginVertical="@dimen/_8sdp"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">

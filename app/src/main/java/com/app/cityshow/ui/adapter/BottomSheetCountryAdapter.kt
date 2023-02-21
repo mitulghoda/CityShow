@@ -7,6 +7,7 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cityshow.databinding.RowTextviewBinding
 import com.app.cityshow.model.CountryModel
+import com.app.cityshow.utility.hide
 
 class BottomSheetCountryAdapter(
     private var mArrayList: ArrayList<CountryModel>,
@@ -22,6 +23,7 @@ class BottomSheetCountryAdapter(
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         holder.bind(dataListTemp[position])
+        holder.binding.checkboxName.hide()
     }
 
     override fun getItemCount(): Int {
