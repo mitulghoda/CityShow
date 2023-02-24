@@ -85,7 +85,8 @@ class LoginActivity : NavigationActivity(), View.OnClickListener {
         val param = HashMap<String, Any>()
         param["email"] = binding.edtEmail.getTrimText()
         param["password"] = binding.edtPassword.getTrimText()
-        param["fcm_token"] = fcmToken
+        param["device_type"] = "Android"
+        param["device_token"] = fcmToken
 //                param["device_type"] = NetworkURL.DEVICE_TYPE_ANDROID
 //                param["device_id"] = fcmToken
 
