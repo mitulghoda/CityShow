@@ -49,8 +49,8 @@ class RegionManager private constructor() {
             return countries?.sortedBy { it.city }?.let { ArrayList(it) }
         }
 
-        fun getCategoryWiseView(): ArrayList<CategoryWiseViewModel>? {
-            return categoryWiseViewModel as ArrayList<CategoryWiseViewModel>?
+        fun getCategoryWiseView(): ArrayList<CategoryWiseViewModelItem>? {
+            return categoryWiseViewModel as ArrayList<CategoryWiseViewModelItem>?
         }
 
         fun readJsonFromAsset(filename: String?, context: Context): String? {
