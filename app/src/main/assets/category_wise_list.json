@@ -16,10 +16,6 @@
         "type": "textField"
       },
       {
-        "title": "Brand name",
-        "type": "textField"
-      },
-      {
         "title": "Size",
         "type": "dropdown",
         "min": 5,
@@ -28,7 +24,7 @@
     ]
   },
   {
-    "category": "Jwellery",
+    "category": "Jwellry",
     "required_details": [
       {
         "title": "Type",
@@ -52,7 +48,7 @@
     "category": "Other"
   },
   {
-    "category": "MOBILE & ACCESSORIES",
+    "category": "Mobile & Accessories",
     "required_details": [
       {
         "title": "Warranty",
@@ -98,7 +94,7 @@
     ]
   },
   {
-    "category": "ELECRONICS ",
+    "category": "Electronics",
     "required_details": [
       {
         "title": "Brand",

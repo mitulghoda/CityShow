@@ -174,6 +174,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                         override fun onItemClick(data: Category) {
                             mBinding.edtCategory.setText(data.name)
                             strCategoryId = data.id
+                            setCategoryAdditionalData(data.name.replace("  ", " ").lowercase().trim())
                         }
                     }).show(this)
             }
@@ -230,18 +231,54 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         }
     }
 
-    private fun setFootwearAdapter() {
+    fun setCategoryAdditionalData(categoryName: String) {
+        Log.e(categoryName)
+        Log.e(getString(R.string.mobile_accessories))
+        Log.e("${RegionManager.getCategoryWiseView()}")
+        val data = RegionManager.getCategoryWiseView()?.filter {
+            categoryName.lowercase().equals(it.category.lowercase(), true)
+        }
+        if ((data?.size ?: 0) <= 0) return
+        hideAllAdditionalInfo()
+        when (data?.get(0)?.category?.lowercase()) {
+            getString(R.string.footwear).lowercase() -> {
+                mBinding.layGender.show()
+                val sizeList = ArrayList<FootwearSizeModel>()
+                val min = data.get(0).required_details.get(2).min
+                val max = data.get(0).required_details.get(2).max
+                for (i in min..max) {
+                    sizeList.add(FootwearSizeModel("$i"))
+                }
+                footwearSizeAdapter?.setData(sizeList)
+            }
+            getString(R.string.jwellry).lowercase() -> {
+                mBinding.layGold.show()
+            }
+            getString(R.string.mobile_accessories).lowercase() -> {
+                mBinding.layMobileAccessories.show()
+            }
+            getString(R.string.cloths).lowercase() -> {
+                mBinding.layCloth.show()
+            }
+            getString(R.string.electronics).lowercase() -> {
+                mBinding.layElectronics.show()
+            }
+        }
+    }
+
+    private fun hideAllAdditionalInfo() {
+        mBinding.layGender.hide()
+        mBinding.layGold.hide()
+        mBinding.layMobileAccessories.hide()
+        mBinding.layCloth.hide()
+        mBinding.layElectronics.hide()
+    }
+
+    private fun setFootwearAdapter(minValue: Int = 5, maxValue: Int = 11) {
         val sizeList = ArrayList<FootwearSizeModel>()
-        sizeList.add(FootwearSizeModel("3"))
-        sizeList.add(FootwearSizeModel("4"))
-        sizeList.add(FootwearSizeModel("5"))
-        sizeList.add(FootwearSizeModel("6"))
-        sizeList.add(FootwearSizeModel("7"))
-        sizeList.add(FootwearSizeModel("8"))
-        sizeList.add(FootwearSizeModel("9"))
-        sizeList.add(FootwearSizeModel("10"))
-        sizeList.add(FootwearSizeModel("11"))
-        sizeList.add(FootwearSizeModel("12"))
+        for (i in minValue..maxValue) {
+            sizeList.add(FootwearSizeModel("$i"))
+        }
 
         footwearSizeAdapter = FootwearSizeAdapter(sizeList) { id, position, data ->
             filterFootwearSizeList.clear()
@@ -249,7 +286,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 filterFootwearSizeList.add("\"${i.name.toString()}\"")
             }
         }
-        mBinding.rvTypePlace.adapter = footwearSizeAdapter
+        mBinding.rvFootwearSize.adapter = footwearSizeAdapter
     }
 
     private fun checkValidation(): Boolean {

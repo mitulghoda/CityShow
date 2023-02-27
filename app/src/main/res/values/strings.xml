@@ -44,7 +44,7 @@
     <string name="enter_brand_name">Enter brand name</string>
     <string name="enter_model_name">Enter model name</string>
     <string name="enter_os">Enter OS</string>
-    <string name="warranty">Warranty?</string>
+    <string name="warranty_">Warranty?</string>
     <string name="enter_ram">Enter Ram</string>
     <string name="enter_storage">Enter Storage</string>
     <string name="enter_connectivity">Enter Connectivity</string>
@@ -127,8 +127,28 @@
     <string name="are_you_sure_want_to_delete">Are you sure, want to delete?</string>
     <string name="delete">Delete</string>
     <string name="filter">Filter</string>
+    <string name="_100_certified_jwellery">100% certified jewellery</string>
+    <string name="available">Available</string>
+    <string name="live_demo">Live Demo</string>
+    <string name="not_available">Not Available</string>
+    <string name="warranty">Warranty</string>
+    <string name="emi">EMI</string>
+    <string name="enter_colors">Enter colors</string>
+    <string name="installation">Installation</string>
+    <string name="added">Added</string>
+    <string name="self_service">Self Service</string>
+    <string name="guaranty">Guaranty</string>
     <string-array name="discount">
         <item>Fixed</item>
         <item>Percentage</item>
     </string-array>
+
+    <string name="mobile_accessories"><![CDATA[Mobile &  Accessories]]></string>
+    <string name="cloths">Cloths</string>
+    <string name="electronics">Electronics</string>
+    <string name="kids">Kids</string>
+    <string name="home_applience">Home applience</string>
+    <string name="Sports">Sports</string>
+    <string name="jwellry">Jwellry</string>
+    <string name="footwear">Footwear</string>
 </resources>
