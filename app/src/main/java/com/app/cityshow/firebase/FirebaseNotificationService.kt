@@ -20,10 +20,18 @@ class FirebaseNotificationService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         Log.e(TAG, "onMessageReceived")
-        Log.e(TAG, Gson().toJson(remoteMessage.notification))
+        Log.e(TAG, Gson().toJson(remoteMessage))
         val title = remoteMessage.notification?.title
         val body = remoteMessage.notification?.body
-        manageNotification(title, body, "general")
+        Log.e(TAG, Gson().toJson(remoteMessage.notification?.title))
+        val exchangeIntent = Intent(instance, HomeActivity::class.java)
+        val notificationId = uniqueId
+        show(
+            title,
+            body,
+            notificationId,
+            getPendingIntent(this.applicationContext, notificationId, exchangeIntent)
+        )
     }
 
     private fun manageNotification(

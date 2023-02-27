@@ -72,10 +72,12 @@
                     tools:text="Galaxy Mobile" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:onClick="@{(v)->clickListener.onClick(v)}"
                     android:paddingHorizontal="@dimen/_10sdp">
 
                     <androidx.appcompat.widget.AppCompatImageView

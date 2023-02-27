@@ -1,14 +1,18 @@
 package com.app.cityshow.firebase
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_HIGH
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.app.cityshow.Controller
 import com.app.cityshow.Controller.Companion.instance
 import com.app.cityshow.R
 import com.app.cityshow.ui.activity.HomeActivity
@@ -16,8 +20,8 @@ import com.app.cityshow.ui.activity.HomeActivity
 object NotificationHelper {
     var notificationManager: NotificationManager =
         instance.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    private const val CHANNEL_ID = "hygym_general_notification_channel_id"
-    private const val CHANNEL_NAME = "hygym_notification_channel"
+    private const val CHANNEL_ID = "cityshow_general_notification_channel_id"
+    private const val CHANNEL_NAME = "cityshow_notification_channel"
 
     private const val iconBasedOnVersion: Int = R.drawable.ic_notification_logo
     val uniqueId: Int = (System.currentTimeMillis() and 0xfffffff).toInt()
@@ -31,6 +35,13 @@ object NotificationHelper {
         ).setContentTitle(title).setContentText(messageBody)
             .setSmallIcon(R.drawable.ic_notification_logo)
             .setAutoCancel(true).setContentIntent(context.getCommonPendingIntent(notificationId))
+        if (ActivityCompat.checkSelfPermission(
+                instance,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
         NotificationManagerCompat.from(context).notify(notificationId, builder.build())
     }
 
@@ -45,9 +56,16 @@ object NotificationHelper {
         val context: Context = instance
         val builder = NotificationCompat.Builder(context, CHANNEL_ID).setStyle(
             NotificationCompat.BigTextStyle().setBigContentTitle(title).bigText(messageBody)
-        ).setContentTitle(title).setContentText(messageBody)
+        ).setContentTitle(instance.getString(R.string.app_name)).setContentText(messageBody)
             .setSmallIcon(R.drawable.ic_notification_logo)
             .setAutoCancel(true).setContentIntent(pendingIntent)
+        if (ActivityCompat.checkSelfPermission(
+                instance,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
         NotificationManagerCompat.from(context).notify(notificationId, builder.build())
     }
 

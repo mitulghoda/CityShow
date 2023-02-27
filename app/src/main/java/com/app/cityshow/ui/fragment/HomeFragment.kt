@@ -141,8 +141,8 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             navigation?.openDiscountProductListActivity(it)
         }
         binding.rvDiscounts.adapter = discountsAdapter
-        val snapHelper: SnapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(binding.rvDiscounts)
+//        val snapHelper: SnapHelper = PagerSnapHelper()
+//        snapHelper.attachToRecyclerView(binding.rvDiscounts)
 
         productListAdapter = ProductListAdapter(productList) { product, type ->
             when (type) {

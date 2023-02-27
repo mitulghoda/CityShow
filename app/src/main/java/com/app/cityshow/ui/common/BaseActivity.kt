@@ -11,9 +11,9 @@ import android.content.res.Configuration
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Looper
 import android.view.View
 import android.view.WindowManager
 import android.view.WindowManager.LayoutParams.FLAG_SECURE
@@ -44,8 +44,9 @@ import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import java.util.*
 
+
 abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
-    var city: String?=null
+    var city: String? = null
     protected val tag: String = this::class.java.simpleName
     protected lateinit var activityLauncher: BetterActivityResult<Intent, ActivityResult>
     var portraitOrientation: Int = Configuration.ORIENTATION_PORTRAIT
@@ -62,9 +63,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         super.onCreate(savedInstanceState)
         activityLauncher = BetterActivityResult.registerActivityForResult(this)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        if (LocalDataHelper.login) {
-            requestLocationPermission()
-        }
+        requestPermission()
     }
 
     override fun setContentView(view: View?) {
@@ -80,19 +79,35 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         return xlarge || large
     }
 
+    fun navigateMap(
+        lon: Double = 0.0,
+        lat: Double = 0.0,
+    ) {
+        val navigation = Uri.parse("google.navigation:q=$lon,$lat")
+        val navigationIntent = Intent(Intent.ACTION_VIEW, navigation)
+        navigationIntent.setPackage("com.google.android.apps.maps")
+        startActivity(navigationIntent)
+    }
+
     private fun requestPermission() {
         val perms = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arrayOf(
-                android.Manifest.permission.POST_NOTIFICATIONS
+                android.Manifest.permission.POST_NOTIFICATIONS,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
             )
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             arrayOf(
                 android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
             )
         } else {
             arrayOf(
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
             )
         }
         if (!EasyPermissions.hasPermissions(this, *perms)) {
@@ -103,6 +118,8 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
                 RC_AUDIO,
                 *perms
             )
+        } else {
+            getLastLocation()
         }
     }
 
@@ -113,7 +130,6 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         )
 
     private fun requestLocationPermission() {
-
         if (!EasyPermissions.hasPermissions(this, *locationPerms)) {
             // Ask for one permission
             EasyPermissions.requestPermissions(

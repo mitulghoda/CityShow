@@ -15,7 +15,6 @@ import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.ui.fragment.ProductDetailsFragment
 import com.app.cityshow.utility.*
 import com.app.cityshow.viewmodel.ProductViewModel
-import com.bumptech.glide.Glide
 import com.stfalcon.imageviewer.StfalconImageViewer
 
 class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
@@ -50,6 +49,9 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
         when (v) {
             mBinding.tvMore -> {
                 BottomSheetMoreDetails.newInstance(mBinding.productData).show(this)
+            }
+            mBinding.layAddress -> {
+                navigateMap(lattitude, longitude)
             }
             mBinding.viewPager -> {
                 val images = ArrayList<String>()
