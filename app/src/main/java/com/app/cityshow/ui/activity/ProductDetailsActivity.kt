@@ -51,7 +51,11 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
                 BottomSheetMoreDetails.newInstance(mBinding.productData).show(this)
             }
             mBinding.layAddress -> {
-                navigateMap(lattitude, longitude)
+                val shop = productdata?.product_shop?.get(0)
+                navigateMap(
+                    shop?.latitude?.toDouble() ?: 0.0,
+                    shop?.longitude?.toDoubleOrNull() ?: 0.0
+                )
             }
             mBinding.viewPager -> {
                 val images = ArrayList<String>()

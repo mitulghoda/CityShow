@@ -8,6 +8,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -58,6 +59,7 @@ object NotificationHelper {
             NotificationCompat.BigTextStyle().setBigContentTitle(title).bigText(messageBody)
         ).setContentTitle(instance.getString(R.string.app_name)).setContentText(messageBody)
             .setSmallIcon(R.drawable.ic_notification_logo)
+            .setColor(instance.getColor(R.color.colorAccent))
             .setAutoCancel(true).setContentIntent(pendingIntent)
         if (ActivityCompat.checkSelfPermission(
                 instance,

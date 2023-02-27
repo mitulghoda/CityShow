@@ -113,6 +113,9 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         param["city"] = base?.city.toString()
         param["latitude"] = base?.lattitude.toString()
         param["longitude"] = base?.longitude.toString()
+        param["pagination"] = "true"
+        param["limit"] = "30"
+        param["page"] = "1"
         viewModel?.listOfProduct(param)?.observe(viewLifecycleOwner) {
             it.status.typeCall(
                 success = {

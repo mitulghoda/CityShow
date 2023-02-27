@@ -18,6 +18,7 @@ class LoginActivity : NavigationActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = LoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        requestPermission()
     }
 
     override fun initUi() {

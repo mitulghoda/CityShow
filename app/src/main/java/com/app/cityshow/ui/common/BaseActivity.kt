@@ -89,7 +89,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         startActivity(navigationIntent)
     }
 
-    private fun requestPermission() {
+     fun requestPermission() {
         val perms = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arrayOf(
                 android.Manifest.permission.POST_NOTIFICATIONS,
@@ -123,7 +123,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         }
     }
 
-    val locationPerms =
+    private val locationPerms =
         arrayOf(
             android.Manifest.permission.ACCESS_COARSE_LOCATION,
             android.Manifest.permission.ACCESS_FINE_LOCATION,
