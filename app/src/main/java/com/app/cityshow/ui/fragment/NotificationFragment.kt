@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.cityshow.Controller
 import com.app.cityshow.databinding.NotificationsListBinding
-import com.app.cityshow.model.product.Product
+import com.app.cityshow.model.Notification
+import com.app.cityshow.model.NotificationModel
 import com.app.cityshow.ui.adapter.NotificationAdapter
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.utility.Log
@@ -15,7 +17,6 @@ import com.app.cityshow.utility.typeCall
 import com.app.cityshow.utility.visible
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.google.gson.Gson
-import java.util.ArrayList
 
 class NotificationFragment : BaseFragment() {
     lateinit var notificationAdapter: NotificationAdapter
@@ -45,6 +46,7 @@ class NotificationFragment : BaseFragment() {
 
         })
         binding.laySearch.recyclerView.adapter = notificationAdapter
+        binding.laySearch.recyclerView.layoutManager = LinearLayoutManager(base)
     }
 
 
@@ -59,9 +61,8 @@ class NotificationFragment : BaseFragment() {
                 success = {
                     base?.hideProgressDialog()
                     if (it.data != null && it.data.success) {
-                        Log.e("FavProducts", Gson().toJson(it.data.data.products))
-                        val list = it.data.data.products
-                        setData(list)
+                        val list = it.data.data.notification
+                        setData(list as ArrayList<Notification>)
                     } else {
                         base?.showAlertMessage(it.message)
                     }
@@ -73,7 +74,7 @@ class NotificationFragment : BaseFragment() {
 
     }
 
-    private fun setData(list: ArrayList<Product>) {
+    private fun setData(list: ArrayList<Notification>) {
         if (list.isEmpty()) {
             binding.laySearch.layError.root.visible()
         } else {

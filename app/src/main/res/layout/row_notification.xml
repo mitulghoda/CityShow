@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
+    <data>
+
+        <variable
+            name="notification"
+            type="com.app.cityshow.model.Notification" />
+    </data>
 
     <androidx.cardview.widget.CardView
         style="?attr/materialCardViewElevatedStyle"
@@ -26,9 +33,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:gravity="start"
-                android:text="New arrivals in clothes"
+                android:text="@{notification.title}"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_18sdp" />
+                android:textSize="@dimen/_18sdp"
+                tools:text="New arrivals in clothes" />
 
             <com.app.cityshow.views.TextView
                 style="@style/TextViewStyle"
@@ -37,8 +45,9 @@
                 android:layout_gravity="start"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:gravity="start"
-                android:text="You can visit shops for more varieties"
-                android:textColor="@color/black" />
+                android:text="@{notification.message}"
+                android:textColor="@color/black"
+                tools:text="You can visit shops for more varieties" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.cardview.widget.CardView>
 </layout>

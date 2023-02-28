@@ -55,7 +55,7 @@ interface ApiService {
     @GET("product/get-favourite-list")
     suspend fun getFavProduct(): Response<ObjectBaseModel<ProductMainModel>>
     @POST("notificaton/list")
-    suspend fun getNotifications(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<ProductMainModel>>
+    suspend fun getNotifications(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<NotificationModel>>
 
     @GET("product/details/{id}")
     suspend fun getProductDetails(@Path("id") id: String): Response<ObjectBaseModel<Product>>
