@@ -4,14 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import com.app.cityshow.Controller
 import com.app.cityshow.databinding.NotificationsListBinding
-import com.app.cityshow.model.category.CategoryModel
+import com.app.cityshow.model.product.Product
 import com.app.cityshow.ui.adapter.NotificationAdapter
 import com.app.cityshow.ui.common.BaseFragment
+import com.app.cityshow.utility.Log
+import com.app.cityshow.utility.typeCall
+import com.app.cityshow.utility.visible
+import com.app.cityshow.viewmodel.ProductViewModel
+import com.google.gson.Gson
+import java.util.ArrayList
 
 class NotificationFragment : BaseFragment() {
     lateinit var notificationAdapter: NotificationAdapter
     private lateinit var binding: NotificationsListBinding
+    private lateinit var viewModel: ProductViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,14 +32,54 @@ class NotificationFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory(Controller.instance)
+        )[ProductViewModel::class.java]
         setAdapter()
+        callGetNotifications()
     }
 
     private fun setAdapter() {
-        val mArrayList = ArrayList<CategoryModel>()
-        notificationAdapter = NotificationAdapter(mArrayList) {
+        notificationAdapter = NotificationAdapter(arrayListOf(), {
 
-        }
-        binding.rvProducts.adapter = notificationAdapter
+        })
+        binding.laySearch.recyclerView.adapter = notificationAdapter
     }
+
+
+    private fun callGetNotifications() {
+        base?.showProgressDialog()
+        val params = HashMap<String, Any>()
+        params["page"] = "1"
+        params["limit"] = "1000"
+        params["pagination"] = "false"
+        viewModel.getNotifications(params).observe(viewLifecycleOwner) {
+            it.status.typeCall(
+                success = {
+                    base?.hideProgressDialog()
+                    if (it.data != null && it.data.success) {
+                        Log.e("FavProducts", Gson().toJson(it.data.data.products))
+                        val list = it.data.data.products
+                        setData(list)
+                    } else {
+                        base?.showAlertMessage(it.message)
+                    }
+                },
+                error = {
+                    base?.showAlertMessage(it.message)
+                }, loading = { base?.showProgressDialog() })
+        }
+
+    }
+
+    private fun setData(list: ArrayList<Product>) {
+        if (list.isEmpty()) {
+            binding.laySearch.layError.root.visible()
+        } else {
+            notificationAdapter.setData(list)
+        }
+
+    }
+
 }

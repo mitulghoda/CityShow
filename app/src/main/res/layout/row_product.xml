@@ -128,6 +128,19 @@
                         app:autoSizeTextType="uniform"
                         tools:text="1347887" />
 
+                    <com.app.cityshow.views.TextView
+                        android:id="@+id/tvDiscount"
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@{data.discountTitle}"
+                        android:textAppearance="@style/TextViewShadow"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_10sdp"
+                        android:visibility="gone"
+                        tools:text="25% off" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -137,23 +150,6 @@
                     android:src="@drawable/ic_offer"
                     android:tint="@color/colorPrimary"
                     android:visibility="gone" />
-
-                <com.app.cityshow.views.TextView
-                    android:id="@+id/tvDiscount"
-                    android:visibility="gone"
-                    style="@style/TextViewStyleBold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:background="@drawable/offer_rectangle"
-                    android:gravity="center"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:paddingVertical="@dimen/_5sdp"
-                    android:text="@{data.discountTitle}"
-                    android:textAppearance="@style/TextViewShadow.Black"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_10sdp"
-                    tools:text="25% off" />
 
 
                 <androidx.appcompat.widget.AppCompatImageView

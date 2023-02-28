@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cityshow.databinding.RowNotificationBinding
-import com.app.cityshow.model.category.CategoryModel
+import com.app.cityshow.model.product.Product
 
 class NotificationAdapter(
-    var mArrayList: ArrayList<CategoryModel>,
-    var onClickItem: (device: CategoryModel) -> Unit,
+    var mArrayList: ArrayList<Product>,
+    var onClickItem: (device: Product) -> Unit,
 ) : RecyclerView.Adapter<NotificationAdapter.Companion.CategoryHolder?>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryHolder {
@@ -25,12 +25,17 @@ class NotificationAdapter(
         return 40
     }
 
+    fun setData(list: java.util.ArrayList<Product>) {
+
+
+    }
+
     companion object {
         class CategoryHolder(
             var binding: RowNotificationBinding,
             var adapter: NotificationAdapter,
         ) : RecyclerView.ViewHolder(binding.root) {
-            fun bind(reader: CategoryModel) {
+            fun bind(reader: Product) {
 
             }
         }

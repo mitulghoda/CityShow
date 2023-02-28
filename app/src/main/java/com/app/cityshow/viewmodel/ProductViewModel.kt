@@ -94,6 +94,15 @@ class ProductViewModel : ViewModel() {
         }
     }
 
+    fun getNotifications(params: HashMap<String, Any>?) = liveData(Dispatchers.IO) {
+        try {
+            responseParser(ProductRepository.getNotifications(params), this)
+        } catch (e: Exception) {
+            e.message?.let { Log.e(it) }
+            emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
+        }
+    }
+
     fun getCategories(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
         try {
             responseParser(ProductRepository.getCategories(param), this)

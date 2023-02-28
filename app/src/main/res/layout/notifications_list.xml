@@ -10,28 +10,31 @@
             type="android.view.View.OnClickListener" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".ui.activity.AllAiActivity">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
+        <include
+            android:id="@+id/laySearch"
+            layout="@layout/lay_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnStart"
+            style="@style/ButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:indeterminate="true"
-            android:indeterminateTint="@color/colorPrimary"
-            android:visibility="gone" />
-
-        <com.app.cityshow.views.KeyboardDismissingRecyclerView
-            android:id="@+id/rvProducts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingVertical="@dimen/_10sdp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/row_notification" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/_10sdp"
+            android:elevation="@dimen/_5sdp"
+            android:onClick="@{clickListener::onClick}"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:visibility="gone"
+            tools:text="Begin Workout" />
+    </RelativeLayout>
 </layout>
