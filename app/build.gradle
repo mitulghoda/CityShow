@@ -7,7 +7,8 @@ plugins {
     id 'com.google.firebase.crashlytics'
 }
 def DEV_BASE_URL = "https://cityshow.in/cityshow/public/api/"
-def LIVE_BASE_URL =  "https://cityshow.in/cityshow/public/api/"
+def LIVE_BASE_URL = "https://cityshow.in/cityshow/public/api/"
+def STRIPE_KEY = "pk_test_qhlpDXqdhSuAVDStY3AfkjVI"
 
 def ROOT_URL = DEV_BASE_URL
 
@@ -26,9 +27,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            manifestPlaceholders = [enableCrashReporting: "false"]
+        }
         release {
             minifyEnabled false
+            manifestPlaceholders = [enableCrashReporting: "true"]
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable false
         }
     }
     compileOptions {
@@ -102,4 +108,5 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.2.0')
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.stripe:stripe-android:20.7.0'
 }

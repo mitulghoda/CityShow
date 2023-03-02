@@ -9,6 +9,8 @@ import com.app.cityshow.model.product.ProductMainModel
 import com.app.cityshow.model.shops.ShopsModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -124,6 +126,17 @@ interface ApiService {
         @PartMap params: HashMap<String, RequestBody>,
         @Part photos: ArrayList<MultipartBody.Part>?,
     ): Response<BaseModel>
+    @POST(NetworkURL.EPHEMERAL_KEY)
+    fun createKey(@Body param: HashMap<String?, String?>?): Call<ResponseBody?>?
+
+    @POST(NetworkURL.PAYMENT_INTENT)
+    fun paymentIntent(@Body param: HashMap<String?, Any?>?): Call<ResponseBody?>?
+
+    @POST(NetworkURL.CONFIRM_INTENT)
+    fun confirmIntent(@Body param: HashMap<String?, Any?>?): Call<ResponseBody?>?
+
+    @POST(NetworkURL.CAPTURE_INTENT)
+    fun captureIntent(@Body param: HashMap<String?, Any?>?): Call<ResponseBody?>?
 
 //    @POST(NetworkURL.INVENTORY_DATA)
 //    suspend fun getInventories(@Body params: HashMap<String, Any>): Response<ListBaseModel<InventoryModel>>

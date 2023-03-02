@@ -38,4 +38,9 @@ object NetworkURL {
     const val ASSET_REGISTRATION = "Master/SetAssetRegistration"
     const val INVENTORY_DATA = "Report/InventoryData"
     const val CHECK_IN_CHECK_OUT = "Transaction/SetCheckinCheckout"
+
+    const val EPHEMERAL_KEY = "stripe/ephemeral_keys"
+    const val PAYMENT_INTENT = "stripe/paymentIntent"
+    const val CONFIRM_INTENT = "stripe/confirmIntent"
+    const val CAPTURE_INTENT = "stripe/captureIntent"
 }
