@@ -17,7 +17,7 @@
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="2"
-            tools:listitem="@layout/row_product" />
+            tools:listitem="@layout/row_subscription_plan" />
 
         <include
             android:id="@+id/layError"

@@ -7,6 +7,7 @@ import com.app.cityshow.model.disocunt.DiscountProduct
 import com.app.cityshow.model.product.Product
 import com.app.cityshow.model.product.ProductMainModel
 import com.app.cityshow.model.shops.ShopsModel
+import com.app.cityshow.model.subscription.SubscriptionModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -56,6 +57,7 @@ interface ApiService {
 
     @GET("product/get-favourite-list")
     suspend fun getFavProduct(): Response<ObjectBaseModel<ProductMainModel>>
+
     @POST("notificaton/list")
     suspend fun getNotifications(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<NotificationModel>>
 
@@ -67,6 +69,7 @@ interface ApiService {
 
     @DELETE("product/{id}")
     suspend fun deleteProduct(@Path("id") id: String): Response<ListBaseModel<User>>
+
     @DELETE("discount/{id}")
     suspend fun deleteDiscount(@Path("id") id: String): Response<ListBaseModel<User>>
 
@@ -88,6 +91,8 @@ interface ApiService {
 
     @POST("discount/list")
     suspend fun myDiscounts(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<DiscountListModel>>
+    @GET(NetworkURL.SUBSCRIPTION_LIST)
+    suspend fun getSubscriptions():  Response<ObjectBaseModel<SubscriptionModel>>
 
     @Multipart
     @POST("product/create")
@@ -120,12 +125,8 @@ interface ApiService {
     ): Response<ObjectBaseModel<User>>
 
 
-    @Multipart
-    @POST(NetworkURL.ASSET_REGISTRATION)
-    suspend fun assetRegistration(
-        @PartMap params: HashMap<String, RequestBody>,
-        @Part photos: ArrayList<MultipartBody.Part>?,
-    ): Response<BaseModel>
+
+
     @POST(NetworkURL.EPHEMERAL_KEY)
     fun createKey(@Body param: HashMap<String?, String?>?): Call<ResponseBody?>?
 

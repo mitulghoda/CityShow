@@ -36,7 +36,7 @@ class PaginationHelper<T>(
         })
     }
 
-    fun resetValues() {
+    private fun resetValues() {
         isLoadingData = false
         canIncreasePageSize = true
         currentPageIndex = START_PAGE_INDEX

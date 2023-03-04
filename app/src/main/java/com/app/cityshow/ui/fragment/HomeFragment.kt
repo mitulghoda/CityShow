@@ -83,7 +83,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     private fun callGetCategoryApi() {
         base?.showProgressDialog()
         val param = HashMap<String, Any>()
-        param["pagination"] = "true"
+        param["pagination"] = "false"
         param["page"] = "1"
         param["limit"] = "10000"
         viewModel?.getCategories(param)?.observe(viewLifecycleOwner) {
@@ -113,7 +113,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         param["city"] = base?.city.toString()
         param["latitude"] = base?.lattitude.toString()
         param["longitude"] = base?.longitude.toString()
-        param["pagination"] = "true"
+        param["pagination"] = "false"
         param["limit"] = "30"
         param["page"] = "1"
         viewModel?.listOfProduct(param)?.observe(viewLifecycleOwner) {

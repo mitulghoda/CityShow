@@ -3,7 +3,6 @@ package com.app.cityshow.repository
 import com.app.cityshow.network.RetroClient.apiService
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.Body
 
 object ProductRepository {
 
@@ -23,6 +22,7 @@ object ProductRepository {
     suspend fun markFavProduct(param: HashMap<String, Any>) = apiService.markFavProduct(param)
     suspend fun myShops(param: HashMap<String, Any>) = apiService.myShops(param)
     suspend fun myDiscounts(param: HashMap<String, Any>) = apiService.myDiscounts(param)
+    suspend fun getSubscriptionsPlans() = apiService.getSubscriptions()
 
     suspend fun createProduct(
         param: HashMap<String, RequestBody>,

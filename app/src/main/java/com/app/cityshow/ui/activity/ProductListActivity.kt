@@ -1,14 +1,18 @@
 package com.app.cityshow.ui.activity
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityProductListBinding
 import com.app.cityshow.model.category.Category
 import com.app.cityshow.model.product.Product
+import com.app.cityshow.pagination.PaginationHelper
 import com.app.cityshow.ui.adapter.ProductListAdapter
+import com.app.cityshow.ui.adapter.SearchFriendAdapter
 import com.app.cityshow.ui.common.ActionBarActivity
 import com.app.cityshow.utility.hide
 import com.app.cityshow.utility.show
@@ -17,21 +21,41 @@ import com.app.cityshow.viewmodel.ProductViewModel
 import java.util.ArrayList
 
 class ProductListActivity : ActionBarActivity() {
-    lateinit var productListAdapter: ProductListAdapter
+    private lateinit var category: Category
+    lateinit var productListAdapter: SearchFriendAdapter
     private lateinit var binding: ActivityProductListBinding
     private lateinit var viewModel: ProductViewModel
 
+    private var paginationHelper: PaginationHelper<Product>? = null
+    val productList = ArrayList<Product>()
     override fun initUi() {
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]
-        setAdapter()
         if (intent.hasExtra("CATEGORY_ID")) {
-            val category = intent.getSerializableExtra("CATEGORY_ID") as Category
-            calGetProducts(category.id)
+            category = intent.getSerializableExtra("CATEGORY_ID") as Category
             setUpToolbar(category.name, true)
         }
+        val layoutManager = LinearLayoutManager(this)
+        binding.laySearch.recyclerView.layoutManager = layoutManager
+        productListAdapter = SearchFriendAdapter(this, productList) { product, type ->
+            openProductDetails(product)
+        }
+        binding.laySearch.recyclerView.adapter = productListAdapter
+        binding.laySearch.root.show()
+        paginationHelper = PaginationHelper(
+            binding.laySearch.recyclerView,
+            layoutManager,
+            binding.laySearch.layError,
+            binding.laySearch.progressBar,
+            this::onNewPageCall
+        )
+        paginationHelper?.refreshDataFromFirstPage()
+    }
+
+    private fun onNewPageCall(pageNumber: Int) {
+        calGetProducts(pageNumber, category.id)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,48 +64,38 @@ class ProductListActivity : ActionBarActivity() {
         setContentView(binding.root)
     }
 
-    private fun setAdapter() {
-        productListAdapter = ProductListAdapter(arrayListOf()) { product: Product, type: Int ->
-            openProductDetails(product)
-        }
-        binding.laySearch.recyclerView.layoutManager = GridLayoutManager(this, 2)
-        binding.laySearch.recyclerView.adapter = productListAdapter
-    }
 
-    private fun calGetProducts(strId: String) {
-        showProgressDialog()
+    private fun calGetProducts(pageNumber: Int, strId: String) {
         val param = HashMap<String, Any>()
         param["category_id"] = strId
+        param["latitude"] = lattitude.toString()
+        param["longitude"] = longitude.toString()
         param["pagination"] = "false"
+        param["limit"] = "3"
+        param["page"] = pageNumber
         viewModel.listOfProduct(param).observe(this) {
-            it.status.typeCall(
-                success = {
-                    hideProgressDialog()
-                    if (it.data != null && it.data.success) {
-                        val list = it.data.data.products
-                        setData(list)
-                    } else {
-                        updateView(true)
-                        showAlertMessage(it.message)
-                    }
-                },
-                error = {
-                    hideProgressDialog()
-                    updateView(true)
-                    showAlertMessage(it.message)
-                }, loading = { showProgressDialog() })
+            it.status.typeCall(success = {
+                val data = it.data
+                if (data != null) {
+                    binding.laySearch.recyclerView.show()
+                    productList.addAll(data.data.products)
+                    paginationHelper?.setSuccessResponse(
+                        data.success,
+                        data.data.products,
+                        data.message
+                    )
+                } else paginationHelper?.setFailureResponse(it.message)
+            }, error = {
+                paginationHelper?.setFailureResponse(it.message)
+            }, loading = {
+                paginationHelper?.handleErrorView("", View.GONE)
+                paginationHelper?.setProgressLayout(View.VISIBLE)
+            })
+
         }
 
     }
 
-    private fun setData(list: ArrayList<Product>) {
-        if (list.isEmpty()) {
-            updateView(true)
-        } else {
-            updateView(false)
-            productListAdapter.setData(list)
-        }
-    }
 
     private fun updateView(isShowError: Boolean) {
         if (isShowError) {

@@ -196,7 +196,9 @@
                 android:textSize="@dimen/_12ssp" />
 
             <RelativeLayout
+                android:id="@+id/layPlan"
                 android:layout_width="match_parent"
+                android:onClick="@{(v)->clickListener.onClick(v)}"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:orientation="horizontal">
@@ -210,7 +212,6 @@
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:onClick="@{(v)->clickListener.onClick(v)}"
                     android:padding="@dimen/_12sdp"
                     android:text="@string/upgrade_account"
                     android:textSize="@dimen/_12ssp"

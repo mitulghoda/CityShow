@@ -39,6 +39,7 @@ object NetworkURL {
     const val INVENTORY_DATA = "Report/InventoryData"
     const val CHECK_IN_CHECK_OUT = "Transaction/SetCheckinCheckout"
 
+    const val SUBSCRIPTION_LIST = "plan/list"
     const val EPHEMERAL_KEY = "stripe/ephemeral_keys"
     const val PAYMENT_INTENT = "stripe/paymentIntent"
     const val CONFIRM_INTENT = "stripe/confirmIntent"

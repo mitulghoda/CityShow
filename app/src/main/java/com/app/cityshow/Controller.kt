@@ -25,7 +25,7 @@ class Controller : Application(), LifecycleObserver {
             getString(R.string.google_maps_key)
         )
         placesClient = Places.createClient(this)
-        PaymentConfiguration.init(this, BuildConfig.BASE_URL!!)
+        /*PaymentConfiguration.init(this, "sk_test_51KjgLRSERxmiFRLSbxSGnEWZ45aUTaAGapwpikuGbk7TvgH8dD6upjZhieIGXdapfl42ngFH2hRIHYvrRNlThpEz00AiaNfvq1")
         val uiCustomization = PaymentAuthConfig.Stripe3ds2UiCustomization.Builder()
             .setLabelCustomization(
                 PaymentAuthConfig.Stripe3ds2LabelCustomization.Builder()
@@ -42,7 +42,7 @@ class Controller : Application(), LifecycleObserver {
                         .build()
                 )
                 .build()
-        )
+        )*/
     }
 
     fun getActivityLifeCycle(): ActivityLifeCycle {

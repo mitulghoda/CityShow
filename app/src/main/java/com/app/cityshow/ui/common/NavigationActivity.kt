@@ -63,6 +63,11 @@ abstract class NavigationActivity : BaseActivity() {
         startActivity(intent)
     }
 
+    fun openPlanListActivity() {
+        val intent = Intent(this, PlanListActivity::class.java)
+        startActivity(intent)
+    }
+
     fun openChangePasswordActivity(email: String) {
         val intent = Intent(this, ChangePasswordActivity::class.java)
         intent.putExtra("email", email)

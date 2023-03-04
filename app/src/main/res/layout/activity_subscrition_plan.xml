@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.activity.ShopsActivity">
+
+        <include layout="@layout/layout_toolbar" />
+
+        <com.app.cityshow.views.TextView
+            style="@style/TextViewStyleBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="start"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:gravity="center"
+            android:text="@string/by_upgrading_the_subscription_you_will_get_more_features_and_functions"
+            android:textSize="@dimen/_14sdp" />
+
+        <include
+            android:id="@+id/laySearch"
+            layout="@layout/lay_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

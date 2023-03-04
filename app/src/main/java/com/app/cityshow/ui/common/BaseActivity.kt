@@ -63,7 +63,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         super.onCreate(savedInstanceState)
         activityLauncher = BetterActivityResult.registerActivityForResult(this)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        requestPermission()
+//        requestPermission()
     }
 
     override fun setContentView(view: View?) {

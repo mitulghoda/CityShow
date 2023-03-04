@@ -134,6 +134,13 @@ class ProductViewModel : ViewModel() {
             emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }
+    fun getSubscriptionsPlans() = liveData(Dispatchers.IO) {
+        try {
+            responseParser(ProductRepository.getSubscriptionsPlans(), this)
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
+        }
+    }
 
 
     fun createProduct(
