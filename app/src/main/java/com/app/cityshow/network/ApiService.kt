@@ -131,7 +131,8 @@ interface ApiService {
 
     @POST(NetworkURL.SUBSCRIBE_USER)
     fun subscribeUser(@Body param: HashMap<String, Any>): Response<ObjectBaseModel<Product>>
-
+ @POST(NetworkURL.SUBSCRIBE_USER)
+    fun subscribeUserStripe(@Body param: HashMap<String, Any>):  Call<ResponseBody?>?
     @POST(NetworkURL.PAYMENT_INTENT)
     fun paymentIntent(@Body param: HashMap<String?, Any?>?): Call<ResponseBody?>?
 

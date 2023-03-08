@@ -2,16 +2,20 @@ package com.app.cityshow.payment
 
 import android.content.Intent
 import android.util.Log
+import com.app.cityshow.model.AbstractCallback
+import com.app.cityshow.model.subscription.Plan
 import com.app.cityshow.ui.common.ActionBarActivity
 import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.TextUtil
 import com.stripe.android.*
 import com.stripe.android.model.*
+import okhttp3.ResponseBody
 
 class PaymentSessionHandler internal constructor(private var activity: ActionBarActivity) :
     PaymentSession.PaymentSessionListener {
     private var destinationStripeAccountId: String? = null
     private var title: String? = null
+    private var plan: Plan? = null
     var description: String? = null
     private var amount: Long = 0
     private var clientSecret: String? = null
@@ -51,6 +55,10 @@ class PaymentSessionHandler internal constructor(private var activity: ActionBar
 
     fun setTitle(payment_description: String?) {
         title = payment_description
+    }
+
+    fun setPlan(tempPlan: Plan?) {
+        plan = tempPlan
     }
 
 
@@ -226,7 +234,7 @@ class PaymentSessionHandler internal constructor(private var activity: ActionBar
 
     override fun onError(errorCode: Int, errorMessage: String) {
         Log.e("PaymentSession", "onError : $errorMessage")
-        paymentSessionListener!!.onPaymentFailed(errorMessage)
+        paymentSessionListener?.onPaymentFailed(errorMessage)
         clearSession()
     }
 
@@ -239,108 +247,26 @@ class PaymentSessionHandler internal constructor(private var activity: ActionBar
         userInitiated = true
         activity.showProgressDialog()
         paymentMethodId1 = paymentMethod.id
-        val param = HashMap<String, Any?>()
-        param["amount"] = amount.toString()
-        param["customer"] = LocalDataHelper.userId
-        param["capture_method"] = "manual"
-        param["source"] = paymentMethodId1
-        param["purchase_type"] = purchaseType
-        param["description"] = description
-        param["destination"] = destinationStripeAccountId
-        param["statement_descriptor_suffix"] = title
-        param["payment_method_types"] = arrayOf("card")
-        if (purchaseType != null && purchaseType.equals(TYPE_SUBSCRIPTION, ignoreCase = true)) {
-            param.clear()
-            param["package_type"] = purchaseType
-            param["source"] = paymentMethodId1
-            param["is_live"] = true
-            /*StripeCall.getInstance()
-                .subscriptionPayment(param, object : AbstractCallback<ResponseBody>() {
-                    override fun result(result: ResponseBody?) {
-                        activity.hideProgressDialog()
-                        try {
-                            val response = result?.string()
-                            var jsonObject = response?.let { JSONObject(it) }
-
-                            paymentMethodId1 = jsonObject?.getString("default_payment_method")
-                            if (jsonObject?.has("latest_invoice")!!) jsonObject =
-                                jsonObject?.getJSONObject("latest_invoice")
-                            if (jsonObject?.has("status")!! && jsonObject?.getString("status")
-                                    .equals("paid", ignoreCase = true)
-                            ) {
-                                paymentSessionListener?.onPaymentSuccess(paymentMethodId1, true)
-                            } else {
-                                jsonObject = jsonObject?.getJSONObject("payment_intent")
-                                if (jsonObject?.has("client_secret")!!) {
-                                    clientSecret = jsonObject?.getString("client_secret")
-                                    stripe.confirmPayment(
-                                        activity,
-                                        ConfirmPaymentIntentParams.createWithPaymentMethodId(
-                                            paymentMethodId1!!,
-                                            clientSecret!!
-
-                                        )
-                                    )
-                                } else {
-                                    val message =
-                                        jsonObject?.getJSONObject("raw")?.getString("message")
-                                    paymentSessionListener?.onPaymentFailed(message)
-                                }
-                            }
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                            paymentSessionListener?.onPaymentFailed(e.localizedMessage)
-                        }
+        val params = HashMap<String, Any>()
+        params["plan_id"] = plan?.id ?: ""
+        params["price_id"] = plan?.default_price ?: ""
+        params["card_id"] = paymentMethodId1 ?: ""
+        StripeCall.getInstance()
+            .subscribeUser(params, object : AbstractCallback<ResponseBody>() {
+                override fun result(result: ResponseBody?) {
+                    activity.hideProgressDialog()
+                    try {
+                        val response = result?.string()
+                        paymentSessionListener?.onPaymentSuccess(paymentMethodId1, true)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        paymentSessionListener?.onPaymentFailed(e.localizedMessage)
                     }
-                })*/
-            return
-        }
-        createStripePayment(param)
-    }
-
-    private fun createStripePayment(param: java.util.HashMap<String, Any?>) {
-        /*StripeCall.getInstance().paymentIntent(param, object : AbstractCallback<ResponseBody>() {
-            override fun result(result: ResponseBody?) {
-                activity.hideProgressDialog()
-                try {
-                    val response = result?.string()
-                    val jsonObject = JSONObject(response!!)
-                    if (jsonObject.has("client_secret")) {
-                        clientSecret = jsonObject.getString("client_secret")
-                        paymentMethodId1 = jsonObject.getString("payment_method")
-                        stripe.confirmPayment(
-                            activity,
-                            ConfirmPaymentIntentParams.createWithPaymentMethodId(
-                                paymentMethodId1!!,
-                                clientSecret!!
-
-                            )
-                        )
-                    } else {
-                        val message = jsonObject.getJSONObject("raw").getString("message")
-                        paymentSessionListener?.onPaymentFailed(message)
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
                 }
-            }
-        })*/
+            })
+        return
     }
 
-
-    private fun retrieveStripeIntent(clientSecret: String): StripeIntent? {
-        var stripeIntent: StripeIntent? = null
-        try {
-            if (clientSecret.startsWith("pi_")) {
-                stripeIntent = stripe.retrievePaymentIntentSynchronous(clientSecret)
-            } else if (clientSecret.startsWith("seti_")) {
-                stripeIntent = stripe.retrieveSetupIntentSynchronous(clientSecret)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return stripeIntent
-    }
 
     private fun finishPayment() {
         paymentSession?.onCompleted()

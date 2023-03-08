@@ -1,5 +1,6 @@
 package com.app.cityshow.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -77,6 +78,7 @@ class PlanListActivity : ActionBarActivity(), View.OnClickListener {
         val paymentSessionHandler = StripeUtil.getPaymentSessionHandler(this)
         paymentSessionHandler?.setPackageType("Subscription")
         paymentSessionHandler?.setTitle(plan.name)
+        paymentSessionHandler?.setPlan(plan)
         paymentSessionHandler?.description = plan.description
         paymentSessionHandler?.initTransaction((plan.price_data.unit_amount / 100))
         paymentSessionHandler?.setPaymentSessionListener(object :
@@ -86,11 +88,8 @@ class PlanListActivity : ActionBarActivity(), View.OnClickListener {
                     "PaymentSessionHandler",
                     "Success : $payment_intent_id Captured - $captured"
                 )
-                val params = HashMap<String, Any>()
-                params["plan_id"] = plan.id
-                params["price_id"] = plan.default_price
-                params["card_id"] = payment_intent_id ?: ""
-                viewModel.subscribeUser(param = params)
+                toast("Purchase done")
+                finish()
             }
 
             override fun onPaymentFailed(message: String?) {
@@ -126,5 +125,10 @@ class PlanListActivity : ActionBarActivity(), View.OnClickListener {
             binding.laySearch.layError.root.hide()
         }
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        StripeUtil.getPaymentSessionHandler(this)?.onActivityResult(requestCode, resultCode, data)
     }
 }

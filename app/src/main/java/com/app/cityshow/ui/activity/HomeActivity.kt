@@ -1,26 +1,17 @@
 package com.app.cityshow.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.lifecycle.lifecycleScope
 import com.app.cityshow.R
 import com.app.cityshow.databinding.HomeBinding
-import com.app.cityshow.payment.PaymentSessionHandler
-import com.app.cityshow.payment.StripeUtil
 import com.app.cityshow.ui.adapter.PageStateAdapter
-import com.app.cityshow.ui.common.BaseFragment
-import com.app.cityshow.ui.fragment.HomeFragment
 import com.app.cityshow.ui.common.ActionBarActivity
+import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.ui.fragment.FavFragment
+import com.app.cityshow.ui.fragment.HomeFragment
 import com.app.cityshow.ui.fragment.NotificationFragment
 import com.app.cityshow.ui.fragment.ProfileFragment
-import com.google.android.gms.maps.model.LatLng
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.ArrayList
 
 class HomeActivity : ActionBarActivity(), View.OnClickListener {
     private lateinit var mBinding: HomeBinding
@@ -204,29 +195,5 @@ class HomeActivity : ActionBarActivity(), View.OnClickListener {
     override fun onFilterClick() {
         super.onFilterClick()
 
-    }
-    private fun selectPayment() {
-        val paymentSessionHandler = StripeUtil.getPaymentSessionHandler(this)
-        paymentSessionHandler?.setPurchase_type(PaymentSessionHandler.TYPE_PACKAGE)
-        paymentSessionHandler?.destinationStripeAccountId("lock.stripeAccountId")
-        paymentSessionHandler?.initTransaction(100)
-        paymentSessionHandler?.setPaymentSessionListener(object :
-            PaymentSessionHandler.PaymentSessionListener {
-            override fun onPaymentSuccess(payment_intent_id: String?, captured: Boolean) {
-                Log.e(
-                    "PaymentSessionHandler",
-                    "Success : $payment_intent_id Captured - $captured"
-                )
-                if (payment_intent_id == null) {
-                    return
-                }
-             //Call api for purchase subscription
-            }
-
-            override fun onPaymentFailed(message: String?) {
-                Log.e("PaymentSessionHandler", message?:"")
-                hideProgressDialog()
-            }
-        })
     }
 }

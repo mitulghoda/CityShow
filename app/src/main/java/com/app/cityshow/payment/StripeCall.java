@@ -30,6 +30,9 @@ public class StripeCall {
     public void paymentIntent(HashMap<String, Object> param, AbstractCallback<ResponseBody> callback) {
         apiService.paymentIntent(param).enqueue(callback);
     }
+    public void subscribeUser(HashMap<String, Object> param, AbstractCallback<ResponseBody> callback) {
+        apiService.subscribeUserStripe(param).enqueue(callback);
+    }
 
     public void confirmIntent(HashMap<String, Object> param, AbstractCallback<ResponseBody> callback) {
         apiService.confirmIntent(param).enqueue(callback);
