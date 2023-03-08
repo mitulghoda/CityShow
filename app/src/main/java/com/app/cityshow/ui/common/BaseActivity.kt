@@ -63,7 +63,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         super.onCreate(savedInstanceState)
         activityLauncher = BetterActivityResult.registerActivityForResult(this)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-//        requestPermission()
+        requestPermission()
     }
 
     override fun setContentView(view: View?) {
@@ -129,17 +129,17 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
             android.Manifest.permission.ACCESS_FINE_LOCATION,
         )
 
-    private fun requestLocationPermission() {
-        if (!EasyPermissions.hasPermissions(this, *locationPerms)) {
-            // Ask for one permission
-            EasyPermissions.requestPermissions(
-                this,
-                getString(R.string.location_rationale_permission),
-                LOCATION,
-                *locationPerms
-            )
-        } else {
-            getLastLocation()
+     fun requestLocationPermission() {
+         if (!EasyPermissions.hasPermissions(this, *locationPerms)) {
+             // Ask for one permission
+             EasyPermissions.requestPermissions(
+                 this,
+                 getString(R.string.location_rationale_permission),
+                 LOCATION,
+                 *locationPerms
+             )
+         } else {
+             getLastLocation()
         }
     }
 

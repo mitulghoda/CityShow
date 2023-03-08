@@ -18,6 +18,5 @@ data class PriceData(
     val tiers_mode: Any,
     val transform_quantity: Any,
     val type: String,
-    val unit_amount: Int,
-    val unit_amount_decimal: String
+    val unit_amount: Long,
 )

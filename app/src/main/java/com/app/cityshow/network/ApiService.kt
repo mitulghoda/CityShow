@@ -91,8 +91,9 @@ interface ApiService {
 
     @POST("discount/list")
     suspend fun myDiscounts(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<DiscountListModel>>
+
     @GET(NetworkURL.SUBSCRIPTION_LIST)
-    suspend fun getSubscriptions():  Response<ObjectBaseModel<SubscriptionModel>>
+    suspend fun getSubscriptions(): Response<ObjectBaseModel<SubscriptionModel>>
 
     @Multipart
     @POST("product/create")
@@ -125,10 +126,11 @@ interface ApiService {
     ): Response<ObjectBaseModel<User>>
 
 
+    @GET(NetworkURL.EPHEMERAL_KEY)
+    fun createKey(): Call<ResponseBody?>?
 
-
-    @POST(NetworkURL.EPHEMERAL_KEY)
-    fun createKey(@Body param: HashMap<String?, String?>?): Call<ResponseBody?>?
+    @POST(NetworkURL.SUBSCRIBE_USER)
+    fun subscribeUser(@Body param: HashMap<String, Any>): Response<ObjectBaseModel<Product>>
 
     @POST(NetworkURL.PAYMENT_INTENT)
     fun paymentIntent(@Body param: HashMap<String?, Any?>?): Call<ResponseBody?>?

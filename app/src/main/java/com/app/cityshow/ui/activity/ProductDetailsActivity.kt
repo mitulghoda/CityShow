@@ -13,7 +13,10 @@ import com.app.cityshow.ui.bottomsheet.BottomSheetMoreDetails
 import com.app.cityshow.ui.common.ActionBarActivity
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.ui.fragment.ProductDetailsFragment
-import com.app.cityshow.utility.*
+import com.app.cityshow.utility.DepthPageTransformer
+import com.app.cityshow.utility.justTry
+import com.app.cityshow.utility.loadImage
+import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.stfalcon.imageviewer.StfalconImageViewer
 
@@ -50,12 +53,14 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
             mBinding.tvMore -> {
                 BottomSheetMoreDetails.newInstance(mBinding.productData).show(this)
             }
-            mBinding.layAddress -> {
-                val shop = productdata?.product_shop?.get(0)
-                navigateMap(
-                    shop?.latitude?.toDouble() ?: 0.0,
-                    shop?.longitude?.toDoubleOrNull() ?: 0.0
-                )
+            mBinding.ivMap -> {
+                justTry {
+                    val shop = productdata?.product_shop?.get(0)
+                    navigateMap(
+                        shop?.latitude?.toDouble() ?: lattitude,
+                        shop?.longitude?.toDoubleOrNull() ?: longitude
+                    )
+                }
             }
             mBinding.viewPager -> {
                 val images = ArrayList<String>()

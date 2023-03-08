@@ -12,6 +12,7 @@ object TextUtil {
         return charSequence?.toString()?.isEmpty() ?: true
     }
 
+    @JvmStatic
     fun isNullOrEmpty(string: String?): Boolean {
         return string?.isEmpty() ?: true
     }

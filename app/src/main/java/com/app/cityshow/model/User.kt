@@ -44,4 +44,6 @@ data class User(
     var updatedAt: String?,
     @SerializedName("username")
     var username: String?,
+    @SerializedName("stripe_customer_id")
+    var stripeCustomerId: String?,
 )

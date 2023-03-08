@@ -40,8 +40,9 @@ object NetworkURL {
     const val CHECK_IN_CHECK_OUT = "Transaction/SetCheckinCheckout"
 
     const val SUBSCRIPTION_LIST = "plan/list"
-    const val EPHEMERAL_KEY = "stripe/ephemeral_keys"
-    const val PAYMENT_INTENT = "stripe/paymentIntent"
-    const val CONFIRM_INTENT = "stripe/confirmIntent"
-    const val CAPTURE_INTENT = "stripe/captureIntent"
+    const val EPHEMERAL_KEY = "create-ephemeral-key"
+    const val SUBSCRIBE_USER = "subscribe-user"
+    const val PAYMENT_INTENT = "paymentIntent"
+    const val CONFIRM_INTENT = "confirmIntent"
+    const val CAPTURE_INTENT = "captureIntent"
 }

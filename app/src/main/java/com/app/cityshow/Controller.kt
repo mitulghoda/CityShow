@@ -5,6 +5,7 @@ import android.app.Application
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.app.cityshow.utility.ActivityLifeCycle
+import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.RegionManager
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
@@ -25,24 +26,32 @@ class Controller : Application(), LifecycleObserver {
             getString(R.string.google_maps_key)
         )
         placesClient = Places.createClient(this)
-        /*PaymentConfiguration.init(this, "sk_test_51KjgLRSERxmiFRLSbxSGnEWZ45aUTaAGapwpikuGbk7TvgH8dD6upjZhieIGXdapfl42ngFH2hRIHYvrRNlThpEz00AiaNfvq1")
-        val uiCustomization = PaymentAuthConfig.Stripe3ds2UiCustomization.Builder()
-            .setLabelCustomization(
-                PaymentAuthConfig.Stripe3ds2LabelCustomization.Builder()
-                    .setTextFontSize(12)
-                    .build()
+        try {
+            PaymentConfiguration.init(
+                this,
+                "pk_test_51KjgLRSERxmiFRLSCRCoevregNqNp5wcqlZTgTKEYnzA0qPegnfwyx1H6FRcHk2MLKJ2DMVsUNWVDdUUmOrQr9y800xcQFg6Ne"
             )
-            .build()
-        PaymentAuthConfig.init(
-            PaymentAuthConfig.Builder()
-                .set3ds2Config(
-                    PaymentAuthConfig.Stripe3ds2Config.Builder()
-                        .setTimeout(10)
-                        .setUiCustomization(uiCustomization)
+            val uiCustomization = PaymentAuthConfig.Stripe3ds2UiCustomization.Builder()
+                .setLabelCustomization(
+                    PaymentAuthConfig.Stripe3ds2LabelCustomization.Builder()
+                        .setTextFontSize(12)
                         .build()
                 )
                 .build()
-        )*/
+            PaymentAuthConfig.init(
+                PaymentAuthConfig.Builder()
+                    .set3ds2Config(
+                        PaymentAuthConfig.Stripe3ds2Config.Builder()
+                            .setTimeout(10)
+                            .setUiCustomization(uiCustomization)
+                            .build()
+                    )
+                    .build()
+            )
+        } catch (ex: Exception) {
+            Log.e("StripeInitException", ex.message ?: "")
+        }
+
     }
 
     fun getActivityLifeCycle(): ActivityLifeCycle {

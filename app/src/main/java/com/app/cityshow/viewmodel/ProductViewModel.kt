@@ -1,6 +1,7 @@
 package com.app.cityshow.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import com.app.cityshow.network.ParserHelper.responseParser
 import com.app.cityshow.network.Resource
 import com.app.cityshow.network.ResponseHandler
@@ -16,6 +17,15 @@ class ProductViewModel : ViewModel() {
     fun getProductDetails(param: String) = liveData(Dispatchers.IO) {
         try {
             responseParser(ProductRepository.getProductDetails(param), this)
+        } catch (e: Exception) {
+            e.message?.let { Log.e(it) }
+            emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
+        }
+    }
+
+    fun subscribeUser(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
+        try {
+            responseParser(ProductRepository.subscribeUser(param), this)
         } catch (e: Exception) {
             e.message?.let { Log.e(it) }
             emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
@@ -134,6 +144,7 @@ class ProductViewModel : ViewModel() {
             emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }
+
     fun getSubscriptionsPlans() = liveData(Dispatchers.IO) {
         try {
             responseParser(ProductRepository.getSubscriptionsPlans(), this)

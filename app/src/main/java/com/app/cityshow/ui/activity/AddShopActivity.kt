@@ -143,49 +143,6 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
         }
     }
 
-    private fun fetchLocation() {
-        val fields = listOf(
-            Place.Field.ID,
-            Place.Field.NAME,
-            Place.Field.PHOTO_METADATAS,
-            Place.Field.LAT_LNG,
-            Place.Field.ADDRESS,
-            Place.Field.TYPES,
-            Place.Field.ADDRESS_COMPONENTS
-        )
-        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
-            .build(this)
-        activityLauncher.launch(intent) {
-            when (it.resultCode) {
-                RESULT_OK -> {
-                    val place = it.data?.let { Autocomplete.getPlaceFromIntent(it) }
-                    Log.e(
-                        "Place: " + place?.name + ", " + place?.id + ", " + place?.address + ", " + place?.addressComponents,
-                        "Location settings are not satisfied. Attempting to upgrade location settings "
-                    )
-
-                    lattitude = place?.latLng?.latitude!!
-                    longitude = place.latLng?.longitude!!
-                    mBinding.edtAddress.setText(place.address)
-                }
-                AutocompleteActivity.RESULT_ERROR -> {
-                    val status = it.data?.let { Autocomplete.getStatusFromIntent(it) }
-                    Toast.makeText(
-                        this,
-                        "Error: " + status?.statusMessage,
-                        Toast.LENGTH_LONG
-                    ).show()
-                    Log.e(
-                        status?.statusMessage.toString(),
-                        "Location settings are not satisfied. Attempting to upgrade location settings "
-                    )
-                }
-                RESULT_CANCELED -> {
-                    // The user canceled the operation.
-                }
-            }
-        }
-    }
 
     /**
      * check validation

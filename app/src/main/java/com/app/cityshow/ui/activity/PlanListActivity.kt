@@ -7,8 +7,11 @@ import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivitySubscritionPlanBinding
 import com.app.cityshow.model.subscription.Plan
+import com.app.cityshow.payment.PaymentSessionHandler
+import com.app.cityshow.payment.StripeUtil
 import com.app.cityshow.ui.adapter.PlanListAdapter
 import com.app.cityshow.ui.common.ActionBarActivity
+import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.hide
 import com.app.cityshow.utility.show
 import com.app.cityshow.utility.typeCall
@@ -38,8 +41,8 @@ class PlanListActivity : ActionBarActivity(), View.OnClickListener {
 
     private fun setAdapter() {
         planListAdapter =
-            PlanListAdapter(arrayListOf()) { product: Plan, type: Int ->
-
+            PlanListAdapter(arrayListOf()) { plan: Plan, type: Int ->
+                selectPayment(plan)
 
             }
         binding.laySearch.recyclerView.adapter = planListAdapter
@@ -67,6 +70,34 @@ class PlanListActivity : ActionBarActivity(), View.OnClickListener {
                 }, loading = { showProgressDialog() })
         }
 
+    }
+
+    private fun selectPayment(plan: Plan?) {
+        if (plan == null) return
+        val paymentSessionHandler = StripeUtil.getPaymentSessionHandler(this)
+        paymentSessionHandler?.setPackageType("Subscription")
+        paymentSessionHandler?.setTitle(plan.name)
+        paymentSessionHandler?.description = plan.description
+        paymentSessionHandler?.initTransaction((plan.price_data.unit_amount / 100))
+        paymentSessionHandler?.setPaymentSessionListener(object :
+            PaymentSessionHandler.PaymentSessionListener {
+            override fun onPaymentSuccess(payment_intent_id: String?, captured: Boolean) {
+                Log.e(
+                    "PaymentSessionHandler",
+                    "Success : $payment_intent_id Captured - $captured"
+                )
+                val params = HashMap<String, Any>()
+                params["plan_id"] = plan.id
+                params["price_id"] = plan.default_price
+                params["card_id"] = payment_intent_id ?: ""
+                viewModel.subscribeUser(param = params)
+            }
+
+            override fun onPaymentFailed(message: String?) {
+                Log.e("PaymentSessionHandler", message ?: "")
+                hideProgressDialog()
+            }
+        })
     }
 
     override fun onClick(v: View?) {

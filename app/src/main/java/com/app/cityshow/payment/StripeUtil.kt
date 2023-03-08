@@ -14,10 +14,8 @@ object StripeUtil {
     //  public static final String STRIPE_PUBLISHER_KEY = "pk_live_QsumyGsV286dzZWMD7RLvGSw";
     const val STRIPE_PUBLISHER_KEY = "pk_test_qhlpDXqdhSuAVDStY3AfkjVI"
     var paymentSessionHandler: PaymentSessionHandler? = null
-    var googlePayLauncher: GooglePayPaymentMethodLauncher? = null
 
     fun getPaymentSessionHandler(activity: ActionBarActivity?): PaymentSessionHandler? {
-        if (googlePayLauncher == null) return null
         if (paymentSessionHandler == null)
             paymentSessionHandler = PaymentSessionHandler(activity!!)
         paymentSessionHandler?.setActivity(activity!!)
@@ -29,7 +27,6 @@ object StripeUtil {
         return PaymentSessionConfig.Builder()
             .setShippingInfoRequired(false)
             .setShippingMethodsRequired(false)
-            .setShouldShowGooglePay(true)
             .setShouldPrefetchCustomer(true)
             .setPrepopulatedShippingInfo(
                 ShippingInformation(

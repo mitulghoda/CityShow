@@ -20,11 +20,9 @@ import com.app.cityshow.ui.adapter.DiscountListAdapter
 import com.app.cityshow.ui.adapter.ProductListAdapter
 import com.app.cityshow.ui.bottomsheet.BottomSheetFilter
 import com.app.cityshow.ui.common.BaseFragment
-import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.Utils
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
-import com.google.gson.Gson
 
 class HomeFragment : BaseFragment(), View.OnClickListener {
     lateinit var categoryListAdapter: CategoryListAdapter
@@ -144,9 +142,8 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             navigation?.openDiscountProductListActivity(it)
         }
         binding.rvDiscounts.adapter = discountsAdapter
-//        val snapHelper: SnapHelper = PagerSnapHelper()
-//        snapHelper.attachToRecyclerView(binding.rvDiscounts)
-
+        val snapHelper: SnapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(binding.rvDiscounts)
         productListAdapter = ProductListAdapter(productList) { product, type ->
             when (type) {
                 0 -> {
