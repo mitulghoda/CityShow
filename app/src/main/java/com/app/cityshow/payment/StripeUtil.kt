@@ -7,12 +7,9 @@ import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.TextUtil
 import com.stripe.android.PaymentSessionConfig
 import com.stripe.android.Stripe
-import com.stripe.android.googlepaylauncher.GooglePayPaymentMethodLauncher
 import com.stripe.android.model.ShippingInformation
 
 object StripeUtil {
-    //  public static final String STRIPE_PUBLISHER_KEY = "pk_live_QsumyGsV286dzZWMD7RLvGSw";
-    const val STRIPE_PUBLISHER_KEY = "pk_test_qhlpDXqdhSuAVDStY3AfkjVI"
     var paymentSessionHandler: PaymentSessionHandler? = null
 
     fun getPaymentSessionHandler(activity: ActionBarActivity?): PaymentSessionHandler? {

@@ -3,10 +3,10 @@ package com.app.cityshow.payment
 import android.content.Intent
 import android.util.Log
 import com.app.cityshow.model.AbstractCallback
+import com.app.cityshow.model.stripe.GeneralModel
 import com.app.cityshow.model.subscription.Plan
 import com.app.cityshow.ui.common.ActionBarActivity
-import com.app.cityshow.utility.LocalDataHelper
-import com.app.cityshow.utility.TextUtil
+import com.google.gson.Gson
 import com.stripe.android.*
 import com.stripe.android.model.*
 import okhttp3.ResponseBody
@@ -32,22 +32,11 @@ class PaymentSessionHandler internal constructor(private var activity: ActionBar
         this.activity = activity
     }
 
-    fun setCurrency(currency: String) {
-        this.currency = currency
-    }
 
     fun setPaymentSessionListener(paymentSessionListener: PaymentSessionListener?) {
         this.paymentSessionListener = paymentSessionListener
     }
 
-    fun destinationStripeAccountId(destination_stripe_account_id: String?) {
-        this.destinationStripeAccountId = destination_stripe_account_id
-    }
-
-    fun setPurchase_type(purchase_type: String?) {
-        this.purchaseType = purchase_type
-        destinationStripeAccountId = null
-    }
 
     fun setPackageType(package_type: String?) {
         this.packageType = package_type
@@ -225,11 +214,19 @@ class PaymentSessionHandler internal constructor(private var activity: ActionBar
                     activity.hideProgressDialog()
                     try {
                         val response = result?.string()
-                        paymentSessionListener?.onPaymentSuccess(paymentMethodId1, true)
+                        val generalModel = Gson().fromJson(response, GeneralModel::class.java)
+                        paymentSessionListener?.onPaymentFailed(generalModel.message)
+                        if (generalModel.success) {
+                            paymentSessionListener?.onPaymentSuccess(paymentMethodId1, true)
+                            activity.showAlertMessage("", generalModel.message)
+                        } else {
+                            paymentSessionListener?.onPaymentFailed(generalModel.message)
+                        }
                         finishPayment()
                     } catch (e: Exception) {
                         e.printStackTrace()
                         paymentSessionListener?.onPaymentFailed(e.localizedMessage)
+                        finishPayment()
                     }
                 }
             })

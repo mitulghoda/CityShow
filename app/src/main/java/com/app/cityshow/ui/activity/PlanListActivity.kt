@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivitySubscritionPlanBinding
@@ -17,6 +18,7 @@ import com.app.cityshow.utility.hide
 import com.app.cityshow.utility.show
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
+import kotlinx.coroutines.launch
 
 class PlanListActivity : ActionBarActivity(), View.OnClickListener {
     lateinit var planListAdapter: PlanListAdapter
@@ -88,15 +90,42 @@ class PlanListActivity : ActionBarActivity(), View.OnClickListener {
                     "PaymentSessionHandler",
                     "Success : $payment_intent_id Captured - $captured"
                 )
-                toast("Purchase done")
+                /*callSubScribeApi(plan, payment_intent_id)*/
                 finish()
             }
 
             override fun onPaymentFailed(message: String?) {
                 Log.e("PaymentSessionHandler", message ?: "")
+                showAlertMessage("", message ?: getString(R.string.something_went_wrong))
                 hideProgressDialog()
             }
         })
+    }
+
+    private fun callSubScribeApi(plan: Plan?, paymentIntentId: String?) {
+        lifecycleScope.launch {
+            val params = HashMap<String, Any>()
+            params["plan_id"] = plan?.id ?: ""
+            params["price_id"] = plan?.default_price ?: ""
+            params["card_id"] = paymentIntentId ?: ""
+            viewModel.subscribeUser(params).observe(this@PlanListActivity) {
+                it.status.typeCall(
+                    success = {
+                        hideProgressDialog()
+                        if (it.data != null && it.data.success) {
+                            toast("Purchase done")
+                            finish()
+                        } else {
+                            showAlertMessage(it.message)
+                        }
+                    },
+                    error = {
+                        hideProgressDialog()
+                        showAlertMessage(it.message)
+                    }, loading = { showProgressDialog() })
+            }
+        }
+
     }
 
     override fun onClick(v: View?) {
