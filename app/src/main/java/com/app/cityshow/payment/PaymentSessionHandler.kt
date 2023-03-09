@@ -147,23 +147,21 @@ class PaymentSessionHandler internal constructor(private var activity: ActionBar
                 activity,
                 stripeIntent.clientSecret!!
             )
-        } else if (stripeIntent.requiresConfirmation()) {
-            confirmStripeIntent(stripeIntent.id, destinationStripeAccountId)
         } else if (stripeIntent.status == StripeIntent.Status.Succeeded) {
             if (stripeIntent is PaymentIntent) {
                 val (id) = stripeIntent
                 activity.hideProgressDialog()
-                paymentSessionListener!!.onPaymentSuccess(id, true)
+                paymentSessionListener?.onPaymentSuccess(id, true)
                 clearSession()
             } else if (stripeIntent is SetupIntent) {
                 val (id) = stripeIntent
                 activity.hideProgressDialog()
-                paymentSessionListener!!.onPaymentSuccess(id, true)
+                paymentSessionListener?.onPaymentSuccess(id, true)
                 clearSession()
             }
         } else if (stripeIntent.status == StripeIntent.Status.RequiresPaymentMethod) {
             if (isAfterConfirmation) {
-                paymentSessionListener!!.onPaymentFailed("Payment method not authorised or payment has been declined, Please contact your payment bank for more info.")
+                paymentSessionListener?.onPaymentFailed("Payment method not authorised or payment has been declined, Please contact your payment bank for more info.")
                 clearSession()
             } else {
                 if (paymentMethodId1 == null) return
@@ -183,43 +181,13 @@ class PaymentSessionHandler internal constructor(private var activity: ActionBar
                 }
             }
         } else if (stripeIntent.status == StripeIntent.Status.RequiresCapture) {
-            paymentSessionListener!!.onPaymentSuccess(stripeIntent.id, false)
+            paymentSessionListener?.onPaymentSuccess(stripeIntent.id, false)
             clearSession()
             // We suppose to capture the payment, It will be kept reserved for maximum 7 days..
             // Capture intent will be done in end ride api.
         } else {
-            paymentSessionListener!!.onPaymentFailed("Unhandled payment intent, Status - " + stripeIntent.status.toString())
+            paymentSessionListener?.onPaymentFailed("Unhandled payment intent, Status - " + stripeIntent.status.toString())
         }
-    }
-
-    private fun confirmStripeIntent(payment_intent_id: String?, stripeAccountId: String?) {
-        val param = HashMap<String, Any?>()
-        param["intent_id"] = payment_intent_id
-        param["user_id"] = LocalDataHelper.userId
-        if (!TextUtil.isNullOrEmpty(stripeAccountId)) param["stripe_account"] = stripeAccountId
-        activity.showProgressDialog()
-        /*StripeCall.getInstance().confirmIntent(param, object : AbstractCallback<ResponseBody>() {
-            override fun result(result: ResponseBody?) {
-                activity.hideProgressDialog()
-                try {
-                    val response = JSONObject(result.toJson())
-                    if (response.has("success")) {
-                        val success = response.getBoolean("success")
-                        if (success) {
-                            paymentSessionListener!!.onPaymentSuccess(payment_intent_id, true)
-                        } else {
-                            val message = response.getJSONObject("raw").getString("message")
-                            paymentSessionListener!!.onPaymentFailed(message)
-                        }
-                        clearSession()
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    //                    paymentSessionListener.onPaymentFailed("Payment failed;");
-                    paymentSessionListener!!.onPaymentFailed(e.localizedMessage)
-                }
-            }
-        })*/
     }
 
     private fun clearSession() {
@@ -258,6 +226,7 @@ class PaymentSessionHandler internal constructor(private var activity: ActionBar
                     try {
                         val response = result?.string()
                         paymentSessionListener?.onPaymentSuccess(paymentMethodId1, true)
+                        finishPayment()
                     } catch (e: Exception) {
                         e.printStackTrace()
                         paymentSessionListener?.onPaymentFailed(e.localizedMessage)
@@ -274,12 +243,6 @@ class PaymentSessionHandler internal constructor(private var activity: ActionBar
         paymentSession = null
     }
 
-    private fun finishSetup() {
-        paymentSession?.onCompleted()
-        paymentSession?.clearPaymentMethod()
-        paymentSession = null
-    }
-
     interface PaymentSessionListener {
         fun onPaymentSuccess(payment_intent_id: String?, captured: Boolean)
         fun onPaymentFailed(message: String?)
@@ -287,9 +250,5 @@ class PaymentSessionHandler internal constructor(private var activity: ActionBar
 
     companion object {
         const val TYPE_PACKAGE = "package"
-        const val TYPE_SUBSCRIPTION = "subscription"
-        const val TYPE_EXTRA = "extra_payment"
-        const val PACKAGE_RENT = "rent"
-        const val PACKAGE_LEASE = "lease"
     }
 }

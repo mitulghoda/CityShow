@@ -57,7 +57,10 @@ abstract class NavigationActivity : BaseActivity() {
         intent.putExtra("DISCOUNT_ID", strId)
         startActivity(intent)
     }
-
+    fun openPrivacyPolicyActivity() {
+        val intent = Intent(this, PrivacyPolicyActivity::class.java)
+        startActivity(intent)
+    }
     fun openMyProductListActivity() {
         val intent = Intent(this, MyProductListActivity::class.java)
         startActivity(intent)
