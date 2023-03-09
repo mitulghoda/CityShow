@@ -155,12 +155,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
+                            android:isGone="@{productData.size.isEmpty() || productData.size == null}"
                             android:text="@string/size_"
                             android:textSize="@dimen/_12ssp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:isGone="@{productData.size.isEmpty() || productData.size == null}"
                             android:layout_marginVertical="@dimen/_10sdp">
 
                             <androidx.appcompat.widget.AppCompatTextView
