@@ -6,6 +6,7 @@ import com.app.cityshow.model.AbstractCallback
 import com.app.cityshow.model.stripe.GeneralModel
 import com.app.cityshow.model.subscription.Plan
 import com.app.cityshow.ui.common.ActionBarActivity
+import com.app.cityshow.utility.toJson
 import com.google.gson.Gson
 import com.stripe.android.*
 import com.stripe.android.model.*
@@ -215,10 +216,10 @@ class PaymentSessionHandler internal constructor(private var activity: ActionBar
                     try {
                         val response = result?.string()
                         val generalModel = Gson().fromJson(response, GeneralModel::class.java)
-                        paymentSessionListener?.onPaymentFailed(generalModel.message)
+                        Log.e("USER_SUBSCRIBE", generalModel.toJson())
                         if (generalModel.success) {
                             paymentSessionListener?.onPaymentSuccess(paymentMethodId1, true)
-                            activity.showAlertMessage("", generalModel.message)
+                            activity.toast(generalModel.message)
                         } else {
                             paymentSessionListener?.onPaymentFailed(generalModel.message)
                         }
