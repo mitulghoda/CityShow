@@ -23,7 +23,7 @@ class BottomSheetCountryAdapter(
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         holder.bind(dataListTemp[position])
-        holder.binding.checkboxName.hide()
+//        holder.binding.checkboxName.hide()
     }
 
     override fun getItemCount(): Int {
@@ -38,6 +38,10 @@ class BottomSheetCountryAdapter(
             fun bind(data: CountryModel) {
                 binding.txtEpc.text = data.city
                 binding.checkboxName.setOnClickListener { adapter.onItemClickCallback.invoke(data) }
+                binding.txtEpc.setOnClickListener {
+                    binding.checkboxName.isChecked = !binding.checkboxName.isChecked
+                    adapter.onItemClickCallback.invoke(data)
+                }
             }
         }
     }
