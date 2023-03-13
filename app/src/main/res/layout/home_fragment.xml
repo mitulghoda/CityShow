@@ -66,6 +66,24 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/row_category" />
 
+                <com.jama.carouselview.CarouselView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:carouselOffset="center"
+                    app:enableSnapping="true"
+                    android:id="@+id/carouselView"
+                    app:indicatorAnimationType="drop"
+                    app:indicatorPadding="5"
+                    app:indicatorRadius="5"
+                    app:indicatorSelectedColor="@color/colorAccent"
+                    app:indicatorUnselectedColor="@color/colorPrimary"
+                    app:resource="@layout/row_category"
+                    app:scaleOnScroll="false"
+                    app:setAutoPlay="true"
+                    app:setAutoPlayDelay="3000"
+                    app:size="10"
+                    app:spacing="10" />
+
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

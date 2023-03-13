@@ -23,6 +23,8 @@ import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.utility.Utils
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
+import com.jama.carouselview.enums.IndicatorAnimationType
+import com.jama.carouselview.enums.OffsetType
 
 class HomeFragment : BaseFragment(), View.OnClickListener {
     lateinit var categoryListAdapter: CategoryListAdapter
@@ -133,6 +135,25 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun setAdapter() {
+        val images = arrayListOf(
+            R.drawable.ic_logo,
+            R.drawable.ic_app_logo, R.drawable.ic_logo,
+            R.drawable.ic_app_logo, R.drawable.ic_logo,
+            R.drawable.ic_app_logo, R.drawable.ic_logo
+        )
+        binding.carouselView.apply {
+            size = images.size
+            resource = R.layout.row_category
+            autoPlay = true
+            indicatorAnimationType = IndicatorAnimationType.THIN_WORM
+            carouselOffset = OffsetType.CENTER
+            setCarouselViewListener { view, position ->
+                // Example here is setting up a full image carousel
+            }
+            // After you finish setting up, show the CarouselView
+            show()
+        }
+
         categoryListAdapter = CategoryListAdapter(arrayListOf()) {
             navigation?.openProductListActivity(it)
         }
