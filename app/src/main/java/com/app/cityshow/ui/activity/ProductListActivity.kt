@@ -8,6 +8,8 @@ import com.app.cityshow.Controller
 import com.app.cityshow.databinding.ActivityProductListBinding
 import com.app.cityshow.model.category.Category
 import com.app.cityshow.model.product.Product
+import com.app.cityshow.pagination.GridPaginationHelper
+import com.app.cityshow.pagination.GridPaginationHelper.Companion.PAGE_SIZE
 import com.app.cityshow.pagination.PaginationHelper
 import com.app.cityshow.ui.adapter.SearchFriendAdapter
 import com.app.cityshow.ui.common.ActionBarActivity
@@ -21,7 +23,7 @@ class ProductListActivity : ActionBarActivity() {
     private lateinit var binding: ActivityProductListBinding
     private lateinit var viewModel: ProductViewModel
     private var searchText: String? = null
-    private var paginationHelper: PaginationHelper<Product>? = null
+    private var paginationHelper: GridPaginationHelper<Product>? = null
     val productList = ArrayList<Product>()
     override fun initUi() {
         viewModel = ViewModelProvider(
@@ -32,25 +34,38 @@ class ProductListActivity : ActionBarActivity() {
             category = intent.getSerializableExtra("CATEGORY_ID") as Category
             setUpToolbar(category.name, true, imgOption = true)
         }
+
+
         val layoutManager = GridLayoutManager(this, 2)
         binding.laySearch.recyclerView.layoutManager = layoutManager
+
         productListAdapter = SearchFriendAdapter(this, productList) { product, type ->
             openProductDetails(product)
         }
         binding.laySearch.recyclerView.adapter = productListAdapter
         binding.laySearch.root.show()
-        paginationHelper = PaginationHelper(
+        paginationHelper = GridPaginationHelper(
+            this,
+            binding.laySearch.layError,
             binding.laySearch.recyclerView,
             layoutManager,
-            binding.laySearch.layError,
             binding.laySearch.progressBar,
-            this::onNewPageCall
+            paginationCallback = object : GridPaginationHelper.PaginationCallback {
+                override fun onNewPage(pageNumber: Int) {
+                    onNewPageCall(pageNumber)
+                }
+            }
         )
-        paginationHelper?.refreshDataFromFirstPage()
+        paginationHelper?.resetValues()
+        onNewPageCall(PaginationHelper.START_PAGE_INDEX)
     }
 
     private fun onNewPageCall(pageNumber: Int) {
-        calGetProducts(searchText, pageNumber, category.id)
+        paginationHelper?.handleErrorView(View.GONE, "", View.GONE, View.GONE)
+        paginationHelper?.setProgressLayout(View.VISIBLE)
+        binding.root.postDelayed({
+            calGetProducts(searchText, pageNumber, category.id)
+        }, 300)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,13 +81,13 @@ class ProductListActivity : ActionBarActivity() {
         searchText.let { param["searchText"] = searchText.toString() }
         param["latitude"] = lattitude.toString()
         param["longitude"] = longitude.toString()
-        param["pagination"] = "false"
-        param["limit"] = "3"
+        param["pagination"] = "true"
+        param["limit"] = PAGE_SIZE
         param["page"] = pageNumber
         viewModel.listOfProduct(param).observe(this) {
             it.status.typeCall(success = {
                 val data = it.data
-                if (data != null) {
+                if (data != null && data.data.products.isNotEmpty()) {
                     binding.laySearch.recyclerView.show()
                     productList.addAll(data.data.products)
                     paginationHelper?.setSuccessResponse(
@@ -84,7 +99,7 @@ class ProductListActivity : ActionBarActivity() {
             }, error = {
                 paginationHelper?.setFailureResponse(it.message)
             }, loading = {
-                paginationHelper?.handleErrorView("", View.GONE)
+                paginationHelper?.handleErrorView(View.GONE, "", View.GONE, View.GONE)
                 paginationHelper?.setProgressLayout(View.VISIBLE)
             })
 

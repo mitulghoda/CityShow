@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.app.cityshow.Controller
 import com.app.cityshow.FilterType
@@ -15,11 +16,16 @@ import com.app.cityshow.databinding.ItemCustomFixedSizeLayout3Binding
 import com.app.cityshow.model.category.CategoryModel
 import com.app.cityshow.model.disocunt.Discount
 import com.app.cityshow.model.product.Product
+import com.app.cityshow.pagination.GridPaginationHelper
+import com.app.cityshow.pagination.NestedGridPaginationHelper
+import com.app.cityshow.pagination.PaginationHelper
 import com.app.cityshow.ui.adapter.CategoryListAdapter
-import com.app.cityshow.ui.adapter.ProductListAdapter
+import com.app.cityshow.ui.adapter.SearchFriendAdapter
 import com.app.cityshow.ui.bottomsheet.BottomSheetFilter
 import com.app.cityshow.ui.common.BaseFragment
+import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.hide
+import com.app.cityshow.utility.show
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
@@ -27,12 +33,14 @@ import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.utils.setImage
 
 class HomeFragment : BaseFragment(), View.OnClickListener {
+    private var paginationHelper: NestedGridPaginationHelper<Product>? = null
     lateinit var categoryListAdapter: CategoryListAdapter
-    lateinit var productListAdapter: ProductListAdapter
+    lateinit var productListAdapter: SearchFriendAdapter
     private lateinit var binding: HomeFragmentBinding
     private var viewModel: ProductViewModel? = null
     val mArrayList = ArrayList<CategoryModel>()
     val productList = ArrayList<Product>()
+    private var strFilter = ""
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,7 +55,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         binding.clickListener = this
         initViewModel()
         setAdapter()
-
+        setupAdapter()
     }
 
     private fun initViewModel() {
@@ -55,24 +63,55 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             this, ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]
         callGetCategoryApi()
-        calGetProducts("")
         callGetMyDiscounts()
+    }
+
+    private fun setupAdapter() {
+        val layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.laySearch.recyclerView.layoutManager = layoutManager
+        productListAdapter = SearchFriendAdapter(requireContext(), productList) { product, type ->
+            when (type) {
+                0 -> {
+                    markFavProduct(product)
+                }
+                1 -> {
+                    navigation?.openProductDetails(product)
+                }
+            }
+        }
+
+        binding.laySearch.recyclerView.adapter = productListAdapter
+        paginationHelper = NestedGridPaginationHelper(
+            requireContext(),
+            binding.laySearch.layError,
+            binding.laySearch.recyclerView,
+            binding.scrollView,
+            layoutManager,
+            binding.laySearch.progressBar,
+            this::onNewPageCall
+        )
+        onNewPageCall(PaginationHelper.START_PAGE_INDEX)
+    }
+
+    private fun onNewPageCall(pageNumber: Int) {
+        Log.e("PAGE_NUMBER", "$pageNumber")
+        paginationHelper?.handleErrorView(View.GONE, "", View.GONE, View.GONE)
+        paginationHelper?.setProgressLayout(View.VISIBLE)
+        binding.root.postDelayed({
+            calGetProducts(pageNumber, strFilter)
+        }, 300)
     }
 
     private fun callGetMyDiscounts() {
         val param = HashMap<String, Any>()
         viewModel?.myDiscounts(param)?.observe(viewLifecycleOwner) {
-            it.status.typeCall(
-                success = {
-                    if (it.data != null && it.data.success) {
-                        autoScrollRecyclerView(it.data.data.discounts)
-                    } else {
-                        binding.layoutDiscount.hide()
-                    }
-                },
-                error = {
-                }, loading = {
-                })
+            it.status.typeCall(success = {
+                if (it.data != null && it.data.success) {
+                    autoScrollRecyclerView(it.data.data.discounts)
+                } else {
+                    binding.layoutDiscount.hide()
+                }
+            }, error = {}, loading = {})
         }
 //            } else {
 //                hideProgressDialog()
@@ -87,18 +126,17 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         param["page"] = "1"
         param["limit"] = "10000"
         viewModel?.getCategories(param)?.observe(viewLifecycleOwner) {
-            it.status.typeCall(
-                success = {
-                    base?.hideProgressDialog()
-                    if (it.data != null && it.data.success) {
-                        categoryListAdapter.setData(it.data.data.categories)
-                    } else {
-                        base?.showAlertMessage(it.message)
-                    }
-                }, error = {
-                    base?.hideProgressDialog()
+            it.status.typeCall(success = {
+                base?.hideProgressDialog()
+                if (it.data != null && it.data.success) {
+                    categoryListAdapter.setData(it.data.data.categories)
+                } else {
                     base?.showAlertMessage(it.message)
-                }, loading = {})
+                }
+            }, error = {
+                base?.hideProgressDialog()
+                base?.showAlertMessage(it.message)
+            }, loading = {})
         }
 //            } else {
 //                hideProgressDialog()
@@ -106,30 +144,33 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 //            }
     }
 
-    private fun calGetProducts(strFilter: String) {
-        base?.showProgressDialog()
+    private fun calGetProducts(pageNumber: Int, strFilter: String) {
         val param = HashMap<String, Any>()
+        param["pagination"] = "true"
+        param["limit"] = GridPaginationHelper.PAGE_SIZE
+        param["page"] = pageNumber
         param["filter"] = strFilter
         param["city"] = base?.city.toString()
         param["latitude"] = base?.lattitude.toString()
         param["longitude"] = base?.longitude.toString()
-        param["pagination"] = "false"
-        param["limit"] = "30"
-        param["page"] = "1"
         viewModel?.listOfProduct(param)?.observe(viewLifecycleOwner) {
-            it.status.typeCall(
-                success = {
-                    base?.hideProgressDialog()
-                    if (it.data != null && it.data.success) {
-                        val list = it.data.data.products
-                        productListAdapter.setData(list)
-                    } else {
-                        base?.showAlertMessage(it.message)
-                    }
-                }, error = {
-                    base?.hideProgressDialog()
-                    base?.showAlertMessage(it.message)
-                }, loading = { base?.showProgressDialog() })
+            it.status.typeCall(success = {
+                val data = it.data
+                if (data != null && data.data.products.isNotEmpty()) {
+                    binding.laySearch.recyclerView.show()
+                    productList.addAll(data.data.products)
+                    paginationHelper?.setSuccessResponse(
+                        data.success,
+                        data.data.products,
+                        data.message
+                    )
+                } else paginationHelper?.setFailureResponse(it.message)
+            }, error = {
+                paginationHelper?.setFailureResponse(it.message)
+            }, loading = {
+                paginationHelper?.handleErrorView(View.GONE, "", View.GONE, View.GONE)
+                paginationHelper?.setProgressLayout(View.VISIBLE)
+            })
         }
 
     }
@@ -139,36 +180,21 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             navigation?.openProductListActivity(it)
         }
         binding.rvCategories.adapter = categoryListAdapter
-        productListAdapter = ProductListAdapter(productList) { product, type ->
-            when (type) {
-                0 -> {
-                    markFavProduct(product)
-                }
-                1 -> {
-                    navigation?.openProductDetails(product)
-                }
-            }
-        }
-        binding.rvProducts.adapter = productListAdapter
+
     }
 
     private fun autoScrollRecyclerView(data: List<Discount>) {
         binding.carousel4.carouselListener = object : CarouselListener {
             override fun onCreateViewHolder(
-                layoutInflater: LayoutInflater,
-                parent: ViewGroup
+                layoutInflater: LayoutInflater, parent: ViewGroup
             ): ViewBinding {
                 return ItemCustomFixedSizeLayout3Binding.inflate(
-                    layoutInflater,
-                    parent,
-                    false
+                    layoutInflater, parent, false
                 )
             }
 
             override fun onBindViewHolder(
-                binding: ViewBinding,
-                item: CarouselItem,
-                position: Int
+                binding: ViewBinding, item: CarouselItem, position: Int
             ) {
                 val currentBinding = binding as ItemCustomFixedSizeLayout3Binding
                 currentBinding.imageView.apply {
@@ -200,21 +226,19 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         val param = HashMap<String, Any>()
         param["product_id"] = device.id ?: ""
         viewModel?.markFav(param)?.observe(viewLifecycleOwner) {
-            it.status.typeCall(
-                success = {
-                    base?.hideProgressDialog()
-                    if (it.data != null && it.data.success) {
-                        base?.toast(it.data.message)
-                    } else {
-                        base?.showAlertMessage(
-                            "",
-                            it.data?.message ?: getString(R.string.something_went_wrong)
-                        )
-                    }
-                }, error = {
-                    base?.hideProgressDialog()
-                    base?.showAlertMessage("", it.message)
-                }, loading = {})
+            it.status.typeCall(success = {
+                base?.hideProgressDialog()
+                if (it.data != null && it.data.success) {
+                    base?.toast(it.data.message)
+                } else {
+                    base?.showAlertMessage(
+                        "", it.data?.message ?: getString(R.string.something_went_wrong)
+                    )
+                }
+            }, error = {
+                base?.hideProgressDialog()
+                base?.showAlertMessage("", it.message)
+            }, loading = {})
         }
 
     }
@@ -226,7 +250,8 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                     arrayListOf(),
                     object : BottomSheetFilter.BottomSheetItemClickListener {
                         override fun onItemClick(data: FilterType) {
-                            calGetProducts(data.type.toString())
+                            strFilter = data.type.toString()
+                            calGetProducts(1, strFilter)
                             binding.txtTrending.text = data.strValue
                         }
                     }).show(base!!)
