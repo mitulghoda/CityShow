@@ -53,6 +53,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
         binding.imgProfile.loadImage(user?.full_profile_image, R.drawable.ic_user)
 
         binding.txtVersion.text = BuildConfig.VERSION_NAME
+        binding.txtSubscription.text =user?.subscription?.stripe_subscription_id
     }
 
     override fun onClick(p0: View?) {

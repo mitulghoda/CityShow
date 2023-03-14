@@ -18,7 +18,7 @@ internal class NestedGridPaginationHelper<T>(
     private var nestedScroll: NestedScrollView? = null,
     private var layoutManager: GridLayoutManager,
     private var progress: View?,
-    private val onNewPageCallBack: (pageNumber: Int) -> Unit
+    private val onNewPageCallBack: (pageNumber: Int) -> Unit,
 ) {
 
     private val arrayList = ArrayList<T?>()
@@ -76,9 +76,11 @@ internal class NestedGridPaginationHelper<T>(
     }
 
     fun resetValues() {
+        arrayList.clear()
         isLoadingData = false
         canIncreasePageSize = true
         PAGE_INDEX = START_PAGE_INDEX
+        notifyRecyclerView()
     }
 
     fun setProgressLayout(visibility: Int) {
@@ -229,7 +231,7 @@ internal class NestedGridPaginationHelper<T>(
         visibility: Int,
         message: String,
         btnVisibility: Int,
-        titleVisibility: Int
+        titleVisibility: Int,
     ) {
         errorLayoutBinding?.txtErrorMsg?.visibility = visibility
         if (message.isNotEmpty()) errorLayoutBinding?.txtErrorMsg?.text = message

@@ -46,4 +46,5 @@ data class User(
     var username: String?,
     @SerializedName("stripe_customer_id")
     var stripeCustomerId: String?,
+    var subscription: UserSubscription?,
 )

@@ -69,16 +69,17 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     private fun setupAdapter() {
         val layoutManager = GridLayoutManager(requireContext(), 2)
         binding.laySearch.recyclerView.layoutManager = layoutManager
-        productListAdapter = ProductAdapterWithPagination(requireContext(), productList) { product, type ->
-            when (type) {
-                0 -> {
-                    markFavProduct(product)
-                }
-                1 -> {
-                    navigation?.openProductDetails(product)
+        productListAdapter =
+            ProductAdapterWithPagination(requireContext(), productList) { product, type ->
+                when (type) {
+                    0 -> {
+                        markFavProduct(product)
+                    }
+                    1 -> {
+                        navigation?.openProductDetails(product)
+                    }
                 }
             }
-        }
 
         binding.laySearch.recyclerView.adapter = productListAdapter
         paginationHelper = NestedGridPaginationHelper(
@@ -155,6 +156,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         param["longitude"] = base?.longitude.toString()
         viewModel?.listOfProduct(param)?.observe(viewLifecycleOwner) {
             it.status.typeCall(success = {
+                base?.hideProgressDialog()
                 val data = it.data
                 if (data != null && data.data.products.isNotEmpty()) {
                     binding.laySearch.recyclerView.show()
@@ -166,6 +168,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                     )
                 } else paginationHelper?.setFailureResponse(it.message)
             }, error = {
+                base?.hideProgressDialog()
                 paginationHelper?.setFailureResponse(it.message)
             }, loading = {
                 paginationHelper?.handleErrorView(View.GONE, "", View.GONE, View.GONE)
@@ -185,7 +188,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     private fun autoScrollRecyclerView(data: List<Discount>) {
         binding.carousel4.carouselListener = object : CarouselListener {
             override fun onCreateViewHolder(
-                layoutInflater: LayoutInflater, parent: ViewGroup
+                layoutInflater: LayoutInflater, parent: ViewGroup,
             ): ViewBinding {
                 return ItemCustomFixedSizeLayout3Binding.inflate(
                     layoutInflater, parent, false
@@ -193,7 +196,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             }
 
             override fun onBindViewHolder(
-                binding: ViewBinding, item: CarouselItem, position: Int
+                binding: ViewBinding, item: CarouselItem, position: Int,
             ) {
                 val currentBinding = binding as ItemCustomFixedSizeLayout3Binding
                 currentBinding.imageView.apply {
@@ -249,6 +252,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                         override fun onItemClick(data: FilterType) {
                             strFilter = data.type.toString()
                             paginationHelper?.resetValues()
+                            base?.showProgressDialog()
                             calGetProducts(1, strFilter)
                             binding.txtTrending.text = data.strValue
                         }
