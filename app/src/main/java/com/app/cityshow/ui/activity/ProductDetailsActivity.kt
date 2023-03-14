@@ -77,6 +77,15 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
                 StfalconImageViewer.Builder(this, images) { view, image ->
                 }.withStartPosition(0).show()
             }
+            mBinding.ivShop -> {
+                if (productdata?.product_shop.isNullOrEmpty()) return
+                val images = ArrayList<String>()
+                productdata?.product_shop?.forEach { myItemImages ->
+                    images.add(myItemImages.banner_image)
+                }
+                StfalconImageViewer.Builder(this, images) { _, _ ->
+                }.withStartPosition(0).show()
+            }
         }
     }
 
@@ -115,6 +124,7 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
                         getFragments(it.data.data)
                         mBinding.productData = it.data.data
                         mBinding.moreDetail.productData = it.data.data
+                        mBinding.ivShop.loadImage(it.data.data.getShopImage())
                     } else {
                         showAlertMessage(it.message)
                     }

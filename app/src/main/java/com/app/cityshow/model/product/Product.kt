@@ -44,6 +44,13 @@ class Product() : java.io.Serializable {
             ""
         }
     }
+    fun getShopImage(): String {
+        return if (!product_shop.isNullOrEmpty()) {
+            product_shop[0].banner_image
+        } else {
+            ""
+        }
+    }
 
     fun isFavourite(): Boolean {
         return is_fav.equals("1", true)

@@ -13,11 +13,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityAddShopBinding
-import com.app.cityshow.model.CountryModel
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.ui.adapter.ImageAdapter
 import com.app.cityshow.ui.bottomsheet.BottomSheetCountry
-import com.app.cityshow.ui.bottomsheet.BottomSheetShops
 import com.app.cityshow.ui.common.ActionBarActivity
 import com.app.cityshow.utility.*
 import com.app.cityshow.viewmodel.ProductViewModel
@@ -25,10 +23,6 @@ import com.bumptech.glide.Glide
 import com.filepickersample.listener.FilePickerCallback
 import com.filepickersample.model.Media
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.widget.Autocomplete
-import com.google.android.libraries.places.widget.AutocompleteActivity
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.stfalcon.imageviewer.StfalconImageViewer
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -36,10 +30,6 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
-import kotlin.collections.forEach
-import kotlin.collections.isNullOrEmpty
 import kotlin.collections.set
 
 class AddShopActivity : ActionBarActivity(), View.OnClickListener {
@@ -155,6 +145,11 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
             mBinding.inShopName.requestFocus()
             isValid = false
         }
+        if (Validator.isEmptyFieldValidate(mBinding.edtNumber.getTrimText())) {
+            Validator.setError(mBinding.edtNumber, getString(R.string.enter_phone_number))
+            mBinding.edtNumber.requestFocus()
+            isValid = false
+        }
         if (mBinding.edtAddress.text.isNullOrEmpty()) {
             Validator.setError(mBinding.layAddress, getString(R.string.enter_shop_address))
             mBinding.layAddress.requestFocus()
@@ -181,6 +176,7 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
         param["address"] = mBinding.edtAddress.text.toString().requestBody()
         param["city"] = strCities!!.requestBody()
         param["latitude"] = lattitude.toString().requestBody()
+        param["phone_number"] = mBinding.edtNumber.toString().requestBody()
         param["longitude"] = longitude.toString().requestBody()
         param["notes"] = mBinding.edtNotes.getTrimText().requestBody()
         var multipartBody: MultipartBody.Part? = null
