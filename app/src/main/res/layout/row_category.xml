@@ -22,56 +22,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="@dimen/_90sdp"
-            android:layout_height="@dimen/_60sdp">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_60sdp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/mobile_shop"
                 tools:ignore="MissingConstraints" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/ic_gradient"
-                android:orientation="vertical"
-                android:padding="@dimen/_20sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
 
-                <com.app.cityshow.views.TextView
-                    style="@style/TextViewShadow"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:gravity="start"
-                    android:maxLines="1"
-                    android:text="@{data.name}"
-                    android:textColor="@color/white"
-                    android:visibility="gone"
-                    app:autoSizeMaxTextSize="@dimen/_20sdp"
-                    app:autoSizeMinTextSize="@dimen/_10sdp"
-                    app:autoSizeTextType="uniform"
-                    tools:text="Jwellory Category" />
+            <com.app.cityshow.views.TextView
+                style="@style/TextViewStyle.Medium"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_5sdp"
+                android:text="@{data.name}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                app:autoSizeMaxTextSize="@dimen/_14sdp"
+                app:autoSizeMinTextSize="@dimen/_6sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="Jwellory Category" />
 
-                <com.app.cityshow.views.TextView
-                    style="@style/TextViewShadow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="@{data.totalProductCount}"
-                    android:textColor="@color/white"
-                    android:visibility="gone"
-                    app:autoSizeMaxTextSize="@dimen/_20sdp"
-                    app:autoSizeMinTextSize="@dimen/_10sdp"
-                    app:autoSizeTextType="uniform"
-                    tools:text="150+ shops" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.app.cityshow.views.TextView
+                style="@style/TextViewStyle.regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_2sdp"
+                android:singleLine="true"
+                android:text="@{data.totalProductCount}"
+                android:textColor="@color/black_alpha_95"
+                android:textSize="@dimen/_10sdp"
+                tools:text="150+ shops" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.cardview.widget.CardView>
 </layout>

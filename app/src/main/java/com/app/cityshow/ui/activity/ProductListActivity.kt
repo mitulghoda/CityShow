@@ -11,7 +11,7 @@ import com.app.cityshow.model.product.Product
 import com.app.cityshow.pagination.GridPaginationHelper
 import com.app.cityshow.pagination.GridPaginationHelper.Companion.PAGE_SIZE
 import com.app.cityshow.pagination.PaginationHelper
-import com.app.cityshow.ui.adapter.SearchFriendAdapter
+import com.app.cityshow.ui.adapter.ProductAdapterWithPagination
 import com.app.cityshow.ui.common.ActionBarActivity
 import com.app.cityshow.utility.show
 import com.app.cityshow.utility.typeCall
@@ -19,7 +19,7 @@ import com.app.cityshow.viewmodel.ProductViewModel
 
 class ProductListActivity : ActionBarActivity() {
     private lateinit var category: Category
-    lateinit var productListAdapter: SearchFriendAdapter
+    lateinit var productListAdapter: ProductAdapterWithPagination
     private lateinit var binding: ActivityProductListBinding
     private lateinit var viewModel: ProductViewModel
     private var searchText: String? = null
@@ -39,7 +39,7 @@ class ProductListActivity : ActionBarActivity() {
         val layoutManager = GridLayoutManager(this, 2)
         binding.laySearch.recyclerView.layoutManager = layoutManager
 
-        productListAdapter = SearchFriendAdapter(this, productList) { product, type ->
+        productListAdapter = ProductAdapterWithPagination(this, productList) { product, type ->
             openProductDetails(product)
         }
         binding.laySearch.recyclerView.adapter = productListAdapter

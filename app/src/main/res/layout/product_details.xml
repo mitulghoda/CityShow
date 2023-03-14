@@ -64,14 +64,17 @@
                         android:textSize="@dimen/_20sdp"
                         tools:text="Galaxy Mobile" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/ivMap"
-                        android:onClick="@{(v)->clickListener.onClick(v)}"
+                        style="@style/TextViewStyle.Medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_map"
+                        android:onClick="@{(v)->clickListener.onClick(v)}"
                         android:padding="@dimen/_5sdp"
-                        android:src="@drawable/ic_map"
-                        app:tint="@color/colorPrimary" />
+                        android:text="@string/map"
+                        android:textSize="@dimen/_14sdp"
+                        app:drawableTint="@color/colorPrimary" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -162,8 +165,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:isGone="@{productData.size.isEmpty() || productData.size == null}"
-                            android:layout_marginVertical="@dimen/_10sdp">
+                            android:layout_marginVertical="@dimen/_10sdp"
+                            android:isGone="@{productData.size.isEmpty() || productData.size == null}">
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 style="@style/TextViewStyleBold"
@@ -214,7 +217,6 @@
                             style="@style/TextViewStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:maxLines="3"
                             android:text="@{productData.description}"
                             android:textColor="@color/colorHintGray"
                             android:textSize="@dimen/_12ssp"
@@ -253,7 +255,7 @@
                             android:orientation="horizontal">
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                style="@style/TextViewStyle"
+                                style="@style/TextViewStyle.regular"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"

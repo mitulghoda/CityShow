@@ -78,7 +78,7 @@
     <string name="enter_key_feature">Enter key feature</string>
     <string name="something_went_wrong">Something went wrong,please try after some time</string>
     <string name="enter_your_email_and_you_will_get_new_password_in_your_registred_email_address">Enter your email and you will get new password in your registred email address</string>
-    <string name="tag_line">Aiye khud ko show kare</string>
+    <string name="tag_line">Aaiye khud ko show kare</string>
     <string name="enter_shop_name">Enter shop name</string>
     <string name="enter_shop_address">Enter shop address</string>
     <string name="notes">Notes</string>
@@ -152,4 +152,5 @@
     <string name="jwellry">Jwellry</string>
     <string name="footwear">Footwear</string>
     <string name="by_upgrading_the_subscription_you_will_get_more_features_and_functions">By upgrading the subscription you will get more features and functions</string>
+    <string name="map">Map</string>
 </resources>

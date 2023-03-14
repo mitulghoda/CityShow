@@ -179,7 +179,8 @@ internal class NestedGridPaginationHelper<T>(
 
         if (arrayList.size > 0 && arrayList[arrayList.size - 1] == null) {
             arrayList.removeAt(arrayList.size - 1)
-            recyclerView.adapter?.notifyItemRemoved(arrayList.size)
+//            recyclerView.adapter?.notifyItemRemoved(arrayList.size)
+            notifyRecyclerView()
         }
     }
 

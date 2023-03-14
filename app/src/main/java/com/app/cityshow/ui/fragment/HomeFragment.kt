@@ -20,7 +20,7 @@ import com.app.cityshow.pagination.GridPaginationHelper
 import com.app.cityshow.pagination.NestedGridPaginationHelper
 import com.app.cityshow.pagination.PaginationHelper
 import com.app.cityshow.ui.adapter.CategoryListAdapter
-import com.app.cityshow.ui.adapter.SearchFriendAdapter
+import com.app.cityshow.ui.adapter.ProductAdapterWithPagination
 import com.app.cityshow.ui.bottomsheet.BottomSheetFilter
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.utility.Log
@@ -35,7 +35,7 @@ import org.imaginativeworld.whynotimagecarousel.utils.setImage
 class HomeFragment : BaseFragment(), View.OnClickListener {
     private var paginationHelper: NestedGridPaginationHelper<Product>? = null
     lateinit var categoryListAdapter: CategoryListAdapter
-    lateinit var productListAdapter: SearchFriendAdapter
+    lateinit var productListAdapter: ProductAdapterWithPagination
     private lateinit var binding: HomeFragmentBinding
     private var viewModel: ProductViewModel? = null
     val mArrayList = ArrayList<CategoryModel>()
@@ -69,7 +69,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     private fun setupAdapter() {
         val layoutManager = GridLayoutManager(requireContext(), 2)
         binding.laySearch.recyclerView.layoutManager = layoutManager
-        productListAdapter = SearchFriendAdapter(requireContext(), productList) { product, type ->
+        productListAdapter = ProductAdapterWithPagination(requireContext(), productList) { product, type ->
             when (type) {
                 0 -> {
                     markFavProduct(product)
@@ -180,7 +180,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             navigation?.openProductListActivity(it)
         }
         binding.rvCategories.adapter = categoryListAdapter
-
     }
 
     private fun autoScrollRecyclerView(data: List<Discount>) {
@@ -251,6 +250,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                     object : BottomSheetFilter.BottomSheetItemClickListener {
                         override fun onItemClick(data: FilterType) {
                             strFilter = data.type.toString()
+                            paginationHelper?.resetValues()
                             calGetProducts(1, strFilter)
                             binding.txtTrending.text = data.strValue
                         }

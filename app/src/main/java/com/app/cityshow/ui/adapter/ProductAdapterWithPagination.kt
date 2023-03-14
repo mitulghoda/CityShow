@@ -2,7 +2,6 @@ package com.app.cityshow.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -14,11 +13,11 @@ import com.app.cityshow.utility.hide
 import com.app.cityshow.utility.loadImage
 import com.app.cityshow.utility.show
 
-class SearchFriendAdapter(
+class ProductAdapterWithPagination(
     var context: Context,
     var mArrayList: ArrayList<Product>?,
     var onClickItem: (product: Product, type: Int) -> Unit,
-) : PagedAdapter<SearchFriendAdapter.Companion.ViewHolder, Product>(context) {
+) : PagedAdapter<ProductAdapterWithPagination.Companion.ViewHolder, Product>(context) {
 
     override fun getItemViewHolder(parent: ViewGroup): ViewHolder {
         return ViewHolder(
@@ -51,7 +50,7 @@ class SearchFriendAdapter(
     companion object {
         class ViewHolder(
             val binding: RowProductBinding,
-            val adapter: SearchFriendAdapter,
+            val adapter: ProductAdapterWithPagination,
         ) : RecyclerView.ViewHolder(binding.root) {
             fun bind(data: Product, position: Int) {
                 binding.data = data

@@ -229,10 +229,10 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
             mBinding.edtCouponCode.requestFocus()
             isValid = false
         }
-        if (strDiscountType.isNullOrEmpty()) {
+       /* if (strDiscountType.isNullOrEmpty()) {
             toast("Select discount type")
             isValid = false
-        }
+        }*/
         if (strstartDate.isNullOrEmpty() && strEndDate.isNullOrEmpty()) {
             toast("Select start and end date of discount")
             isValid = false
@@ -263,7 +263,7 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
         val param = HashMap<String, RequestBody>()
         param["coupon_name"] = mBinding.edtDiscountName.getTrimText().requestBody()
         param["coupon_code"] = mBinding.edtCouponCode.getTrimText().requestBody()
-        param["is_price"] = strDiscountType.requestBody()
+        param["is_price"] = "Yes".requestBody()
         param["discount"] = mBinding.edtDiscount.getTrimText().requestBody()
         param["shop_id"] = (strShopId ?: "").requestBody()
         param["product_id"] = (strProductId ?: "").requestBody()

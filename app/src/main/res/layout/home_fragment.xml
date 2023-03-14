@@ -66,22 +66,22 @@
                     <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                         android:id="@+id/carousel4"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_80sdp"
+                        android:layout_height="@dimen/_100sdp"
                         android:layout_marginVertical="@dimen/_10sdp"
                         android:translationZ="8dp"
                         app:autoPlay="true"
-                        app:autoPlayDelay="4000"
+                        app:autoPlayDelay="2500"
                         app:carouselGravity="CENTER"
                         app:carouselPaddingBottom="@dimen/_8sdp"
                         app:carouselPaddingTop="@dimen/_8sdp"
                         app:carouselType="SHOWCASE"
                         app:imageScaleType="centerCrop"
                         app:scaleOnScroll="true"
-                        app:scalingFactor=".25"
+                        app:scalingFactor="0.25"
                         app:showBottomShadow="false"
                         app:showCaption="false"
-                        app:showIndicator="true"
-                        app:showNavigationButtons="true"
+                        app:showIndicator="false"
+                        app:showNavigationButtons="false"
                         app:showTopShadow="false" />
 
                     <androidx.recyclerview.widget.RecyclerView

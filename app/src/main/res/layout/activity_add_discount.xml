@@ -103,6 +103,7 @@
                     style="@style/TextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:text="@string/discount_type" />
 
@@ -110,10 +111,12 @@
                     style="@style/TextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:text="@string/discount_desc"
                     android:textColor="@color/dark_red" />
 
                 <RadioGroup
+                    android:visibility="gone"
                     android:id="@+id/rbgType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
