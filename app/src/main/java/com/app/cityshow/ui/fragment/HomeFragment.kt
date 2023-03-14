@@ -21,6 +21,7 @@ import com.app.cityshow.ui.adapter.ProductListAdapter
 import com.app.cityshow.ui.bottomsheet.BottomSheetFilter
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.utility.Utils
+import com.app.cityshow.utility.hide
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.jama.carouselview.enums.IndicatorAnimationType
@@ -68,6 +69,8 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                     if (it.data != null && it.data.success) {
                         discountsAdapter.setData(it.data.data.discounts)
                         autoScrollRecyclerView(binding.rvDiscounts)
+                    } else {
+                        binding.layoutDiscount.hide()
                     }
                 },
                 error = {

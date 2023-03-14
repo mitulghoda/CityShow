@@ -56,10 +56,17 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
             mBinding.ivMap -> {
                 justTry {
                     val shop = productdata?.product_shop?.get(0)
-                    navigateMap(
-                        shop?.latitude?.toDouble() ?: lattitude,
-                        shop?.longitude?.toDoubleOrNull() ?: longitude
-                    )
+                    if (shop?.latitude.isNullOrEmpty() || shop?.longitude.isNullOrEmpty()) {
+                        navigateMap(
+                            lattitude,
+                            longitude
+                        )
+                    } else {
+                        navigateMap(
+                            shop?.latitude?.toDouble() ?: lattitude,
+                            shop?.longitude?.toDoubleOrNull() ?: longitude
+                        )
+                    }
                 }
             }
             mBinding.viewPager -> {

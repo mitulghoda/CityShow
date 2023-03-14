@@ -7,35 +7,35 @@ import com.app.cityshow.utility.fromJsonList
 import com.app.cityshow.utility.justTry
 
 class Product() : java.io.Serializable {
-    val brand_name: String = ""
-    val cat_id: String = ""
-    val color: String = ""
-    val connectivity: String = ""
-    val created_at: String = ""
-    val description: String = ""
-    val device_os: String = ""
-    val gender: String = ""
+    val brand_name: String? = null
+    val cat_id: String? = null
+    val color: String? = null
+    val connectivity: String? = null
+    val created_at: String? = null
+    val description: String? = null
+    val device_os: String? = null
+    val gender: String? = null
     val id: String? = null
     var is_fav: String? = ""
     var discount: Discount? = null
-    val is_gold: String = ""
-    val key_featurees: String = ""
-    val material: String = ""
-    val model_name: String = ""
-    var name: String = ""
+    val is_gold: String? = null
+    val key_featurees: String? = null
+    val material: String? = null
+    val model_name: String? = null
+    var name: String? = null
     var checked: Boolean = false
-    val price: String = ""
+    val price: String? = null
     val product_image: ArrayList<MyItemImages>? = null
     val product_shop: ArrayList<Shop>? = null
-    val ram: String = ""
-    val selling_price: String = ""
-    val shopkeeper_id: String = ""
-    val size: String = ""
-    val storage: String = ""
-    val subcat_id: String = ""
-    val updated_at: String = ""
-    val wight: String = ""
-    val warranty: String = ""
+    val ram: String? = null
+    val selling_price: String? = null
+    val shopkeeper_id: String? = null
+    val size: String? = null
+    val storage: String? = null
+    val subcat_id: String? = null
+    val updated_at: String? = null
+    val wight: String? = null
+    val warranty: String? = null
     val shop: Shop? = null
 
     fun getProductImage(): String {

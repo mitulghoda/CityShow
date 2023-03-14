@@ -15,8 +15,8 @@ class Shop : java.io.Serializable {
     val full_video: String = ""
     val id: String = ""
     val is_verified_admin: String = ""
-    val latitude: String = ""
-    val longitude: String = ""
+    val latitude: String = "0.0"
+    val longitude: String = "0.0"
     val notes: String = ""
     val shop_images: List<MyItemImages> = ArrayList()
     val products: ArrayList<Product> = ArrayList()

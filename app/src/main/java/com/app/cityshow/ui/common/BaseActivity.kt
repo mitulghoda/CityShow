@@ -155,7 +155,6 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
                 longitude = (mLastLocation)!!.longitude
 
             } else {
-                toast("Enable to find your current location.")
                 Log.w(
                     "LAST_LOCATION--",
                     "getLastLocation:exception${task.exception?.localizedMessage}"
