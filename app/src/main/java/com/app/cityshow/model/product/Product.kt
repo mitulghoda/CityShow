@@ -4,7 +4,6 @@ import com.app.cityshow.model.MyItemImages
 import com.app.cityshow.model.disocunt.Discount
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.utility.fromJsonList
-import com.app.cityshow.utility.justTry
 
 class Product() : java.io.Serializable {
     val brand_name: String? = null
@@ -65,9 +64,9 @@ class Product() : java.io.Serializable {
     fun getDiscountTitle(): String {
         if (discount != null) {
             return if (discount!!.is_price.equals("yes", true)) {
-                "Flat${discount!!.discount}off"
+                "(Flat${discount!!.discount}off)"
             } else {
-                "Flat${discount!!.discount}%off"
+                "(Flat${discount!!.discount}%off)"
             }
         }
         return ""

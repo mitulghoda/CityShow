@@ -200,11 +200,9 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                     scaleType = ImageView.ScaleType.CENTER_CROP
                     setImage(item, R.drawable.ic_app_logo)
                 }
-            }
-
-            override fun onClick(position: Int, carouselItem: CarouselItem) {
-                super.onClick(position, carouselItem)
-                navigation?.openDiscountProductListActivity(data[position])
+                currentBinding.root.setOnClickListener {
+                    navigation?.openDiscountProductListActivity(data[position])
+                }
             }
         }
 
