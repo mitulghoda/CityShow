@@ -109,5 +109,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.stripe:stripe-android:20.7.0'
-    implementation 'com.github.jama5262:CarouselView:1.2.2'
+//Auto slider
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'me.relex:circleindicator:2.1.6'
+    implementation 'org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:2.1.0'
 }

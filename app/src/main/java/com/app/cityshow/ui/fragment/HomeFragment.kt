@@ -4,32 +4,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
+import androidx.viewbinding.ViewBinding
 import com.app.cityshow.Controller
 import com.app.cityshow.FilterType
 import com.app.cityshow.R
 import com.app.cityshow.databinding.HomeFragmentBinding
+import com.app.cityshow.databinding.ItemCustomFixedSizeLayout3Binding
 import com.app.cityshow.model.category.CategoryModel
+import com.app.cityshow.model.disocunt.Discount
 import com.app.cityshow.model.product.Product
 import com.app.cityshow.ui.adapter.CategoryListAdapter
-import com.app.cityshow.ui.adapter.DiscountListAdapter
 import com.app.cityshow.ui.adapter.ProductListAdapter
 import com.app.cityshow.ui.bottomsheet.BottomSheetFilter
 import com.app.cityshow.ui.common.BaseFragment
-import com.app.cityshow.utility.Utils
 import com.app.cityshow.utility.hide
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
-import com.jama.carouselview.enums.IndicatorAnimationType
-import com.jama.carouselview.enums.OffsetType
+import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
+import org.imaginativeworld.whynotimagecarousel.utils.setImage
 
 class HomeFragment : BaseFragment(), View.OnClickListener {
     lateinit var categoryListAdapter: CategoryListAdapter
-    lateinit var discountsAdapter: DiscountListAdapter
     lateinit var productListAdapter: ProductListAdapter
     private lateinit var binding: HomeFragmentBinding
     private var viewModel: ProductViewModel? = null
@@ -67,8 +65,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             it.status.typeCall(
                 success = {
                     if (it.data != null && it.data.success) {
-                        discountsAdapter.setData(it.data.data.discounts)
-                        autoScrollRecyclerView(binding.rvDiscounts)
+                        autoScrollRecyclerView(it.data.data.discounts)
                     } else {
                         binding.layoutDiscount.hide()
                     }
@@ -138,36 +135,10 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun setAdapter() {
-        val images = arrayListOf(
-            R.drawable.ic_logo,
-            R.drawable.ic_app_logo, R.drawable.ic_logo,
-            R.drawable.ic_app_logo, R.drawable.ic_logo,
-            R.drawable.ic_app_logo, R.drawable.ic_logo
-        )
-        binding.carouselView.apply {
-            size = images.size
-            resource = R.layout.row_category
-            autoPlay = true
-            indicatorAnimationType = IndicatorAnimationType.THIN_WORM
-            carouselOffset = OffsetType.CENTER
-            setCarouselViewListener { view, position ->
-                // Example here is setting up a full image carousel
-            }
-            // After you finish setting up, show the CarouselView
-            show()
-        }
-
         categoryListAdapter = CategoryListAdapter(arrayListOf()) {
             navigation?.openProductListActivity(it)
         }
         binding.rvCategories.adapter = categoryListAdapter
-
-        discountsAdapter = DiscountListAdapter(arrayListOf()) {
-            navigation?.openDiscountProductListActivity(it)
-        }
-        binding.rvDiscounts.adapter = discountsAdapter
-        val snapHelper: SnapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(binding.rvDiscounts)
         productListAdapter = ProductListAdapter(productList) { product, type ->
             when (type) {
                 0 -> {
@@ -181,20 +152,48 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         binding.rvProducts.adapter = productListAdapter
     }
 
-    private fun autoScrollRecyclerView(recyclerView: RecyclerView) {
-        Utils.executeDelay({
-            if (getCurrentItem(recyclerView) >= (recyclerView.adapter?.itemCount?.minus(1) ?: 0)) {
-                recyclerView.smoothScrollToPosition(0)
-            } else {
-                recyclerView.smoothScrollToPosition(getCurrentItem(recyclerView) + 1)
+    private fun autoScrollRecyclerView(data: List<Discount>) {
+        binding.carousel4.carouselListener = object : CarouselListener {
+            override fun onCreateViewHolder(
+                layoutInflater: LayoutInflater,
+                parent: ViewGroup
+            ): ViewBinding {
+                return ItemCustomFixedSizeLayout3Binding.inflate(
+                    layoutInflater,
+                    parent,
+                    false
+                )
             }
-            autoScrollRecyclerView(recyclerView)
-        }, 500)
+
+            override fun onBindViewHolder(
+                binding: ViewBinding,
+                item: CarouselItem,
+                position: Int
+            ) {
+                val currentBinding = binding as ItemCustomFixedSizeLayout3Binding
+                currentBinding.imageView.apply {
+                    scaleType = ImageView.ScaleType.CENTER_CROP
+                    setImage(item, R.drawable.ic_app_logo)
+                }
+            }
+
+            override fun onClick(position: Int, carouselItem: CarouselItem) {
+                super.onClick(position, carouselItem)
+                navigation?.openDiscountProductListActivity(data[position])
+            }
+        }
+
+        val listFour = mutableListOf<CarouselItem>()
+        data.forEach { discount ->
+            listFour.add(
+                CarouselItem(
+                    imageUrl = discount.image
+                )
+            )
+        }
+        binding.carousel4.setData(listFour)
     }
 
-    private fun getCurrentItem(recyclerView: RecyclerView): Int {
-        return (recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
-    }
 
     private fun markFavProduct(device: Product) {
         base?.showProgressDialog()
