@@ -4,10 +4,13 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.app.cityshow.databinding.LayoutToolbarBinding
+import com.app.cityshow.utility.Log
+import com.app.cityshow.utility.show
+import com.ferfalk.simplesearchview.SimpleSearchView
 import com.google.android.gms.maps.model.LatLng
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+
 
 abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
     lateinit var actionView: LayoutToolbarBinding
@@ -23,6 +26,21 @@ abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
     }
 
     private fun clickListeners() {
+        actionView.searchView.setOnQueryTextListener(object : SimpleSearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String): Boolean {
+                onSearchTextChanged(newText)
+                return false
+            }
+
+            override fun onQueryTextCleared(): Boolean {
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+        })
     }
 
     private fun homeUpEnable(enable: Boolean) {
@@ -46,10 +64,12 @@ abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
         title: String?,
         isHomeUpEnabled: Boolean = true,
         isFilterVisible: Boolean = false,
+        imgOption: Boolean = false,
     ) {
         actionView.txtToolbarTitle.text = title
         homeUpEnable(isHomeUpEnabled)
         actionView.ivFilter.visibility = View.VISIBLE.takeIf { isFilterVisible } ?: View.GONE
+        actionView.imgOption.visibility = View.VISIBLE.takeIf { imgOption } ?: View.GONE
     }
 
     protected fun setUpToolbar(resId: Int, isHomeUpEnabled: Boolean? = true) {
@@ -60,7 +80,7 @@ abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
         actionView.txtToolbarTitle.text = string
     }
 
-    fun setSubTitleText(value: String?) {
+    private fun setSubTitleText(value: String?) {
         actionView.txtSubTitle.text = value
         actionView.txtSubTitle.visibility =
             View.GONE.takeIf { value == null || value.isEmpty() } ?: View.VISIBLE
@@ -82,19 +102,21 @@ abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view) {
             actionView.imgBack -> onBackPressed()
-            actionView.imgOption -> onOptionMenuClick()
+            actionView.imgOption -> {
+                actionView.searchView.show()
+            }
             actionView.ivFilter -> onFilterClick()
         }
     }
 
     override fun onBackPressed() {
         hideKeyBoard()
+        actionView.searchView.closeSearch(true)
         super.onBackPressed()
     }
 
     // click methods
-    open fun onBluetooothMenuClick() {}
-    open fun onOptionMenuClick() {}
+    open fun onSearchTextChanged(newText: String) {}
     open fun onActionMenuDoneClick() {}
     open fun onFilterClick() {}
     open fun onProfileClick() {}

@@ -4,28 +4,23 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.cityshow.Controller
-import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityProductListBinding
 import com.app.cityshow.model.category.Category
 import com.app.cityshow.model.product.Product
 import com.app.cityshow.pagination.PaginationHelper
-import com.app.cityshow.ui.adapter.ProductListAdapter
 import com.app.cityshow.ui.adapter.SearchFriendAdapter
 import com.app.cityshow.ui.common.ActionBarActivity
-import com.app.cityshow.utility.hide
 import com.app.cityshow.utility.show
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
-import java.util.ArrayList
 
 class ProductListActivity : ActionBarActivity() {
     private lateinit var category: Category
     lateinit var productListAdapter: SearchFriendAdapter
     private lateinit var binding: ActivityProductListBinding
     private lateinit var viewModel: ProductViewModel
-
+    private var searchText: String? = null
     private var paginationHelper: PaginationHelper<Product>? = null
     val productList = ArrayList<Product>()
     override fun initUi() {
@@ -35,9 +30,9 @@ class ProductListActivity : ActionBarActivity() {
         )[ProductViewModel::class.java]
         if (intent.hasExtra("CATEGORY_ID")) {
             category = intent.getSerializableExtra("CATEGORY_ID") as Category
-            setUpToolbar(category.name, true)
+            setUpToolbar(category.name, true, imgOption = true)
         }
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = GridLayoutManager(this, 2)
         binding.laySearch.recyclerView.layoutManager = layoutManager
         productListAdapter = SearchFriendAdapter(this, productList) { product, type ->
             openProductDetails(product)
@@ -55,7 +50,7 @@ class ProductListActivity : ActionBarActivity() {
     }
 
     private fun onNewPageCall(pageNumber: Int) {
-        calGetProducts(pageNumber, category.id)
+        calGetProducts(searchText, pageNumber, category.id)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,9 +60,10 @@ class ProductListActivity : ActionBarActivity() {
     }
 
 
-    private fun calGetProducts(pageNumber: Int, strId: String) {
+    private fun calGetProducts(searchText: String? = null, pageNumber: Int, strId: String) {
         val param = HashMap<String, Any>()
         param["category_id"] = strId
+        searchText.let { param["searchText"] = searchText.toString() }
         param["latitude"] = lattitude.toString()
         param["longitude"] = longitude.toString()
         param["pagination"] = "false"
@@ -96,15 +92,8 @@ class ProductListActivity : ActionBarActivity() {
 
     }
 
-
-    private fun updateView(isShowError: Boolean) {
-        if (isShowError) {
-            binding.laySearch.layError.root.show()
-            binding.laySearch.layError.txtErrorMsg.text =
-                getString(R.string.no_product_found_category)
-        } else {
-            binding.laySearch.layError.root.hide()
-        }
-
+    override fun onSearchTextChanged(newText: String) {
+        super.onSearchTextChanged(newText)
+        calGetProducts(newText, pageNumber = 1, category.id)
     }
 }
