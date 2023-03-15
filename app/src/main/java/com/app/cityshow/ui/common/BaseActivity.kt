@@ -38,6 +38,10 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
 import com.kaopiz.kprogresshud.KProgressHUD
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.AppSettingsDialog
@@ -193,7 +197,18 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         }
         return ""
     }
-
+    fun <T> debounce(
+        waitMs: Long = 300L, coroutineScope: CoroutineScope, callback: (T) -> Unit
+    ): (T) -> Unit {
+        var debounceJob: Job? = null
+        return { param: T ->
+            debounceJob?.cancel()
+            debounceJob = coroutineScope.launch {
+                delay(waitMs)
+                callback(param)
+            }
+        }
+    }
     open fun showAlertMessage(
         title: String? = "",
         strMessage: String = "",

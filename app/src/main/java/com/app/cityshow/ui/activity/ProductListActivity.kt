@@ -3,6 +3,7 @@ package com.app.cityshow.ui.activity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.app.cityshow.Controller
 import com.app.cityshow.databinding.ActivityProductListBinding
@@ -18,6 +19,7 @@ import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
 
 class ProductListActivity : ActionBarActivity() {
+    private lateinit var strSearchText: String
     private lateinit var category: Category
     lateinit var productListAdapter: ProductAdapterWithPagination
     private lateinit var binding: ActivityProductListBinding
@@ -78,7 +80,9 @@ class ProductListActivity : ActionBarActivity() {
     private fun calGetProducts(searchText: String? = null, pageNumber: Int, strId: String) {
         val param = HashMap<String, Any>()
         param["category_id"] = strId
-        searchText.let { param["searchText"] = searchText.toString() }
+        if (searchText != null) {
+            param["searchText"] = searchText.toString()
+        }
         param["latitude"] = lattitude.toString()
         param["longitude"] = longitude.toString()
         param["pagination"] = "true"
@@ -109,6 +113,12 @@ class ProductListActivity : ActionBarActivity() {
 
     override fun onSearchTextChanged(newText: String) {
         super.onSearchTextChanged(newText)
-        calGetProducts(newText, pageNumber = 1, category.id)
+        strSearchText = newText
+        handleClickEventsDebounced(Unit)
+    }
+
+    val handleClickEventsDebounced = debounce<Unit>(500, lifecycleScope) {
+        paginationHelper?.resetValues()
+        calGetProducts(strSearchText, pageNumber = 1, category.id)
     }
 }

@@ -65,9 +65,11 @@ internal class GridPaginationHelper<T>(
     }
 
     fun resetValues() {
+        arrayList.clear()
         isLoadingData = false
         canIncreasePageSize = true
         PAGE_INDEX = START_PAGE_INDEX
+        notifyRecyclerView()
     }
 
     fun setProgressLayout(visibility: Int) {
