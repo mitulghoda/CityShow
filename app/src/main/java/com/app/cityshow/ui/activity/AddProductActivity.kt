@@ -36,7 +36,8 @@ import java.io.File
 
 
 class AddProductActivity : ActionBarActivity(), View.OnClickListener {
-    private var strGender: String = "Male"
+    private var strGender: String = ""
+    private var strGuranty: String = ""
     private var strGold: String = ""
     private var strShopId: String? = null
     private var strCategoryId: String? = null
@@ -85,6 +86,16 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 }
                 mBinding.rbChild.id -> {
                     strGender = mBinding.rbChild.text.toString()
+                }
+            }
+        }
+        mBinding.rbGuaranty.setOnCheckedChangeListener { radioGroup, i ->
+            when (radioGroup.id) {
+                mBinding.rbGuarantyYes.id -> {
+                    strGuranty = "Yes"
+                }
+                mBinding.rbGuarantyNo.id -> {
+                    strGuranty = "No"
                 }
             }
         }
@@ -174,7 +185,9 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                         override fun onItemClick(data: Category) {
                             mBinding.edtCategory.setText(data.name)
                             strCategoryId = data.id
-                            setCategoryAdditionalData(data.name.replace("  ", " ").lowercase().trim())
+                            setCategoryAdditionalData(
+                                data.name.replace("  ", " ").lowercase().trim()
+                            )
                         }
                     }).show(this)
             }
@@ -397,6 +410,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         param["key_feature[]"] = Gson().toJson(editTextAdapter.arrayList).requestBody()
         param["description"] = mBinding.edtDesc.getTrimText().requestBody()
         param["warranty"] = mBinding.cbWarranty.isChecked.toString().requestBody()
+        param["guaranty"] = strGuranty.requestBody()
         if (deletedImagesId.isNotEmpty()) {
             Log.e("DELETED_IMAGES_ID", TextUtils.join(",", deletedImagesId))
             param["deletedImagesId"] = TextUtils.join(",", deletedImagesId).toString().requestBody()

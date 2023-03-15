@@ -607,12 +607,14 @@
 
                         <com.app.cityshow.views.TextView
                             style="@style/TextViewStyleBold"
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_3sdp"
                             android:text="@string/emi" />
 
                         <RadioGroup
+                            android:visibility="gone"
                             android:id="@+id/rbEmi"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

@@ -79,11 +79,10 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
             }
             mBinding.ivShop -> {
                 if (productdata?.product_shop.isNullOrEmpty()) return
-                val images = ArrayList<String>()
-                productdata?.product_shop?.forEach { myItemImages ->
-                    images.add(myItemImages.banner_image)
-                }
-                StfalconImageViewer.Builder(this, images) { _, _ ->
+                StfalconImageViewer.Builder(
+                    this,
+                    arrayListOf(productdata?.getShopImage())
+                ) { _, _ ->
                 }.withStartPosition(0).show()
             }
         }
