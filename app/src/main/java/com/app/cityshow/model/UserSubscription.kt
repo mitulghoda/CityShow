@@ -4,6 +4,7 @@ data class UserSubscription(
     val amount: Int,
     val cancel_reason: Any,
     val created_at: String,
+    val name: String,
     val from_date: String,
     val id: Int,
     val is_cancelled: Int,
@@ -16,4 +17,8 @@ data class UserSubscription(
     val to_date: String,
     val updated_at: String,
     val user_id: Int
-)
+){
+    fun getPlanName():String{
+        return "$name Plan"
+    }
+}

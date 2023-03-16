@@ -1,6 +1,7 @@
 package com.app.cityshow.model.product
 
 import com.app.cityshow.model.MyItemImages
+import com.app.cityshow.model.User
 import com.app.cityshow.model.disocunt.Discount
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.utility.fromJsonList
@@ -26,6 +27,7 @@ class Product() : java.io.Serializable {
     val price: String? = null
     val product_image: ArrayList<MyItemImages>? = null
     val product_shop: ArrayList<Shop>? = null
+    val shopkeeper: User? = null
     val ram: String? = null
     val selling_price: String? = null
     val shopkeeper_id: String? = null
@@ -44,6 +46,7 @@ class Product() : java.io.Serializable {
             ""
         }
     }
+
     fun getShopImage(): String {
         return if (!product_shop.isNullOrEmpty()) {
             product_shop[0].banner_image
@@ -66,6 +69,14 @@ class Product() : java.io.Serializable {
         } else {
             product_shop[0].address + ",\n" + product_shop[0].city
         }
+    }
+
+    fun getShopPhoneNumber(): String {
+        return shopkeeper?.phoneNumber ?: ""
+    }
+
+    fun shoePhoneNumber(): Boolean {
+        return shopkeeper?.phoneNumber.isNullOrEmpty()
     }
 
     fun getDiscountTitle(): String {

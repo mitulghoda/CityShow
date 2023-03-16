@@ -207,6 +207,7 @@ class PaymentSessionHandler internal constructor(private var activity: ActionBar
         paymentMethodId1 = paymentMethod.id
         val params = HashMap<String, Any>()
         params["plan_id"] = plan?.id ?: ""
+        params["plan_name"] = plan?.name ?: ""
         params["price_id"] = plan?.default_price ?: ""
         params["card_id"] = paymentMethodId1 ?: ""
         StripeCall.getInstance()

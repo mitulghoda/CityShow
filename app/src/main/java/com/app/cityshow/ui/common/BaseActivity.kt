@@ -93,16 +93,18 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         startActivity(navigationIntent)
     }
 
-     fun requestPermission() {
+    fun requestPermission() {
         val perms = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arrayOf(
                 android.Manifest.permission.POST_NOTIFICATIONS,
+                android.Manifest.permission.CALL_PHONE,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION,
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
             )
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             arrayOf(
                 android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                android.Manifest.permission.CALL_PHONE,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION,
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
             )
@@ -111,6 +113,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 android.Manifest.permission.READ_EXTERNAL_STORAGE,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.CALL_PHONE,
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
             )
         }
@@ -131,19 +134,20 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         arrayOf(
             android.Manifest.permission.ACCESS_COARSE_LOCATION,
             android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.CALL_PHONE,
         )
 
-     fun requestLocationPermission() {
-         if (!EasyPermissions.hasPermissions(this, *locationPerms)) {
-             // Ask for one permission
-             EasyPermissions.requestPermissions(
-                 this,
-                 getString(R.string.location_rationale_permission),
-                 LOCATION,
-                 *locationPerms
-             )
-         } else {
-             getLastLocation()
+    fun requestLocationPermission() {
+        if (!EasyPermissions.hasPermissions(this, *locationPerms)) {
+            // Ask for one permission
+            EasyPermissions.requestPermissions(
+                this,
+                getString(R.string.location_rationale_permission),
+                LOCATION,
+                *locationPerms
+            )
+        } else {
+            getLastLocation()
         }
     }
 
@@ -197,8 +201,9 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         }
         return ""
     }
+
     fun <T> debounce(
-        waitMs: Long = 300L, coroutineScope: CoroutineScope, callback: (T) -> Unit
+        waitMs: Long = 300L, coroutineScope: CoroutineScope, callback: (T) -> Unit,
     ): (T) -> Unit {
         var debounceJob: Job? = null
         return { param: T ->
@@ -209,6 +214,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
             }
         }
     }
+
     open fun showAlertMessage(
         title: String? = "",
         strMessage: String = "",

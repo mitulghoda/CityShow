@@ -7,6 +7,7 @@ class Shop : java.io.Serializable {
     var checked: Boolean = false
     val address: String = ""
     val city: String = ""
+    val phone_number: String = ""
     val banner: String = ""
     val banner_image: String = ""
     val category_id: String = ""

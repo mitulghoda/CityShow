@@ -1,5 +1,7 @@
 package com.app.cityshow.ui.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.loadImage
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.UserViewModel
+
 
 class ProfileFragment : BaseFragment(), View.OnClickListener {
     private lateinit var binding: ProfileBinding
@@ -53,7 +56,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
         binding.imgProfile.loadImage(user?.full_profile_image, R.drawable.ic_user)
 
         binding.txtVersion.text = BuildConfig.VERSION_NAME
-        binding.txtSubscription.text =user?.subscription?.stripe_subscription_id
+        binding.txtSubscription.text = user?.subscription?.getPlanName() ?: "No plan purchased"
     }
 
     override fun onClick(p0: View?) {
@@ -62,6 +65,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
             binding.layShops -> {
                 navigation?.openShopsActivity()
             }
+
             binding.layProducts -> {
                 navigation?.openMyProductListActivity()
             }

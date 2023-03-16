@@ -1,5 +1,7 @@
 package com.app.cityshow.ui.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -13,10 +15,7 @@ import com.app.cityshow.ui.bottomsheet.BottomSheetMoreDetails
 import com.app.cityshow.ui.common.ActionBarActivity
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.ui.fragment.ProductDetailsFragment
-import com.app.cityshow.utility.DepthPageTransformer
-import com.app.cityshow.utility.justTry
-import com.app.cityshow.utility.loadImage
-import com.app.cityshow.utility.typeCall
+import com.app.cityshow.utility.*
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.stfalcon.imageviewer.StfalconImageViewer
 
@@ -50,6 +49,13 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         super.onClick(v)
         when (v) {
+            mBinding.tvCall -> {
+                justTry {
+                    val intent = Intent(Intent.ACTION_CALL)
+                    intent.data = Uri.parse("tel:" + "${productdata?.shopkeeper?.phoneNumber}")
+                    startActivity(intent)
+                }
+            }
             mBinding.tvMore -> {
                 BottomSheetMoreDetails.newInstance(mBinding.productData).show(this)
             }
@@ -77,20 +83,19 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
                 StfalconImageViewer.Builder(this, images) { view, image ->
                 }.withStartPosition(0).show()
             }
-            mBinding.ivShop -> {
-                if (productdata?.product_shop.isNullOrEmpty()) return
-                StfalconImageViewer.Builder(
-                    this,
-                    arrayListOf(productdata?.getShopImage())
-                ) { _, _ ->
-                }.show()
-            }
+            /* mBinding.ivShop -> {
+                 if (productdata?.product_shop.isNullOrEmpty()) return
+                 StfalconImageViewer.Builder(
+                     this,
+                     arrayListOf(productdata?.getShopImage())
+                 ) { _, _ ->
+                 }.show()
+             }*/
         }
     }
 
     private fun setupViewPagerFragment() {
         if (pageStateAdapter != null) return
-
         mBinding.viewPager.setPageTransformer(DepthPageTransformer())
         mBinding.viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
 
@@ -104,6 +109,7 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
                 success = {
                     hideProgressDialog()
                     if (it.data != null && it.data.success) {
+                        mBinding.layMain.show()
                         productdata = it.data.data
                         getFragments(it.data.data)
                         mBinding.productData = it.data.data
