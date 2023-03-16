@@ -40,7 +40,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     private var viewModel: ProductViewModel? = null
     val mArrayList = ArrayList<CategoryModel>()
     val productList = ArrayList<Product>()
-    private var strFilter = ""
+    private var strFilter = "4"
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

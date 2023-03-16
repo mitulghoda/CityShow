@@ -83,7 +83,7 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
                     this,
                     arrayListOf(productdata?.getShopImage())
                 ) { _, _ ->
-                }.withStartPosition(0).show()
+                }.show()
             }
         }
     }
