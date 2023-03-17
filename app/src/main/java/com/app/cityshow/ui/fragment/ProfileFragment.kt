@@ -1,7 +1,5 @@
 package com.app.cityshow.ui.fragment
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -69,8 +67,12 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
             binding.layProducts -> {
                 navigation?.openMyProductListActivity()
             }
-            binding.layDiscount -> {
-                navigation?.openDiscountActivity()
+
+            binding.txtPrivacyPolicy -> {
+                navigation?.openPrivacyPolicyActivity("https://cityshow.in/cityshow/public/privacy-policy")
+            }
+            binding.txtTerms -> {
+                navigation?.openPrivacyPolicyActivity("https://cityshow.in/cityshow/public/about-us")
             }
             binding.layPlan -> {
                 navigation?.openPlanListActivity()

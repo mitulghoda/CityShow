@@ -1,6 +1,7 @@
 package com.app.cityshow.ui.common
 
 import android.content.Intent
+import android.net.Uri
 import androidx.activity.result.ActivityResult
 import com.app.cityshow.BuildConfig
 import com.app.cityshow.model.category.Category
@@ -57,10 +58,13 @@ abstract class NavigationActivity : BaseActivity() {
         intent.putExtra("DISCOUNT_ID", strId)
         startActivity(intent)
     }
-    fun openPrivacyPolicyActivity() {
-        val intent = Intent(this, PrivacyPolicyActivity::class.java)
-        startActivity(intent)
+
+    fun openPrivacyPolicyActivity(strUrl: String) {
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(strUrl)
+        startActivity(i)
     }
+
     fun openMyProductListActivity() {
         val intent = Intent(this, MyProductListActivity::class.java)
         startActivity(intent)

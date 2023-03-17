@@ -362,7 +362,7 @@
                 android:maxLines="1"
                 android:onClick="@{(v)->clickListener.onClick(v)}"
                 android:padding="@dimen/_12sdp"
-                android:text="@string/terms_conditions"
+                android:text="@string/about_us"
                 android:textSize="@dimen/_12ssp"
                 app:drawableEndCompat="@drawable/ic_chevron_right" />
 
