@@ -155,4 +155,5 @@
     <string name="map">Map</string>
     <string name="enter_phone_number">Please enter your phone number</string>
     <string name="about_us">About Us</string>
+    <string name="active_plan">Active plan</string>
 </resources>
