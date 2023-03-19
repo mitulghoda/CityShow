@@ -47,4 +47,8 @@ data class User(
     @SerializedName("stripe_customer_id")
     var stripeCustomerId: String?,
     var subscription: UserSubscription?,
-)
+){
+    fun getMaxPhotoValidation(){
+        subscription?.name
+    }
+}

@@ -156,4 +156,5 @@
     <string name="enter_phone_number">Please enter your phone number</string>
     <string name="about_us">About Us</string>
     <string name="active_plan">Active plan</string>
+    <string name="no_active_plan">You dont have any active plan, please purchase plan and become a shop keeper in CityShow</string>
 </resources>

@@ -4,11 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cityshow.databinding.RowSubCategoryBinding
-import com.app.cityshow.model.category.Category
 import com.app.cityshow.model.category.SubCategory
 
 class BottomSheetSubCategoryAdapter(
-    private var mArrayList: ArrayList<Category>,
+    private var mArrayList: ArrayList<SubCategory>,
     private val onItemClickCallback: (data: SubCategory) -> Unit,
 ) :
     RecyclerView.Adapter<BottomSheetSubCategoryAdapter.Companion.DataViewHolder?>() {
@@ -32,12 +31,11 @@ class BottomSheetSubCategoryAdapter(
             var binding: RowSubCategoryBinding,
             var adapter: BottomSheetSubCategoryAdapter,
         ) : RecyclerView.ViewHolder(binding.root) {
-            fun bind(data: Category) {
+            fun bind(data: SubCategory) {
                 binding.txtEpc.text = data.name
-                binding.recyclerView.adapter =
-                    BottomSheetSubCategoryChildAdapter(data.sub_category) {
-                        adapter.onItemClickCallback.invoke(it)
-                    }
+                binding.root.setOnClickListener {
+                    adapter.onItemClickCallback.invoke(data)
+                }
             }
         }
     }

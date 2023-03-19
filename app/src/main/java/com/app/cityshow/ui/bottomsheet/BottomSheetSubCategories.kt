@@ -18,7 +18,7 @@ class BottomSheetSubCategories : BaseHeaderBottomSheet() {
     private lateinit var binding: BottomSheetRecyclerviewBinding
     private var clickListener: BottomSheetItemClickListener? = null
     private var adapter: BottomSheetSubCategoryAdapter? = null
-    private var mArrayList = ArrayList<Category>()
+    private var mArrayList = ArrayList<SubCategory>()
     private var title = ""
 
     override fun onCreateView(
@@ -57,7 +57,7 @@ class BottomSheetSubCategories : BaseHeaderBottomSheet() {
     companion object {
         fun newInstance(
             title: String,
-            mArrayList: ArrayList<Category>,
+            mArrayList: ArrayList<SubCategory>,
             itemClickListenerListener: BottomSheetItemClickListener,
         ): BottomSheetSubCategories {
             val fragment = BottomSheetSubCategories()

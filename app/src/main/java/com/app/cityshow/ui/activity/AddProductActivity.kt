@@ -49,6 +49,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     var assetImageAdapter = ImageAdapter()
     var editTextAdapter = EditTextAdapter()
     private var mArrayList: ArrayList<Category>? = null
+    private var mSubCategoryArrayList = ArrayList<SubCategory>()
     private var shopList: ArrayList<Shop>? = null
     private lateinit var viewModel: ProductViewModel
 
@@ -185,6 +186,10 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                         override fun onItemClick(data: Category) {
                             mBinding.edtCategory.setText(data.name)
                             strCategoryId = data.id
+                            mBinding.edtSubCategory.setText("")
+                            strSubCategory = ""
+                            mSubCategoryArrayList.clear()
+                            mSubCategoryArrayList.addAll(data.sub_category)
                             setCategoryAdditionalData(
                                 data.name.replace("  ", " ").lowercase().trim()
                             )
@@ -193,11 +198,10 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
             }
             mBinding.edtSubCategory -> {
                 BottomSheetSubCategories.newInstance(getString(R.string.select_sub_category),
-                    mArrayList!!,
+                    mSubCategoryArrayList,
                     object : BottomSheetSubCategories.BottomSheetItemClickListener {
                         override fun onItemClick(data: SubCategory) {
                             mBinding.edtSubCategory.setText(data.name)
-                            strCategoryId = data.category_id
                             strSubCategory = data.id
                         }
                     }).show(this)
@@ -257,8 +261,8 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
             getString(R.string.footwear).lowercase() -> {
                 mBinding.layGender.show()
                 val sizeList = ArrayList<FootwearSizeModel>()
-                val min = data.get(0).required_details.get(2).min
-                val max = data.get(0).required_details.get(2).max
+                val min = data[0].required_details[2].min
+                val max = data[0].required_details[2].max
                 for (i in min..max) {
                     sizeList.add(FootwearSizeModel("$i"))
                 }
@@ -430,7 +434,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
             mAssetImages.forEachIndexed { i, media ->
                 if (!media.url.startsWith("http", true)) {
                     val file = File(media.mediaFile.toString())
-                    var multipartBody: MultipartBody.Part? = null
+                    var multipartBody: MultipartBody.Part?
                     multipartBody = MultipartBody.Part.createFormData(
                         "images[$i]", file.name, file.asRequestBody("image/*".toMediaType())
                     )

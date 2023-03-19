@@ -3,6 +3,7 @@ package com.app.cityshow.ui.activity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityShopsBinding
@@ -52,6 +53,7 @@ class DiscountActivity : ActionBarActivity(), View.OnClickListener {
             }
         }
         binding.laySearch.recyclerView.adapter = discountsAdapter
+        binding.laySearch.recyclerView.layoutManager = GridLayoutManager(this, 2)
     }
 
     private fun deleteDiscount(discount: Discount) {

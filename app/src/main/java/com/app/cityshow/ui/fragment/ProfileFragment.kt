@@ -12,6 +12,7 @@ import com.app.cityshow.databinding.ProfileBinding
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.loadImage
+import com.app.cityshow.utility.showToast
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.UserViewModel
 
@@ -61,11 +62,22 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
 
         when (p0) {
             binding.layShops -> {
-                navigation?.openShopsActivity()
+                if (checkActiveSubscription()) {
+                    navigation?.openShopsActivity()
+                }
+
+            }
+            binding.layDiscount -> {
+                if (checkActiveSubscription()) {
+                    navigation?.openDiscountActivity()
+                }
+
             }
 
             binding.layProducts -> {
-                navigation?.openMyProductListActivity()
+                if (checkActiveSubscription()) {
+                    navigation?.openMyProductListActivity()
+                }
             }
 
             binding.txtPrivacyPolicy -> {
@@ -99,6 +111,14 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    private fun checkActiveSubscription(): Boolean {
+        if (LocalDataHelper.user?.subscription == null) {
+            base?.showToast(getString(R.string.no_active_plan))
+            return false
+        }
+        return true
     }
 
     private fun logout() {
