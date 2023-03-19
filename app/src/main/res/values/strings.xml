@@ -157,4 +157,5 @@
     <string name="about_us">About Us</string>
     <string name="active_plan">Active plan</string>
     <string name="no_active_plan">You dont have any active plan, please purchase plan and become a shop keeper in CityShow</string>
+    <string name="cant_add_more_then">Cant add more then %s images</string>
 </resources>

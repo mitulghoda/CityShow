@@ -149,6 +149,7 @@ class ProductViewModel : ViewModel() {
         try {
             responseParser(ProductRepository.getSubscriptionsPlans(), this)
         } catch (e: Exception) {
+            Log.e("Exception", e.message ?: "")
             emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }

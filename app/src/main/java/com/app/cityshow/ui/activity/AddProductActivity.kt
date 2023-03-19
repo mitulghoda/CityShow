@@ -212,6 +212,20 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 }
             }
             mBinding.cardAddImage -> {
+                justTry {
+                    LocalDataHelper.user?.subscription?.getMaxPhotoValidation().let {
+                        if (LocalDataHelper.user?.subscription != null && LocalDataHelper.user?.subscription?.getMaxPhotoValidation()!! <= mAssetImages.size) {
+                            showToast(
+                                getString(
+                                    R.string.cant_add_more_then,
+                                    LocalDataHelper.user?.subscription?.getMaxPhotoValidation()
+                                        .toString()
+                                )
+                            )
+                            return
+                        }
+                    }
+                }
                 openImageFilePicker(object : FilePickerCallback {
                     override fun onSuccess(media: Media?) {
                         if (media == null) return

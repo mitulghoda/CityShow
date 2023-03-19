@@ -1,9 +1,7 @@
 package com.app.cityshow.model
 
-import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
-@Keep
 data class User(
     @SerializedName("address")
     var address: String?,
@@ -46,9 +44,7 @@ data class User(
     var username: String?,
     @SerializedName("stripe_customer_id")
     var stripeCustomerId: String?,
-    var subscription: UserSubscription?,
-){
-    fun getMaxPhotoValidation(){
-        subscription?.name
-    }
+    var subscription: UserSubscription? = null,
+) {
+
 }

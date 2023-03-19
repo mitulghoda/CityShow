@@ -46,7 +46,6 @@ class PlanListActivity : ActionBarActivity(), View.OnClickListener {
         planListAdapter =
             PlanListAdapter(arrayListOf()) { plan: Plan, type: Int ->
                 selectPayment(plan)
-
             }
         binding.laySearch.recyclerView.adapter = planListAdapter
 

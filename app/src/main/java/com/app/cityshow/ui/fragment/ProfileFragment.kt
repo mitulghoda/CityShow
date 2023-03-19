@@ -41,7 +41,6 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
             this,
             ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[UserViewModel::class.java]
-        setUserData()
     }
 
     /**
@@ -55,7 +54,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
         binding.imgProfile.loadImage(user?.full_profile_image, R.drawable.ic_user)
 
         binding.txtVersion.text = BuildConfig.VERSION_NAME
-        binding.txtSubscription.text = user?.subscription?.getPlanName() ?: "No plan purchased"
+        binding.txtSubscription.text = user?.subscription?.getPlanName()
     }
 
     override fun onClick(p0: View?) {
@@ -114,11 +113,16 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun checkActiveSubscription(): Boolean {
-        if (LocalDataHelper.user?.subscription == null) {
+        if (LocalDataHelper.user?.subscription?.subscription_id == null) {
             base?.showToast(getString(R.string.no_active_plan))
             return false
         }
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setUserData()
     }
 
     private fun logout() {

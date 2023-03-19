@@ -1,10 +1,12 @@
 package com.app.cityshow.model
 
+import com.app.cityshow.model.subscription.Metadata
+
 data class UserSubscription(
     val amount: Int,
     val cancel_reason: Any,
     val created_at: String,
-    val name: String,
+    val name: String? = null,
     val from_date: String,
     val id: Int,
     val is_cancelled: Int,
@@ -16,9 +18,18 @@ data class UserSubscription(
     val subscription_id: Any,
     val to_date: String,
     val updated_at: String,
-    val user_id: Int
-){
-    fun getPlanName():String{
-        return "$name Plan"
+    val user_id: Int,
+    val metadata: Metadata? = null,
+) {
+    fun getPlanName(): String {
+        return "${name ?: "No"} Plan"
+    }
+
+    fun getMaxPhotoValidation(): Int? {
+        return metadata?.photos
+    }
+
+    fun getMaxShopValidation(): Int? {
+        return metadata?.shops
     }
 }
