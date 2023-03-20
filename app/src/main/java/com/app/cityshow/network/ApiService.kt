@@ -20,7 +20,7 @@ interface ApiService {
     @POST("login")
     suspend fun login(@Body params: HashMap<String, Any>?): Response<ObjectBaseModel<LoginUserModel>>
 
-    @POST("logout")
+    @GET("logout")
     suspend fun logout(): Response<BaseModel>
 
     @POST("register")
