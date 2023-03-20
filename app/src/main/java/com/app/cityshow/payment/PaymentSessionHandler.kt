@@ -211,6 +211,7 @@ class PaymentSessionHandler internal constructor(private var activity: ActionBar
         params["plan_name"] = plan?.name ?: ""
         params["price_id"] = plan?.default_price ?: ""
         params["card_id"] = paymentMethodId1 ?: ""
+        params["metadata"] = plan?.metadata.toJson()
         StripeCall.getInstance()
             .subscribeUser(params, object : AbstractCallback<ResponseBody>() {
                 override fun result(result: ResponseBody?) {
@@ -220,9 +221,9 @@ class PaymentSessionHandler internal constructor(private var activity: ActionBar
                         val generalModel = Gson().fromJson(response, GeneralModel::class.java)
                         Log.e("USER_SUBSCRIBE", generalModel.toJson())
                         if (generalModel.success) {
-                            val user=LocalDataHelper.user
-                            user?.subscription=generalModel.data
-                            LocalDataHelper.user=user
+                            val user = LocalDataHelper.user
+                            user?.subscription = generalModel.data
+                            LocalDataHelper.user = user
                             paymentSessionListener?.onPaymentSuccess(paymentMethodId1, true)
                             activity.toast(generalModel.message)
                         } else {

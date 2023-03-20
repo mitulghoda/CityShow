@@ -23,7 +23,7 @@ data class Plan(
     val url: Any,
 ) {
     fun getPackageDuration(): String {
-        return "${price_data.unit_amount / 100} / ${metadata.period}Months"
+        return "Rs${price_data.unit_amount / 100} / ${metadata.period}"
     }
 
     fun getPackageShops(): String {

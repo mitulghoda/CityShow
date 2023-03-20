@@ -5,4 +5,5 @@ data class Metadata(
     val products: Int? = null,
     val photos: Int? = null,
     val shops: Int? = null,
+    val video: Int? = null,
 )
