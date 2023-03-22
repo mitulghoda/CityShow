@@ -113,7 +113,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun checkActiveSubscription(): Boolean {
-        if (LocalDataHelper.user?.subscription?.subscription_id == null) {
+        if (LocalDataHelper.user?.subscription?.id == null) {
             base?.showToast(getString(R.string.no_active_plan))
             return false
         }
