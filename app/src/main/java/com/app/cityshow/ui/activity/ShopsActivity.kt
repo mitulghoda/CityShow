@@ -9,10 +9,7 @@ import com.app.cityshow.databinding.ActivityShopsBinding
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.ui.adapter.ShopsAdapter
 import com.app.cityshow.ui.common.ActionBarActivity
-import com.app.cityshow.utility.Log
-import com.app.cityshow.utility.hide
-import com.app.cityshow.utility.show
-import com.app.cityshow.utility.typeCall
+import com.app.cityshow.utility.*
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.google.gson.Gson
 
@@ -89,7 +86,11 @@ class ShopsActivity : ActionBarActivity(), View.OnClickListener {
         super.onClick(v)
         when (v) {
             binding.fab -> {
-                openAddShopActivity(null)
+                if (LocalDataHelper.user?.subscription?.metadata?.photo!! <= shopsAdapter?.itemCount!!) {
+                    showToast("Cant add more then " + LocalDataHelper.user?.subscription?.getMaxShopValidation()!! + " Products")
+                } else {
+                    openAddShopActivity(null)
+                }
             }
 
         }

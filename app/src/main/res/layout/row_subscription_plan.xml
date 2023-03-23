@@ -94,6 +94,15 @@
                     android:text="@{data.getPackageProduct()}"
                     android:textSize="@dimen/_20sdp"
                     tools:text="Maximum 100 products" />
+
+                <com.app.cityshow.views.TextView
+                    style="@style/TextViewStyle.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="@{data.getPackagePhoto()}"
+                    android:textSize="@dimen/_20sdp"
+                    tools:text="Max 100 photos" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

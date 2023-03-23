@@ -9,16 +9,12 @@ import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityProductListBinding
 import com.app.cityshow.model.product.Product
 import com.app.cityshow.ui.adapter.MyProductListAdapter
-import com.app.cityshow.ui.adapter.ProductListAdapter
 import com.app.cityshow.ui.common.ActionBarActivity
-import com.app.cityshow.utility.LocalDataHelper
-import com.app.cityshow.utility.hide
-import com.app.cityshow.utility.show
-import com.app.cityshow.utility.typeCall
+import com.app.cityshow.utility.*
 import com.app.cityshow.viewmodel.ProductViewModel
-import java.util.ArrayList
 
 class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
+    private var list = ArrayList<Product>()
     lateinit var productListAdapter: MyProductListAdapter
     private lateinit var binding: ActivityProductListBinding
     private lateinit var viewModel: ProductViewModel
@@ -102,7 +98,7 @@ class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
                 success = {
                     hideProgressDialog()
                     if (it.data != null && it.data.success) {
-                        val list = it.data.data.products
+                        list = it.data.data.products
                         setData(list)
                     } else {
                         updateView(true)
@@ -122,7 +118,11 @@ class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
         super.onClick(v)
         when (v) {
             binding.fab -> {
-                openAddProductActivity()
+                if (LocalDataHelper.user?.subscription?.metadata?.photo!! <= list.size) {
+                    showToast("Cant add more then " + LocalDataHelper.user?.subscription?.getMaxProductValidation()!! + " Products")
+                } else {
+                    openAddProductActivity()
+                }
             }
 
         }

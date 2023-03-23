@@ -184,6 +184,34 @@
                     android:visibility="gone"
                     app:drawableTint="@color/red" />
 
+                <RelativeLayout
+                    android:id="@+id/layDiscount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gray_bottom_border_rounder"
+                    android:onClick="@{(v)->clickListener.onClick(v)}"
+                    android:paddingVertical="@dimen/_10sdp">
+
+                    <com.app.cityshow.views.TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableStart="@drawable/ic_offer"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:drawableTint="@color/colorPrimary"
+                        android:fontFamily="@font/sf_bold"
+                        android:paddingHorizontal="@dimen/_5sdp"
+                        android:text="@string/discount" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spDiscountSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tvInputFullName"
                     style="@style/TextInputLayoutStyle"
@@ -607,19 +635,19 @@
 
                         <com.app.cityshow.views.TextView
                             style="@style/TextViewStyleBold"
-                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_3sdp"
-                            android:text="@string/emi" />
+                            android:text="@string/emi"
+                            android:visibility="gone" />
 
                         <RadioGroup
-                            android:visibility="gone"
                             android:id="@+id/rbEmi"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="@dimen/_5sdp">
+                            android:padding="@dimen/_5sdp"
+                            android:visibility="gone">
 
                             <androidx.appcompat.widget.AppCompatRadioButton
                                 android:id="@+id/rbEmiAvailable"

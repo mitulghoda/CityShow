@@ -27,10 +27,13 @@ data class Plan(
     }
 
     fun getPackageShops(): String {
-        return "Maximum ${metadata.shops} shops"
+        return "Max ${metadata.shops} shops"
     }
 
     fun getPackageProduct(): String {
-        return "Maximum ${metadata.products} products"
+        return "Max ${metadata.products} products"
+    }
+    fun getPackagePhoto(): String {
+        return "Max ${metadata.photo} photos"
     }
 }

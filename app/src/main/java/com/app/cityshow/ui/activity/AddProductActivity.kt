@@ -249,7 +249,6 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                         }
 
                     }
-
                     override fun onError(error: String?) {
                         toast(error)
                     }

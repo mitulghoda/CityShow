@@ -28,6 +28,9 @@ data class UserSubscription(
     fun getMaxPhotoValidation(): Int? {
         return metadata?.photo
     }
+    fun getMaxProductValidation(): Int? {
+        return metadata?.products
+    }
 
     fun getMaxShopValidation(): Int? {
         return metadata?.shops
