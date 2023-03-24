@@ -10,7 +10,6 @@
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -22,11 +21,11 @@
             style="@style/TextViewStyleBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             android:layout_gravity="start"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:gravity="center"
             android:text="@string/by_upgrading_the_subscription_you_will_get_more_features_and_functions"
+            android:textColor="@color/white"
             android:textSize="@dimen/_14sdp" />
 
         <include

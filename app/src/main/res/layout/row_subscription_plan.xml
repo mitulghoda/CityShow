@@ -18,7 +18,7 @@
         style="?attr/materialCardViewElevatedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp"
+        android:layout_margin="@dimen/_10sdp"
         app:cardCornerRadius="@dimen/_10sdp"
         app:cardElevation="@dimen/_10sdp"
         app:cardPreventCornerOverlap="true"
@@ -52,7 +52,7 @@
                     android:maxLines="1"
                     android:text="@string/active_plan"
                     android:textColor="@color/black_alpha_95"
-                    android:textSize="@dimen/_24sdp"
+                    android:textSize="@dimen/_10sdp"
                     android:visibility="gone"
                     tools:text="@string/active_plan" />
 
@@ -64,7 +64,6 @@
                     android:gravity="start"
                     android:maxLines="1"
                     android:text="@{data.name}"
-                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/_24sdp"
                     tools:text="Basic Plan" />
 
@@ -74,7 +73,6 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:text="@{data.getPackageDuration()}"
-                    android:textSize="@dimen/_20sdp"
                     tools:text="100 / 3months" />
 
                 <com.app.cityshow.views.TextView
@@ -83,7 +81,6 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:text="@{data.getPackageShops()}"
-                    android:textSize="@dimen/_20sdp"
                     tools:text="Maximum 10 shops" />
 
                 <com.app.cityshow.views.TextView
@@ -92,7 +89,6 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:text="@{data.getPackageProduct()}"
-                    android:textSize="@dimen/_20sdp"
                     tools:text="Maximum 100 products" />
 
                 <com.app.cityshow.views.TextView
@@ -101,7 +97,6 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:text="@{data.getPackagePhoto()}"
-                    android:textSize="@dimen/_20sdp"
                     tools:text="Max 100 photos" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.constraintlayout.widget.ConstraintLayout>
