@@ -174,7 +174,7 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
         val param = HashMap<String, RequestBody>()
         param["shop_name"] = mBinding.edtShopName.getTrimText().requestBody()
         param["address"] = mBinding.edtAddress.text.toString().requestBody()
-        param["city"] = strCities!!.requestBody()
+        param["city"] = (strCities ?: "").requestBody()
         param["latitude"] = lattitude.toString().requestBody()
         param["phone_number"] = mBinding.edtNumber.toString().requestBody()
         param["longitude"] = longitude.toString().requestBody()
