@@ -69,7 +69,7 @@ abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
         actionView.txtToolbarTitle.text = title
         homeUpEnable(isHomeUpEnabled)
         actionView.ivFilter.visibility = View.VISIBLE.takeIf { isFilterVisible } ?: View.GONE
-        actionView.imgOption.visibility = View.VISIBLE.takeIf { imgOption } ?: View.GONE
+        actionView.searchView.visibility = View.VISIBLE.takeIf { imgOption } ?: View.GONE
     }
 
     protected fun setUpToolbar(resId: Int, isHomeUpEnabled: Boolean? = true) {

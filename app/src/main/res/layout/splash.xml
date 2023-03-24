@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -9,11 +8,17 @@
             type="android.view.View.OnClickListener" />
     </data>
 
-    <RelativeLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/splash_bg"
-        tools:context=".ui.activity.HomeActivity">
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher_foreground" />
 
         <com.app.cityshow.views.TextView
             style="@style/TextViewStyle"
@@ -21,12 +26,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/_80sdp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/sf_bold"
-            android:paddingHorizontal="@dimen/_10sdp"
             android:text="@string/tag_line"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/_24sdp" />
+            android:textSize="@dimen/_16sdp" />
 
-    </RelativeLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

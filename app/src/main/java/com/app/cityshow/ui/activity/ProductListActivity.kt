@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.app.cityshow.Controller
+import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityProductListBinding
 import com.app.cityshow.model.category.Category
 import com.app.cityshow.model.product.Product
@@ -99,9 +100,9 @@ class ProductListActivity : ActionBarActivity() {
                         data.data.products,
                         data.message
                     )
-                } else paginationHelper?.setFailureResponse(it.message)
+                } else paginationHelper?.setFailureResponse(getString(R.string.no_product_found_category))
             }, error = {
-                paginationHelper?.setFailureResponse(it.message)
+                paginationHelper?.setFailureResponse(getString(R.string.no_product_found_category))
             }, loading = {
                 paginationHelper?.handleErrorView(View.GONE, "", View.GONE, View.GONE)
                 paginationHelper?.setProgressLayout(View.VISIBLE)

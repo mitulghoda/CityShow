@@ -118,7 +118,7 @@ class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
         super.onClick(v)
         when (v) {
             binding.fab -> {
-                if (LocalDataHelper.user?.subscription?.metadata?.photo!! <= list.size) {
+                if (LocalDataHelper.user?.subscription?.metadata?.products != null && LocalDataHelper.user?.subscription?.metadata?.products!! <= list.size) {
                     showToast("Cant add more then " + LocalDataHelper.user?.subscription?.getMaxProductValidation()!! + " Products")
                 } else {
                     openAddProductActivity()

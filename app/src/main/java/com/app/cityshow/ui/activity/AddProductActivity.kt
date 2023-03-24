@@ -78,7 +78,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         callGetCategoryApi()
         callGetMyShop()
         mBinding.rgGender.setOnCheckedChangeListener { radioGroup, i ->
-            when (radioGroup.id) {
+            when (i) {
                 mBinding.rbMale.id -> {
                     strGender = mBinding.rbMale.text.toString()
                 }
@@ -91,7 +91,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
             }
         }
         mBinding.rbGuaranty.setOnCheckedChangeListener { radioGroup, i ->
-            when (radioGroup.id) {
+            when (i) {
                 mBinding.rbGuarantyYes.id -> {
                     strGuranty = "Yes"
                 }
@@ -101,12 +101,14 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
             }
         }
         mBinding.rgGold.setOnCheckedChangeListener { radioGroup, i ->
-            when (radioGroup.id) {
-                mBinding.rbMale.id -> {
+            when (i) {
+                mBinding.rbYes.id -> {
                     strGold = mBinding.rbYes.text.toString()
+                    mBinding.layGoldData.show()
                 }
-                mBinding.rbFemale.id -> {
+                mBinding.rbNo.id -> {
                     strGold = mBinding.rbNo.text.toString()
+                    mBinding.layGoldData.hide()
                 }
             }
         }
@@ -249,6 +251,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                         }
 
                     }
+
                     override fun onError(error: String?) {
                         toast(error)
                     }

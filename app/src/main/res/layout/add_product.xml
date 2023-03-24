@@ -533,41 +533,48 @@
                                 android:text="@string/no" />
                         </RadioGroup>
 
-                        <com.app.cityshow.views.TextView
-                            style="@style/TextViewStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableTint="@color/red"
-                            android:text="@string/enter_gold_weight"
-                            android:visibility="gone"
-                            app:drawableTint="@color/red" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/TextInputLayoutStyle"
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/layGoldData"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginVertical="@dimen/_5sdp"
-                            app:hintEnabled="true"
-                            app:startIconDrawable="@drawable/ic_weight"
-                            app:startIconTint="@color/colorPrimary">
+                            android:orientation="vertical">
 
-                            <androidx.appcompat.widget.AppCompatEditText
-                                android:id="@+id/edtGoldWeight"
-                                style="@style/EditTextStyle"
+                            <com.app.cityshow.views.TextView
+                                style="@style/TextViewStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableTint="@color/red"
+                                android:text="@string/enter_gold_weight"
+                                android:visibility="gone"
+                                app:drawableTint="@color/red" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/TextInputLayoutStyle"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:hint="@string/enter_gold_weight"
-                                android:imeOptions="actionNext"
-                                android:inputType="textCapWords" />
-                        </com.google.android.material.textfield.TextInputLayout>
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="@dimen/_5sdp"
+                                app:hintEnabled="true"
+                                app:startIconDrawable="@drawable/ic_weight"
+                                app:startIconTint="@color/colorPrimary">
 
-                        <androidx.appcompat.widget.AppCompatCheckBox
-                            android:id="@+id/cbCertified"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:padding="@dimen/_5sdp"
-                            android:text="@string/_100_certified_jwellery" />
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/edtGoldWeight"
+                                    style="@style/EditTextStyle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:hint="@string/enter_gold_weight"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="textCapWords" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/cbCertified"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:padding="@dimen/_5sdp"
+                                android:text="@string/_100_certified_jwellery" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
