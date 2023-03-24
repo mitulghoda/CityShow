@@ -17,21 +17,36 @@
 
         <include layout="@layout/layout_toolbar" />
 
-        <com.app.cityshow.views.TextView
-            style="@style/TextViewStyleBold"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:gravity="center"
-            android:text="@string/by_upgrading_the_subscription_you_will_get_more_features_and_functions"
-            android:textSize="@dimen/_14sdp" />
+            android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/laySearch"
-            layout="@layout/lay_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible" />
+            <com.app.cityshow.views.TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:background="@drawable/half_bottom_rectangle" />
+
+            <com.app.cityshow.views.TextView
+                android:id="@+id/tvDesc"
+                style="@style/TextViewStyleBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:gravity="center"
+                android:text="@string/by_upgrading_the_subscription_you_will_get_more_features_and_functions"
+                android:textColor="@color/black_alpha_95"
+                android:textSize="@dimen/_14sdp" />
+
+            <include
+                android:id="@+id/laySearch"
+                layout="@layout/lay_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tvDesc"
+                android:visibility="visible" />
+
+
+        </RelativeLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
