@@ -30,12 +30,14 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.SearchView
+import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.app.cityshow.BuildConfig
 import com.app.cityshow.Controller
 import com.app.cityshow.network.ApiStatus
+import com.app.cityshow.ui.common.BaseActivity
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -232,7 +234,19 @@ fun EditText.makeScrollableInScrollView() {
         false
     })
 }
+@Suppress("unused")
+fun appSharing(context: Context, appName: String, message: String) {
+    val sharingTitle = "Download $appName App"
+    val sharingMessage =
+        ("Download $appName App From:\n" + "https://play.google.com/store/apps/details?id=" + context.packageName).plus(
+            "\n\n"
+        )
+            .plus(message)
 
+    ShareCompat.IntentBuilder(context as BaseActivity).setType("text/plain")
+        .setSubject(sharingTitle).setText(sharingMessage).setChooserTitle("Share via")
+        .startChooser()
+}
 /*
 * Show Error at TextInputLayout
 * */

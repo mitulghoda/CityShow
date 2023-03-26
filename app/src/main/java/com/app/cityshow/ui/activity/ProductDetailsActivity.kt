@@ -59,6 +59,9 @@ class ProductDetailsActivity : ActionBarActivity(), View.OnClickListener {
             mBinding.tvMore -> {
                 BottomSheetMoreDetails.newInstance(mBinding.productData).show(this)
             }
+            mBinding.ivShare -> {
+               appSharing(this,getString(R.string.app_name),"You can visit ${productdata?.shop?.shop_name}")
+            }
             mBinding.ivMap -> {
                 justTry {
                     val shop = productdata?.product_shop?.get(0)
