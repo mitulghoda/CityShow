@@ -153,11 +153,6 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
             mBinding.inShopName.requestFocus()
             isValid = false
         }
-        if (Validator.isEmptyFieldValidate(mBinding.edtNumber.getTrimText())) {
-            Validator.setError(mBinding.edtNumber, getString(R.string.enter_phone_number))
-            mBinding.edtNumber.requestFocus()
-            isValid = false
-        }
         if (mBinding.edtAddress.text.isNullOrEmpty()) {
             Validator.setError(mBinding.layAddress, getString(R.string.enter_shop_address))
             mBinding.layAddress.requestFocus()
@@ -184,7 +179,6 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
         param["address"] = mBinding.edtAddress.text.toString().requestBody()
         param["city"] = (strCities ?: "").requestBody()
         param["latitude"] = lattitude.toString().requestBody()
-        param["phone_number"] = mBinding.edtNumber.toString().requestBody()
         param["longitude"] = longitude.toString().requestBody()
         param["notes"] = mBinding.edtNotes.getTrimText().requestBody()
         param["openTime"] = mBinding.tvopenTime.text.toString().requestBody()
