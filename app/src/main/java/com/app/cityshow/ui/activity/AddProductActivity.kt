@@ -242,14 +242,15 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
 
                     override fun onSuccess(mediaList: ArrayList<Media>?) {
                         if (mediaList.isNullOrEmpty()) return
-                        if (LocalDataHelper.user?.subscription?.metadata?.photo!! <= mediaList.size) {
-                            showToast("Cant add more then " + LocalDataHelper.user?.subscription?.getMaxPhotoValidation()!! + " Photos")
-                        } else {
-                            mAssetImages.addAll(mediaList)
-                            assetImageAdapter.notifyDataSetChanged()
-                            editTextAdapter.notifyDataSetChanged()
+                        LocalDataHelper.user?.subscription?.metadata?.photo?.let {
+                            if (LocalDataHelper.user?.subscription?.metadata?.photo!! <= mediaList.size) {
+                                showToast("Cant add more then " + LocalDataHelper.user?.subscription?.getMaxPhotoValidation()!! + " Photos")
+                            } else {
+                                mAssetImages.addAll(mediaList)
+                                assetImageAdapter.notifyDataSetChanged()
+                                editTextAdapter.notifyDataSetChanged()
+                            }
                         }
-
                     }
 
                     override fun onError(error: String?) {

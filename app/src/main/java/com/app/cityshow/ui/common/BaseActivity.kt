@@ -121,31 +121,24 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         if (!EasyPermissions.hasPermissions(this, *perms)) {
             // Ask for one permission
             EasyPermissions.requestPermissions(
-                this,
-                getString(R.string.rationale_permission),
-                RC_AUDIO,
-                *perms
+                this, getString(R.string.rationale_permission), RC_AUDIO, *perms
             )
         } else {
             getLastLocation()
         }
     }
 
-    private val locationPerms =
-        arrayOf(
-            android.Manifest.permission.ACCESS_COARSE_LOCATION,
-            android.Manifest.permission.ACCESS_FINE_LOCATION,
-            android.Manifest.permission.CALL_PHONE,
-        )
+    private val locationPerms = arrayOf(
+        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+        android.Manifest.permission.ACCESS_FINE_LOCATION,
+        android.Manifest.permission.CALL_PHONE,
+    )
 
     fun requestLocationPermission() {
         if (!EasyPermissions.hasPermissions(this, *locationPerms)) {
             // Ask for one permission
             EasyPermissions.requestPermissions(
-                this,
-                getString(R.string.location_rationale_permission),
-                LOCATION,
-                *locationPerms
+                this, getString(R.string.location_rationale_permission), LOCATION, *locationPerms
             )
         } else {
             getLastLocation()
@@ -229,8 +222,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
                 alertDialog!!.dismiss()
             }
             val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AlertDialogCustom))
-                .setMessage(strMessage)
-                .setCancelable(isCancelable)
+                .setMessage(strMessage).setCancelable(isCancelable)
                 .setPositiveButton(positiveText.takeIf { positiveText.isNotBlank() }
                     ?: getString(R.string.ok)) { _, _ -> callback?.invoke(true) }
                 .setNegativeButton(negativeText.takeIf { negativeText.isNotBlank() }
@@ -275,13 +267,14 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         fragmentContainer: Int,
     ) {
         justTry {
-            if (supportFragmentManager.fragments.isNotEmpty())
-                supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            if (supportFragmentManager.fragments.isNotEmpty()) supportFragmentManager.popBackStack(
+                null,
+                FragmentManager.POP_BACK_STACK_INCLUSIVE
+            )
 
             val currentFragment = supportFragmentManager.findFragmentById(fragmentContainer)
 //        if (currentFragment?.javaClass?.simpleName == fragment.javaClass.simpleName) return
-            supportFragmentManager.beginTransaction()
-                .replace(fragmentContainer, fragment, tag)
+            supportFragmentManager.beginTransaction().replace(fragmentContainer, fragment, tag)
                 .commit()
         }
     }
@@ -299,8 +292,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
 //                    Constants.FRAGMENT_ADD_CODE
 //                )
 //            }
-            supportFragmentManager.beginTransaction()
-                .replace(fragmentContainer, fragment, tag)
+            supportFragmentManager.beginTransaction().replace(fragmentContainer, fragment, tag)
                 .addToBackStack(backstack).commit()
 
         }
@@ -330,8 +322,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
     fun openTimePicker(): String {
         var time = ""
         TimePickerDialog(
-            this,
-            { p0, hourOfDay, minute ->
+            this, { p0, hourOfDay, minute ->
                 time = when {
                     hourOfDay == 0 -> {
                         if (minute < 10) {
@@ -363,10 +354,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
                     }
                 }
 
-            },
-            12,
-            10,
-            false
+            }, 12, 10, false
         ).show()
         return time
     }
@@ -396,12 +384,9 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
 
     private fun showProgressDialog(msg: String?) {
         if (dialog == null) {
-            dialog = KProgressHUD.create(this)
-                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+            dialog = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel(getString(R.string.please_wait).takeIf { msg.isNullOrEmpty() } ?: msg)
-                .setCancellable(false)
-                .setAnimationSpeed(2)
-                .setDimAmount(0.5f)
+                .setCancellable(false).setAnimationSpeed(2).setDimAmount(0.5f)
         }
         dialog!!.show()
     }
@@ -456,8 +441,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         userFilter.addAction(ACTION_FOR_BIDDEN_RESPONSE)
         userFilter.addAction(ACTION_FOR_BLOCKED)
         userFilter.addAction(ACTION_FOR_INACTIVE_USER)
-        LocalBroadcastManager.getInstance(this)
-            .registerReceiver(unauthorizedReceiver, userFilter)
+        LocalBroadcastManager.getInstance(this).registerReceiver(unauthorizedReceiver, userFilter)
 
     }
 
@@ -515,8 +499,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
         Log.d(
-            "PERMISSION_DENIED",
-            "onPermissionsDenied:" + requestCode.toString() + ":" + perms.size
+            "PERMISSION_DENIED", "onPermissionsDenied:" + requestCode.toString() + ":" + perms.size
         )
         // (Optional) Check whether the user denied any permissions and checked "NEVER ASK AGAIN."
         // This will display a dialog directing them to enable the permission in app settings.

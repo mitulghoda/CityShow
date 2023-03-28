@@ -198,9 +198,9 @@
             <RelativeLayout
                 android:id="@+id/layPlan"
                 android:layout_width="match_parent"
-                android:onClick="@{(v)->clickListener.onClick(v)}"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
+                android:onClick="@{(v)->clickListener.onClick(v)}"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -216,6 +216,17 @@
                     android:text="@string/upgrade_account"
                     android:textSize="@dimen/_12ssp"
                     app:drawableEndCompat="@drawable/ic_chevron_right" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtExpiredDate"
+                    style="@style/TextViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_upgrade_account"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_32sdp"
+                    android:textSize="@dimen/_8ssp"
+                    tools:text="Expired on 2022-03-27" />
 
                 <com.app.cityshow.views.TextView
                     android:id="@+id/txt_subscription"

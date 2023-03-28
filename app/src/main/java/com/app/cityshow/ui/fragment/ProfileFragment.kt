@@ -12,7 +12,6 @@ import com.app.cityshow.databinding.ProfileBinding
 import com.app.cityshow.ui.common.BaseFragment
 import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.loadImage
-import com.app.cityshow.utility.showToast
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.UserViewModel
 
@@ -38,8 +37,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     private fun initUI() {
         binding.clickListener = this
         viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory(Controller.instance)
+            this, ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[UserViewModel::class.java]
     }
 
@@ -55,6 +53,9 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
 
         binding.txtVersion.text = BuildConfig.VERSION_NAME
         binding.txtSubscription.text = user?.subscription?.getPlanName()
+        LocalDataHelper.user?.subscription?.stripe_subscription_id?.let {
+            binding.txtExpiredDate.text = user?.subscription?.getExpiredDate()
+        }
     }
 
     override fun onClick(p0: View?) {
@@ -64,13 +65,11 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
                 if (checkActiveSubscription()) {
                     navigation?.openShopsActivity()
                 }
-
             }
             binding.layDiscount -> {
                 if (checkActiveSubscription()) {
                     navigation?.openDiscountActivity()
                 }
-
             }
 
             binding.layProducts -> {
@@ -91,8 +90,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
             binding.linearLayoutProfile -> {
                 navigation?.openEditProfileActivity {
                     binding.imgProfile.loadImage(
-                        LocalDataHelper.user?.full_profile_image,
-                        R.drawable.ic_user
+                        LocalDataHelper.user?.full_profile_image, R.drawable.ic_user
                     )
                 }
             }
@@ -113,11 +111,22 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun checkActiveSubscription(): Boolean {
-        if (LocalDataHelper.user?.subscription?.id == null) {
-            base?.showToast(getString(R.string.no_active_plan))
-            return false
+        return if (LocalDataHelper.user?.subscription?.stripe_subscription_id.isNullOrEmpty()) {
+            base?.showAlertMessage(
+                title = getString(R.string.app_name),
+                strMessage = getString(R.string.no_active_plan),
+                isCancelable = true,
+                positiveText = getString(R.string.purchase),
+                negativeText = getString(R.string.skip)
+            ) {
+                if (it) {
+                    navigation?.openPlanListActivity()
+                }
+            }
+            false
+        } else {
+            true
         }
-        return true
     }
 
     override fun onResume() {
@@ -128,15 +137,13 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     private fun logout() {
         base?.showProgressDialog()
         viewModel.logout().observe(this) {
-            it.status.typeCall(
-                success = {
-                    base?.hideProgressDialog()
-                    base?.logoutActions()
-                },
-                error = {
-                    base?.hideProgressDialog()
-                    base?.logoutActions()
-                }, loading = {})
+            it.status.typeCall(success = {
+                base?.hideProgressDialog()
+                base?.logoutActions()
+            }, error = {
+                base?.hideProgressDialog()
+                base?.logoutActions()
+            }, loading = {})
         }
     }
 
