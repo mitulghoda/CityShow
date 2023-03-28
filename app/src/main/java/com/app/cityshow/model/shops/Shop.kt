@@ -10,6 +10,8 @@ class Shop : java.io.Serializable {
     val phone_number: String = ""
     val banner: String = ""
     val banner_image: String = ""
+    val openTime: String = ""
+    val closedTime: String = ""
     val category_id: String = ""
     val created_at: String = ""
     val deleted_at: String = ""

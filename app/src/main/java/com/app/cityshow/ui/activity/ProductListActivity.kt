@@ -1,6 +1,5 @@
 package com.app.cityshow.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -44,7 +43,15 @@ class ProductListActivity : ActionBarActivity() {
         binding.laySearch.recyclerView.layoutManager = layoutManager
 
         productListAdapter = ProductAdapterWithPagination(this, productList) { product, type ->
-            openProductDetails(product)
+            when (type) {
+                0 -> {
+                    markFavProduct(product)
+                }
+                1 -> {
+                    openProductDetails(product)
+                }
+            }
+
         }
         binding.laySearch.recyclerView.adapter = productListAdapter
         binding.laySearch.root.show()
@@ -110,6 +117,28 @@ class ProductListActivity : ActionBarActivity() {
                 paginationHelper?.setProgressLayout(View.VISIBLE)
             })
 
+        }
+
+    }
+
+    private fun markFavProduct(device: Product) {
+        showProgressDialog()
+        val param = HashMap<String, Any>()
+        param["product_id"] = device.id ?: ""
+        viewModel.markFav(param).observe(this) {
+            it.status.typeCall(success = {
+                hideProgressDialog()
+                if (it.data != null && it.data.success) {
+                    toast(it.data.message)
+                } else {
+                    showAlertMessage(
+                        "", it.data?.message ?: getString(R.string.something_went_wrong)
+                    )
+                }
+            }, error = {
+                hideProgressDialog()
+                showAlertMessage("", it.message)
+            }, loading = { showProgressDialog() })
         }
 
     }

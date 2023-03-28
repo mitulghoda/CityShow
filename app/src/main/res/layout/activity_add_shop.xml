@@ -84,11 +84,11 @@
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@{shopData.phone_number}"
                         android:hint="@string/phone_number"
                         android:imeOptions="actionDone"
                         android:inputType="number"
-                        android:maxLength="10" />
+                        android:maxLength="10"
+                        android:text="@{shopData.phone_number}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -180,6 +180,58 @@
                     android:text="@string/enter_description"
                     android:visibility="gone"
                     app:drawableTint="@color/red" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="horizontal">
+
+                    <com.app.cityshow.views.TextView
+                        android:id="@+id/tvopenTime"
+                        style="@style/TextViewStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/bottom_round_rectangle"
+                        android:drawableStart="@drawable/ic_clock"
+                        android:gravity="center"
+                        android:hint="@string/open_time"
+                        android:onClick="@{(v)->clickListener.onClick(v)}"
+                        android:paddingHorizontal="@dimen/_5sdp"
+                        android:paddingVertical="@dimen/_8sdp"
+                        android:text="@{shopData.openTime}"
+                        android:textColorHint="@color/black"
+                        app:autoSizeMaxTextSize="@dimen/_14sdp"
+                        app:autoSizeMinTextSize="@dimen/_10sdp"
+                        app:autoSizeTextType="uniform"
+                        app:drawableTint="@color/colorAccent" />
+
+                    <com.app.cityshow.views.TextView
+                        android:id="@+id/tvCloseTime"
+                        style="@style/TextViewStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bottom_round_rectangle"
+                        android:drawableStart="@drawable/ic_clock"
+                        android:gravity="center"
+                        android:hint="@string/closed_timer"
+                        android:onClick="@{(v)->clickListener.onClick(v)}"
+                        android:paddingHorizontal="@dimen/_5sdp"
+                        android:paddingVertical="@dimen/_8sdp"
+                        android:text="@{shopData.closedTime}"
+                        android:textColorHint="@color/black"
+                        app:autoSizeMaxTextSize="@dimen/_14sdp"
+                        app:autoSizeMinTextSize="@dimen/_10sdp"
+                        app:autoSizeTextType="uniform"
+                        app:drawableTint="@color/colorAccent" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layNotes"

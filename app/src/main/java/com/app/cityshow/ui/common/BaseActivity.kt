@@ -3,6 +3,7 @@ package com.app.cityshow.ui.common
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -324,6 +325,50 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         datePickerDialog.setTitle(strTitle)
         datePickerDialog.datePicker.firstDayOfWeek = Calendar.MONDAY
         datePickerDialog.show()
+    }
+
+    fun openTimePicker(): String {
+        var time = ""
+        TimePickerDialog(
+            this,
+            { p0, hourOfDay, minute ->
+                time = when {
+                    hourOfDay == 0 -> {
+                        if (minute < 10) {
+                            "${hourOfDay + 12}:0${minute} am"
+                        } else {
+                            "${hourOfDay + 12}:${minute} am"
+                        }
+                    }
+                    hourOfDay > 12 -> {
+                        if (minute < 10) {
+                            "${hourOfDay - 12}:0${minute} pm"
+                        } else {
+                            "${hourOfDay - 12}:${minute} pm"
+                        }
+                    }
+                    hourOfDay == 12 -> {
+                        if (minute < 10) {
+                            "${hourOfDay}:0${minute} pm"
+                        } else {
+                            "${hourOfDay}:${minute} pm"
+                        }
+                    }
+                    else -> {
+                        if (minute < 10) {
+                            "${hourOfDay}:${minute} am"
+                        } else {
+                            "${hourOfDay}:${minute} am"
+                        }
+                    }
+                }
+
+            },
+            12,
+            10,
+            false
+        ).show()
+        return time
     }
 
     fun openDatePickerDialog(

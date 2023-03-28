@@ -1,6 +1,7 @@
 package com.app.cityshow.ui.activity
 
 import android.app.Activity
+import android.app.TimePickerDialog
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
@@ -32,6 +33,7 @@ import java.io.File
 import kotlin.collections.set
 
 class AddShopActivity : ActionBarActivity(), View.OnClickListener {
+    private var timePickerDialog: TimePickerDialog? = null
     private var strCities: String? = null
     private var shop: Shop? = null
     private var mProfileUri: Uri? = null
@@ -45,8 +47,7 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
         setUpToolbar("Add Shop", true)
         mBinding.clickListener = this
         viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory(Controller.instance)
+            this, ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]
         if (intent.hasExtra("SHOP")) {
             shop = intent.getSerializableExtra("SHOP") as Shop
@@ -84,6 +85,17 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
                 if (!isValid()) return
                 addEditShop()
             }
+            mBinding.tvopenTime -> {
+                mBinding.tvopenTime.setTime()
+            }
+            mBinding.tvCloseTime -> {
+                mBinding.tvCloseTime.setTime()
+            }
+            mBinding.tvCloseTime -> {
+                hideKeyBoard()
+                if (!isValid()) return
+                addEditShop()
+            }
             mBinding.edtCountry -> {
                 BottomSheetCountry.newInstance(getString(R.string.select_city),
                     RegionManager.getCountries()!!,
@@ -96,12 +108,9 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
             }
 
             mBinding.ivBanner -> {
-                ImagePicker.with(this)
-                    .compress(1024)
-                    .maxResultSize(
-                        1080,
-                        1080
-                    )  //Final image resolution will be less than 1080 x 1080(Optional)
+                ImagePicker.with(this).compress(1024).maxResultSize(
+                    1080, 1080
+                )  //Final image resolution will be less than 1080 x 1080(Optional)
                     .createIntent { intent ->
                         startForProfileImageResult.launch(intent)
                     }
@@ -178,13 +187,13 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
         param["phone_number"] = mBinding.edtNumber.toString().requestBody()
         param["longitude"] = longitude.toString().requestBody()
         param["notes"] = mBinding.edtNotes.getTrimText().requestBody()
+        param["openTime"] = mBinding.tvopenTime.text.toString().requestBody()
+        param["closedTime"] = mBinding.tvCloseTime.text.toString().requestBody()
         var multipartBody: MultipartBody.Part? = null
         if (mProfileUri != null) {
             val file = File(mProfileUri!!.path.toString())
             multipartBody = MultipartBody.Part.createFormData(
-                "banner_image",
-                file.name,
-                file.asRequestBody("image/*".toMediaType())
+                "banner_image", file.name, file.asRequestBody("image/*".toMediaType())
             )
         }
         val images = ArrayList<MultipartBody.Part?>()
@@ -192,9 +201,7 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
             if (media.url.startsWith("http").not()) {
                 val file = File(media.mediaFile.toString())
                 val tempMultipartBody = MultipartBody.Part.createFormData(
-                    "images[]",
-                    file.name,
-                    file.asRequestBody("image/*".toMediaType())
+                    "images[]", file.name, file.asRequestBody("image/*".toMediaType())
                 )
                 images.add(tempMultipartBody)
             }
@@ -204,19 +211,17 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
             param["id"] = shop!!.id.toRequestBody()
         }
         viewModel.addEditShop(param, multipartBody, images).observe(this) {
-            it.status.typeCall(
-                success = {
-                    hideProgressDialog()
-                    if (it.data != null && it.data.success) {
-                        openHomeActivity()
-                    } else {
-                        showAlertMessage(strMessage = it.data?.message ?: "")
-                    }
-                },
-                error = {
-                    hideProgressDialog()
-                    showAlertMessage(getString(R.string.something_went_wrong))
-                }, loading = {})
+            it.status.typeCall(success = {
+                hideProgressDialog()
+                if (it.data != null && it.data.success) {
+                    openHomeActivity()
+                } else {
+                    showAlertMessage(strMessage = it.data?.message ?: "")
+                }
+            }, error = {
+                hideProgressDialog()
+                showAlertMessage(getString(R.string.something_went_wrong))
+            }, loading = {})
         }
 //            } else {
 //                hideProgressDialog()

@@ -86,10 +86,13 @@ class ShopsActivity : ActionBarActivity(), View.OnClickListener {
         super.onClick(v)
         when (v) {
             binding.fab -> {
-                if (LocalDataHelper.user?.subscription?.metadata?.photo!! <= shopsAdapter?.itemCount!!) {
-                    showToast("Cant add more then " + LocalDataHelper.user?.subscription?.getMaxShopValidation()!! + " Products")
-                } else {
-                    openAddShopActivity(null)
+                openAddShopActivity(null)
+                LocalDataHelper.user?.subscription?.metadata?.photo?.let {
+                    if (LocalDataHelper.user?.subscription?.metadata?.photo!! <= shopsAdapter?.itemCount!!) {
+                        showToast("Cant add more then " + LocalDataHelper.user?.subscription?.getMaxShopValidation()!! + " Products")
+                    } else {
+                        openAddShopActivity(null)
+                    }
                 }
             }
 

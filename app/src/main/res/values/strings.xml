@@ -83,7 +83,7 @@
     <string name="enter_shop_address">Enter shop address</string>
     <string name="notes">Notes</string>
     <string name="shop_images">Shop images</string>
-    <string name="banner_image">Banner Image</string>
+    <string name="banner_image">Outdoor Image</string>
     <string name="change_password">Change Password</string>
     <string name="enter_password">Enter password</string>
     <string name="enter_confirm_password">Enter confirm password</string>
@@ -106,7 +106,7 @@
     <string name="last_name">Last name</string>
     <string name="products">Products</string>
     <string name="footwear_size">Footwear Size</string>
-    <string name="additional_details">Addition Details?</string>
+    <string name="additional_details">More Details?</string>
     <string name="add_discount">Add Discount</string>
     <string name="discount_type">Discount types, IsPrice?</string>
     <string name="offers_discounts"><![CDATA[Offers & Discounts]]></string>
@@ -173,4 +173,6 @@
     <string name="cant_add_more_then">Cant add more then %s images</string>
     <string name="view_more">View more</string>
     <string name="all_categories">All Categories</string>
+    <string name="open_time">Open time</string>
+    <string name="closed_timer">Closed time</string>
 </resources>
