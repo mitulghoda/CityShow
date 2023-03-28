@@ -186,8 +186,8 @@ class ProductViewModel : ViewModel() {
 
     fun addEditShop(
         param: HashMap<String, RequestBody>,
-        banner: MultipartBody.Part?,
-        images: ArrayList<MultipartBody.Part?>,
+        banner: MultipartBody.Part?=null,
+        images: ArrayList<MultipartBody.Part?>?=null,
     ) =
         liveData(Dispatchers.IO) {
             try {

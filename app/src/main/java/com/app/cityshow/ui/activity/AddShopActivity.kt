@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
@@ -62,8 +61,8 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
     private fun setShopData(shop: Shop?) {
         mBinding.shopData = shop
         mBinding.ivBanner.loadImage(shop?.banner_image)
-        mProfileUri = shop?.banner_image?.toUri()
-
+        mBinding.edtCountry.setText(shop?.city ?: "")
+        strCities = shop?.city ?: ""
         shop?.shop_images?.forEach {
             mAssetImages.add(Media(it.image_url, ""))
         }
@@ -190,13 +189,16 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
         }
         val images = ArrayList<MultipartBody.Part?>()
         mAssetImages.forEach { media ->
-            val file = File(media.mediaFile.toString())
-            val tempMultipartBody = MultipartBody.Part.createFormData(
-                "images[]",
-                file.name,
-                file.asRequestBody("image/*".toMediaType())
-            )
-            images.add(tempMultipartBody)
+            if (media.url.startsWith("http").not()) {
+                val file = File(media.mediaFile.toString())
+                val tempMultipartBody = MultipartBody.Part.createFormData(
+                    "images[]",
+                    file.name,
+                    file.asRequestBody("image/*".toMediaType())
+                )
+                images.add(tempMultipartBody)
+            }
+
         }
         if (shop != null) {
             param["id"] = shop!!.id.toRequestBody()

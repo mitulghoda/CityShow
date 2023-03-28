@@ -113,8 +113,8 @@ interface ApiService {
     @POST("shop-add")
     suspend fun addEditShop(
         @PartMap params: HashMap<String, RequestBody>?,
-        @Part banner: MultipartBody.Part?,
-        @Part images: ArrayList<MultipartBody.Part?>,
+        @Part banner: MultipartBody.Part?=null,
+        @Part images: ArrayList<MultipartBody.Part?>?=null,
     ): Response<ObjectBaseModel<User>>
 
     @Multipart

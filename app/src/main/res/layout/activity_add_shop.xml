@@ -84,6 +84,7 @@
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:text="@{shopData.phone_number}"
                         android:hint="@string/phone_number"
                         android:imeOptions="actionDone"
                         android:inputType="number"

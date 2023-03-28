@@ -132,6 +132,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".ui.activity.AllCategoryListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".ui.activity.ShopDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />

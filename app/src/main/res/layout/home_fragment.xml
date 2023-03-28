@@ -42,9 +42,21 @@
                     android:background="@color/white"
                     android:clipToPadding="false"
                     android:orientation="horizontal"
-                    android:paddingVertical="@dimen/_10sdp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/row_category" />
+
+                <com.app.cityshow.views.TextView
+                    android:id="@+id/txtViewMoreCategory"
+                    style="@style/TextViewStyle.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:onClick="@{(v)->clickListener.onClick(v)}"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="@string/view_more"
+                    android:textSize="@dimen/_12sdp" />
 
                 <LinearLayout
                     android:id="@+id/layoutDiscount"

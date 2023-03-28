@@ -24,6 +24,9 @@ class CategoryListAdapter(
     }
 
     override fun getItemCount(): Int {
+        if (mArrayList.size>5){
+            return 5
+        }
         return mArrayList.size
     }
 

@@ -1,5 +1,6 @@
 package com.app.cityshow.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,7 @@ import com.app.cityshow.utility.show
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
 
+
 class ProductListActivity : ActionBarActivity() {
     private lateinit var strSearchText: String
     private lateinit var category: Category
@@ -30,8 +32,7 @@ class ProductListActivity : ActionBarActivity() {
     val productList = ArrayList<Product>()
     override fun initUi() {
         viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory(Controller.instance)
+            this, ViewModelProvider.AndroidViewModelFactory(Controller.instance)
         )[ProductViewModel::class.java]
         if (intent.hasExtra("CATEGORY_ID")) {
             category = intent.getSerializableExtra("CATEGORY_ID") as Category
@@ -47,8 +48,7 @@ class ProductListActivity : ActionBarActivity() {
         }
         binding.laySearch.recyclerView.adapter = productListAdapter
         binding.laySearch.root.show()
-        paginationHelper = GridPaginationHelper(
-            this,
+        paginationHelper = GridPaginationHelper(this,
             binding.laySearch.layError,
             binding.laySearch.recyclerView,
             layoutManager,
@@ -57,8 +57,7 @@ class ProductListActivity : ActionBarActivity() {
                 override fun onNewPage(pageNumber: Int) {
                     onNewPageCall(pageNumber)
                 }
-            }
-        )
+            })
         paginationHelper?.resetValues()
         onNewPageCall(PaginationHelper.START_PAGE_INDEX)
     }
@@ -91,19 +90,22 @@ class ProductListActivity : ActionBarActivity() {
         param["page"] = pageNumber
         viewModel.listOfProduct(param).observe(this) {
             it.status.typeCall(success = {
+                hideProgressDialog()
                 val data = it.data
                 if (data != null && data.data.products.isNotEmpty()) {
                     binding.laySearch.recyclerView.show()
                     productList.addAll(data.data.products)
                     paginationHelper?.setSuccessResponse(
-                        data.success,
-                        data.data.products,
-                        data.message
+                        data.success, data.data.products, data.message
                     )
                 } else paginationHelper?.setFailureResponse(getString(R.string.no_product_found_category))
             }, error = {
+                hideProgressDialog()
                 paginationHelper?.setFailureResponse(getString(R.string.no_product_found_category))
             }, loading = {
+                if (pageNumber == 1) {
+                    showProgressDialog()
+                }
                 paginationHelper?.handleErrorView(View.GONE, "", View.GONE, View.GONE)
                 paginationHelper?.setProgressLayout(View.VISIBLE)
             })
@@ -122,4 +124,5 @@ class ProductListActivity : ActionBarActivity() {
         paginationHelper?.resetValues()
         calGetProducts(strSearchText, pageNumber = 1, category.id)
     }
+
 }

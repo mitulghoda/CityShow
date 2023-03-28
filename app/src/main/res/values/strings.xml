@@ -171,4 +171,6 @@
     <string name="active_plan">Active plan</string>
     <string name="no_active_plan">You dont have any active plan, please purchase plan and become a shop keeper in CityShow</string>
     <string name="cant_add_more_then">Cant add more then %s images</string>
+    <string name="view_more">View more</string>
+    <string name="all_categories">All Categories</string>
 </resources>

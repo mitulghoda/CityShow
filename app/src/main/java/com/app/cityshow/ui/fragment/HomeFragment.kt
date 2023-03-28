@@ -258,6 +258,9 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                         }
                     }).show(base!!)
             }
+            binding.txtViewMoreCategory -> {
+               navigation?.openAllCategoryListActivity()
+            }
         }
     }
 }

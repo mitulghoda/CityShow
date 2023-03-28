@@ -1,10 +1,10 @@
 package com.app.cityshow.ui.common
 
+import android.content.Intent
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.app.cityshow.databinding.LayoutToolbarBinding
-import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.show
 import com.ferfalk.simplesearchview.SimpleSearchView
 import com.google.android.gms.maps.model.LatLng
@@ -120,4 +120,10 @@ abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
     open fun onActionMenuDoneClick() {}
     open fun onFilterClick() {}
     open fun onProfileClick() {}
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (actionView.searchView.onActivityResult(requestCode, resultCode, data!!)) {
+            return
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 }

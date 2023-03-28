@@ -47,6 +47,11 @@ abstract class NavigationActivity : BaseActivity() {
         startActivity(intent)
     }
 
+    fun openAllCategoryListActivity() {
+        val intent = Intent(this, AllCategoryListActivity::class.java)
+        startActivity(intent)
+    }
+
     fun openProductListActivity(strId: Category?) {
         val intent = Intent(this, ProductListActivity::class.java)
         intent.putExtra("CATEGORY_ID", strId)

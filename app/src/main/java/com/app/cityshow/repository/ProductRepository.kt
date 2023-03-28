@@ -41,7 +41,7 @@ object ProductRepository {
     suspend fun addEditShop(
         param: HashMap<String, RequestBody>,
         banner: MultipartBody.Part?,
-        images: ArrayList<MultipartBody.Part?>,
+        images: ArrayList<MultipartBody.Part?>?=null,
     ) =
         apiService.addEditShop(param, banner, images)
 
