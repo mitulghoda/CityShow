@@ -71,6 +71,7 @@ class UserViewModel : ViewModel() {
             }
         }
 
+
     fun getProfile() =
         liveData(Dispatchers.IO) {
             emit(Resource.loading(null))

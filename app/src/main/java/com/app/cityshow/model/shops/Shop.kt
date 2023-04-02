@@ -10,8 +10,8 @@ class Shop : java.io.Serializable {
     val phone_number: String = ""
     val banner: String = ""
     val banner_image: String = ""
-    val openTime: String = ""
-    val closedTime: String = ""
+    val open_time: String = ""
+    val closed_time: String = ""
     val category_id: String = ""
     val created_at: String = ""
     val deleted_at: String = ""
@@ -30,6 +30,10 @@ class Shop : java.io.Serializable {
     val video: String = ""
     fun getTotalProduct(): String {
         return "${products.size} products "
+    }
+
+    fun getShopTime(): String {
+        return "Open at $open_time Close at $closed_time"
     }
 
     fun getShopAddress(): String {

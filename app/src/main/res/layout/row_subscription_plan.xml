@@ -68,35 +68,46 @@
                     tools:text="Basic Plan" />
 
                 <com.app.cityshow.views.TextView
-                    style="@style/TextViewStyle.Medium"
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_arrow"
+                    android:drawablePadding="@dimen/_5sdp"
                     android:singleLine="true"
                     android:text="@{data.getPackageDuration()}"
+                    app:drawableTint="@color/black_alpha_95"
                     tools:text="100 / 3months" />
 
                 <com.app.cityshow.views.TextView
-                    style="@style/TextViewStyle.Medium"
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_arrow"
+                    android:drawablePadding="@dimen/_5sdp"
                     android:singleLine="true"
                     android:text="@{data.getPackageShops()}"
+                    app:drawableTint="@color/black_alpha_95"
                     tools:text="Maximum 10 shops" />
 
                 <com.app.cityshow.views.TextView
-                    style="@style/TextViewStyle.Medium"
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_arrow"
+                    android:drawablePadding="@dimen/_5sdp"
                     android:singleLine="true"
                     android:text="@{data.getPackageProduct()}"
+                    app:drawableTint="@color/black_alpha_95"
                     tools:text="Maximum 100 products" />
 
                 <com.app.cityshow.views.TextView
-                    style="@style/TextViewStyle.Medium"
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
+                    android:drawableStart="@drawable/ic_arrow"
+                    android:drawablePadding="@dimen/_5sdp"
                     android:text="@{data.getPackagePhoto()}"
+                    app:drawableTint="@color/black_alpha_95"
                     tools:text="Max 100 photos" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.constraintlayout.widget.ConstraintLayout>

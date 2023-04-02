@@ -6,15 +6,15 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cityshow.databinding.RowTextviewBinding
-import com.app.cityshow.model.CountryModel
+import com.app.cityshow.model.CityModel
 import com.app.cityshow.utility.hide
 
 class BottomSheetCountryAdapter(
-    private var mArrayList: ArrayList<CountryModel>,
-    private val onItemClickCallback: (data: CountryModel) -> Unit,
+    private var mArrayList: ArrayList<CityModel>,
+    private val onItemClickCallback: (data: CityModel) -> Unit,
 ) :
     RecyclerView.Adapter<BottomSheetCountryAdapter.Companion.DataViewHolder?>(), Filterable {
-    var dataListTemp = ArrayList<CountryModel>()
+    var dataListTemp = ArrayList<CityModel>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
         val binding =
             RowTextviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -35,8 +35,8 @@ class BottomSheetCountryAdapter(
             var binding: RowTextviewBinding,
             var adapter: BottomSheetCountryAdapter,
         ) : RecyclerView.ViewHolder(binding.root) {
-            fun bind(data: CountryModel) {
-                binding.txtEpc.text = data.city
+            fun bind(data: CityModel) {
+                binding.txtEpc.text = data.name
                 binding.checkboxName.setOnClickListener { adapter.onItemClickCallback.invoke(data) }
                 binding.txtEpc.setOnClickListener {
                     binding.checkboxName.isChecked = !binding.checkboxName.isChecked
@@ -53,9 +53,9 @@ class BottomSheetCountryAdapter(
                 if (charSearch.isEmpty()) {
                     dataListTemp = mArrayList
                 } else {
-                    val resultList = ArrayList<CountryModel>()
+                    val resultList = ArrayList<CityModel>()
                     for (row in mArrayList) {
-                        if (row.city!!.lowercase()
+                        if (row.name.lowercase()
                                 .startsWith(constraint!!.toString().lowercase())
                         ) {
                             resultList.add(row)
@@ -69,7 +69,7 @@ class BottomSheetCountryAdapter(
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                dataListTemp = results?.values as ArrayList<CountryModel>
+                dataListTemp = results?.values as ArrayList<CityModel>
                 notifyDataSetChanged()
             }
         }

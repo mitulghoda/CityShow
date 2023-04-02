@@ -23,6 +23,9 @@ interface ApiService {
     @GET("logout")
     suspend fun logout(): Response<BaseModel>
 
+    @GET("cities")
+    suspend fun getCities(): Response<ListBaseModel<CityModel>>
+
     @POST("register")
     @Multipart
     suspend fun register(
@@ -113,8 +116,8 @@ interface ApiService {
     @POST("shop-add")
     suspend fun addEditShop(
         @PartMap params: HashMap<String, RequestBody>?,
-        @Part banner: MultipartBody.Part?=null,
-        @Part images: ArrayList<MultipartBody.Part?>?=null,
+        @Part banner: MultipartBody.Part? = null,
+        @Part images: ArrayList<MultipartBody.Part?>? = null,
     ): Response<ObjectBaseModel<User>>
 
     @Multipart
@@ -131,8 +134,10 @@ interface ApiService {
 
     @POST(NetworkURL.SUBSCRIBE_USER)
     fun subscribeUser(@Body param: HashMap<String, Any>): Response<ObjectBaseModel<Product>>
- @POST(NetworkURL.SUBSCRIBE_USER)
-    fun subscribeUserStripe(@Body param: HashMap<String, Any>):  Call<ResponseBody?>?
+
+    @POST(NetworkURL.SUBSCRIBE_USER)
+    fun subscribeUserStripe(@Body param: HashMap<String, Any>): Call<ResponseBody?>?
+
     @POST(NetworkURL.PAYMENT_INTENT)
     fun paymentIntent(@Body param: HashMap<String?, Any?>?): Call<ResponseBody?>?
 

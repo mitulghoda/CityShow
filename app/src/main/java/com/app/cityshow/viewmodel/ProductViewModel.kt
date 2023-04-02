@@ -6,6 +6,7 @@ import com.app.cityshow.network.ParserHelper.responseParser
 import com.app.cityshow.network.Resource
 import com.app.cityshow.network.ResponseHandler
 import com.app.cityshow.repository.ProductRepository
+import com.app.cityshow.repository.UserRepository
 import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.gson
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +23,16 @@ class ProductViewModel : ViewModel() {
             emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
         }
     }
+
+    fun getCities() =
+        liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            try {
+                responseParser(UserRepository.getCites(), this)
+            } catch (e: Exception) {
+                emit(Resource.error(data = null, message = ResponseHandler.handleErrorResponse(e)))
+            }
+        }
 
     fun subscribeUser(param: HashMap<String, Any>) = liveData(Dispatchers.IO) {
         try {
@@ -186,8 +197,8 @@ class ProductViewModel : ViewModel() {
 
     fun addEditShop(
         param: HashMap<String, RequestBody>,
-        banner: MultipartBody.Part?=null,
-        images: ArrayList<MultipartBody.Part?>?=null,
+        banner: MultipartBody.Part? = null,
+        images: ArrayList<MultipartBody.Part?>? = null,
     ) =
         liveData(Dispatchers.IO) {
             try {

@@ -3,10 +3,14 @@ package com.app.cityshow.utility
 import android.content.Context
 import android.content.SharedPreferences
 import com.app.cityshow.Controller
+import com.app.cityshow.model.CityModel
 import com.app.cityshow.model.User
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 object LocalDataHelper {
-    private var preference = Controller.instance.getSharedPreferences("Nada-Teach-RFID", Context.MODE_PRIVATE)
+    private var preference =
+        Controller.instance.getSharedPreferences("Nada-Teach-RFID", Context.MODE_PRIVATE)
 
     private fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
         val editor = edit()
@@ -37,6 +41,7 @@ object LocalDataHelper {
         get() = preference.getString("fcmToken", "")
         set(value) = preference.edit { it.putString("fcmToken", value) }
 
+
     var user: User?
         get() = preference.getString("user_details", "").fromJson(User::class.java)
         set(value) = preference.edit { it.putString("user_details", value.toJson()) }
@@ -47,25 +52,26 @@ object LocalDataHelper {
         get() = preference.getString("auth_token", "")
         set(value) = preference.edit { it.putString("auth_token", value) }
 
-  /*  var locations: List<PopupModel>
+    var cities: List<CityModel>
         get() {
-            return Gson().fromJson(preference.getString("locations", ""),
-                object : TypeToken<List<PopupModel>>() {}.type) ?: emptyList()
+            return Gson().fromJson(preference.getString("cities", ""),
+                object : TypeToken<List<CityModel>>() {}.type
+            ) ?: emptyList()
         }
-        set(value) = preference.edit { it.putString("locations", value.toJson()) }
+        set(value) = preference.edit { it.putString("cities", value.toJson()) }
 
-    var partList: List<PartModel>
-        get() {
-            return Gson().fromJson(preference.getString("partList", ""),
-                object : TypeToken<List<PartModel>>() {}.type) ?: emptyList()
-        }
-        set(value) = preference.edit { it.putString("partList", value.toJson()) }
+    /* var partList: List<PartModel>
+         get() {
+             return Gson().fromJson(preference.getString("partList", ""),
+                 object : TypeToken<List<PartModel>>() {}.type) ?: emptyList()
+         }
+         set(value) = preference.edit { it.putString("partList", value.toJson()) }
 
-    var assetType: List<PopupModel>
-        get() {
-            return Gson().fromJson(preference.getString("assetType", ""),
-                object : TypeToken<List<PopupModel>>() {}.type) ?: emptyList()
-        }
-        set(value) = preference.edit { it.putString("assetType", value.toJson()) }*/
+     var assetType: List<PopupModel>
+         get() {
+             return Gson().fromJson(preference.getString("assetType", ""),
+                 object : TypeToken<List<PopupModel>>() {}.type) ?: emptyList()
+         }
+         set(value) = preference.edit { it.putString("assetType", value.toJson()) }*/
 
 }

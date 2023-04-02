@@ -8,16 +8,19 @@ import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.FragmentActivity
 import com.app.cityshow.R
 import com.app.cityshow.databinding.BottomSheetRecyclerviewBinding
-import com.app.cityshow.model.CountryModel
+import com.app.cityshow.model.CityModel
 import com.app.cityshow.ui.adapter.BottomSheetCountryAdapter
-import com.app.cityshow.utility.*
+import com.app.cityshow.utility.Log
 import com.app.cityshow.utility.decorator.DividerItemDecorator
+import com.app.cityshow.utility.gson
+import com.app.cityshow.utility.onTextChanged
+import com.app.cityshow.utility.show
 
 class BottomSheetCountry : BaseHeaderBottomSheet() {
     private lateinit var binding: BottomSheetRecyclerviewBinding
     private var clickListener: BottomSheetItemClickListener? = null
     private var adapter: BottomSheetCountryAdapter? = null
-    private var mArrayList = ArrayList<CountryModel>()
+    private var mArrayList = ArrayList<CityModel>()
     private var selectedCities = ArrayList<String>()
     private var title = ""
 
@@ -54,12 +57,12 @@ class BottomSheetCountry : BaseHeaderBottomSheet() {
 
         adapter = BottomSheetCountryAdapter(mArrayList) {
             if (selectedCities.isEmpty()) {
-                selectedCities.add(it.city!!)
+                selectedCities.add(it.name!!)
             } else {
-                if (selectedCities.contains(it.city)) {
-                    selectedCities.remove(it.city)
+                if (selectedCities.contains(it.name)) {
+                    selectedCities.remove(it.name)
                 } else {
-                    selectedCities.add(it.city!!)
+                    selectedCities.add(it.name!!)
                 }
             }
         }
@@ -84,7 +87,7 @@ class BottomSheetCountry : BaseHeaderBottomSheet() {
     companion object {
         fun newInstance(
             title: String,
-            mArrayList: ArrayList<CountryModel>,
+            mArrayList: ArrayList<CityModel>,
             itemClickListenerListener: BottomSheetItemClickListener,
         ): BottomSheetCountry {
             val fragment = BottomSheetCountry()

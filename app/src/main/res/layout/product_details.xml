@@ -111,29 +111,13 @@
                             android:textSize="@dimen/_14sdp"
                             tools:text="Galaxy Mobile" />
 
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:id="@+id/layAddress"
-                            android:layout_width="match_parent"
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TextViewStyle.regular"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:onClick="@{(v)->clickListener.onClick(v)}"
-                            android:paddingHorizontal="@dimen/_10sdp">
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="@dimen/_20sdp"
-                                android:layout_height="@dimen/_20sdp"
-                                android:src="@drawable/ic_location" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                style="@style/TextViewStyle"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/_2sdp"
-                                android:text="@{productData.shopAddress}"
-                                tools:text="United States" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
+                            android:paddingHorizontal="@dimen/_10sdp"
+                            android:text="@{productData.getShopTime}"
+                            tools:text="Shop Time\nOpen At 09:00am Close at 06:00pm" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <com.google.android.material.imageview.ShapeableImageView
@@ -148,6 +132,29 @@
                         tools:src="@drawable/dummy_mobile" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:onClick="@{(v)->clickListener.onClick(v)}"
+                    android:paddingHorizontal="@dimen/_10sdp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/ic_location" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:text="@{productData.shopAddress}"
+                        tools:text="United States hsa hj asjljhsa ashdkjas hd ajsdhkjas dhka hds" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvCall"
@@ -286,6 +293,28 @@
                             android:textColor="@color/colorHintGray"
                             android:textSize="@dimen/_12ssp"
                             tools:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TextViewStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_bold"
+                            android:gravity="center"
+                            android:text="@{productData.getDiscountTitle}"
+                            android:textSize="@dimen/_18sdp"
+                            android:visibility="@{productData.discount == null?View.GONE:View.VISIBLE,default=gone}"
+                            tools:text="Welcome offer" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TextViewStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_bold"
+                            android:gravity="center"
+                            android:text="@{productData.getDiscountCode}"
+                            android:textSize="@dimen/_18sdp"
+                            android:visibility="@{productData.discount == null?View.GONE:View.VISIBLE,default=gone}"
+                            tools:text="Welcome" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"

@@ -121,9 +121,11 @@ abstract class ActionBarActivity : NavigationActivity(), View.OnClickListener {
     open fun onFilterClick() {}
     open fun onProfileClick() {}
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (actionView.searchView.onActivityResult(requestCode, resultCode, data!!)) {
-            return
-        }
         super.onActivityResult(requestCode, resultCode, data)
+        data?.let {
+            if (actionView.searchView.onActivityResult(requestCode, resultCode, data)) {
+                return
+            }
+        }
     }
 }

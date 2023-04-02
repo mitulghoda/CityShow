@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
 import com.app.cityshow.databinding.ActivityAddShopBinding
+import com.app.cityshow.model.CityModel
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.ui.adapter.ImageAdapter
 import com.app.cityshow.ui.bottomsheet.BottomSheetCountry
@@ -91,14 +92,10 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
             mBinding.tvCloseTime -> {
                 mBinding.tvCloseTime.setTime()
             }
-            mBinding.tvCloseTime -> {
-                hideKeyBoard()
-                if (!isValid()) return
-                addEditShop()
-            }
+
             mBinding.edtCountry -> {
                 BottomSheetCountry.newInstance(getString(R.string.select_city),
-                    RegionManager.getCountries()!!,
+                    LocalDataHelper.cities as ArrayList<CityModel>,
                     object : BottomSheetCountry.BottomSheetItemClickListener {
                         override fun onItemClick(data: ArrayList<String>) {
                             strCities = TextUtils.join(", ", data)
@@ -153,6 +150,14 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
             mBinding.inShopName.requestFocus()
             isValid = false
         }
+        if (mBinding.tvopenTime.text.isNullOrEmpty()) {
+            mBinding.tvopenTime.error = "Select open time"
+            isValid = false
+        }
+        if (mBinding.tvCloseTime.text.isNullOrEmpty()) {
+            mBinding.tvCloseTime.error = "Select close time"
+            isValid = false
+        }
         if (mBinding.edtAddress.text.isNullOrEmpty()) {
             Validator.setError(mBinding.layAddress, getString(R.string.enter_shop_address))
             mBinding.layAddress.requestFocus()
@@ -181,8 +186,8 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
         param["latitude"] = lattitude.toString().requestBody()
         param["longitude"] = longitude.toString().requestBody()
         param["notes"] = mBinding.edtNotes.getTrimText().requestBody()
-        param["openTime"] = mBinding.tvopenTime.text.toString().requestBody()
-        param["closedTime"] = mBinding.tvCloseTime.text.toString().requestBody()
+        param["open_time"] = mBinding.tvopenTime.text.toString().requestBody()
+        param["closed_time"] = mBinding.tvCloseTime.text.toString().requestBody()
         var multipartBody: MultipartBody.Part? = null
         if (mProfileUri != null) {
             val file = File(mProfileUri!!.path.toString())

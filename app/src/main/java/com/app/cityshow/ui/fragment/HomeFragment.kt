@@ -23,10 +23,7 @@ import com.app.cityshow.ui.adapter.CategoryListAdapter
 import com.app.cityshow.ui.adapter.ProductAdapterWithPagination
 import com.app.cityshow.ui.bottomsheet.BottomSheetFilter
 import com.app.cityshow.ui.common.BaseFragment
-import com.app.cityshow.utility.Log
-import com.app.cityshow.utility.hide
-import com.app.cityshow.utility.show
-import com.app.cityshow.utility.typeCall
+import com.app.cityshow.utility.*
 import com.app.cityshow.viewmodel.ProductViewModel
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
@@ -64,6 +61,18 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         )[ProductViewModel::class.java]
         callGetCategoryApi()
         callGetMyDiscounts()
+        callGetCities()
+    }
+
+    private fun callGetCities() {
+        viewModel?.getCities()?.observe(viewLifecycleOwner) {
+            it.status.typeCall(success = {
+                Log.e("CITY", "${it.data}")
+                LocalDataHelper.cities = it.data?.data ?: arrayListOf()
+            }, error = {
+
+            }, loading = {})
+        }
     }
 
     private fun setupAdapter() {
@@ -259,7 +268,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                     }).show(base!!)
             }
             binding.txtViewMoreCategory -> {
-               navigation?.openAllCategoryListActivity()
+                navigation?.openAllCategoryListActivity()
             }
         }
     }

@@ -9,6 +9,7 @@ object UserRepository {
     suspend fun login(param: HashMap<String, Any>) = apiService.login(param)
 
     suspend fun logout() = apiService.logout()
+    suspend fun getCites() = apiService.getCities()
     suspend fun register(param: HashMap<String, RequestBody>, image: MultipartBody.Part?) =
         apiService.register(param, image)
 

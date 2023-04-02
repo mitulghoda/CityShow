@@ -6,7 +6,7 @@ import com.app.cityshow.model.disocunt.Discount
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.utility.fromJsonList
 
-class Product() : java.io.Serializable {
+class Product : java.io.Serializable {
     val brand_name: String? = null
     val cat_id: String? = null
     val color: String? = null
@@ -90,12 +90,27 @@ class Product() : java.io.Serializable {
         return ""
     }
 
+    fun getDiscountCode(): String {
+        if (discount != null) {
+            return discount?.coupon_code ?: ""
+        }
+        return ""
+    }
+
     fun getShopName(): String {
         return if (product_shop.isNullOrEmpty()) {
             ""
         } else {
             product_shop[0].shop_name
         }
+    }
+
+    fun getShopTime(): String {
+        return "Shop time\nOpen at ${product_shop?.get(0)?.open_time} Close at ${
+            product_shop?.get(
+                0
+            )?.closed_time
+        }"
     }
 
     fun isWarranty(): String {

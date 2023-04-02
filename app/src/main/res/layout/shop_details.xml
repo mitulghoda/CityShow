@@ -60,13 +60,22 @@
                     tools:text="Galaxy Mobile" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TextViewStyle.regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_bold"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:text="@{data.getShopTime}"
+                    tools:text="Open At 09:00am Close at 06:00pm" />
+
+                <androidx.appcompat.widget.AppCompatTextView
                     style="@style/TextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_location"
-                    android:text="@{data.address}"
                     android:drawablePadding="@dimen/_5sdp"
                     android:paddingHorizontal="@dimen/_10sdp"
+                    android:text="@{data.address}"
                     tools:text="31-89 Steinway St, Queens, NY 11103, United States" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -74,8 +83,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="7"
-                    android:text="@{data.notes}"
                     android:padding="@dimen/_10sdp"
+                    android:text="@{data.notes}"
                     android:textColor="@color/colorHintGray"
                     android:textSize="@dimen/_12ssp"
                     tools:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book" />
@@ -87,8 +96,8 @@
                     android:fontFamily="@font/sf_bold"
                     android:gravity="center"
                     android:paddingHorizontal="@dimen/_10sdp"
-                    android:textSize="@dimen/_16ssp"
-                    android:text="@string/products" />
+                    android:text="@string/products"
+                    android:textSize="@dimen/_16ssp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvProducts"
