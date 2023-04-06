@@ -37,6 +37,10 @@ class Product : java.io.Serializable {
     val updated_at: String? = null
     val wight: String? = null
     val warranty: String? = null
+    val installation: String? = null
+    val certified_jwellery: String? = null
+    val guaranty: String? = null
+    val emi: String? = null
     val shop: Shop? = null
 
     fun getProductImage(): String {
@@ -73,6 +77,10 @@ class Product : java.io.Serializable {
 
     fun getShopPhoneNumber(): String {
         return shopkeeper?.phoneNumber ?: ""
+    }
+
+    fun hideDiscount(): Boolean {
+        return discount?.id.isNullOrEmpty()
     }
 
     fun shoePhoneNumber(): Boolean {

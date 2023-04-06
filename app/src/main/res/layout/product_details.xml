@@ -300,9 +300,9 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sf_bold"
                             android:gravity="center"
+                            android:isGone="@{productData.hideDiscount()}"
                             android:text="@{productData.getDiscountTitle}"
                             android:textSize="@dimen/_18sdp"
-                            android:visibility="@{productData.discount == null?View.GONE:View.VISIBLE,default=gone}"
                             tools:text="Welcome offer" />
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -311,9 +311,9 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sf_bold"
                             android:gravity="center"
+                            android:isGone="@{productData.hideDiscount()}"
                             android:text="@{productData.getDiscountCode}"
                             android:textSize="@dimen/_18sdp"
-                            android:visibility="@{productData.discount == null?View.GONE:View.VISIBLE,default=gone}"
                             tools:text="Welcome" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -387,8 +387,7 @@
                             android:paddingHorizontal="@dimen/_10sdp"
                             android:paddingVertical="@dimen/_5sdp"
                             android:text="@string/more_details"
-                            android:textSize="@dimen/_16sdp"
-                            android:visibility="gone" />
+                            android:textSize="@dimen/_16sdp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.cardview.widget.CardView>
 

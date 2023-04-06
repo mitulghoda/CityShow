@@ -39,6 +39,9 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     private var strGender: String = ""
     private var strGuranty: String = ""
     private var strGold: String = ""
+    private var strEmi: String = ""
+    private var strInstallation: String = ""
+    private var strLiveDemo: String = ""
     private var strShopId: String? = null
     private var strCategoryId: String? = null
     private var strSubCategory: String? = null
@@ -112,6 +115,37 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 }
             }
         }
+        mBinding.rbEmi.setOnCheckedChangeListener { radioGroup, i ->
+            when (i) {
+                mBinding.rbEmiAvailable.id -> {
+                    strEmi = mBinding.rbEmiAvailable.text.toString()
+                }
+                mBinding.rbEmiNotAvailable.id -> {
+                    strEmi = mBinding.rbEmiNotAvailable.text.toString()
+                }
+            }
+        }
+        mBinding.rbInstallation.setOnCheckedChangeListener { radioGroup, i ->
+            when (i) {
+                mBinding.rbInstallationAdded.id -> {
+                    strInstallation = mBinding.rbInstallationAdded.text.toString()
+                }
+                mBinding.rbSelfService.id -> {
+                    strInstallation = mBinding.rbSelfService.text.toString()
+                }
+            }
+        }
+        mBinding.rbLiveDemo.setOnCheckedChangeListener { radioGroup, i ->
+            when (i) {
+                mBinding.rbAvailable.id -> {
+                    strLiveDemo = mBinding.rbAvailable.text.toString()
+                }
+                mBinding.rbNotAvailable.id -> {
+                    strLiveDemo = mBinding.rbNotAvailable.text.toString()
+                }
+            }
+        }
+
         setProductData()
     }
 
@@ -454,7 +488,15 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
 
         Log.e(filterFootwearSizeList.joinToString())
         param["footwear_size"] = filterFootwearSizeList.joinToString().toRequestBody()
-
+        param["emi"] = strEmi.requestBody()
+        param["gross_weight"] = mBinding.edtGoldWeight.getTrimText().requestBody()
+        if (mBinding.cbCertified.isChecked) {
+            param["certified_jwellery"] = mBinding.cbCertified.text.toString().requestBody()
+        }
+        param["installation"] = strInstallation.requestBody()
+        param["guaranty"] = strGuranty.requestBody()
+        param["live_demo"] = strLiveDemo.requestBody()
+        param["product_type"] = "new".requestBody()
         val images = ArrayList<MultipartBody.Part?>()
         if (mAssetImages.isNotEmpty()) {
             mAssetImages.forEachIndexed { i, media ->
