@@ -1,7 +1,6 @@
 package com.app.cityshow.ui.activity
 
 import android.app.Activity
-import android.app.DatePickerDialog
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -57,6 +56,8 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
             mBinding.discount = discount
             mBinding.rbYes.isChecked = discount?.is_price.equals("yes", true)
             mBinding.rbNo.isChecked = !discount?.is_price.equals("yes", true)
+            strstartDate = discount?.start_date
+            strEndDate = discount?.end_date
         }
         viewModel = ViewModelProvider(
             this, ViewModelProvider.AndroidViewModelFactory(Controller.instance)
@@ -229,10 +230,10 @@ class AddDiscountActivity : ActionBarActivity(), View.OnClickListener {
             mBinding.edtCouponCode.requestFocus()
             isValid = false
         }
-       /* if (strDiscountType.isNullOrEmpty()) {
-            toast("Select discount type")
-            isValid = false
-        }*/
+        /* if (strDiscountType.isNullOrEmpty()) {
+             toast("Select discount type")
+             isValid = false
+         }*/
         if (strstartDate.isNullOrEmpty() && strEndDate.isNullOrEmpty()) {
             toast("Select start and end date of discount")
             isValid = false

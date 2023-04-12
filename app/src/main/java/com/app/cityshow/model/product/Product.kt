@@ -100,7 +100,7 @@ class Product : java.io.Serializable {
 
     fun getDiscountCode(): String {
         if (discount != null) {
-            return discount?.coupon_code ?: ""
+            return "Use this coupon ${discount?.coupon_code?:""}"
         }
         return ""
     }

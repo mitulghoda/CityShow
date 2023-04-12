@@ -223,6 +223,7 @@
                             android:layout_marginVertical="@dimen/_5sdp"
                             android:text="@{productData.cat_id}"
                             android:textSize="@dimen/_12ssp"
+                            android:visibility="gone"
                             tools:text="@string/mobile_tablets" />
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -246,41 +247,41 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/gray_border_rounder_5dp"
                                 android:padding="@dimen/_5sdp"
-                                android:text="@string/_6" />
+                                android:text="@{productData.size}" />
 
-                            <androidx.appcompat.widget.AppCompatTextView
-                                style="@style/TextViewStyleBold"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="@dimen/_10sdp"
-                                android:background="@drawable/gray_border_rounder_5dp"
-                                android:padding="@dimen/_5sdp"
-                                android:text="@string/_8" />
+                            <!--     <androidx.appcompat.widget.AppCompatTextView
+                                     style="@style/TextViewStyleBold"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:layout_marginHorizontal="@dimen/_10sdp"
+                                     android:background="@drawable/gray_border_rounder_5dp"
+                                     android:padding="@dimen/_5sdp"
+                                     android:text="@string/_8" />
 
-                            <androidx.appcompat.widget.AppCompatTextView
-                                style="@style/TextViewStyleBold"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/gray_border_rounder_5dp"
-                                android:padding="@dimen/_5sdp"
-                                android:text="@string/_10" />
+                                 <androidx.appcompat.widget.AppCompatTextView
+                                     style="@style/TextViewStyleBold"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:background="@drawable/gray_border_rounder_5dp"
+                                     android:padding="@dimen/_5sdp"
+                                     android:text="@string/_10" />
 
-                            <androidx.appcompat.widget.AppCompatTextView
-                                style="@style/TextViewStyleBold"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="@dimen/_10sdp"
-                                android:background="@drawable/gray_border_rounder_5dp"
-                                android:padding="@dimen/_5sdp"
-                                android:text="@string/_8" />
+                                 <androidx.appcompat.widget.AppCompatTextView
+                                     style="@style/TextViewStyleBold"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:layout_marginHorizontal="@dimen/_10sdp"
+                                     android:background="@drawable/gray_border_rounder_5dp"
+                                     android:padding="@dimen/_5sdp"
+                                     android:text="@string/_8" />
 
-                            <androidx.appcompat.widget.AppCompatTextView
-                                style="@style/TextViewStyleBold"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/gray_border_rounder_5dp"
-                                android:padding="@dimen/_5sdp"
-                                android:text="@string/_8" />
+                                 <androidx.appcompat.widget.AppCompatTextView
+                                     style="@style/TextViewStyleBold"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:background="@drawable/gray_border_rounder_5dp"
+                                     android:padding="@dimen/_5sdp"
+                                     android:text="@string/_8" />-->
 
 
                         </LinearLayout>
@@ -313,7 +314,7 @@
                             android:gravity="center"
                             android:isGone="@{productData.hideDiscount()}"
                             android:text="@{productData.getDiscountCode}"
-                            android:textSize="@dimen/_18sdp"
+                            android:textSize="@dimen/_12sdp"
                             tools:text="Welcome" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
