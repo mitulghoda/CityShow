@@ -709,6 +709,7 @@ open class AndroidFilePicker(private val applicationId: String) : BaseFilePicker
         val permissions = if (VERSION.SDK_INT >= VERSION_CODES.TIRAMISU) {
             arrayOf(
                 CAMERA,
+                READ_MEDIA_IMAGES,
             )
         } else if (VERSION.SDK_INT >= VERSION_CODES.Q) {
             arrayOf(

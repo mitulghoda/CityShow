@@ -7,16 +7,17 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
-import com.app.cityshow.R
 import com.app.cityshow.databinding.RegisterBinding
 import com.app.cityshow.ui.common.NavigationActivity
-import com.app.cityshow.utility.LocalDataHelper
 import com.app.cityshow.utility.Validator
 import com.app.cityshow.utility.getTrimText
 import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.UserViewModel
+import com.filepickersample.listener.FilePickerCallback
+import com.filepickersample.model.Media
 import com.github.dhaval2404.imagepicker.ImagePicker
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -55,16 +56,27 @@ class RegisterActivity : NavigationActivity(), View.OnClickListener {
                 finish()
             }
             binding.layPhoto -> {
-                ImagePicker.with(this)
-                    .compress(1024)
-                    .cropSquare()         //Final image size will be less than 1 MB(Optional)
-                    .maxResultSize(
-                        1080,
-                        1080
-                    )  //Final image resolution will be less than 1080 x 1080(Optional)
-                    .createIntent { intent ->
-                        startForProfileImageResult.launch(intent)
+                openSingleImageFilePickerWithSquare(object : FilePickerCallback {
+                    override fun onSuccess(media: Media?) {
+                        if (media == null) return
+                        mProfileUri = media.mediaFile.absolutePath.toUri()
+                        binding.imgProfile.setImageURI(mProfileUri)
                     }
+
+                    override fun onError(error: String?) {
+                        toast(error)
+                    }
+                })
+                /* ImagePicker.with(this)
+                     .compress(1024)
+                     .cropSquare()         //Final image size will be less than 1 MB(Optional)
+                     .maxResultSize(
+                         1080,
+                         1080
+                     )  //Final image resolution will be less than 1080 x 1080(Optional)
+                     .createIntent { intent ->
+                         startForProfileImageResult.launch(intent)
+                     }*/
             }
 
         }

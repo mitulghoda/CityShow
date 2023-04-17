@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import com.app.cityshow.Controller
 import com.app.cityshow.R
@@ -105,12 +106,23 @@ class AddShopActivity : ActionBarActivity(), View.OnClickListener {
             }
 
             mBinding.ivBanner -> {
-                ImagePicker.with(this).compress(1024).maxResultSize(
+                openSingleImageFilePicker(object : FilePickerCallback {
+                    override fun onSuccess(media: Media?) {
+                        if (media == null) return
+                        mProfileUri = media.mediaFile.absolutePath.toUri()
+                        mBinding.ivBanner.setImageURI(mProfileUri)
+                    }
+
+                    override fun onError(error: String?) {
+                        toast(error)
+                    }
+                })
+                /*ImagePicker.with(this).compress(1024).maxResultSize(
                     1080, 1080
                 )  //Final image resolution will be less than 1080 x 1080(Optional)
                     .createIntent { intent ->
                         startForProfileImageResult.launch(intent)
-                    }
+                    }*/
             }
             mBinding.cardAddImage -> {
                 openImageFilePicker(object : FilePickerCallback {

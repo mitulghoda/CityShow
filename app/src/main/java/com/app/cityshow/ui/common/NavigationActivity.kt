@@ -124,6 +124,20 @@ abstract class NavigationActivity : BaseActivity() {
             .start(supportFragmentManager)
     }
 
+    fun openSingleImageFilePicker(callback: FilePickerCallback) {
+        AndroidFilePicker.with(BuildConfig.APPLICATION_ID)
+            .type(FileSelectionType.IMAGE)
+            .callBack(callback)
+            .start(supportFragmentManager)
+    }
+
+    fun openSingleImageFilePickerWithSquare(callback: FilePickerCallback) {
+        AndroidFilePicker.with(BuildConfig.APPLICATION_ID)
+            .type(FileSelectionType.IMAGE)
+            .callBack(callback).cropSquare()
+            .start(supportFragmentManager)
+    }
+
     fun openProductDetails(product: Product) {
         val intent = Intent(this, ProductDetailsActivity::class.java)
         intent.putExtra("PRODUCT", product)
