@@ -5,6 +5,7 @@ import com.app.cityshow.model.User
 import com.app.cityshow.model.disocunt.Discount
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.utility.fromJsonList
+import com.google.gson.annotations.SerializedName
 
 class Product : java.io.Serializable {
     val brand_name: String? = null
@@ -31,6 +32,8 @@ class Product : java.io.Serializable {
     val ram: String? = null
     val selling_price: String? = null
     val shopkeeper_id: String? = null
+
+    @SerializedName("size", alternate = ["footwear_size"])
     val size: String? = null
     val storage: String? = null
     val subcat_id: String? = null
@@ -100,7 +103,7 @@ class Product : java.io.Serializable {
 
     fun getDiscountCode(): String {
         if (discount != null) {
-            return "Use this coupon ${discount?.coupon_code?:""}"
+            return "Use this coupon ${discount?.coupon_code ?: ""}"
         }
         return ""
     }

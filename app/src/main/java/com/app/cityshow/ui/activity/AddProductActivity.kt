@@ -358,10 +358,12 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         }
 
         footwearSizeAdapter = FootwearSizeAdapter(sizeList) { id, position, data ->
-            filterFootwearSizeList.clear()
-            for (i in sizeList.filter { it.isCheck }) {
-                filterFootwearSizeList.add("\"${i.name.toString()}\"")
+            if (filterFootwearSizeList.contains(data.name)) {
+                filterFootwearSizeList.remove(data.name.toString())
+            } else {
+                filterFootwearSizeList.add(data.name.toString())
             }
+
         }
         mBinding.rvFootwearSize.adapter = footwearSizeAdapter
     }
