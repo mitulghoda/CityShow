@@ -185,13 +185,13 @@
                     app:drawableTint="@color/red" />
 
                 <RelativeLayout
-                    android:visibility="gone"
                     android:id="@+id/layDiscount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/gray_bottom_border_rounder"
                     android:onClick="@{(v)->clickListener.onClick(v)}"
-                    android:paddingVertical="@dimen/_10sdp">
+                    android:paddingVertical="@dimen/_10sdp"
+                    android:visibility="gone">
 
                     <com.app.cityshow.views.TextView
                         style="@style/TextViewStyle"
@@ -1010,14 +1010,6 @@
                         </RadioGroup>
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/cbWarranty"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"
-                        android:text="@string/warranty_"
-                        android:visibility="gone" />
 
 
                     <com.app.cityshow.views.TextView

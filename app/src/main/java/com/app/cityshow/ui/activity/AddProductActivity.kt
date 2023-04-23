@@ -37,7 +37,8 @@ import java.io.File
 
 class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     private var strGender: String = ""
-    private var strGuranty: String = ""
+    private var strGuranty: String = "Yes"
+    private var strWarranty: String = "Yes"
     private var strGold: String = ""
     private var strEmi: String = ""
     private var strInstallation: String = ""
@@ -100,6 +101,16 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 }
                 mBinding.rbGuarantyNo.id -> {
                     strGuranty = "No"
+                }
+            }
+        }
+        mBinding.rbWarranty.setOnCheckedChangeListener { radioGroup, i ->
+            when (i) {
+                mBinding.rbWarrantyYes.id -> {
+                    strWarranty = "Yes"
+                }
+                mBinding.rbWarrantyNo.id -> {
+                    strWarranty = "No"
                 }
             }
         }
@@ -428,12 +439,11 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                     val category =
                         mArrayList?.filter { category -> category.equals(productData?.cat_id) }
                             ?.get(0)
-                    val subCategory =
-                        category?.sub_category?.filter { subCategory ->
-                            subCategory.equals(
-                                productData?.subcat_id
-                            )
-                        }?.get(0)
+                    val subCategory = category?.sub_category?.filter { subCategory ->
+                        subCategory.equals(
+                            productData?.subcat_id
+                        )
+                    }?.get(0)
                     strCategoryId = subCategory?.category_id
                     strSubCategory = subCategory?.id
                     mBinding.edtCategory.setText(category?.name)
@@ -475,7 +485,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         param["connectivity"] = mBinding.edtConnect.getTrimText().requestBody()
         param["key_feature[]"] = Gson().toJson(editTextAdapter.arrayList).requestBody()
         param["description"] = mBinding.edtDesc.getTrimText().requestBody()
-        param["warranty"] = mBinding.cbWarranty.isChecked.toString().requestBody()
+        param["warranty"] = strWarranty.requestBody()
         param["guaranty"] = strGuranty.requestBody()
         if (deletedImagesId.isNotEmpty()) {
             Log.e("DELETED_IMAGES_ID", TextUtils.join(",", deletedImagesId))
@@ -496,7 +506,6 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
             param["certified_jwellery"] = mBinding.cbCertified.text.toString().requestBody()
         }
         param["installation"] = strInstallation.requestBody()
-        param["guaranty"] = strGuranty.requestBody()
         param["live_demo"] = strLiveDemo.requestBody()
         param["product_type"] = "new".requestBody()
         val images = ArrayList<MultipartBody.Part?>()

@@ -424,7 +424,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{productData.isWarranty() ?? `N/A`}"
+                        android:text="@{productData.warranty ?? `N/A`}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp"
                         tools:text="6 Months" />
