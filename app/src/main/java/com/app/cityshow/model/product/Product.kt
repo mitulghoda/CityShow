@@ -54,6 +54,15 @@ class Product : java.io.Serializable {
         }
     }
 
+    fun isShowWarranty(): Boolean {
+        if (is_gold.isNullOrEmpty().not()) {
+            return true
+        } else if (warranty.isNullOrEmpty().not()) {
+            return true
+        }
+        return false
+    }
+
     fun getShopImage(): String {
         return if (!product_shop.isNullOrEmpty()) {
             product_shop[0].banner_image

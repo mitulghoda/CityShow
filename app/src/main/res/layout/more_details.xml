@@ -382,7 +382,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:isGone="@{productData.guaranty.isEmpty() || productData.guaranty == null}">
+                    android:isGone="@{productData.isShowWarranty() || productData.guaranty.isEmpty() || productData.guaranty == null}">
 
                     <com.app.cityshow.views.TextView
                         style="@style/TextViewStyle"
@@ -408,7 +408,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:isGone="@{productData.warranty.isEmpty() || productData.warranty == null}">
+                    android:isGone="@{productData.isShowWarranty() || productData.warranty.isEmpty() || productData.warranty == null}">
 
                     <com.app.cityshow.views.TextView
                         style="@style/TextViewStyle"

@@ -20,19 +20,7 @@ import com.app.cityshow.ui.bottomsheet.BottomSheetCategories
 import com.app.cityshow.ui.bottomsheet.BottomSheetShops
 import com.app.cityshow.ui.bottomsheet.BottomSheetSubCategories
 import com.app.cityshow.ui.common.ActionBarActivity
-import com.app.cityshow.utility.LocalDataHelper
-import com.app.cityshow.utility.Log
-import com.app.cityshow.utility.RegionManager
-import com.app.cityshow.utility.Validator
-import com.app.cityshow.utility.getTrimText
-import com.app.cityshow.utility.gone
-import com.app.cityshow.utility.gson
-import com.app.cityshow.utility.hide
-import com.app.cityshow.utility.isVisible
-import com.app.cityshow.utility.requestBody
-import com.app.cityshow.utility.show
-import com.app.cityshow.utility.showToast
-import com.app.cityshow.utility.typeCall
+import com.app.cityshow.utility.*
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.bumptech.glide.Glide
 import com.filepickersample.listener.FilePickerCallback
@@ -50,8 +38,8 @@ import kotlin.collections.set
 
 class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     private var strGender: String = ""
-    private var strGuranty: String = "Yes"
-    private var strWarranty: String = "1"
+    private var strGuranty: String = ""
+    private var strWarranty: String = ""
     private var strGold: String = ""
     private var strEmi: String = ""
     private var strInstallation: String = ""
@@ -120,14 +108,14 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 }
             }
         }
-        mBinding.rbWarranty.setOnCheckedChangeListener { radioGroup, i ->
+        mBinding.warrany.setOnCheckedChangeListener { radioGroup, i ->
             when (i) {
-                mBinding.rbWarrantyYes.id -> {
-                    strWarranty = "1"
+                mBinding.warrantyNo.id -> {
+                    strWarranty = "Yes"
                 }
 
-                mBinding.rbWarrantyNo.id -> {
-                    strWarranty = "0"
+                mBinding.warranyYes.id -> {
+                    strWarranty = "No"
                 }
             }
         }
