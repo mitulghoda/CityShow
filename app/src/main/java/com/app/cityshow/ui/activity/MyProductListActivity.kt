@@ -10,8 +10,13 @@ import com.app.cityshow.databinding.ActivityProductListBinding
 import com.app.cityshow.model.product.Product
 import com.app.cityshow.ui.adapter.MyProductListAdapter
 import com.app.cityshow.ui.common.ActionBarActivity
-import com.app.cityshow.utility.*
+import com.app.cityshow.utility.LocalDataHelper
+import com.app.cityshow.utility.hide
+import com.app.cityshow.utility.show
+import com.app.cityshow.utility.showToast
+import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
+import kotlin.collections.set
 
 class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
     private var list = ArrayList<Product>()
@@ -57,6 +62,7 @@ class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
                             }
                         }
                     }
+
                     1 -> {
                         openAddProductActivity(product)
                     }
@@ -118,10 +124,12 @@ class MyProductListActivity : ActionBarActivity(), View.OnClickListener {
         super.onClick(v)
         when (v) {
             binding.fab -> {
-                if (LocalDataHelper.user?.subscription?.metadata?.products != null && LocalDataHelper.user?.subscription?.metadata?.products!! <= list.size) {
-                    showToast("Cant add more then " + LocalDataHelper.user?.subscription?.getMaxProductValidation()!! + " Products")
-                } else {
-                    openAddProductActivity()
+                LocalDataHelper.user?.subscription?.metadata?.products?.let {
+                    if (it <= list.size) {
+                        showToast("Cant add more then " + LocalDataHelper.user?.subscription?.getMaxProductValidation()!! + " Products")
+                    } else {
+                        openAddProductActivity()
+                    }
                 }
             }
 

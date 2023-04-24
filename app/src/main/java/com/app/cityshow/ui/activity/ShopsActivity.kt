@@ -9,9 +9,14 @@ import com.app.cityshow.databinding.ActivityShopsBinding
 import com.app.cityshow.model.shops.Shop
 import com.app.cityshow.ui.adapter.ShopsAdapter
 import com.app.cityshow.ui.common.ActionBarActivity
-import com.app.cityshow.utility.*
+import com.app.cityshow.utility.LocalDataHelper
+import com.app.cityshow.utility.Log
+import com.app.cityshow.utility.show
+import com.app.cityshow.utility.showToast
+import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.google.gson.Gson
+import kotlin.collections.set
 
 class ShopsActivity : ActionBarActivity(), View.OnClickListener {
     private lateinit var binding: ActivityShopsBinding
@@ -86,9 +91,9 @@ class ShopsActivity : ActionBarActivity(), View.OnClickListener {
         super.onClick(v)
         when (v) {
             binding.fab -> {
-                LocalDataHelper.user?.subscription?.metadata?.photo?.let {
-                    if (LocalDataHelper.user?.subscription?.metadata?.photo!! <= shopsAdapter?.itemCount!!) {
-                        showToast("Cant add more then " + LocalDataHelper.user?.subscription?.getMaxShopValidation()!! + " Products")
+                LocalDataHelper.user?.subscription?.metadata?.shops?.let {
+                    if (it <= (shopsAdapter?.itemCount ?: 0)) {
+                        showToast("Cant add more then " + LocalDataHelper.user?.subscription?.getMaxShopValidation()!! + " Shops")
                     } else {
                         openAddShopActivity(null)
                     }

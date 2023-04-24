@@ -20,7 +20,19 @@ import com.app.cityshow.ui.bottomsheet.BottomSheetCategories
 import com.app.cityshow.ui.bottomsheet.BottomSheetShops
 import com.app.cityshow.ui.bottomsheet.BottomSheetSubCategories
 import com.app.cityshow.ui.common.ActionBarActivity
-import com.app.cityshow.utility.*
+import com.app.cityshow.utility.LocalDataHelper
+import com.app.cityshow.utility.Log
+import com.app.cityshow.utility.RegionManager
+import com.app.cityshow.utility.Validator
+import com.app.cityshow.utility.getTrimText
+import com.app.cityshow.utility.gone
+import com.app.cityshow.utility.gson
+import com.app.cityshow.utility.hide
+import com.app.cityshow.utility.isVisible
+import com.app.cityshow.utility.requestBody
+import com.app.cityshow.utility.show
+import com.app.cityshow.utility.showToast
+import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.bumptech.glide.Glide
 import com.filepickersample.listener.FilePickerCallback
@@ -33,12 +45,13 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import kotlin.collections.set
 
 
 class AddProductActivity : ActionBarActivity(), View.OnClickListener {
     private var strGender: String = ""
     private var strGuranty: String = "Yes"
-    private var strWarranty: String = "Yes"
+    private var strWarranty: String = "1"
     private var strGold: String = ""
     private var strEmi: String = ""
     private var strInstallation: String = ""
@@ -86,9 +99,11 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 mBinding.rbMale.id -> {
                     strGender = mBinding.rbMale.text.toString()
                 }
+
                 mBinding.rbFemale.id -> {
                     strGender = mBinding.rbFemale.text.toString()
                 }
+
                 mBinding.rbChild.id -> {
                     strGender = mBinding.rbChild.text.toString()
                 }
@@ -99,6 +114,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 mBinding.rbGuarantyYes.id -> {
                     strGuranty = "Yes"
                 }
+
                 mBinding.rbGuarantyNo.id -> {
                     strGuranty = "No"
                 }
@@ -107,10 +123,11 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         mBinding.rbWarranty.setOnCheckedChangeListener { radioGroup, i ->
             when (i) {
                 mBinding.rbWarrantyYes.id -> {
-                    strWarranty = "Yes"
+                    strWarranty = "1"
                 }
+
                 mBinding.rbWarrantyNo.id -> {
-                    strWarranty = "No"
+                    strWarranty = "0"
                 }
             }
         }
@@ -120,6 +137,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                     strGold = mBinding.rbYes.text.toString()
                     mBinding.layGoldData.show()
                 }
+
                 mBinding.rbNo.id -> {
                     strGold = mBinding.rbNo.text.toString()
                     mBinding.layGoldData.hide()
@@ -131,6 +149,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 mBinding.rbEmiAvailable.id -> {
                     strEmi = mBinding.rbEmiAvailable.text.toString()
                 }
+
                 mBinding.rbEmiNotAvailable.id -> {
                     strEmi = mBinding.rbEmiNotAvailable.text.toString()
                 }
@@ -141,6 +160,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 mBinding.rbInstallationAdded.id -> {
                     strInstallation = mBinding.rbInstallationAdded.text.toString()
                 }
+
                 mBinding.rbSelfService.id -> {
                     strInstallation = mBinding.rbSelfService.text.toString()
                 }
@@ -151,6 +171,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 mBinding.rbAvailable.id -> {
                     strLiveDemo = mBinding.rbAvailable.text.toString()
                 }
+
                 mBinding.rbNotAvailable.id -> {
                     strLiveDemo = mBinding.rbNotAvailable.text.toString()
                 }
@@ -216,6 +237,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                     mBinding.layAdditional.show()
                 }
             }
+
             mBinding.edtShops -> {
                 BottomSheetShops.newInstance(getString(R.string.select_shop),
                     shopList!!,
@@ -226,6 +248,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                         }
                     }).show(this)
             }
+
             mBinding.edtCategory -> {
                 BottomSheetCategories.newInstance(getString(R.string.select_category),
                     mArrayList!!,
@@ -243,6 +266,7 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                         }
                     }).show(this)
             }
+
             mBinding.edtSubCategory -> {
                 BottomSheetSubCategories.newInstance(getString(R.string.select_sub_category),
                     mSubCategoryArrayList,
@@ -253,42 +277,38 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                         }
                     }).show(this)
             }
+
             mBinding.btnSubmit -> {
                 if (checkValidation()) {
                     addEditProduct()
                 }
             }
+
             mBinding.cardAddImage -> {
-                justTry {
-                    LocalDataHelper.user?.subscription?.getMaxPhotoValidation().let {
-                        if (LocalDataHelper.user?.subscription != null && LocalDataHelper.user?.subscription?.getMaxPhotoValidation()!! <= mAssetImages.size) {
-                            showToast(
-                                getString(
-                                    R.string.cant_add_more_then,
-                                    LocalDataHelper.user?.subscription?.getMaxPhotoValidation()
-                                        .toString()
-                                )
-                            )
-                            return
-                        }
-                    }
-                }
                 openImageFilePicker(object : FilePickerCallback {
                     override fun onSuccess(media: Media?) {
                         if (media == null) return
-                        if (LocalDataHelper.user?.subscription?.metadata?.photo!! <= mAssetImages.size) {
-                            showToast("Cant add more then " + LocalDataHelper.user?.subscription?.getMaxPhotoValidation()!! + " Photos")
-                        } else {
-                            mAssetImages.add(media)
-                            assetImageAdapter.notifyDataSetChanged()
-                            editTextAdapter.notifyDataSetChanged()
+                        LocalDataHelper.user?.subscription?.metadata?.photo?.let {
+                            if (it <= mAssetImages.size) {
+                                showToast(
+                                    getString(
+                                        R.string.cant_add_more_then,
+                                        LocalDataHelper.user?.subscription?.getMaxPhotoValidation()
+                                            .toString()
+                                    )
+                                )
+                            } else {
+                                mAssetImages.add(media)
+                                assetImageAdapter.notifyDataSetChanged()
+                                editTextAdapter.notifyDataSetChanged()
+                            }
                         }
                     }
 
                     override fun onSuccess(mediaList: ArrayList<Media>?) {
                         if (mediaList.isNullOrEmpty()) return
                         LocalDataHelper.user?.subscription?.metadata?.photo?.let {
-                            if (LocalDataHelper.user?.subscription?.metadata?.photo!! <= mediaList.size) {
+                            if (it <= mediaList.size) {
                                 showToast("Cant add more then " + LocalDataHelper.user?.subscription?.getMaxPhotoValidation()!! + " Photos")
                             } else {
                                 mAssetImages.addAll(mediaList)
@@ -303,10 +323,12 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                     }
                 })
             }
+
             mBinding.txtKeyFeature -> {
                 editTextAdapter.setItem(0, "")
                 editTextAdapter.notifyDataSetChanged()
             }
+
             mBinding.layoutFootwear -> {
                 if (mBinding.expandableLayoutPlaces.isExpanded) {
                     mBinding.expandableLayoutPlaces.isExpanded = false
@@ -339,15 +361,19 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 }
                 footwearSizeAdapter?.setData(sizeList)
             }
+
             getString(R.string.jwellry).lowercase() -> {
                 mBinding.layGold.show()
             }
+
             getString(R.string.mobile_accessories).lowercase() -> {
                 mBinding.layMobileAccessories.show()
             }
+
             getString(R.string.cloths).lowercase() -> {
                 mBinding.layCloth.show()
             }
+
             getString(R.string.electronics).lowercase() -> {
                 mBinding.layElectronics.show()
             }
