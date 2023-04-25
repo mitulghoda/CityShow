@@ -499,10 +499,13 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         param["model_name"] = mBinding.edtModel.getTrimText().requestBody()
         param["product_price"] = mBinding.edtOriginalPrice.getTrimText().requestBody()
         param["product_selling_price"] = mBinding.edtSellingPrice.getTrimText().requestBody()
-        param["gender"] = strGender.requestBody()
-//        param["size[]"] = mBinding.edtName.getTrimText().requestBody()
         param["color"] = mBinding.edtColor.getTrimText().requestBody()
         param["material"] = mBinding.edtMaterial.getTrimText().requestBody()
+        param["key_feature[]"] = Gson().toJson(editTextAdapter.arrayList).requestBody()
+        param["description"] = mBinding.edtDesc.getTrimText().requestBody()
+        if (mBinding.layGender.isShown) {
+            param["gender"] = strGender.requestBody()
+        }
         if (mBinding.layGold.isShown) {
             param["weight"] = mBinding.edtGoldWeight.getTrimText().requestBody()
             param["is_gold"] = strGold.requestBody()
@@ -511,17 +514,10 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 param["certified_jwellery"] = mBinding.cbCertified.text.toString().requestBody()
             }
         }
-        param["device_os"] = mBinding.edtOs.getTrimText().requestBody()
-        param["ram"] = mBinding.edtRam.getTrimText().requestBody()
-        param["storage"] = mBinding.edtStorage.getTrimText().requestBody()
-        param["connectivity"] = mBinding.edtConnect.getTrimText().requestBody()
-        param["key_feature[]"] = Gson().toJson(editTextAdapter.arrayList).requestBody()
-        param["description"] = mBinding.edtDesc.getTrimText().requestBody()
         if (mBinding.layElectronics.isShown) {
             param["warranty"] = strWarranty.requestBody()
             param["guaranty"] = strGuranty.requestBody()
             param["emi"] = strEmi.requestBody()
-
         }
         if (deletedImagesId.isNotEmpty()) {
             Log.e("DELETED_IMAGES_ID", TextUtils.join(",", deletedImagesId))
@@ -533,12 +529,15 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         if (mBinding.cbxl.isChecked) param["size[1]"] = mBinding.cbxl.text.toString().requestBody()
         if (mBinding.cbS.isChecked) param["size[2]"] = mBinding.cbS.text.toString().requestBody()
         if (mBinding.cbL.isChecked) param["size[3]"] = mBinding.cbL.text.toString().requestBody()
-
         Log.e(filterFootwearSizeList.joinToString())
         param["footwear_size"] = filterFootwearSizeList.joinToString().toRequestBody()
         if (mBinding.layMobileAccessories.isShown) {
             param["installation"] = strInstallation.requestBody()
             param["live_demo"] = strLiveDemo.requestBody()
+            param["device_os"] = mBinding.edtOs.getTrimText().requestBody()
+            param["ram"] = mBinding.edtRam.getTrimText().requestBody()
+            param["storage"] = mBinding.edtStorage.getTrimText().requestBody()
+            param["connectivity"] = mBinding.edtConnect.getTrimText().requestBody()
         }
         param["product_type"] = "new".requestBody()
         val images = ArrayList<MultipartBody.Part?>()
