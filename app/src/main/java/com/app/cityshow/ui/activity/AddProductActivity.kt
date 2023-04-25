@@ -20,7 +20,19 @@ import com.app.cityshow.ui.bottomsheet.BottomSheetCategories
 import com.app.cityshow.ui.bottomsheet.BottomSheetShops
 import com.app.cityshow.ui.bottomsheet.BottomSheetSubCategories
 import com.app.cityshow.ui.common.ActionBarActivity
-import com.app.cityshow.utility.*
+import com.app.cityshow.utility.LocalDataHelper
+import com.app.cityshow.utility.Log
+import com.app.cityshow.utility.RegionManager
+import com.app.cityshow.utility.Validator
+import com.app.cityshow.utility.getTrimText
+import com.app.cityshow.utility.gone
+import com.app.cityshow.utility.gson
+import com.app.cityshow.utility.hide
+import com.app.cityshow.utility.isVisible
+import com.app.cityshow.utility.requestBody
+import com.app.cityshow.utility.show
+import com.app.cityshow.utility.showToast
+import com.app.cityshow.utility.typeCall
 import com.app.cityshow.viewmodel.ProductViewModel
 import com.bumptech.glide.Glide
 import com.filepickersample.listener.FilePickerCallback
@@ -37,13 +49,13 @@ import kotlin.collections.set
 
 
 class AddProductActivity : ActionBarActivity(), View.OnClickListener {
-    private var strGender: String = ""
-    private var strGuranty: String = ""
-    private var strWarranty: String = ""
-    private var strGold: String = ""
-    private var strEmi: String = ""
+    private var strGender: String = "Male"
+    private var strGuranty: String = "Yes"
+    private var strWarranty: String = "Yes"
+    private var strGold: String = "Yes"
+    private var strEmi: String = "Yes"
     private var strInstallation: String = ""
-    private var strLiveDemo: String = ""
+    private var strLiveDemo: String = "Yes"
     private var strShopId: String? = null
     private var strCategoryId: String? = null
     private var strSubCategory: String? = null
@@ -108,14 +120,14 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
                 }
             }
         }
-        mBinding.warrany.setOnCheckedChangeListener { radioGroup, i ->
+        mBinding.rbInstallationWarranty.setOnCheckedChangeListener { radioGroup, i ->
             when (i) {
-                mBinding.warrantyNo.id -> {
-                    strWarranty = "Yes"
+                mBinding.rbInstallationWarrantyNo.id -> {
+                    strWarranty = "No"
                 }
 
-                mBinding.warranyYes.id -> {
-                    strWarranty = "No"
+                mBinding.rbInstallationWarrantyYes.id -> {
+                    strWarranty = "Yes"
                 }
             }
         }
@@ -135,22 +147,22 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
         mBinding.rbEmi.setOnCheckedChangeListener { radioGroup, i ->
             when (i) {
                 mBinding.rbEmiAvailable.id -> {
-                    strEmi = mBinding.rbEmiAvailable.text.toString()
+                    strEmi = "Available"
                 }
 
                 mBinding.rbEmiNotAvailable.id -> {
-                    strEmi = mBinding.rbEmiNotAvailable.text.toString()
+                    strEmi = "Not Available"
                 }
             }
         }
         mBinding.rbInstallation.setOnCheckedChangeListener { radioGroup, i ->
             when (i) {
                 mBinding.rbInstallationAdded.id -> {
-                    strInstallation = mBinding.rbInstallationAdded.text.toString()
+                    strInstallation = "Included"
                 }
 
                 mBinding.rbSelfService.id -> {
-                    strInstallation = mBinding.rbSelfService.text.toString()
+                    strInstallation = "Not included"
                 }
             }
         }
@@ -491,16 +503,26 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
 //        param["size[]"] = mBinding.edtName.getTrimText().requestBody()
         param["color"] = mBinding.edtColor.getTrimText().requestBody()
         param["material"] = mBinding.edtMaterial.getTrimText().requestBody()
-        param["weight"] = mBinding.edtGoldWeight.getTrimText().requestBody()
-        param["is_gold"] = strGold.requestBody()
+        if (mBinding.layGold.isShown) {
+            param["weight"] = mBinding.edtGoldWeight.getTrimText().requestBody()
+            param["is_gold"] = strGold.requestBody()
+            param["gross_weight"] = mBinding.edtGoldWeight.getTrimText().requestBody()
+            if (mBinding.cbCertified.isChecked) {
+                param["certified_jwellery"] = mBinding.cbCertified.text.toString().requestBody()
+            }
+        }
         param["device_os"] = mBinding.edtOs.getTrimText().requestBody()
         param["ram"] = mBinding.edtRam.getTrimText().requestBody()
         param["storage"] = mBinding.edtStorage.getTrimText().requestBody()
         param["connectivity"] = mBinding.edtConnect.getTrimText().requestBody()
         param["key_feature[]"] = Gson().toJson(editTextAdapter.arrayList).requestBody()
         param["description"] = mBinding.edtDesc.getTrimText().requestBody()
-        param["warranty"] = strWarranty.requestBody()
-        param["guaranty"] = strGuranty.requestBody()
+        if (mBinding.layElectronics.isShown) {
+            param["warranty"] = strWarranty.requestBody()
+            param["guaranty"] = strGuranty.requestBody()
+            param["emi"] = strEmi.requestBody()
+
+        }
         if (deletedImagesId.isNotEmpty()) {
             Log.e("DELETED_IMAGES_ID", TextUtils.join(",", deletedImagesId))
             param["deletedImagesId"] = TextUtils.join(",", deletedImagesId).toString().requestBody()
@@ -514,20 +536,17 @@ class AddProductActivity : ActionBarActivity(), View.OnClickListener {
 
         Log.e(filterFootwearSizeList.joinToString())
         param["footwear_size"] = filterFootwearSizeList.joinToString().toRequestBody()
-        param["emi"] = strEmi.requestBody()
-        param["gross_weight"] = mBinding.edtGoldWeight.getTrimText().requestBody()
-        if (mBinding.cbCertified.isChecked) {
-            param["certified_jwellery"] = mBinding.cbCertified.text.toString().requestBody()
+        if (mBinding.layMobileAccessories.isShown) {
+            param["installation"] = strInstallation.requestBody()
+            param["live_demo"] = strLiveDemo.requestBody()
         }
-        param["installation"] = strInstallation.requestBody()
-        param["live_demo"] = strLiveDemo.requestBody()
         param["product_type"] = "new".requestBody()
         val images = ArrayList<MultipartBody.Part?>()
         if (mAssetImages.isNotEmpty()) {
             mAssetImages.forEachIndexed { i, media ->
                 if (!media.url.startsWith("http", true)) {
                     val file = File(media.mediaFile.toString())
-                    var multipartBody: MultipartBody.Part?
+                    val multipartBody: MultipartBody.Part?
                     multipartBody = MultipartBody.Part.createFormData(
                         "images[$i]", file.name, file.asRequestBody("image/*".toMediaType())
                     )

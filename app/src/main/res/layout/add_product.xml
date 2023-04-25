@@ -909,7 +909,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="@dimen/_5sdp">
+                            android:padding="@dimen/_5sdp"
+                            android:visibility="gone">
 
                             <androidx.appcompat.widget.AppCompatRadioButton
                                 android:id="@+id/rbInstallationAdded"
