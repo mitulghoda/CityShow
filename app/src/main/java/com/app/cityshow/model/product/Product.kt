@@ -102,9 +102,9 @@ class Product : java.io.Serializable {
     fun getDiscountTitle(): String {
         if (discount != null) {
             return if (discount!!.is_price.equals("yes", true)) {
-                "(Flat${discount!!.discount}off)"
+                "(${discount!!.discount}%off)"
             } else {
-                "(Flat${discount!!.discount}%off)"
+                "(${discount!!.discount}%off)"
             }
         }
         return ""
